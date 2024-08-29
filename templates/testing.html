@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>My Expenses</h1>
+    <p>this is my list {{my_list}}</p><br>
+    <p>this is the first input list and amount {{my_list[0]["name"]}}{{my_list[0]["amount"]}}</p>
+    
+    
+   <button ><a href="{{url_for('home_page')}}">Home</a></button>
+   <button><a href="{{url_for('add_expense')}}">Add Expense</a></button>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" >
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+   
+   
+   <div class="expense_container">
+
+    <h1>Expenses list</h1>
+    <p class="my_income"> Monthly Income - ${{"{:.2f}".format(income)}}</p>
+
+    <p class="total_expenses">Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}</p>
+
+    <p class="money_leftover">Money Leftover ${{"{:.2f}".format(free_money)}}</p>
+
+        {% for expense in my_list %}
+       
+
+        <li>
+            <form action="{{url_for('delete_expense', index=loop.index0)}}" method="post">
+                {{expense.name}} - {{ "{:.2f}".format(expense.amount) }} {{loop.index0}}
+                <button type="submit"><img class="icon" src="/static/images/icons8-trash.svg"></button>
+            </form>
+           
+
+            
+        </li>
+       
+
+        {% endfor %}
+      
+       
+        
+      
+        <button type="button">
+            <a href="{{url_for('add_expense')}}">add expense</a>
+        </button>
+
+    </div>
+
+    
+
+
+
+
+    
+</body>
+</html>

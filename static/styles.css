@@ -1,0 +1,84 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+.income {
+    font-size: 40px;
+}
+
+
+
+.parent_div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    
+}
+
+
+.child_container {
+    width: 70%;
+    display: flex;
+    
+    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+
+
+label {
+    display: flex;
+    justify-content: space-between
+}
+  
+input {
+    margin-left: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+    width: 250px;
+
+    
+   
+}
+
+
+#select-category {
+    width: 257px;
+    height: 30px;
+    padding: 1px 5px;
+    
+}
+
+p {
+    color: 
+        red
+    }
+
+
+
+
+.home_button {
+    width: 57.48px;
+    height: 21px;
+    
+    
+}
+
+
+.expense_container {
+    width: 30%;
+   
+    
+}
+
+.icon {
+    height: 30px;
+}
