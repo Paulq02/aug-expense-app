@@ -82,3 +82,7 @@ p {
 .icon {
     height: 30px;
 }
+
+.delete_button {
+    max-width: 30px;
+}

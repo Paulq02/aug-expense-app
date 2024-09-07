@@ -27,7 +27,7 @@
         <li>
             <form action="{{url_for('delete_expense', index=loop.index0)}}" method="post">
                 {{expense.name}} - {{ "{:.2f}".format(expense.amount) }} {{loop.index0}}
-                <button type="submit"><img class="icon" src="/static/images/icons8-trash.svg"></button>
+                <button class="delete_button" type="submit"><img class="icon" src="/static/images/icons8-trash.svg"></button>
             </form>
            
 
