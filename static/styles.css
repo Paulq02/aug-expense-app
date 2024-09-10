@@ -1,7 +1,5 @@
-body {
-    display: flex;
-    justify-content: center;
-}
+
+
 .income {
     font-size: 40px;
 }
@@ -74,7 +72,10 @@ p {
 
 
 .expense_container {
-    width: 30%;
+    
+    height: auto;
+    display: flex;
+    justify-content: space-around;
    
     
 }
@@ -85,4 +86,37 @@ p {
 
 .delete_button {
     max-width: 30px;
+}
+
+thead {
+    background-color: grey;
+}
+
+th {
+    background-color: dimgrey;
+    border: solid #444444;
+}
+
+tbody {
+    background-color: #000000;
+}
+
+tr {
+    background-color: #2a2a2a;
+}
+
+td, th {
+    color: #d3d3d3;
+}
+
+.summary_container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.money_container, .receipt_container{
+    text-align: center;
+    background-color: lightgray;
+    border-radius: 10%;
+    min-width: 200px;
 }

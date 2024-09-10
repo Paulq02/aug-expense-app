@@ -12,45 +12,57 @@
 
    
    
-   <div class="expense_container">
+    <div class="summary_container">
+        
+        <div class="money_container">
+            <img src="../static/images/money_icon.png" alt="picture of money symbol">
+            <p class="my_income"> Monthly Income - ${{ "{:.2f}".format(income) }}</p>
+    
+            <p class="total_expenses">Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}</p>
+    
+            <p class="money_leftover">Money Leftover - ${{ "{:.2f}".format(free_money) }}</p>
 
-    <h1>Expenses list</h1>
-    <p class="my_income"> Monthly Income - ${{"{:.2f}".format(income)}}</p>
+        </div>
+        <div class="receipt_container">
+            <img src="../static/images/receipt_logo.png" alt="picture of receipt">
+            <p>Number of entries</p>
 
-    <p class="total_expenses">Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}</p>
-
-    <p class="money_leftover">Money Leftover ${{"{:.2f}".format(free_money)}}</p>
-
-        {% for expense in my_list %}
-       
-
-        <li>
-            <form action="{{url_for('delete_expense', index=loop.index0)}}" method="post">
-                {{expense.name}} - {{ "{:.2f}".format(expense.amount) }} {{loop.index0}}
-                <button class="delete_button" type="submit"><img class="icon" src="/static/images/icons8-trash.svg"></button>
-            </form>
-           
-
-            
-        </li>
-       
-
-        {% endfor %}
-      
-       
+        </div>
+        
         
       
-        <button type="button">
-            <a href="{{url_for('add_expense')}}">add expense</a>
-        </button>
-
-    </div>
-
     
-
-
-
-
+    </div>
+    <div class="expense_data">
+    
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Expense Name</th>
+                    <th scope="col">Expense Cost</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in my_list %}
+                <tr>
+                    <th scope="row">{{ expense.name }}</th>
+                    <td>{{ "${:.2f}".format(expense.amount) }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_expense', index=loop.index0) }}" method="post">
+                            <button class="delete_button" type="submit">
+                                <img class="icon" src="/static/images/icons8-trash.svg" alt="Delete">
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button type="button">
+        <a href="{{url_for('add_expense')}}">add expense</a>
+    </button>
     
 </body>
 </html>
