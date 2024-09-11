@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+    <nav>
+        <li class="navbar paul"><a href="#">Paul's Expense Tracker</a></li>
+        <li class="navbar"><a href="#">Home</a></li>
+        <li class="navbar"><a href="#">Logout</a></li>
+    </nav>
 
    
    
@@ -26,6 +31,7 @@
         <div class="receipt_container">
             <img src="../static/images/receipt_logo.png" alt="picture of receipt">
             <p>Number of entries</p>
+           <p class="entries"> {{ entries }}</p>
 
         </div>
         
@@ -33,7 +39,7 @@
       
     
     </div>
-    <div class="expense_data">
+    <div class="expense_data_container">
     
         <table>
             <thead>
@@ -51,7 +57,7 @@
                     <td>
                         <form action="{{ url_for('delete_expense', index=loop.index0) }}" method="post">
                             <button class="delete_button" type="submit">
-                                <img class="icon" src="/static/images/icons8-trash.svg" alt="Delete">
+                                <img class="icon" src="/static/images/trash_icon.png" alt="Delete">
                             </button>
                         </form>
                     </td>

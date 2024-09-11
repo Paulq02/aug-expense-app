@@ -5,9 +5,10 @@ app = Flask(__name__)
 
 my_list = []
 
+
 income = float(2660.00)
 
-
+entries = len(my_list)
 
 
 @app.route('/',  methods=["GET", "POST"])
@@ -19,17 +20,19 @@ def home_page():
 
     free_money = calclulate_money_leftover()
 
-
+    entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries)
 
 
 @app.route('/submitted_data', methods=["GET", "POST"])
 def submit_expense():
+    entries = 0
     name = request.form.get("name")
     amount = float(request.form.get("amount", 0))
    
     my_list.append({"name":name, "amount":amount})
+    entries += 1
     
     
     
@@ -56,11 +59,19 @@ def calclulate_money_leftover():
     money_leftover = income - expenses_total()
     return float(money_leftover)
 
+
+def get_entries():
+    entries = len(my_list)
+    return entries
+
+
 @app.route('/delete_expense/<int:index>', methods=['POST','GET'])
 def delete_expense(index):
+    
     if 0 <= index < len(my_list):
         my_list.pop(index)
-    return redirect(url_for('home_page', index=index))
+        entries = get_entries()
+    return redirect(url_for('home_page', index=index, entries=entries))
 
 
 @app.route('/users/<name>')

@@ -1,4 +1,27 @@
+body {
+    background-color: #444444;
+}
 
+nav {
+    background-color: aqua;
+    display: flex;
+    height: 80px;
+    list-style: none;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+    
+}
+
+.navbar {
+    border: solid black 5px;
+}
+
+.paul {
+
+    margin-right: auto;
+    margin-left: 0;
+}
 
 .income {
     font-size: 40px;
@@ -85,7 +108,13 @@ p {
 }
 
 .delete_button {
-    max-width: 30px;
+   
+    background-color: #2a2a2a;
+    
+}
+
+.delete_button:hover {
+    background-color: azure;
 }
 
 thead {
@@ -119,4 +148,13 @@ td, th {
     background-color: lightgray;
     border-radius: 10%;
     min-width: 200px;
+}
+
+.entries {
+    color: red;
+}
+
+.expense_data_container {
+    display: flex;
+    justify-content: center;
 }
