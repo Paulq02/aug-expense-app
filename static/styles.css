@@ -3,9 +3,9 @@ body {
 }
 
 nav {
-    background-color: aqua;
+    background-color: black;
     display: flex;
-    height: 80px;
+    height: 60px;
     list-style: none;
     justify-content: flex-end;
     gap: 20px;
@@ -14,18 +14,49 @@ nav {
 }
 
 .navbar {
-    border: solid black 5px;
+    display: inline-block;
+    
+    margin: 0 20px;
+
 }
 
 .paul {
-
+    display: inline-block;
     margin-right: auto;
-    margin-left: 0;
+    margin-left: 10px;
 }
 
 .income {
     font-size: 40px;
 }
+
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    position: relative;
+    
+}
+
+.navbar a::before {
+    position: absolute;
+    content: "";
+    background: white;
+    height: 4px;
+    width: 0;
+    bottom: -8px;
+    transition: 0.6s;
+}
+
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+
+
+
 
 
 
