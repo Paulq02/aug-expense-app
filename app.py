@@ -6,7 +6,7 @@ app = Flask(__name__)
 my_list = []
 
 
-income = float(2660.00)
+income = float(100000.00)
 
 entries = len(my_list)
 
