@@ -47,16 +47,18 @@
         <table>
             <thead>
                 <tr>
-                    <th scope="col">Expense Name</th>
-                    <th scope="col">Expense Cost</th>
-                    <th scope="col">Action</th>
+                    <th >Expense Name</th>
+                    <th >Expense Cost</th>
+                    <th>Expense Date</th>
+                    <th >Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for expense in my_list %}
                 <tr>
-                    <th scope="row">{{ expense.name }}</th>
+                    <td scope="row" >{{ expense.name }} {{loop.index0}}</td>
                     <td>{{ "${:.2f}".format(expense.amount) }}</td>
+                    <td>4-23-2024</td>
                     <td>
                         <form action="{{ url_for('delete_expense', index=loop.index0) }}"  method="post">
                             <button class="delete_button"  type="button" onclick="document.querySelector('.container').style.display = 'block';">

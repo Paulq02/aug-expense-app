@@ -1,5 +1,5 @@
 body {
-    background-color: #444444;
+    background-color: gainsboro;
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: 900;
@@ -8,7 +8,7 @@ body {
 
 
 nav {
-    background-color: black;
+    background-color: #3a0ca3;
     display: flex;
     height: 60px;
     list-style: none;
@@ -51,7 +51,7 @@ nav {
     height: 3px;
     width: 0;
     bottom: -10px;
-    transition: 0.6s;
+    transition: 0.6s ;
 }
 
 
@@ -116,8 +116,9 @@ input {
 
 p {
     color: 
-        red
+        #fff
     }
+
 
 
 
@@ -139,66 +140,123 @@ p {
     
 }
 
+.receipt_container img {
+    margin-top: 9px;
+}
+
 .icon {
     height: 30px;
 }
 
-.delete_button {
-   
-    background-color: #2a2a2a;
+
+
+
+
+thead {
+    background: rgba(113, 99, 186, 255);
+    color: #fff;
     
 }
 
-.delete_button:hover {
-    background-color: azure;
-}
-
-thead {
-    background-color: grey;
-}
-
 th {
-    background-color: dimgrey;
-    border: solid #444444;
+    padding: 15px;
+    background-color:  #3a0ca3;
+    
+    color: #fff;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
 tbody {
-    background-color: #000000;
+    background: #f2f2f2;
 }
 
-tr {
-    background-color: #2a2a2a;
+
+td {
+    padding: 15px;
+    font-size: 14px;
+    color: #333;
+    text-transform: capitalize;
+
 }
 
-td, th {
-    color: #d3d3d3;
+.delete_button {
+    border: none;
+    text-align: left;
+    background:none;
 }
+
+tr:nth-child(even) {
+    background: #fff;
+}
+
+
+tfoot {
+    background: rgba(113, 99, 186, 255);
+    font-weight: bold;
+    color: #fff;
+}
+
+tfoot td {
+    padding: 15px;
+}
+
+/*
+.expense_data_container button {
+    color: green;
+    background: none;
+    cursor: pointer;
+}
+
+*/
+
+
+
 
 .summary_container {
     display: flex;
     justify-content: space-around;
     margin-top: 50px;
     margin-bottom: 50px;
+    border-radius: 10px;
+    background: #fff;
+    padding: 20px;
 }
 
 .money_container, .receipt_container{
     text-align: center;
-    background-color: lightgray;
+    background: #3a0ca3;
     border-radius: 10%;
     min-width: 300px;
+    text-transform: capitalize;
 }
 
 .entries {
-    color: red;
+    color: #fff;
 }
 
 .expense_data_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    height: auto;
+    background: #fff;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 20px;
+    
+
 }
+
+
 
 .container {
    display: none;
+   background-color: #fff;
 }
 
 
@@ -207,7 +265,7 @@ td, th {
     flex-direction: column;
     width: 450px;
     height: 200px;
-    border: solid black 3px;
+    border: solid black 5px;
     border-radius: 6px;
 }
 
