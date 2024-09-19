@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -17,7 +16,6 @@
       href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../static/styles.css" />
   </head>
   <body>
     <nav>
@@ -25,6 +23,7 @@
       <li class="navbar"><a href="#">Home</a></li>
       <li class="navbar"><a href="#">Logout</a></li>
     </nav>
+
     <div class="summary_container">
       <div class="money_container">
         <img
@@ -45,57 +44,74 @@
         <p class="entries">{{ entries }}</p>
       </div>
     </div>
+
     <div class="expense_data_container">
       <table>
         <thead>
           <tr>
-            <th>expense name</th>
-            <th>expense cost</th>
-            <th>expense date</th>
-            <th>action</th>
+            <th>Expense Name</th>
+            <th>Expense Cost</th>
+            <th>Expense Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {% for item in my_list %}
+          {% for expense in my_list %}
+
           <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ "{:.2f}".format(item.amount) }}</td>
+            <td scope="row">{{ expense.name }}</td>
+            <td>{{ "${:.2f}".format(expense.amount) }}</td>
             <td>4-23-2024</td>
             <td>
-              <button class="button_icon" onclick="showButtoncontainer()">
+              <button
+                class="delete_button"
+                type="button"
+                onclick="toggleConfirmation({{loop.index0}});"
+              >
                 <img
-                  src="/static/images/new_trash_icon.png"
-                  alt="icon of a trash can"
+                  class="icon"
+                  src="/static/images/trash_icon.png"
+                  alt="Delete"
                 />
               </button>
             </td>
           </tr>
+
+          <div class="container" id="{{loop.index0}}" style="display: none">
+            <div class="btn_window">
+              <div class="prompt">Are you sure you want to delete?</div>
+              <div class="btn_container">
+                <button
+                  class="cancel"
+                  type="button"
+                  onclick="toggleConfirmation({{loop.index0}});"
+                >
+                  Cancel
+                </button>
+                <form
+                  action="{{ url_for('delete_expense', index=loop.index0) }}"
+                  method="post"
+                >
+                  <button class="confirm_delete" type="submit">
+                    Yes, I want to delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
           {% endfor %}
         </tbody>
       </table>
     </div>
-    <div class="comfirmation_container">
-      <div class="btn_window">
-        <div class="prompt">
-          <p>Are you sure you want to delete?</p>
-        </div>
-        <div class="btn_container">
-          <button class="cancel">Cancel</button>
-          <button class="comfirm_delete">Yes, I want to delete</button>
-        </div>
-      </div>
-    </div>
-    <button type="submit">
+
+    <button type="button">
       <a href="{{url_for('add_expense')}}">add expense</a>
     </button>
     <script>
-      function showButtoncontainer() {
-        document.querySelector(".comfirmation_container").style.display =
-          "block";
-      }
-
-      function comfirmDelete(index) {
-        document.getElementById(index);
+      function toggleConfirmation(index) {
+        var container = document.getElementById(index);
+        container.style.display =
+          container.style.display === "block" ? "none" : "block";
       }
     </script>
   </body>

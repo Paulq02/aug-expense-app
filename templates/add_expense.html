@@ -1,65 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-</head>
-<body>
-   
-        <div class="parent_div">
-            <h1>Add expense</h1>
-                <div class="child_container">
-                    <form method="POST" action="{{ url_for('submit_expense') }}">
-                        <label for="name" id="name">Expense name
-                            <input type="text" name="name" id="name" required>
-                        </label>
-                        <label for="amount" name="amount" id="amount">Amount
-                            <input type="number" name="amount" id="amount" step="0.01" required>
-                        </label>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="parent_div">
+      <h1>Add expense</h1>
+      <div class="child_container">
+        <form method="POST" action="{{ url_for('submit_expense') }}">
+          <label for="name" id="name"
+            >Expense name
 
-                        <label for="select-category">Expense <br>
-                            category
-                            <select name="category" id="select-category">
-                                <option value="">--Please choose expense category--</option>
-                                <option value="entertainment">Entertainment</option>
-                                <option value="credit">Credit card</option>
-                                <option value="gym">Gym</option>
-                                <option value="non-essential">Non-essentials (Youtube Premium, Google Storage, etc..)</option>
-                                <option value="bill">Monthly Bill</option>
-                                <option value="other">Other</option>
+            <input type="text" name="name" id="expense_name" required />
+          </label>
+          <label for="amount" name="amount" id="amount"
+            >Amount
+            <input
+              type="number"
+              name="amount"
+              id="expense_amount"
+              step="0.01"
+              required
+            />
+          </label>
 
-                            </select>
-                            
-                        </label>
+          <label for="select-category"
+            >Expense <br />
+            category
+            <select name="category" id="select-category">
+              <option value="">--Please choose expense category--</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="credit">Credit card</option>
+              <option value="gym">Gym</option>
+              <option value="non-essential">
+                Non-essentials (Youtube Premium, Google Storage, etc..)
+              </option>
+              <option value="bill">Monthly Bill</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
 
-                </div>
-                    <button type="submit">Submit</button>
-                    
-
-                    <button class="home_button" type="button">
-                        <a href="{{url_for('home_page')}}">Home</a>
-                    </button>
-
-                    
-               
-                </form>
-
-                
-
-               
-                
-        </div>
-    
-   
-    
-   
-
- 
-</body>
+      <button class="home_button" type="button">
+        <a href="{{url_for('home_page')}}">Home</a>
+      </button>
+    </div>
+  </body>
 </html>

@@ -1,313 +1,269 @@
 body {
-    background-color: gainsboro;
-    font-family: "Figtree", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
+  background-color: gainsboro;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
 }
 
-
 nav {
-    background-color: #3a0ca3;
-    display: flex;
-    height: 60px;
-    list-style: none;
-    justify-content: flex-end;
-    gap: 20px;
-    align-items: center;
-    
+  background-color: #3a0ca3;
+  display: flex;
+  height: 60px;
+  list-style: none;
+  justify-content: flex-end;
+  gap: 20px;
+  align-items: center;
 }
 
 .navbar {
-    display: inline-block;
-    
-    margin: 0 20px;
+  display: inline-block;
 
+  margin: 0 20px;
 }
 
 .paul {
-    display: inline-block;
-    margin-right: auto;
-    margin-left: 10px;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: 10px;
 }
 
 .income {
-    font-size: 40px;
+  font-size: 40px;
 }
 
-
 .navbar a {
-    text-decoration: none;
-    color: white;
-    text-transform: uppercase;
-    position: relative;
-    
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  position: relative;
 }
 
 .navbar a::before {
-    position: absolute;
-    content: "";
-    background: white;
-    height: 3px;
-    width: 0;
-    bottom: -10px;
-    transition: 0.6s ;
+  position: absolute;
+  content: "";
+  background: white;
+  height: 3px;
+  width: 0;
+  bottom: -10px;
+  transition: 0.6s;
 }
-
 
 .navbar a:hover::before {
-    width: 100%;
+  width: 100%;
 }
 
-
-
-
-
-
-
-.parent_div{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    
+.parent_div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
 }
-
 
 .child_container {
-    width: 70%;
-    display: flex;
-    
-    
+  width: 70%;
+  display: flex;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-   
+  display: flex;
+  flex-direction: column;
 }
-
-
 
 label {
-    display: flex;
-    justify-content: space-between
+  display: flex;
+  justify-content: space-between;
 }
-  
+
 input {
-    margin-left: 20px;
-    height: 20px;
-    margin-bottom: 10px;
-    width: 250px;
-
-    
-   
+  margin-left: 20px;
+  height: 20px;
+  margin-bottom: 10px;
+  width: 250px;
 }
-
 
 #select-category {
-    width: 257px;
-    height: 30px;
-    padding: 1px 5px;
-    
+  width: 257px;
+  height: 30px;
+  padding: 1px 5px;
 }
 
 p {
-    color: 
-        #fff
-    }
-
-
-
-
-
-.home_button {
-    width: 57.48px;
-    height: 21px;
-    
-    
+  color: #fff;
 }
 
+.home_button {
+  width: 57.48px;
+  height: 21px;
+}
 
 .expense_container {
-    
-    height: auto;
-    display: flex;
-    justify-content: space-around;
-   
-    
+  height: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .receipt_container img {
-    margin-top: 9px;
+  margin-top: 9px;
 }
 
 .icon {
-    height: 30px;
+  height: 30px;
 }
 
-
-
-
-
 thead {
-    background: rgba(113, 99, 186, 255);
-    color: #fff;
-    
+  background: rgba(113, 99, 186, 255);
+  color: #fff;
 }
 
 th {
-    padding: 15px;
-    background-color:  #3a0ca3;
-    
-    color: #fff;
-    text-align: left;
-    text-transform: capitalize;
+  padding: 15px;
+  background-color: #3a0ca3;
+
+  color: #fff;
+  text-align: left;
+  text-transform: capitalize;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 tbody {
-    background: #f2f2f2;
+  background: #f2f2f2;
 }
 
-
 td {
-    padding: 15px;
-    font-size: 14px;
-    color: #333;
-    text-transform: capitalize;
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+  text-transform: capitalize;
+}
 
+td button {
+  border: none;
+  background: none;
+}
+
+button img {
+  height: 50px;
+  width: 50px;
 }
 
 .delete_button {
-    border: none;
-    text-align: left;
-    background:none;
+  border: none;
+  text-align: left;
+  background: none;
 }
 
 tr:nth-child(even) {
-    background: #fff;
+  background: #fff;
 }
 
-
 tfoot {
-    background: rgba(113, 99, 186, 255);
-    font-weight: bold;
-    color: #fff;
+  background: rgba(113, 99, 186, 255);
+  font-weight: bold;
+  color: #fff;
 }
 
 tfoot td {
-    padding: 15px;
+  padding: 15px;
 }
-
-/*
-.expense_data_container button {
-    color: green;
-    background: none;
-    cursor: pointer;
-}
-
-*/
-
-
-
 
 .summary_container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    border-radius: 10px;
-    background: #fff;
-    padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 20px;
 }
 
-.money_container, .receipt_container{
-    text-align: center;
-    background: #3a0ca3;
-    border-radius: 10%;
-    min-width: 300px;
-    text-transform: capitalize;
+.money_container,
+.receipt_container {
+  text-align: center;
+  background: #3a0ca3;
+  border-radius: 10%;
+  min-width: 300px;
+  text-transform: capitalize;
 }
 
 .entries {
-    color: #fff;
+  color: #fff;
 }
 
 .expense_data_container {
-    display: flex;
-    justify-content: space-evenly;
-    height: auto;
-    background: #fff;
-    margin-top: 1rem;
-    border-radius: 10px;
-    padding: 20px;
-    
-
+  display: flex;
+  justify-content: space-evenly;
+  height: auto;
+  background: #fff;
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 20px;
 }
 
-
-
-.container {
-   display: none;
-   background-color: #fff;
+.button_icon:hover {
+  cursor: pointer;
 }
 
+.comfirmation_container {
+  display: none;
+  background-color: #fff;
+}
 
 .btn_window {
-    display: flex;
-    flex-direction: column;
-    width: 450px;
-    height: 200px;
-    border: solid black 5px;
-    border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  height: 200px;
+  border: solid black 5px;
+  border-radius: 6px;
 }
 
 .prompt {
-    display: flex;
-    justify-content: center;
-    height: 100px;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
+}
+
+.prompt p {
+  color: red;
+  font-size: large;
 }
 
 .btn_container {
-    display: flex;
-    gap: 15px;
-    height: 100px;
-    justify-content: center;
-    
+  display: flex;
+  gap: 15px;
+  height: 100px;
+  justify-content: center;
 }
 
 .btn_container button {
-    height: 40px;
-    border-radius: 6px;
-    width: 150px;
-    
-    font-family: "Figtree", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
-    }
+  height: 40px;
+  border-radius: 6px;
+  width: 150px;
 
-
-    
-  
-
-.comfirm_delete {
-    background-color: red;
-    color: white;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
 }
 
-.comfirm_delete:hover, .cancel:hover {
-    font-size: large;
-    width: 200px;
-    height: 80px;
-    cursor: pointer;
-    transition: 0.6s;
+.comfirm_delete {
+  background-color: red;
+  color: white;
+}
+
+.comfirm_delete:hover,
+.cancel:hover {
+  font-size: large;
+  width: 200px;
+  height: 80px;
+  cursor: pointer;
+  transition: 0.6s;
 }
