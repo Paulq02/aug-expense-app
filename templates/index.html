@@ -58,11 +58,14 @@
         <tbody>
           {% for item in my_list %}
           <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ "{:.2f}".format(item.amount) }}</td>
+            <td>{{ item.name }} {{loop.index0}}</td>
+            <td>{{ "${:.2f}".format(item.amount) }}</td>
             <td>4-23-2024</td>
             <td>
-              <button class="button_icon" onclick="showButtoncontainer()">
+              <button
+                class="button_icon"
+                onclick="showContainerGetindex({{loop.index0}})"
+              >
                 <img
                   src="/static/images/new_trash_icon.png"
                   alt="icon of a trash can"
@@ -70,32 +73,45 @@
               </button>
             </td>
           </tr>
-          {% endfor %}
         </tbody>
+
+        <div class="confirmation_container" id="{{loop.index0}}">
+          <div class="btn_window">
+            <div class="prompt">
+              <p>
+                Are you sure you want to delete {{ item.name.capitalize()}} for
+                ${{ "{:.2f}".format(item.amount) }}?
+              </p>
+            </div>
+            <div class="btn_container">
+              <button class="cancel" onclick="cancelDelete({{loop.index0}})">
+                Cancel
+              </button>
+              <form
+                action="{{url_for('delete_expense', index = loop.index0)}}"
+                method="post"
+              >
+                <button class="confirm_delete" type="submit">
+                  Yes, I want to delete
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </table>
     </div>
-    <div class="comfirmation_container">
-      <div class="btn_window">
-        <div class="prompt">
-          <p>Are you sure you want to delete?</p>
-        </div>
-        <div class="btn_container">
-          <button class="cancel">Cancel</button>
-          <button class="comfirm_delete">Yes, I want to delete</button>
-        </div>
-      </div>
-    </div>
+
     <button type="submit">
       <a href="{{url_for('add_expense')}}">add expense</a>
     </button>
     <script>
-      function showButtoncontainer() {
-        document.querySelector(".comfirmation_container").style.display =
-          "block";
+      function showContainerGetindex(index) {
+        document.getElementById(index).style.display = "flex";
       }
 
-      function comfirmDelete(index) {
-        document.getElementById(index);
+      function cancelDelete(index) {
+        document.getElementById(index).style.display = "none";
       }
     </script>
   </body>

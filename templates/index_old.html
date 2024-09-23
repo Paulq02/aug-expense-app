@@ -81,13 +81,7 @@
           <div class="btn_window">
             <div class="prompt">Are you sure you want to delete?</div>
             <div class="btn_container">
-              <button
-                class="cancel"
-                type="button"
-                onclick="toggleConfirmation({{loop.index0}});"
-              >
-                Cancel
-              </button>
+              <button class="cancel" type="button">Cancel</button>
               <form
                 action="{{ url_for('delete_expense', index=loop.index0) }}"
                 method="post"

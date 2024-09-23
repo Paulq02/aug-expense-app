@@ -130,6 +130,7 @@ th {
 table {
   width: 100%;
   border-collapse: collapse;
+  position: relative;
 }
 
 tbody {
@@ -146,11 +147,18 @@ td {
 td button {
   border: none;
   background: none;
+  height: 40px;
+  width: 40px;
+}
+
+td button img:hover {
+  height: 60px;
+  width: 60px;
 }
 
 button img {
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
 }
 
 .delete_button {
@@ -210,9 +218,13 @@ tfoot td {
   cursor: pointer;
 }
 
-.comfirmation_container {
+.confirmation_container {
   display: none;
-  background-color: #fff;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  z-index: 1;
+  justify-content: center;
 }
 
 .btn_window {
@@ -222,6 +234,7 @@ tfoot td {
   height: 200px;
   border: solid black 5px;
   border-radius: 6px;
+  background-color: #fff;
 }
 
 .prompt {
@@ -232,7 +245,7 @@ tfoot td {
 }
 
 .prompt p {
-  color: red;
+  color: black;
   font-size: large;
 }
 
@@ -254,12 +267,12 @@ tfoot td {
   font-style: normal;
 }
 
-.comfirm_delete {
+.confirm_delete {
   background-color: red;
   color: white;
 }
 
-.comfirm_delete:hover,
+.confirm_delete:hover,
 .cancel:hover {
   font-size: large;
   width: 200px;
