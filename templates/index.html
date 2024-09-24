@@ -78,11 +78,19 @@
         <div class="confirmation_container" id="{{loop.index0}}">
           <div class="btn_window">
             <div class="prompt">
+              <img
+                src="../static/images/warning_icon.png"
+                alt="picture of a warning symbol"
+              />
+              <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="expense_details">
+              <p>Expense: <span>{{ item.name.capitalize()}} </span></p>
               <p>
-                Are you sure you want to delete {{ item.name.capitalize()}} for
-                ${{ "{:.2f}".format(item.amount) }}?
+                Expense Cost: $<span>{{ "{:.2f}".format(item.amount) }} </span>
               </p>
             </div>
+
             <div class="btn_container">
               <button class="cancel" onclick="cancelDelete({{loop.index0}})">
                 Cancel
