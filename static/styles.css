@@ -1,5 +1,5 @@
 body {
-  background-color: gainsboro;
+  background-color: #adb5bd;
   font-family: "Figtree", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
@@ -7,7 +7,7 @@ body {
 }
 
 nav {
-  background-color: #3a0ca3;
+  background-color: #14213d;
   display: flex;
   height: 60px;
   list-style: none;
@@ -34,7 +34,7 @@ nav {
 
 .navbar a {
   text-decoration: none;
-  color: white;
+  color: #ffffff;
   text-transform: uppercase;
   position: relative;
 }
@@ -53,18 +53,34 @@ nav {
   width: 100%;
 }
 
-.parent_div {
+.add_expense_main_container {
   width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   align-items: center;
+  background-color: #e9ecef;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  height: auto;
+}
+
+.header_container img {
+  height: 100px;
+  width: 100px;
+  margin-top: 20px;
 }
 
 .child_container {
-  width: 70%;
+  width: 50%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffff;
+  height: 500px;
+  border-radius: 10px;
 }
 
 form {
@@ -75,6 +91,7 @@ form {
 label {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 50px;
 }
 
 input {
@@ -90,8 +107,13 @@ input {
   padding: 1px 5px;
 }
 
+.submit_expense_button {
+  width: 100px;
+  height: 40px;
+}
+
 p {
-  color: #fff;
+  color: black;
 }
 
 .home_button {
@@ -109,6 +131,17 @@ p {
   margin-top: 9px;
 }
 
+.money_in_container img,
+.money_out_container img {
+  height: 96px;
+  width: 96px;
+}
+
+.money_out_image_container,
+.money_in_container {
+  background-color: #fff;
+}
+
 .icon {
   height: 30px;
 }
@@ -120,7 +153,8 @@ thead {
 
 th {
   padding: 15px;
-  background-color: #3a0ca3;
+  background-color: #14213d;
+  color: #ffffff;
 
   color: #fff;
   text-align: left;
@@ -187,21 +221,22 @@ tfoot td {
   margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
-  background: #fff;
+  background: #e9ecef;
   padding: 20px;
 }
 
-.money_container,
-.receipt_container {
+.money_in_container,
+.receipt_container,
+.money_out_container {
   text-align: center;
-  background: #3a0ca3;
+  background: #ffff;
   border-radius: 10%;
   min-width: 300px;
   text-transform: capitalize;
 }
 
 .entries {
-  color: #fff;
+  color: black;
 }
 
 .expense_data_container {
@@ -216,6 +251,33 @@ tfoot td {
 
 .button_icon:hover {
   cursor: pointer;
+}
+
+.add_expense_button {
+  display: block;
+  border: none;
+  background: none;
+  height: 80px;
+  width: 80px;
+  position: sticky;
+  z-index: 100;
+  margin-right: 140px;
+  margin-left: auto;
+  bottom: 250px;
+}
+
+.add_expense_button img {
+  height: 80px;
+  width: 80px;
+}
+
+.add_expense_button a {
+  text-decoration: none;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 30;
+  font-weight: bold;
+  color: black;
 }
 
 .confirmation_container {

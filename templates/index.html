@@ -21,16 +21,32 @@
   </head>
   <body>
     <nav>
-      <li class="navbar paul"><a href="#">Paul's Expense Tracker</a></li>
+      <li class="navbar paul"><a href="#">Expense Tracker</a></li>
       <li class="navbar"><a href="#">Home</a></li>
       <li class="navbar"><a href="#">Logout</a></li>
     </nav>
     <div class="summary_container">
-      <div class="money_container">
+      <div class="money_in_container">
+        <div class="money_in_image_container">
+          <img
+            src="../static/images/money_in_icon.png"
+            alt="picture of money symbol"
+          />
+        </div>
+        <p class="my_income">Monthly Income - ${{ "{:.2f}".format(income) }}</p>
+        <p class="total_expenses">
+          Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}
+        </p>
+        <p class="money_leftover">
+          Money Leftover - ${{ "{:.2f}".format(free_money) }}
+        </p>
+      </div>
+      <div class="money_out_container">
         <img
-          src="../static/images/money_icon.png"
+          src="../static/images/money_out_icon.png"
           alt="picture of money symbol"
         />
+
         <p class="my_income">Monthly Income - ${{ "{:.2f}".format(income) }}</p>
         <p class="total_expenses">
           Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}
@@ -110,9 +126,13 @@
       </table>
     </div>
 
-    <button type="submit">
-      <a href="{{url_for('add_expense')}}">add expense</a>
+    <button class="add_expense_button" type="button">
+      <a href="{{url_for('add_expense')}}">
+        <img src="../static/images/add_expense_icon.png" />
+        Add Expense
+      </a>
     </button>
+
     <script>
       function showContainerGetindex(index) {
         document.getElementById(index).style.display = "flex";
