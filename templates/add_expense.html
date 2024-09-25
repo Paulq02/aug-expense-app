@@ -24,7 +24,19 @@
       <li class="navbar"><a href="#">Home</a></li>
       <li class="navbar"><a href="#">Logout</a></li>
     </nav>
+
     <div class="add_expense_main_container">
+      <div class="sidebar_container">
+        <div class="sidebar">
+          <p>Dashboard</p>
+
+          <button class="home_button" type="button">
+            <a href="{{url_for('home_page')}}"
+              ><img src="../static/images/home_icon.png"
+            /></a>
+          </button>
+        </div>
+      </div>
       <div class="header_container">
         <img
           src="../static/images/add_expense_icon_2.png"
@@ -32,7 +44,7 @@
         />
         <h1>Add expense</h1>
       </div>
-      <div class="child_container">
+      <div class="form_container">
         <form method="POST" action="{{ url_for('submit_expense') }}">
           <label for="amount" name="amount" id="amount"
             >Amount
@@ -65,15 +77,11 @@
               <option value="other">Other</option>
             </select>
           </label>
-          <button type="submit" class="submit_expense_button">Submit</button>
+          <div class="submit_button_container">
+            <button type="submit" class="submit_expense_button">Submit</button>
+          </div>
         </form>
       </div>
-
-      <button class="home_button" type="button">
-        <a href="{{url_for('home_page')}}"
-          ><img src="../static/images/home_icon.png"
-        /></a>
-      </button>
     </div>
   </body>
 </html>
