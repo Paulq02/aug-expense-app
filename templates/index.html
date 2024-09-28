@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Document</title>
-
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/static/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../static/styles.css" />
   </head>
   <body>
     <nav>
@@ -25,40 +26,38 @@
       <li class="navbar"><a href="#">Home</a></li>
       <li class="navbar"><a href="#">Logout</a></li>
     </nav>
+
     <div class="summary_container">
       <div class="money_in_container">
         <div class="money_in_image_container">
-          <img
-            src="../static/images/money_in_icon.png"
-            alt="picture of money symbol"
-          />
+          <i class="fa-solid fa-dollar-sign fa-2xl green_money_icon"></i>
         </div>
-        <p class="my_income">Monthly Income - ${{ "{:.2f}".format(income) }}</p>
-        <p class="total_expenses">
-          Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}
-        </p>
-        <p class="money_leftover">
-          Money Leftover - ${{ "{:.2f}".format(free_money) }}
-        </p>
+        <div class="details_container">
+          <p class="monthly">Monthly Income</p>
+          <p class="monthly_details">${{ "{:.2f}".format(income) }}</p>
+        </div>
       </div>
       <div class="money_out_container">
-        <img
-          src="../static/images/money_out_icon.png"
-          alt="picture of money symbol"
-        />
-
-        <p class="my_income">Monthly Income - ${{ "{:.2f}".format(income) }}</p>
-        <p class="total_expenses">
-          Monthly Expenses - ${{ "{:.2f}".format(my_expenses) }}
-        </p>
-        <p class="money_leftover">
-          Money Leftover - ${{ "{:.2f}".format(free_money) }}
-        </p>
+        <div class="money_out_image_container">
+          <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
+        </div>
+        <div class="details_container">
+          <p class="monthly">Monthly Expenses</p>
+          <p class="monthly_details">${{ "{:.2f}".format(my_expenses) }}</p>
+        </div>
       </div>
+
       <div class="receipt_container">
-        <img src="../static/images/receipt_logo.png" alt="picture of receipt" />
-        <p>Number of entries</p>
-        <p class="entries">{{ entries }}</p>
+        <div class="receipt_image_container">
+          <img
+            src="../static/images/receipt_logo.png"
+            alt="picture of receipt"
+          />
+        </div>
+        <div class="details_container">
+          <p class="monthly">Monthly Entries</p>
+          <p class="monthly_details">{{ entries }}</p>
+        </div>
       </div>
     </div>
     <div class="expense_data_container">
@@ -128,7 +127,10 @@
 
     <button class="add_expense_button" type="button">
       <a href="{{url_for('add_expense')}}">
-        <img src="../static/images/add_expense_icon.png" />
+        <img
+          src="../static/images/new_add_expense_icon.png"
+          alt="picture of money being added to a wallet"
+        />
         Add Expense
       </a>
     </button>

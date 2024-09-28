@@ -1,18 +1,24 @@
-body {
+/*body {
   background-color: #adb5bd;
   font-family: "Figtree", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
   font-style: normal;
 }
+*/
+
+body {
+  background-color: rgb(18, 23, 29);
+  margin: 0;
+}
 
 nav {
-  background-color: #14213d;
+  background-color: rgb(34, 43, 52);
   display: flex;
   height: 60px;
   list-style: none;
   justify-content: flex-end;
-  gap: 20px;
+
   align-items: center;
 }
 
@@ -21,6 +27,14 @@ nav {
 
   margin: 0 20px;
 }
+
+nav .navbar a {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #fff;
+}
+
 /*
 .sidebar_container {
   display: flex;
@@ -35,14 +49,15 @@ nav {
 .sidebar_container {
   grid-row-start: 1;
   grid-row-end: 3;
-  height: 600px;
-  width: 300px;
+  height: 100%;
+  width: 100px;
+  display: flex;
 }
 
 .sidebar {
   grid-row: 1 / span 5;
-  height: 600px;
-  width: 300px;
+  height: 100%;
+  width: 100px;
   background-color: #ffff;
   border-radius: 10px;
 }
@@ -60,7 +75,7 @@ nav {
 .navbar a {
   text-decoration: none;
   color: #ffffff;
-  text-transform: uppercase;
+
   position: relative;
 }
 
@@ -176,16 +191,30 @@ input {
 }
 
 p {
-  color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #fff;
+}
+
+.profile_logo {
+  width: 60px;
+  height: 60px;
 }
 
 .home_button {
-  width: 57.48px;
+  width: 57px;
   height: 21px;
   border: none;
   background: none;
 }
 .home_button {
+  height: 60px;
+  width: 60px;
+  padding: 0;
+}
+
+.receipt_logo {
   height: 60px;
   width: 60px;
 }
@@ -200,20 +229,81 @@ p {
   display: flex;
   justify-content: space-around;
 }
+/*
+.money_in_container,
+.receipt_container,
+.money_out_container {
+  text-align: center;
+  background: #12161d;
+  border-radius: 10%;
+  min-width: 300px;
+  text-transform: capitalize;
+}
+*/
 
-.receipt_container img {
-  margin-top: 9px;
+.receipt_image_container img {
+  height: 60px;
+  width: 60px;
 }
 
-.money_in_container img,
-.money_out_container img {
-  height: 96px;
-  width: 96px;
+.money_in_container,
+.money_out_container,
+.receipt_container {
+  display: flex;
+
+  height: 100px;
+  width: 320px;
+
+  justify-content: space-between;
 }
 
+.money_in_image_container,
 .money_out_image_container,
-.money_in_container {
-  background-color: #fff;
+.receipt_image_container {
+  background-color: rgb(34, 43, 52);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 90px;
+  border-top-left-radius: 10px; /* Top-right corner */
+  border-bottom-left-radius: 10px;
+}
+
+.details_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(26, 35, 44);
+  border-top-right-radius: 10px; /* Top-right corner */
+  border-bottom-right-radius: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.money_in_image_container i {
+  color: green;
+  font-size: 60px;
+}
+
+.money_out_image_container i {
+  color: red;
+  font-size: 60px;
+}
+
+.monthly {
+  margin-bottom: 0;
+}
+
+.monthly_details {
+  margin-top: 8px;
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.money_out_container img {
+  width: 37.5px;
+  height: 63px;
 }
 
 .icon {
@@ -227,12 +317,14 @@ thead {
 
 th {
   padding: 15px;
-  background-color: #14213d;
-  color: #ffffff;
-
+  background-color: rgb(26, 35, 44);
   color: #fff;
+
   text-align: left;
   text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 table {
@@ -247,9 +339,16 @@ tbody {
 
 td {
   padding: 15px;
-  font-size: 14px;
-  color: #333;
+
   text-transform: capitalize;
+
+  color: rgb(34, 43, 52);
+
+  text-align: left;
+  text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 td button {
@@ -295,29 +394,19 @@ tfoot td {
   margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
-  background: #e9ecef;
+  background: #12161d;
   padding: 20px;
 }
 
-.money_in_container,
-.receipt_container,
-.money_out_container {
-  text-align: center;
-  background: #ffff;
-  border-radius: 10%;
-  min-width: 300px;
-  text-transform: capitalize;
-}
-
 .entries {
-  color: black;
+  color: #fff;
 }
 
 .expense_data_container {
   display: flex;
   justify-content: space-evenly;
   height: auto;
-  background: #fff;
+  background: rgb(18, 23, 29);
   margin-top: 1rem;
   border-radius: 10px;
   padding: 20px;
@@ -335,7 +424,7 @@ tfoot td {
   width: 80px;
   position: sticky;
   z-index: 100;
-  margin-right: 140px;
+  margin-right: 50px;
   margin-left: auto;
   bottom: 250px;
 }

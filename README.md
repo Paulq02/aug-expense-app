@@ -9,3 +9,5 @@
 <a href="https://www.freepik.com/search">Icon by Edi Prast</a>
 <a href="https://www.freepik.com/search">Icon by nangicon</a>
 <a href="https://www.freepik.com/search">Icon by Graphic Nehar</a>
+<a href="https://www.freepik.com/search">Icon by Icon Desai</a>
+<a href="https://www.freepik.com/search">Icon by NajmunNahar</a>
