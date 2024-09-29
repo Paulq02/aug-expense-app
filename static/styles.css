@@ -22,10 +22,9 @@ nav {
   align-items: center;
 }
 
-.navbar {
-  display: inline-block;
-
-  margin: 0 20px;
+.navbar,
+.paul {
+  margin: 0 0;
 }
 
 nav .navbar a {
@@ -63,22 +62,67 @@ nav .navbar a {
 }
 
 .paul {
-  display: inline-block;
+  display: flex;
   margin-right: auto;
   margin-left: 10px;
+  width: 140px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 10px;
+}
+
+.paul a {
+  display: flex;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #fff;
+  border-radius: 10px;
+  width: 140px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.navbar a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .income {
   font-size: 40px;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: #ffffff;
-
-  position: relative;
+.navbar {
+  border-radius: 10px;
+  height: 30px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  width: 100px;
+  height: 30px;
+}
+
+li:hover,
+li a:hover {
+  color: rgb(34, 43, 52);
+  background-color: #fff;
+}
+
+/*
 .navbar a::before {
   position: absolute;
   content: "";
@@ -91,21 +135,6 @@ nav .navbar a {
 
 .navbar a:hover::before {
   width: 100%;
-}
-
-/*
-.add_expense_main_container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  background-color: #e9ecef;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  border-radius: 10px;
-  height: auto;
 }
 
 */
