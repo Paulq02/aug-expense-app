@@ -217,6 +217,7 @@ input {
   background-color: #fca311;
   font-family: "Figtree", sans-serif;
   font-size: large;
+  cursor: pointer;
 }
 
 p {

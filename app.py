@@ -1,6 +1,9 @@
 from flask import Flask, render_template, url_for, request, redirect
 
+import mysql.connector
 app = Flask(__name__)
+sql_connect = mysql.connector.connect(user="root", password="95w696fX#", host="localhost", database="expense_data")
+
 
 
 my_list = []
@@ -30,8 +33,14 @@ def submit_expense():
     entries = 0
     name = request.form.get("name")
     amount = float(request.form.get("amount", 0))
+    cursor = sql_connect.cursor()
+    cursor.execute("INSERT INTO oct_expenses (name, amount) VALUES (%s, %s)", (name, amount))
+    sql_connect.commit()
+    cursor.close()
+
+
    
-    my_list.append({"name":name, "amount":amount})
+    #my_list.append({"name":name, "amount":amount})
     entries += 1
     
     
@@ -80,5 +89,22 @@ def user(name):
 
 
 
+
+
+
+"""def show_info():
+    cursor = sql_connect.cursor()
+    cursor.execute("SELECT * FROM girl_conquests")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    cursor.close()
+    sql_connect.close()
+
+
+
+my_info = show_info()
+print(my_info)
+"""
 if __name__ == "__main__":
     app.run(debug=True)
