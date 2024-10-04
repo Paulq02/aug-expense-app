@@ -9,6 +9,10 @@ sql_connect = mysql.connector.connect(user="root", password="95w696fX#", host="l
 my_list = []
 
 
+
+
+data_list = []
+
 income = float(100000.00)
 
 entries = len(my_list)
@@ -18,6 +22,18 @@ entries = len(my_list)
 
 
 def home_page():
+    cursor = sql_connect.cursor()
+    cursor.execute("SELECT id, name, amount FROM oct_expenses")
+    results = cursor.fetchall()
+    for data in results:
+        id_row = data[0] # type: ignore
+        name_row = data[1] # type: ignore
+        amount_row = float(data[2]) # type: ignore
+
+        my_list.append({"id":id_row, "name":name_row, "amount":amount_row})
+        
+    
+    
 
     my_expenses = expenses_total()
 
@@ -34,13 +50,25 @@ def submit_expense():
     name = request.form.get("name")
     amount = float(request.form.get("amount", 0))
     cursor = sql_connect.cursor()
+    
     cursor.execute("INSERT INTO oct_expenses (name, amount) VALUES (%s, %s)", (name, amount))
+    sql_connect.commit()
+    
+    
+    
+    cursor.execute("SELECT id, name, amount FROM oct_expenses")
+    for data in cursor:
+        id_row = data[0]
+        name_row = data[1]
+        amount_row = float(data[2])
+
+        my_list.append({"id":id_row, "name":name_row, "amount":amount_row})
     sql_connect.commit()
     cursor.close()
 
 
    
-    #my_list.append({"name":name, "amount":amount})
+   
     entries += 1
     
     
@@ -86,6 +114,29 @@ def delete_expense(index):
 @app.route('/users/<name>')
 def user(name):
 	return "<h3>Welcome {}</h3>".format(name)
+
+
+def show_info():
+    cursor = sql_connect.cursor()
+    cursor.execute("SELECT id, name, amount FROM oct_expenses")
+    for data in cursor:
+        id_row = data[0]
+        name_row = data[1]
+        amount_row = float(data[2])
+
+        my_list.append({"id":id_row, "name":name_row, "amount":amount_row})
+        
+       
+        
+        
+        
+        #my_list.append({"id":id[0], "name":id[1], "amount":id[2]})
+
+       
+
+        
+       
+
 
 
 
