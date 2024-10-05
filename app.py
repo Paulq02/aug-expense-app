@@ -11,7 +11,7 @@ my_list = []
 
 
 
-data_list = []
+
 
 income = float(100000.00)
 
@@ -22,6 +22,7 @@ entries = len(my_list)
 
 
 def home_page():
+    my_list.clear()
     cursor = sql_connect.cursor()
     cursor.execute("SELECT id, name, amount FROM oct_expenses")
     results = cursor.fetchall()
@@ -46,29 +47,14 @@ def home_page():
 
 @app.route('/submitted_data', methods=["GET", "POST"])
 def submit_expense():
-    entries = 0
+    entries = get_entries()
     name = request.form.get("name")
     amount = float(request.form.get("amount", 0))
     cursor = sql_connect.cursor()
     
     cursor.execute("INSERT INTO oct_expenses (name, amount) VALUES (%s, %s)", (name, amount))
     sql_connect.commit()
-    
-    
-    
-    cursor.execute("SELECT id, name, amount FROM oct_expenses")
-    for data in cursor:
-        id_row = data[0]
-        name_row = data[1]
-        amount_row = float(data[2])
-
-        my_list.append({"id":id_row, "name":name_row, "amount":amount_row})
-    sql_connect.commit()
     cursor.close()
-
-
-   
-   
     entries += 1
     
     
@@ -102,37 +88,42 @@ def get_entries():
     return entries
 
 
-@app.route('/delete_expense/<int:index>', methods=['POST','GET'])
+"""@app.route('/delete_expense/<int:index>', methods=['POST','GET'])
 def delete_expense(index):
     
     if 0 <= index < len(my_list):
         my_list.pop(index)
-        entries = get_entries()
-    return redirect(url_for('home_page', index=index, entries=entries))
+        
+    
+    
+    return redirect(url_for('home_page', index=index, entries=entries))"""
 
+
+
+
+@app.route('/delete_expense/<int:id>', methods = ['POST', 'GET'])
+def delete_expense(id):
+    cursor = sql_connect.cursor()
+    cursor.execute("DELETE FROM oct_expenses WHERE id = %s ", (id,))
+    sql_connect.commit()
+    return redirect(url_for('home_page'))
 
 @app.route('/users/<name>')
 def user(name):
 	return "<h3>Welcome {}</h3>".format(name)
 
-
-def show_info():
+"""def check_list():
     cursor = sql_connect.cursor()
     cursor.execute("SELECT id, name, amount FROM oct_expenses")
-    for data in cursor:
-        id_row = data[0]
-        name_row = data[1]
-        amount_row = float(data[2])
+    results = cursor.fetchall()
+    for data in results:
+        id_row = data[0] # type: ignore
+        name_row = data[1] # type: ignore
+        amount_row = float(data[2]) # type: ignore
 
-        my_list.append({"id":id_row, "name":name_row, "amount":amount_row})
-        
-       
-        
-        
-        
-        #my_list.append({"id":id[0], "name":id[1], "amount":id[2]})
+        my_entries.append({"id":id_row, "name":name_row, "amount":amount_row})
 
-       
+       """
 
         
        
@@ -143,19 +134,6 @@ def show_info():
 
 
 
-"""def show_info():
-    cursor = sql_connect.cursor()
-    cursor.execute("SELECT * FROM girl_conquests")
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
-    cursor.close()
-    sql_connect.close()
 
-
-
-my_info = show_info()
-print(my_info)
-"""
 if __name__ == "__main__":
     app.run(debug=True)

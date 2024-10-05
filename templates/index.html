@@ -65,6 +65,7 @@
       <table>
         <thead>
           <tr>
+            <th>expense id</th>
             <th>expense name</th>
             <th>expense cost</th>
             <th>expense date</th>
@@ -74,6 +75,7 @@
         <tbody>
           {% for item in my_list %}
           <tr>
+            <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ "${:.2f}".format(item.amount) }}</td>
             <td>4-23-2024</td>
@@ -112,7 +114,7 @@
                 Cancel
               </button>
               <form
-                action="{{url_for('delete_expense', index = loop.index0)}}"
+                action="{{url_for('delete_expense', id=item.id)}}"
                 method="post"
               >
                 <button class="confirm_delete" type="submit">
