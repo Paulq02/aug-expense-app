@@ -4,7 +4,7 @@ import mysql.connector
 app = Flask(__name__)
 sql_connect = mysql.connector.connect(user="root", password="95w696fX#", host="localhost", database="expense_data")
 
-
+from datetime import datetime
 
 my_list = []
 
@@ -24,14 +24,17 @@ entries = len(my_list)
 def home_page():
     my_list.clear()
     cursor = sql_connect.cursor()
-    cursor.execute("SELECT id, name, amount FROM oct_expenses")
+    cursor.execute("SELECT id, name, amount, date FROM oct_expenses")
     results = cursor.fetchall()
     for data in results:
         id_row = data[0] # type: ignore
         name_row = data[1] # type: ignore
         amount_row = float(data[2]) # type: ignore
-
-        my_list.append({"id":id_row, "name":name_row, "amount":amount_row})
+        date_from_db = data[3] # type: ignore
+        date_object = datetime.strptime(str(date_from_db), "%Y-%m-%d")
+        formatted_date = date_object.strftime("%m-%d-%Y")
+        my_list.append({"id":id_row, "name":name_row, "amount":amount_row, "date":formatted_date})
+        
         
     
     
@@ -50,9 +53,10 @@ def submit_expense():
     entries = get_entries()
     name = request.form.get("name")
     amount = float(request.form.get("amount", 0))
+    date = request.form.get("date")
     cursor = sql_connect.cursor()
     
-    cursor.execute("INSERT INTO oct_expenses (name, amount) VALUES (%s, %s)", (name, amount))
+    cursor.execute("INSERT INTO oct_expenses (name, amount, date) VALUES (%s, %s, %s)", (name, amount, date))
     sql_connect.commit()
     cursor.close()
     entries += 1
