@@ -31,8 +31,10 @@ def home_page():
         name_row = data[1] # type: ignore
         amount_row = float(data[2]) # type: ignore
         date_from_db = data[3] # type: ignore
-        date_object = datetime.strptime(str(date_from_db), "%Y-%m-%d")
-        formatted_date = date_object.strftime("%m-%d-%Y")
+        
+        formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+       
+       
         my_list.append({"id":id_row, "name":name_row, "amount":amount_row, "date":formatted_date})
         
         

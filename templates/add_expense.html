@@ -33,7 +33,7 @@
   </head>
   <body>
     <nav>
-      <li class="navbar paul"><a href="#">Expense Tracker</a></li>
+      <li class="paul"><a href="#">Expense Tracker</a></li>
       <li class="navbar"><a href="{{url_for('home_page')}}">Home</a></li>
       <li class="navbar"><a href="#">Profile</a></li>
       <li class="navbar"><a href="#">Logout</a></li>
@@ -63,54 +63,58 @@
           />
         </div>
       </div>
-      <div class="header_container">
-        <img
-          src="../static/images/add_expense_icon_2.png"
-          alt="logo of money entered in a wallet"
-        />
-        <h1>Add expense</h1>
-      </div>
-      <div class="form_container">
-        <form method="POST" action="{{ url_for('submit_expense') }}">
-          <label for="amount" name="amount" id="amount"
-            >Amount
-            <input
-              type="number"
-              name="amount"
-              id="expense_amount"
-              step="0.01"
-              required
+      <div class="second_main_container">
+        <div class="form_container">
+          <div class="header_container">
+            <img
+              src="../static/images/add_expense_icon_2.png"
+              alt="logo of money entered in a wallet"
             />
-          </label>
-          <label for="name" id="name"
-            >Expense name
-
-            <input type="text" name="name" id="expense_name" required />
-          </label>
-
-          <label for="date">
-            Date of expense<input type="text" id="datepicker" name="date" />
-          </label>
-
-          <label for="select-category"
-            >Expense <br />
-            category
-            <select name="category" id="select-category">
-              <option value="">--Please choose expense category--</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="credit">Credit card</option>
-              <option value="gym">Gym</option>
-              <option value="non-essential">
-                Non-essentials (Youtube Premium, Google Storage, etc..)
-              </option>
-              <option value="bill">Monthly Bill</option>
-              <option value="other">Other</option>
-            </select>
-          </label>
-          <div class="submit_button_container">
-            <button type="submit" class="submit_expense_button">Submit</button>
+            <h1>Add expense</h1>
           </div>
-        </form>
+          <form method="POST" action="{{ url_for('submit_expense') }}">
+            <label for="amount" name="amount" id="amount"
+              >Amount
+              <input
+                type="number"
+                name="amount"
+                id="expense_amount"
+                step="0.01"
+                required
+              />
+            </label>
+            <label for="name" id="name"
+              >Expense name
+
+              <input type="text" name="name" id="expense_name" required />
+            </label>
+
+            <label for="date">
+              Date of expense<input type="text" id="datepicker" name="date" />
+            </label>
+
+            <label for="select-category"
+              >Expense <br />
+              category
+              <select name="category" id="select-category">
+                <option value="">--Please choose expense category--</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="credit">Credit card</option>
+                <option value="gym">Gym</option>
+                <option value="non-essential">
+                  Non-essentials (Youtube Premium, Google Storage, etc..)
+                </option>
+                <option value="bill">Monthly Bill</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <div class="submit_button_container">
+              <button type="submit" class="submit_expense_button">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <script

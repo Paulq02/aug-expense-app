@@ -65,7 +65,6 @@
       <table>
         <thead>
           <tr>
-            <th>expense id</th>
             <th>expense name</th>
             <th>expense cost</th>
             <th>expense date</th>
@@ -74,23 +73,21 @@
         </thead>
         <tbody>
           {% for item in my_list %}
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ "${:.2f}".format(item.amount) }}</td>
-            <td>{{ item.date}}</td>
-            <td>
-              <button
-                class="button_icon"
-                onclick="showContainerGetindex({{loop.index0}})"
-              >
-                <img
-                  src="/static/images/new_trash_icon.png"
-                  alt="icon of a trash can"
-                />
-              </button>
-            </td>
-          </tr>
+
+          <td>{{ item.name }}</td>
+          <td>{{ "${:.2f}".format(item.amount) }}</td>
+          <td>{{ item.date}}</td>
+          <td>
+            <button
+              class="button_icon"
+              onclick="showContainerGetindex({{loop.index0}})"
+            >
+              <img
+                src="/static/images/new_trash_icon.png"
+                alt="icon of a trash can"
+              />
+            </button>
+          </td>
         </tbody>
 
         <div class="confirmation_container" id="{{loop.index0}}">
