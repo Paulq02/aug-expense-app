@@ -10,9 +10,12 @@
 body {
   background-color: rgb(18, 23, 29);
   margin: 0;
+  height: 100vh;
 }
 
-nav {
+/* ===TOP Navbar start=== */
+
+.top-navbar-container {
   background-color: rgb(34, 43, 52);
   display: flex;
   height: 60px;
@@ -22,43 +25,16 @@ nav {
   align-items: center;
 }
 
-.navbar,
+.top-navbar,
 .paul {
   margin: 0 0;
 }
 
-nav .navbar a {
+.top-navbar-container .top-navbar a {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
   color: #fff;
-}
-
-/*
-.sidebar_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-left: 0;
-  margin-right: auto;
-}
-*/
-
-.sidebar_container {
-  grid-row-start: 1;
-  grid-row-end: 5;
-  height: 100%;
-  width: 100px;
-  display: flex;
-}
-
-.sidebar {
-  grid-row: 1 / span 5;
-  height: 100%;
-  width: 100px;
-  background-color: #ffff;
-  border-radius: 10px;
 }
 
 .paul {
@@ -89,17 +65,13 @@ nav .navbar a {
   padding-left: 2px;
   padding-right: 2px;
 }
-.navbar a {
+.top-navbar a {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.income {
-  font-size: 40px;
-}
-
-.navbar {
+.top-navbar {
   border-radius: 10px;
   height: 30px;
   width: 80px;
@@ -108,7 +80,7 @@ nav .navbar a {
   justify-content: center;
 }
 
-.navbar a {
+.top-navbar a {
   text-decoration: none;
   color: #fff;
   border-radius: 10px;
@@ -116,44 +88,56 @@ nav .navbar a {
   height: 30px;
 }
 
-li:hover,
-li a:hover {
+.top-navbar a:hover,
+.paul a:hover {
   color: rgb(34, 43, 52);
   background-color: #fff;
 }
+/* ===TOP Navbar END=== */
 
-/*
-.navbar a::before {
-  position: absolute;
-  content: "";
-  background: white;
-  height: 3px;
-  width: 0;
-  bottom: -10px;
-  transition: 0.6s;
-}
+/* ===Sidebar START=== */
 
-.navbar a:hover::before {
-  width: 100%;
-}
+.sidebar {
+  position: fixed;
 
-*/
-
-.add_expense_main_container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 40px 0.5fr 0.5fr 0.5fr 0.5fr 40px;
-
-  gap: 10px;
-  text-align: center;
-  align-items: center;
-  background-color: #e9ecef;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  height: 100%;
+  width: 250px;
+  background-color: rgb(34, 43, 52);
   border-radius: 10px;
-  background-color: rgb(26, 35, 44);
-  width: 100%;
-  height: auto;
+  padding: 10px 14px;
+}
+
+.sidebar .image-text img {
+  width: 40px;
+  border-radius: 5px;
+}
+
+.sidebar header .image-text {
+  display: flex;
+  align-items: center;
+}
+.sidebar .image {
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+}
+.name,
+.profession {
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+/* ===Sidebar END=== */
+
+.income {
+  font-size: 40px;
+}
+
+.main_container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 .add_expense_main_container h1 {
@@ -161,26 +145,26 @@ li a:hover {
 }
 
 .second_main_container {
-  grid-column: 2 / span 4;
-  grid-row: 2 / span 4;
   background-color: rgb(34, 43, 52);
   border-radius: 5px;
   display: flex;
   justify-content: center;
+  width: 80%;
 }
 
-/*
 .header_container {
-  grid-column: 3 / span 3;
-  width: 430px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
   background-color: rgb(34, 43, 52);
 }
 
-*/
 .header_container img {
   height: 100px;
   width: 100px;
   margin-top: 20px;
+  color: #fff;
 }
 /*
 .child_container {
@@ -195,9 +179,8 @@ li a:hover {
   */
 
 .form_container {
-  grid-column: 3 / span 2;
   height: 500px;
-  width: 430px;
+  width: 440px;
 }
 
 form {
@@ -206,19 +189,20 @@ form {
   background-color: rgb(34, 43, 52);
 }
 
-.add_expense_main_container label {
+label {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-left: 30px;
 }
 
 input {
   margin-left: 20px;
-  height: 20px;
+  height: 25px;
   margin-bottom: 10px;
   width: 250px;
   border-radius: 5px;
@@ -484,11 +468,14 @@ tfoot td {
   margin-right: 50px;
   margin-left: auto;
   bottom: 250px;
+  background-color: #25d725;
+  border-radius: 50%;
 }
 
 .add_expense_button img {
   height: 80px;
   width: 80px;
+  border-radius: 50%;
 }
 
 .add_expense_button a {
@@ -497,7 +484,7 @@ tfoot td {
   font-optical-sizing: auto;
   font-weight: 30;
   font-weight: bold;
-  color: black;
+  color: #25d725;
 }
 
 .confirmation_container {

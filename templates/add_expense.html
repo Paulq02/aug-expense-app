@@ -30,47 +30,41 @@
       href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <nav>
+    <nav class="top-navbar-container">
       <li class="paul"><a href="#">Expense Tracker</a></li>
-      <li class="navbar"><a href="{{url_for('home_page')}}">Home</a></li>
-      <li class="navbar"><a href="#">Profile</a></li>
-      <li class="navbar"><a href="#">Logout</a></li>
+      <li class="top-navbar"><a href="{{url_for('home_page')}}">Home</a></li>
+      <li class="top-navbar"><a href="#">Profile</a></li>
+      <li class="top-navbar"><a href="#">Logout</a></li>
+    </nav>
+    <nav class="sidebar">
+      <header>
+        <div class="image-text">
+          <span class="image">
+            <img src="../static/images/ET.png" alt="icon of expense tracker" />
+          </span>
+          <div class="text header-text">
+            <span class="name">Expense Tracker</span>
+            <span class="profession">Web Developer</span>
+          </div>
+        </div>
+      </header>
     </nav>
 
-    <div class="add_expense_main_container">
-      <div class="sidebar_container">
-        <div class="sidebar">
-          <div class="profile">
-            <img
-              class="profile_logo"
-              src="../static/images/profile_logo2.png"
-              alt="picture of a profile logo"
-            />
-          </div>
-          <p>Dashboard</p>
-
-          <button class="home_button" type="button">
-            <a href="{{url_for('home_page')}}"
-              ><img src="../static/images/home_icon3.png"
-            /></a>
-          </button>
-          <img
-            src="../static/images/receipt_logo2.png"
-            class="receipt_logo"
-            alt="logo of a receipt"
-          />
-        </div>
-      </div>
+    <div class="main_container">
       <div class="second_main_container">
         <div class="form_container">
           <div class="header_container">
             <img
-              src="../static/images/add_expense_icon_2.png"
+              src="../static/images/white_add_expense_icon.png"
               alt="logo of money entered in a wallet"
             />
-            <h1>Add expense</h1>
+            <h1>Add Expense</h1>
           </div>
           <form method="POST" action="{{ url_for('submit_expense') }}">
             <label for="amount" name="amount" id="amount"
@@ -94,8 +88,7 @@
             </label>
 
             <label for="select-category"
-              >Expense <br />
-              category
+              >Expense category
               <select name="category" id="select-category">
                 <option value="">--Please choose expense category--</option>
                 <option value="entertainment">Entertainment</option>
