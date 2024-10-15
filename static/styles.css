@@ -152,7 +152,7 @@ header .toggle {
 
 .sidebar li {
   list-style: none;
-  height: 50px;
+  height: 60px;
   margin-top: 10px;
   border-radius: 10px;
   display: flex;
@@ -167,29 +167,48 @@ header .toggle {
   padding-left: 0px;
 }
 
-.sidebar .nav-text {
+.nav-link span {
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar .nav-text:hover {
+  color: #000000;
+}
+.nav-link {
+  width: 200px;
+  border-radius: 10px;
+  background-color: rgb(34, 43, 52);
+  height: 60px;
+}
+
+.nav-link:hover {
+  transition: 0.3s;
+  background-color: #fca311;
 }
 
 .nav-link a {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
+  width: 200px;
+  height: 50px;
 }
 .sidebar-icon {
-  color: #fff;
+  stroke: #fff;
   height: 30px;
   width: 30px;
+  margin-right: 6px;
 }
 
-.wallet-icon {
-  height: 22px;
-  width: 22px;
-  margin: 0 7px;
-}
 /* ===Sidebar END=== */
 
 .income {
@@ -211,7 +230,8 @@ header .toggle {
   border-radius: 5px;
   display: flex;
   justify-content: center;
-  width: 80%;
+  width: 45%;
+  height: 530px;
 }
 
 .header_container {
@@ -220,13 +240,17 @@ header .toggle {
   align-items: center;
   color: #fff;
   background-color: rgb(34, 43, 52);
+  height: 250px;
 }
 
-.header_container img {
-  height: 100px;
-  width: 100px;
-  margin-top: 20px;
-  color: #fff;
+.header_container h1 {
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+.header_container .add-expense-header-icon {
+  height: 180px;
+  width: 180px;
 }
 /*
 .child_container {
@@ -291,6 +315,7 @@ input {
   font-family: "Figtree", sans-serif;
   font-size: large;
   cursor: pointer;
+  margin-top: 12px;
 }
 
 p {
