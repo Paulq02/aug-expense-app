@@ -141,13 +141,13 @@ header .toggle {
   background-color: #fca311;
   border-radius: 50%;
   right: -25px;
-  bottom: 50%;
-  transform: translateY(50%);
-  height: 30px;
-  width: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 25px;
+  width: 25px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .sidebar li {
@@ -160,6 +160,13 @@ header .toggle {
   align-items: center;
 }
 
+.sidebar ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0px;
+}
+
 .sidebar .nav-text {
   color: #fff;
   font-family: "Roboto", sans-serif;
@@ -167,6 +174,22 @@ header .toggle {
   font-style: normal;
 }
 
+.nav-link a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sidebar-icon {
+  color: #fff;
+  height: 30px;
+  width: 30px;
+}
+
+.wallet-icon {
+  height: 22px;
+  width: 22px;
+  margin: 0 7px;
+}
 /* ===Sidebar END=== */
 
 .income {
