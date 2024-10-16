@@ -91,7 +91,9 @@ body {
 .top-navbar a:hover,
 .paul a:hover {
   color: rgb(34, 43, 52);
-  background-color: #fff;
+
+  background-color: #fca311;
+  transition: 0.3s;
 }
 /* ===TOP Navbar END=== */
 
@@ -165,9 +167,10 @@ header .toggle {
   justify-content: center;
   align-items: center;
   padding-left: 0px;
+  flex-direction: column;
 }
 
-.nav-link span {
+.nav-text {
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
@@ -179,9 +182,14 @@ header .toggle {
   align-items: center;
 }
 
-.sidebar .nav-text:hover {
+.nav-text:hover {
   color: #000000;
 }
+
+.nav-text:hover svg {
+  stroke: #000000;
+}
+
 .nav-link {
   width: 200px;
   border-radius: 10px;
@@ -223,6 +231,15 @@ header .toggle {
 
 .add_expense_main_container h1 {
   color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .second_main_container {
@@ -300,6 +317,15 @@ input {
   height: 30px;
   padding: 1px 5px;
   border-radius: 5px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+#select-category option {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .submit_button_container {
