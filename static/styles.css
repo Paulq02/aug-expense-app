@@ -378,6 +378,18 @@ p {
   width: 60px;
 }
 
+.edit-icon {
+  fill: #000000;
+  width: 30px;
+  height: 30px;
+}
+
+.edit-icon:hover {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
 .expense_container {
   height: auto;
   display: flex;
@@ -503,18 +515,19 @@ td {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  margin-top: 15px;
 }
 
 td button {
   border: none;
   background: none;
-  height: 40px;
-  width: 40px;
+  height: 45px;
+  width: 45px;
 }
 
 td button img:hover {
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
 }
 
 button img {
@@ -550,6 +563,9 @@ tfoot td {
   border-radius: 10px;
   background: #12161d;
   padding: 20px;
+  width: 85%;
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .entries {
@@ -564,6 +580,7 @@ tfoot td {
   margin-top: 1rem;
   border-radius: 10px;
   padding: 20px;
+  width: 100%;
 }
 
 .button_icon:hover {
@@ -609,6 +626,24 @@ tfoot td {
   justify-content: center;
 }
 
+.edit-name-button,
+.edit-cost-button {
+  display: none;
+  background-color: #fca311;
+  width: 80px;
+  height: 25px;
+  border-radius: 10px;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 30;
+  font-weight: bold;
+  cursor: pointer;
+}
+.edit-name {
+  display: none;
+  background-color: red;
+}
+
 .btn_window {
   display: flex;
   flex-direction: column;
@@ -636,6 +671,10 @@ tfoot td {
   font-size: 1.5rem;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: capitalize;
 }
 
 .expense_details {
@@ -643,6 +682,9 @@ tfoot td {
   justify-content: space-evenly;
   height: 60px;
   align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .expense_details p {
@@ -650,6 +692,9 @@ tfoot td {
   padding: 0;
   margin: 0;
   font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .btn_container {
@@ -664,15 +709,15 @@ tfoot td {
   border-radius: 6px;
   width: 150px;
 
-  font-family: "Figtree", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 900;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
   font-style: normal;
+  text-transform: capitalize;
 }
 
 .confirm_delete {
   background-color: red;
-  color: white;
+  color: #000000;
 }
 
 .confirm_delete:hover,

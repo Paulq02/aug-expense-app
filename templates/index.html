@@ -68,19 +68,53 @@
             <th>expense name</th>
             <th>expense cost</th>
             <th>expense date</th>
-            <th>action</th>
+            <th>Delete Expense</th>
+            <th>Edit expense</th>
           </tr>
         </thead>
         <tbody>
           {% for item in my_list %}
 
-          <td>{{ item.name }}</td>
-          <td>{{ "${:.2f}".format(item.amount) }}</td>
+          <td id="name-{{loop.index0}}">
+            {{ item.name }}
+            <button
+              type="button"
+              class="edit-name-button"
+              id="edit-name-button-{{loop.index0}}"
+              onclick="showEditbutton(index)"
+            >
+              Edit name
+              <input
+                class="edit-name"
+                type="text"
+                id="edit-name-{{loop.index0}}"
+              />
+            </button>
+          </td>
+
+          <td id="cost-{{loop.index0}}">
+            {{ "${:.2f}".format(item.amount) }}
+            <button
+              type="button"
+              class="edit-cost-button"
+              id="edit-cost-button-{{loop.index0}}"
+              onclick="showCostbutton(index)"
+            >
+              Edit Cost
+              <input
+                class="edit-cost"
+                type="number"
+                name="amount"
+                step="0.01"
+                required
+              />
+            </button>
+          </td>
           <td>{{ item.date}}</td>
           <td>
             <button
               class="button_icon"
-              onclick="showContainerGetindex({{loop.index0}})"
+              onclick="deleteFunction({{loop.index0}})"
             >
               <img
                 src="/static/images/new_trash_icon.png"
@@ -88,9 +122,18 @@
               />
             </button>
           </td>
+          <td>
+            <button
+              class="main-edit-button"
+              type="button"
+              onclick="editNamebutton({{loop.index0}});spaceButtons({{loop.index0}});showEditCostbutton({{loop.index0}});spaceButtons(index)"
+            >
+              <img class="edit-icon" src="../static/images/pencil_345648.png" />
+            </button>
+          </td>
         </tbody>
 
-        <div class="confirmation_container" id="{{loop.index0}}">
+        <div class="confirmation_container" id="delete-{{loop.index0}}">
           <div class="btn_window">
             <div class="prompt">
               <img
@@ -120,8 +163,9 @@
               </form>
             </div>
           </div>
-          {% endfor %}
         </div>
+
+        {% endfor %}
       </table>
     </div>
 
@@ -136,12 +180,47 @@
     </button>
 
     <script>
-      function showContainerGetindex(index) {
-        document.getElementById(index).style.display = "flex";
+      function deleteFunction(index) {
+        document.getElementById("delete-" + index).style.display = "flex";
       }
 
       function cancelDelete(index) {
-        document.getElementById(index).style.display = "none";
+        document.getElementById("delete-" + index).style.display = "none";
+      }
+
+      function editFunction(index) {
+        document.getElementById("edit-" + index).style.display = "flex";
+      }
+
+      function editNamebutton(index) {
+        const name_edit = document.getElementById("edit-name-button-" + index);
+        name_edit.style.display = "flex";
+        name_edit.style.justifyContent = "center";
+        name_edit.style.alignItems = "center";
+      }
+
+      function spaceButtons(index) {
+        const arrangeCostbuttons = document.getElementById("cost-" + index);
+        arrangeCostbuttons.style.display = "flex";
+        arrangeCostbuttons.style.justifyContent = "space-between";
+        arrangeCostbuttons.style.alignItems = "center";
+        const arrangeButtons = document.getElementById("name-" + index);
+        arrangeButtons.style.display = "flex";
+        arrangeButtons.style.justifyContent = "space-between";
+        arrangeButtons.style.alignItems = "center";
+      }
+
+      function editName(index) {
+        document.getElementById("edit-name-" + index).style.display = "flex";
+      }
+
+      function showEditCostbutton(index) {
+        const showCostbutton = document.getElementById(
+          "edit-cost-button-" + index
+        );
+        showCostbutton.style.display = "flex";
+        showCostbutton.style.justifyContent = "center";
+        showCostbutton.style.alignItems = "center";
       }
     </script>
   </body>
