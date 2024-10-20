@@ -75,42 +75,47 @@
         <tbody>
           {% for item in my_list %}
 
-          <td id="name-{{loop.index0}}">
-            {{ item.name }}
-            <button
-              type="button"
-              class="edit-name-button"
-              id="edit-name-button-{{loop.index0}}"
-              onclick="showEditbutton(index)"
-            >
-              Edit name
-              <input
-                class="edit-name"
-                type="text"
-                id="edit-name-{{loop.index0}}"
-              />
-            </button>
+          <td>
+            <div class="data_flex_container">
+              {{ item.name }}
+              <button
+                type="button"
+                class="edit-name-button"
+                id="edit-name-button-{{loop.index0}}"
+                onclick="showEditbutton(index)"
+              >
+                Edit name
+                <input
+                  class="edit-name"
+                  type="text"
+                  id="edit-name-{{loop.index0}}"
+                />
+              </button>
+            </div>
           </td>
 
-          <td id="cost-{{loop.index0}}">
-            {{ "${:.2f}".format(item.amount) }}
-            <button
-              type="button"
-              class="edit-cost-button"
-              id="edit-cost-button-{{loop.index0}}"
-              onclick="showCostbutton(index)"
-            >
-              Edit Cost
-              <input
-                class="edit-cost"
-                type="number"
-                name="amount"
-                step="0.01"
-                required
-              />
-            </button>
+          <td>
+            <div class="data_flex_container">
+              {{ "${:.2f}".format(item.amount) }}
+              <button
+                class="edit-cost-button"
+                id="edit-cost-button-{{loop.index0}}"
+              >
+                Edit Cost
+              </button>
+            </div>
           </td>
-          <td>{{ item.date}}</td>
+          <td>
+            <div class="data_flex_container">
+              {{ item.date}}
+              <button
+                class="edit-date-button"
+                id="edit-date-button-{{loop.index0}}"
+              >
+                Edit Date
+              </button>
+            </div>
+          </td>
           <td>
             <button
               class="button_icon"
@@ -126,7 +131,7 @@
             <button
               class="main-edit-button"
               type="button"
-              onclick="editNamebutton({{loop.index0}});spaceButtons({{loop.index0}});showEditCostbutton({{loop.index0}});spaceButtons(index)"
+              onclick="editNamebutton({{loop.index0}});showCostbutton({{loop.index0}});showDatebutton({{loop.index0}});"
             >
               <img class="edit-icon" src="../static/images/pencil_345648.png" />
             </button>
@@ -180,6 +185,7 @@
     </button>
 
     <script>
+      /* DELETE FUNCTION START SECTION */
       function deleteFunction(index) {
         document.getElementById("delete-" + index).style.display = "flex";
       }
@@ -188,40 +194,45 @@
         document.getElementById("delete-" + index).style.display = "none";
       }
 
-      function editFunction(index) {
-        document.getElementById("edit-" + index).style.display = "flex";
-      }
+      /* DELETE FUNCTION END SECTION */
 
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+
+      /* NAME EDIT START SECTION */
       function editNamebutton(index) {
         const name_edit = document.getElementById("edit-name-button-" + index);
-        name_edit.style.display = "flex";
-        name_edit.style.justifyContent = "center";
-        name_edit.style.alignItems = "center";
+        name_edit.style.display = "inline";
+      }
+      /* NAME EDIT END SECTION */
+
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+
+      /* COST EDIT START SECTION */
+      function showCostbutton(index) {
+        const costButton = document.getElementById("edit-cost-button-" + index);
+        costButton.style.display = "inline";
+      }
+      /* COST EDIT END SECTION */
+
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+
+      /* DATE EDIT START SECTION */
+
+      function showDatebutton(index) {
+        const dateButton = document.getElementById("edit-date-button-" + index);
+        dateButton.style.display = "inline";
       }
 
-      function spaceButtons(index) {
-        const arrangeCostbuttons = document.getElementById("cost-" + index);
-        arrangeCostbuttons.style.display = "flex";
-        arrangeCostbuttons.style.justifyContent = "space-between";
-        arrangeCostbuttons.style.alignItems = "center";
-        const arrangeButtons = document.getElementById("name-" + index);
-        arrangeButtons.style.display = "flex";
-        arrangeButtons.style.justifyContent = "space-between";
-        arrangeButtons.style.alignItems = "center";
-      }
-
-      function editName(index) {
-        document.getElementById("edit-name-" + index).style.display = "flex";
-      }
-
-      function showEditCostbutton(index) {
-        const showCostbutton = document.getElementById(
-          "edit-cost-button-" + index
-        );
-        showCostbutton.style.display = "flex";
-        showCostbutton.style.justifyContent = "center";
-        showCostbutton.style.alignItems = "center";
-      }
+      /* DATE EDIT END SECTION */
     </script>
   </body>
 </html>

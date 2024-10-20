@@ -626,7 +626,20 @@ tfoot td {
   justify-content: center;
 }
 
-.edit-name-button,
+.edit-name-button {
+  display: none;
+  background-color: #fca311;
+  width: 80px;
+  height: 25px;
+  border-radius: 10px;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 30;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 80px;
+}
+
 .edit-cost-button {
   display: none;
   background-color: #fca311;
@@ -638,7 +651,23 @@ tfoot td {
   font-weight: 30;
   font-weight: bold;
   cursor: pointer;
+  margin-right: 80px;
 }
+
+.edit-date-button {
+  display: none;
+  background-color: #fca311;
+  width: 80px;
+  height: 25px;
+  border-radius: 10px;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 30;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 80px;
+}
+
 .edit-name {
   display: none;
   background-color: red;
@@ -727,4 +756,9 @@ tfoot td {
   height: 60px;
   cursor: pointer;
   transition: 0.6s;
+}
+
+.data_flex_container {
+  display: flex;
+  justify-content: space-between;
 }
