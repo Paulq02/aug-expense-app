@@ -626,7 +626,9 @@ tfoot td {
   justify-content: center;
 }
 
-.edit-name-button {
+.edit-name-button,
+.edit-cost-button,
+.edit-date-button {
   display: none;
   background-color: #fca311;
   width: 80px;
@@ -637,9 +639,10 @@ tfoot td {
   font-weight: 30;
   font-weight: bold;
   cursor: pointer;
-  margin-right: 80px;
+  margin-left: 10px;
 }
 
+/*
 .edit-cost-button {
   display: none;
   background-color: #fca311;
@@ -667,7 +670,7 @@ tfoot td {
   cursor: pointer;
   margin-right: 80px;
 }
-
+*/
 .edit-name {
   display: none;
   background-color: red;
@@ -757,8 +760,25 @@ tfoot td {
   cursor: pointer;
   transition: 0.6s;
 }
-
+/* EDIT ENTRIES START SECTION*/
 .data_flex_container {
   display: flex;
-  justify-content: space-between;
+  height: 80px;
 }
+
+.edit-name-form {
+  width: 200px;
+  height: 40px;
+  margin-top: 13px;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-name-input {
+  width: 170px;
+  height: 30px;
+  margin-left: 0px;
+}
+
+/* EDIT ENTRIES END SECTION*/

@@ -82,14 +82,20 @@
                 type="button"
                 class="edit-name-button"
                 id="edit-name-button-{{loop.index0}}"
-                onclick="showEditbutton(index)"
+                onclick="showEditnameForm({{loop.index0}});showEditnameInput({{loop.index0}})"
               >
                 Edit name
-                <input
-                  class="edit-name"
-                  type="text"
-                  id="edit-name-{{loop.index0}}"
-                />
+                <form
+                  class="edit-name-form"
+                  id="edit-name-form-{{loop.index0}}"
+                  action="post"
+                >
+                  <input
+                    class="edit-name-input"
+                    type="text"
+                    id="edit-name-input-{{loop.index0}}"
+                  />
+                </form>
               </button>
             </div>
           </td>
@@ -205,6 +211,18 @@
       function editNamebutton(index) {
         const name_edit = document.getElementById("edit-name-button-" + index);
         name_edit.style.display = "inline";
+      }
+
+      function showEditnameForm(index) {
+        const formInput = document.getElementById("edit-name-form-" + index);
+        formInput.style.display = "inline";
+      }
+
+      function showEditnameInput(index) {
+        const newNameInput = document.getElementById(
+          "edit-name-input-" + index
+        );
+        newNameInput.style.display = "inline";
       }
       /* NAME EDIT END SECTION */
 
