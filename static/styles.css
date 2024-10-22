@@ -516,6 +516,7 @@ td {
   font-weight: 700;
   font-style: normal;
   margin-top: 15px;
+  width: 320px;
 }
 
 td button {
@@ -642,35 +643,11 @@ tfoot td {
   margin-left: 10px;
 }
 
-/*
-.edit-cost-button {
-  display: none;
-  background-color: #fca311;
-  width: 80px;
-  height: 25px;
-  border-radius: 10px;
-  font-family: "Figtree", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 30;
-  font-weight: bold;
-  cursor: pointer;
-  margin-right: 80px;
-}
+/* =========================================================================== */
+/* EDIT */
 
-.edit-date-button {
-  display: none;
-  background-color: #fca311;
-  width: 80px;
-  height: 25px;
-  border-radius: 10px;
-  font-family: "Figtree", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 30;
-  font-weight: bold;
-  cursor: pointer;
-  margin-right: 80px;
-}
-*/
+/* =========================================================================== */
+
 .edit-name {
   display: none;
   background-color: red;
@@ -763,22 +740,38 @@ tfoot td {
 /* EDIT ENTRIES START SECTION*/
 .data_flex_container {
   display: flex;
+  flex-grow: 1;
   height: 80px;
+  max-width: 300px;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.edit-name-form {
+.edit-name-form,
+.edit-cost-form,
+.edit-date-form {
+  display: none;
   width: 200px;
-  height: 40px;
-  margin-top: 13px;
+  height: 30px;
+
   flex-direction: row;
-  display: flex;
+
   justify-content: center;
 }
 
-.edit-name-input {
-  width: 170px;
+.edit-name-input,
+.edit-cost-input,
+.edit-date-input {
+  width: 200px;
   height: 30px;
+  margin-bottom: 0px;
   margin-left: 0px;
 }
+.name_container {
+  display: flex;
+}
 
+.cost-container {
+  display: flex;
+}
 /* EDIT ENTRIES END SECTION*/

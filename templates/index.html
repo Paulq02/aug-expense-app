@@ -13,6 +13,24 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="../static/jquery-ui-1.14.0.custom/jquery-ui.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../static/jquery-ui-1.14.0.custom/jquery-ui.structure.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../static/jquery-ui-1.14.0.custom/jquery-ui.theme.css"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -77,14 +95,18 @@
 
           <td>
             <div class="data_flex_container">
-              {{ item.name }}
-              <button
-                type="button"
-                class="edit-name-button"
-                id="edit-name-button-{{loop.index0}}"
-                onclick="showEditnameForm({{loop.index0}});showEditnameInput({{loop.index0}})"
-              >
-                Edit name
+              <div class="name-container">
+                {{ item.name }}
+                <button
+                  type="button"
+                  class="edit-name-button"
+                  id="edit-name-button-{{loop.index0}}"
+                  onclick="showEditnameForm({{loop.index0}});showEditnameInput({{loop.index0}})"
+                >
+                  Edit name
+                </button>
+              </div>
+              <div class="form-input-container">
                 <form
                   class="edit-name-form"
                   id="edit-name-form-{{loop.index0}}"
@@ -94,32 +116,52 @@
                     class="edit-name-input"
                     type="text"
                     id="edit-name-input-{{loop.index0}}"
+                    autocomplete="off"
                   />
                 </form>
-              </button>
+              </div>
             </div>
           </td>
 
           <td>
             <div class="data_flex_container">
-              {{ "${:.2f}".format(item.amount) }}
-              <button
-                class="edit-cost-button"
-                id="edit-cost-button-{{loop.index0}}"
-              >
-                Edit Cost
-              </button>
+              <div class="cost-container">
+                {{ "${:.2f}".format(item.amount) }}
+                <button
+                  class="edit-cost-button"
+                  id="edit-cost-button-{{loop.index0}}"
+                >
+                  Edit Cost
+                </button>
+              </div>
+              <div class="cost-form-container">
+                <form class="edit-cost-form">
+                  <input class="edit-cost-input" type="number" id="number" />
+                </form>
+              </div>
             </div>
           </td>
           <td>
             <div class="data_flex_container">
-              {{ item.date}}
-              <button
-                class="edit-date-button"
-                id="edit-date-button-{{loop.index0}}"
-              >
-                Edit Date
-              </button>
+              <div class="date-container">
+                {{ item.date}}
+                <button
+                  class="edit-date-button"
+                  id="edit-date-button-{{loop.index0}}"
+                >
+                  Edit Date
+                </button>
+              </div>
+              <div class="date-form-container">
+                <form class="edit-date-form">
+                  <input
+                    class="edit-date-input"
+                    id="datepicker"
+                    type="text"
+                    autocomplete="off"
+                  />
+                </form>
+              </div>
             </div>
           </td>
           <td>
@@ -251,6 +293,32 @@
       }
 
       /* DATE EDIT END SECTION */
+    </script>
+
+    <!-- JQUERY CALENDER LINKS BELOW-->
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"
+      integrity="sha512-MlEyuwT6VkRXExjj8CdBKNgd+e2H+aYZOCUaCrt9KRk6MlZDOs91V1yK22rwm8aCIsb5Ec1euL8f0g58RKT/Pg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!--JQUERY CALENDER FUNCTION BELOW -->
+    <script>
+      // Initialize the Datepicker
+      $(function () {
+        $("#datepicker").datepicker({
+          changeMonth: true, // Allow changing months
+          changeYear: true, // Allow changing years
+          dateFormat: "yy-mm-dd", // Format of the date
+        });
+      });
     </script>
   </body>
 </html>
