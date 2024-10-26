@@ -635,14 +635,20 @@ tfoot td {
   width: 80px;
   height: 25px;
   border-radius: 10px;
-  font-family: "Figtree", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 30;
-  font-weight: bold;
+
   cursor: pointer;
   margin-left: 10px;
 }
 
+.edit-name-button p,
+.edit-cost-button p,
+.edit-date-button p {
+  color: #000000;
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 30;
+  font-weight: bold;
+}
 /* =========================================================================== */
 /* EDIT */
 
@@ -738,15 +744,21 @@ tfoot td {
   transition: 0.6s;
 }
 /* EDIT ENTRIES START SECTION*/
-.data_flex_container {
+.name_flex_container,
+.cost_flex_container,
+.date_flex_container {
   display: flex;
   flex-grow: 1;
   height: 80px;
   max-width: 300px;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
-
+.name-input-container,
+.cost-form-container,
+.date-form-container {
+  margin-top: 15px;
+}
 .edit-name-form,
 .edit-cost-form,
 .edit-date-form {
@@ -772,6 +784,10 @@ tfoot td {
 }
 
 .cost-container {
+  display: flex;
+}
+
+.date-container {
   display: flex;
 }
 /* EDIT ENTRIES END SECTION*/

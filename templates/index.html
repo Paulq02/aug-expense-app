@@ -94,23 +94,23 @@
           {% for item in my_list %}
 
           <td>
-            <div class="data_flex_container">
+            <div class="name_flex_container">
               <div class="name-container">
                 {{ item.name }}
                 <button
                   type="button"
                   class="edit-name-button"
                   id="edit-name-button-{{loop.index0}}"
-                  onclick="showEditnameForm({{loop.index0}});showEditnameInput({{loop.index0}})"
+                  onclick="showEditnameForm({{loop.index0}});showEditnameInput({{loop.index0}});"
                 >
-                  Edit name
+                  <p>Edit name</p>
                 </button>
               </div>
-              <div class="form-input-container">
+              <div class="name-input-container">
                 <form
                   class="edit-name-form"
                   id="edit-name-form-{{loop.index0}}"
-                  action="post"
+                  method="post"
                 >
                   <input
                     class="edit-name-input"
@@ -124,36 +124,48 @@
           </td>
 
           <td>
-            <div class="data_flex_container">
+            <div class="cost_flex_container">
               <div class="cost-container">
                 {{ "${:.2f}".format(item.amount) }}
                 <button
                   class="edit-cost-button"
                   id="edit-cost-button-{{loop.index0}}"
+                  onclick="showCostForm({{loop.index0}});showCostinput({{loop.index0}})"
                 >
-                  Edit Cost
+                  <p>Edit cost</p>
                 </button>
               </div>
               <div class="cost-form-container">
-                <form class="edit-cost-form">
-                  <input class="edit-cost-input" type="number" id="number" />
+                <form
+                  class="edit-cost-form"
+                  id="edit-cost-form-{{loop.index0}}"
+                >
+                  <input
+                    class="edit-cost-input"
+                    type="number"
+                    id="edit-cost-input-{{loop.index0}}"
+                  />
                 </form>
               </div>
             </div>
           </td>
           <td>
-            <div class="data_flex_container">
+            <div class="date_flex_container" id="date_flex_container">
               <div class="date-container">
                 {{ item.date}}
                 <button
                   class="edit-date-button"
                   id="edit-date-button-{{loop.index0}}"
+                  onclick="showDateForm({{loop.index0}});showDateInput({{loop.index0}})"
                 >
-                  Edit Date
+                  <p>Edit date</p>
                 </button>
               </div>
               <div class="date-form-container">
-                <form class="edit-date-form">
+                <form
+                  class="edit-date-form"
+                  id="edit-date-form-{{loop.index0}}"
+                >
                   <input
                     class="edit-date-input"
                     id="datepicker"
@@ -252,12 +264,14 @@
       /* NAME EDIT START SECTION */
       function editNamebutton(index) {
         const name_edit = document.getElementById("edit-name-button-" + index);
-        name_edit.style.display = "inline";
+        name_edit.style.display = "inline-flex";
+        name_edit.style.justifyContent = "center";
+        name_edit.style.alignItems = "center";
       }
 
       function showEditnameForm(index) {
         const formInput = document.getElementById("edit-name-form-" + index);
-        formInput.style.display = "inline";
+        formInput.style.display = "inline-flex";
       }
 
       function showEditnameInput(index) {
@@ -266,6 +280,7 @@
         );
         newNameInput.style.display = "inline";
       }
+
       /* NAME EDIT END SECTION */
 
       /* =============================================================================================================== */
@@ -276,7 +291,21 @@
       /* COST EDIT START SECTION */
       function showCostbutton(index) {
         const costButton = document.getElementById("edit-cost-button-" + index);
-        costButton.style.display = "inline";
+        costButton.style.display = "inline-flex";
+        costButton.style.justifyContent = "center";
+        costButton.style.alignItems = "center";
+      }
+
+      function showCostForm(index) {
+        const showCostinput = document.getElementById(
+          "edit-cost-form-" + index
+        );
+        showCostinput.style.display = "inline";
+      }
+
+      function showCostinput(index) {
+        const showInput = document.getElementById("edit-cost-input-" + index);
+        showInput.style.display = "inline";
       }
       /* COST EDIT END SECTION */
 
@@ -289,7 +318,19 @@
 
       function showDatebutton(index) {
         const dateButton = document.getElementById("edit-date-button-" + index);
-        dateButton.style.display = "inline";
+        dateButton.style.display = "inline-flex";
+        dateButton.style.justifyContent = "center";
+        dateButton.style.alignItems = "center";
+      }
+
+      function showDateForm(index) {
+        const showDate = document.getElementById("edit-date-form-" + index);
+        showDate.style.display = "inline";
+      }
+
+      function showDateInput(index) {
+        document.getElementById("datepicker");
+        document.style.display = "inline";
       }
 
       /* DATE EDIT END SECTION */
