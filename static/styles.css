@@ -519,14 +519,16 @@ td {
   width: 320px;
 }
 
-td button {
+td .button_icon,
+td .main-edit-button {
   border: none;
   background: none;
   height: 45px;
   width: 45px;
 }
 
-td button img:hover {
+.button_icon img:hover,
+.main-edit-button img:hover {
   height: 40px;
   width: 40px;
 }
@@ -635,9 +637,10 @@ tfoot td {
   width: 80px;
   height: 25px;
   border-radius: 10px;
-
+  position: relative;
   cursor: pointer;
   margin-left: 10px;
+  border: none;
 }
 
 .edit-name-button p,
@@ -648,6 +651,25 @@ tfoot td {
   font-optical-sizing: auto;
   font-weight: 30;
   font-weight: bold;
+}
+
+.cancel-svg-button {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+
+  position: relative;
+  right: 8px;
+  bottom: 8px;
+}
+
+.cancel-icon {
+  height: 20px;
+  width: 20px;
 }
 /* =========================================================================== */
 /* EDIT */
@@ -779,7 +801,7 @@ tfoot td {
   margin-bottom: 0px;
   margin-left: 0px;
 }
-.name_container {
+.name-container {
   display: flex;
 }
 
