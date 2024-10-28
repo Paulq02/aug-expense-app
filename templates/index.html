@@ -105,7 +105,11 @@
                 >
                   <p>Edit name</p>
                 </button>
-                <button class="cancel-svg-button">
+                <button
+                  class="cancel-svg-button"
+                  id="cancel-svg-name-button-{{loop.index0}}"
+                  onclick="noNameEdit({{loop.index0}})"
+                >
                   <img
                     class="cancel-icon"
                     src="../static/images/cancel_icon.png"
@@ -140,7 +144,11 @@
                 >
                   <p>Edit cost</p>
                 </button>
-                <button class="cancel-svg-button">
+                <button
+                  class="cancel-svg-button"
+                  id="cancel-svg-cost-button-{{loop.index0}}"
+                  onclick="noCostEdit({{loop.index0}})"
+                >
                   <img
                     class="cancel-icon"
                     src="../static/images/cancel_icon.png"
@@ -172,7 +180,11 @@
                 >
                   <p>Edit date</p>
                 </button>
-                <button class="cancel-svg-button">
+                <button
+                  class="cancel-svg-button"
+                  id="cancel-svg-date-button-{{loop.index0}}"
+                  onclick="noDateEdit({{loop.index0}})"
+                >
                   <img
                     class="cancel-icon"
                     src="../static/images/cancel_icon.png"
@@ -209,7 +221,7 @@
             <button
               class="main-edit-button"
               type="button"
-              onclick="editNamebutton({{loop.index0}});showCostbutton({{loop.index0}});showDatebutton({{loop.index0}});"
+              onclick="editNamebutton({{loop.index0}});showCostbutton({{loop.index0}});showDatebutton({{loop.index0}});showCancelIcons({{loop.index0}});showCostCancelButtons({{loop.index0}})"
             >
               <img class="edit-icon" src="../static/images/pencil_345648.png" />
             </button>
@@ -299,6 +311,17 @@
         newNameInput.style.display = "inline";
       }
 
+      function noNameEdit(index) {
+        const hideNameEditButton = document.getElementById(
+          "edit-name-button-" + index
+        );
+        hideNameEditButton.style.display = "none";
+        const hideNameCancelButton = document.getElementById(
+          "cancel-svg-name-button-" + index
+        );
+        hideNameCancelButton.style.display = "none";
+      }
+
       /* NAME EDIT END SECTION */
 
       /* =============================================================================================================== */
@@ -325,6 +348,18 @@
         const showInput = document.getElementById("edit-cost-input-" + index);
         showInput.style.display = "inline";
       }
+
+      function noCostEdit(index) {
+        const hideCostButton = document.getElementById(
+          "edit-cost-button-" + index
+        );
+        hideCostButton.style.display = "none";
+        const hideCostCancelButton = document.getElementById(
+          "cancel-svg-cost-button-" + index
+        );
+        hideCostCancelButton.style.display = "none";
+      }
+
       /* COST EDIT END SECTION */
 
       /* =============================================================================================================== */
@@ -351,7 +386,45 @@
         document.style.display = "inline";
       }
 
+      function noDateEdit(index) {
+        const hideDateCancelicon = document.getElementById(
+          "cancel-svg-date-button-" + index
+        );
+        hideDateCancelicon.style.display = "none";
+        const hideDateEditButton = document.getElementById(
+          "edit-date-button-" + index
+        );
+        hideDateEditButton.style.display = "none";
+      }
       /* DATE EDIT END SECTION */
+
+      /* =============================================================================================================== */
+      /* =============================================================================================================== */
+
+      /* SVG CANCEL BUTTONS START */
+
+      function showCancelIcons(index) {
+        const showNameCancel = document.getElementById(
+          "cancel-svg-name-button-" + index
+        );
+        showNameCancel.style.display = "flex";
+        showNameCancel.style.justifyContent = "center";
+        showNameCancel.style.alignItems = "center";
+        const showCostCancel = document.getElementById(
+          "cancel-svg-cost-button-" + index
+        );
+        showCostCancel.style.display = "flex";
+        showCostCancel.style.justifyContent = "center";
+        showCostCancel.style.alignItems = "center";
+        const showDateCancel = document.getElementById(
+          "cancel-svg-date-button-" + index
+        );
+        showDateCancel.style.display = "flex";
+        showDateCancel.style.justifyContent = "center";
+        showDateCancel.style.alignItems = "center";
+      }
+
+      /* SVG CANCEL BUTTONS END */
     </script>
 
     <!-- JQUERY CALENDER LINKS BELOW-->

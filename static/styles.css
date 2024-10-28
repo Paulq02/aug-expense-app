@@ -643,6 +643,13 @@ tfoot td {
   border: none;
 }
 
+.edit-name-button:hover,
+.edit-cost-button:hover,
+.edit-date-button:hover {
+  height: 30px;
+  width: 90px;
+}
+
 .edit-name-button p,
 .edit-cost-button p,
 .edit-date-button p {
@@ -654,17 +661,22 @@ tfoot td {
 }
 
 .cancel-svg-button {
+  display: none;
   height: 20px;
   width: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   border: none;
   background: none;
 
   position: relative;
   right: 8px;
   bottom: 8px;
+  cursor: pointer;
+}
+
+.cancel-svg-button img:hover {
+  height: 30px;
+  width: 30px;
 }
 
 .cancel-icon {
