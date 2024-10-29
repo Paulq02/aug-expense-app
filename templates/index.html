@@ -120,14 +120,22 @@
                 <form
                   class="edit-name-form"
                   id="edit-name-form-{{loop.index0}}"
-                  method="post"
+                  method="POST"
                 >
                   <input
                     class="edit-name-input"
                     type="text"
                     id="edit-name-input-{{loop.index0}}"
                     autocomplete="off"
+                    name="new-name-input"
                   />
+                  <button
+                    type="submit"
+                    class="save-name-edit-button"
+                    id="save-name-edit-button-{{loop.index0}}"
+                  >
+                    Save
+                  </button>
                 </form>
               </div>
             </div>
@@ -159,12 +167,21 @@
                 <form
                   class="edit-cost-form"
                   id="edit-cost-form-{{loop.index0}}"
+                  method="POST"
                 >
                   <input
                     class="edit-cost-input"
                     type="number"
                     id="edit-cost-input-{{loop.index0}}"
+                    name="new-cost-input"
                   />
+                  <button
+                    type="submit"
+                    id="save-cost-edit-button-{{loop.index0}}"
+                    class="save-cost-edit-button"
+                  >
+                    Save
+                  </button>
                 </form>
               </div>
             </div>
@@ -195,13 +212,22 @@
                 <form
                   class="edit-date-form"
                   id="edit-date-form-{{loop.index0}}"
+                  method="POST"
                 >
                   <input
                     class="edit-date-input"
                     id="datepicker"
                     type="text"
                     autocomplete="off"
+                    name="new-date-input"
                   />
+                  <button
+                    type="submit"
+                    class="save-date-edit-button"
+                    id="save-date-edit-button-{{loop.index0}}"
+                  >
+                    Save
+                  </button>
                 </form>
               </div>
             </div>
@@ -301,14 +327,15 @@
 
       function showEditnameForm(index) {
         const formInput = document.getElementById("edit-name-form-" + index);
-        formInput.style.display = "inline-flex";
+        formInput.style.display = "flex";
+        formInput.style.justifyContent = "space-between";
       }
 
       function showEditnameInput(index) {
         const newNameInput = document.getElementById(
           "edit-name-input-" + index
         );
-        newNameInput.style.display = "inline";
+        newNameInput.style.display = "flex";
       }
 
       function noNameEdit(index) {
@@ -350,7 +377,7 @@
         const showCostinput = document.getElementById(
           "edit-cost-form-" + index
         );
-        showCostinput.style.display = "inline";
+        showCostinput.style.display = "flex";
       }
 
       function showCostinput(index) {
@@ -395,7 +422,7 @@
 
       function showDateForm(index) {
         const showDate = document.getElementById("edit-date-form-" + index);
-        showDate.style.display = "inline";
+        showDate.style.display = "flex";
       }
 
       function showDateInput(index) {

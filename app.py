@@ -9,7 +9,7 @@ from datetime import datetime
 my_list = []
 
 
-
+cursor = sql_connect.cursor()
 
 
 
@@ -23,7 +23,7 @@ entries = len(my_list)
 
 def home_page():
     my_list.clear()
-    cursor = sql_connect.cursor()
+    
     cursor.execute("SELECT id, name, amount, date FROM oct_expenses")
     results = cursor.fetchall()
     for data in results:
@@ -132,10 +132,14 @@ def user(name):
        """
 
         
-       
+      
+@app.route('/update', methods=['POST', 'GET'])
+def update_data():
+    updated_name = request.form.get("new-date-input")
+    print(updated_name)
 
 
-
+update_data()
 
 
 

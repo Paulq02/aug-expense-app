@@ -792,26 +792,44 @@ tfoot td {
 .cost-form-container,
 .date-form-container {
   margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .edit-name-form,
 .edit-cost-form,
 .edit-date-form {
   display: none;
-  width: 200px;
-  height: 30px;
+  width: 250px;
+  height: 35px;
 
   flex-direction: row;
 
   justify-content: center;
+  background: none;
 }
 
 .edit-name-input,
 .edit-cost-input,
 .edit-date-input {
   width: 200px;
-  height: 30px;
+  height: 35px;
   margin-bottom: 0px;
   margin-left: 0px;
+}
+
+.save-name-edit-button,
+.save-cost-edit-button,
+.save-date-edit-button {
+  width: 80px;
+  height: 25px;
+  background-color: #049704;
+  color: #fff;
+  border-radius: 10px;
+  align-self: center;
+  margin-left: 10px;
+  border: none;
+  cursor: pointer;
 }
 .name-container {
   display: flex;
