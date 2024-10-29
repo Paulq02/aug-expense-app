@@ -108,7 +108,7 @@
                 <button
                   class="cancel-svg-button"
                   id="cancel-svg-name-button-{{loop.index0}}"
-                  onclick="noNameEdit({{loop.index0}})"
+                  onclick="noNameEdit({{loop.index0}});noNameForm({{loop.index0}})"
                 >
                   <img
                     class="cancel-icon"
@@ -147,7 +147,7 @@
                 <button
                   class="cancel-svg-button"
                   id="cancel-svg-cost-button-{{loop.index0}}"
-                  onclick="noCostEdit({{loop.index0}})"
+                  onclick="noCostEdit({{loop.index0}});noCostForm({{loop.index0}})"
                 >
                   <img
                     class="cancel-icon"
@@ -183,7 +183,7 @@
                 <button
                   class="cancel-svg-button"
                   id="cancel-svg-date-button-{{loop.index0}}"
-                  onclick="noDateEdit({{loop.index0}})"
+                  onclick="noDateEdit({{loop.index0}});noDateForm({{loop.index0}})"
                 >
                   <img
                     class="cancel-icon"
@@ -322,6 +322,15 @@
         hideNameCancelButton.style.display = "none";
       }
 
+      function noNameForm(index) {
+        const hideNameForm = document.getElementById("edit-name-form-" + index);
+        hideNameForm.style.display = "none";
+        const clearNameInput = document.getElementById(
+          "edit-name-input-" + index
+        );
+        clearNameInput.value = "";
+      }
+
       /* NAME EDIT END SECTION */
 
       /* =============================================================================================================== */
@@ -360,6 +369,14 @@
         hideCostCancelButton.style.display = "none";
       }
 
+      function noCostForm(index) {
+        const hideCostForm = document.getElementById("edit-cost-form-" + index);
+        hideCostForm.style.display = "none";
+        const clearCostInput = document.getElementById(
+          "edit-cost-input-" + index
+        );
+        clearCostInput.value = "";
+      }
       /* COST EDIT END SECTION */
 
       /* =============================================================================================================== */
@@ -395,6 +412,11 @@
           "edit-date-button-" + index
         );
         hideDateEditButton.style.display = "none";
+      }
+
+      function noDateForm(index) {
+        const hideDateForm = document.getElementById("edit-date-form-" + index);
+        hideDateForm.style.display = "none";
       }
       /* DATE EDIT END SECTION */
 
