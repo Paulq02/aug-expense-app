@@ -132,14 +132,31 @@ def user(name):
        """
 
         
-      
-@app.route('/update', methods=['POST', 'GET'])
-def update_data():
-    updated_name = request.form.get("new-date-input")
-    print(updated_name)
+
+"""@app.route('/update/<int:id>/<int:index>', methods=['GET', 'POST'])
+def update_data(id, index):
+    updated_name = request.form.get(f"new-name-input-{index}")
+    cursor.execute("UPDATE oct_expenses SET name = %s WHERE id = %s ", ((updated_name,id)))
+    sql_connect.commit()
+    return redirect(url_for('home_page'))
+    """
 
 
-update_data()
+
+
+@app.route('/update_name/<int:index>/<int:id>', methods=["GET", "POST"])
+def update_name(index, id):
+    new_name = request.form[f"new-name-input-{index}"]
+    cursor.execute("UPDATE oct_expenses SET name = %s WHERE id = %s", (new_name, id))
+    sql_connect.commit()
+    return redirect(url_for('home_page'))
+
+
+
+
+
+
+
 
 
 

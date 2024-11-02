@@ -120,14 +120,15 @@
                 <form
                   class="edit-name-form"
                   id="edit-name-form-{{loop.index0}}"
-                  method="POST"
+                  action="{{url_for('update_name', index = loop.index0, id = item.id)}}"
+                  method="post"
                 >
                   <input
                     class="edit-name-input"
                     type="text"
                     id="edit-name-input-{{loop.index0}}"
                     autocomplete="off"
-                    name="new-name-input"
+                    name="new-name-input-{{loop.index0}}"
                   />
                   <button
                     type="submit"
@@ -264,7 +265,7 @@
               <p>Are you sure you want to delete?</p>
             </div>
             <div class="expense_details">
-              <p>Expense: <span>{{ item.name.capitalize()}} </span></p>
+              <p>Expense: <span>{{ item.name}} </span></p>
               <p>
                 Expense Cost: $<span>{{ "{:.2f}".format(item.amount) }} </span>
               </p>
