@@ -154,8 +154,23 @@ def update_name(index, id):
 
 
 
+@app.route("/update_cost/<int:index>/<int:id>", methods=["GET", "POST"])
+def update_cost(index, id):
+    new_amount = request.form[f"new-cost-input-{index}"]
+    cursor.execute("UPDATE oct_expenses SET amount = %s WHERE id = %s",(new_amount, id))
+    sql_connect.commit()
+
+    return redirect(url_for('home_page'))
 
 
+
+
+@app.route("/update_date/<int:index>/<int:id>", methods=["GET", "POST"])
+def update_date(index, id):
+    new_date = request.form[f"new-date-input-{index}"]
+    cursor.execute("UPDATE oct_expenses SET date = %s WHERE id = %s", (new_date, id))
+    sql_connect.commit()
+    return redirect(url_for('home_page'))
 
 
 

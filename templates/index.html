@@ -3,16 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="/static/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -31,13 +23,19 @@
       rel="stylesheet"
       href="../static/jquery-ui-1.14.0.custom/jquery-ui.theme.css"
     />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
   </head>
+
   <body>
     <nav class="top-navbar-container">
       <li class="paul"><a href="#">Expense Tracker</a></li>
@@ -169,12 +167,13 @@
                   class="edit-cost-form"
                   id="edit-cost-form-{{loop.index0}}"
                   method="POST"
+                  action="{{url_for('update_cost', index = loop.index0, id = item.id) }}"
                 >
                   <input
                     class="edit-cost-input"
                     type="number"
                     id="edit-cost-input-{{loop.index0}}"
-                    name="new-cost-input"
+                    name="new-cost-input-{{loop.index0}}"
                   />
                   <button
                     type="submit"
@@ -214,13 +213,13 @@
                   class="edit-date-form"
                   id="edit-date-form-{{loop.index0}}"
                   method="POST"
+                  action="{{url_for('update_date', index = loop.index0, id = item.id) }}"
                 >
                   <input
-                    class="edit-date-input"
-                    id="datepicker"
+                    id="datepicker-{{loop.index0}}"
                     type="text"
                     autocomplete="off"
-                    name="new-date-input"
+                    name="new-date-input-{{loop.index0}}"
                   />
                   <button
                     type="submit"
@@ -492,13 +491,27 @@
       referrerpolicy="no-referrer"
     ></script>
     <!--JQUERY CALENDER FUNCTION BELOW -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"
+      integrity="sha512-MlEyuwT6VkRXExjj8CdBKNgd+e2H+aYZOCUaCrt9KRk6MlZDOs91V1yK22rwm8aCIsb5Ec1euL8f0g58RKT/Pg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
     <script>
-      // Initialize the Datepicker
       $(function () {
-        $("#datepicker").datepicker({
-          changeMonth: true, // Allow changing months
-          changeYear: true, // Allow changing years
-          dateFormat: "yy-mm-dd", // Format of the date
+        $("input[id^='datepicker-']").each(function () {
+          $(this).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+          });
         });
       });
     </script>
