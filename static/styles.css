@@ -125,6 +125,19 @@ body {
   display: flex;
   align-items: center;
 }
+
+.search-icon {
+  fill: #fff;
+  height: 30px;
+  width: 30px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 80%;
+  margin-left: 10px;
+  outline: none;
+}
 .name,
 .profession {
   color: #fff;
@@ -190,6 +203,13 @@ header .toggle {
   stroke: #000000;
 }
 
+.search-link {
+  width: 200px;
+  border-radius: 10px;
+  background-color: rgb(34, 43, 52);
+  height: 60px;
+}
+
 .nav-link {
   width: 200px;
   border-radius: 10px;
@@ -217,6 +237,48 @@ header .toggle {
   margin-right: 6px;
 }
 
+.bottom-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.bottom-content:hover {
+  background-color: #fca311;
+}
+
+.logout {
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+.logout-icon {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.menu-bar {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.bottom-content svg {
+  fill: #fff;
+}
+
+.bottom-content:hover svg {
+  fill: #000000;
+}
 /* ===Sidebar END=== */
 
 .income {
