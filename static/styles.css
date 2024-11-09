@@ -251,7 +251,10 @@ header .toggle {
 }
 
 .menu-bar {
-  height: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu {
@@ -269,7 +272,7 @@ header .toggle {
 }
 .bottom-content {
   height: auto;
-  width: 200px;
+  width: 250px;
 }
 
 .bottom-content a {
@@ -312,12 +315,51 @@ header .toggle {
   color: #fff;
 }
 
-.moon-sun {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 200px;
+.menu-bar .mode i {
+  position: absolute;
 }
+
+.menu-bar .mode .moon-sun {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+}
+
+.menu-bar .mode .moon {
+  opacity: 0;
+}
+
+.menu-bar .mode .toggle-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-width: 60px;
+}
+
+.toggle-switch .switch {
+  height: 22px;
+  width: 44px;
+  background-color: darkgrey;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch::before {
+  width: 15px;
+  height: 15px;
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  background-color: #fff;
+}
+
 /* ===Sidebar END=== */
 
 .income {
