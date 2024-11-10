@@ -8,11 +8,44 @@
 */
 
 body {
+  margin: 0;
+  height: 100vh;
   background-color: rgb(18, 23, 29);
+}
+
+body.light {
+  background-color: #f5f5f5;
   margin: 0;
   height: 100vh;
 }
 
+body.light .sidebar {
+  background-color: #808080;
+  transition: color 0.3s ease;
+}
+
+body.light .top-navbar-container {
+  background-color: #808080;
+  transition: color 0.3s ease;
+}
+
+body.light .second_main_container {
+  background-color: #808080;
+  transition: color 0.3s ease;
+}
+
+body.light .header_container {
+  background-color: #808080;
+}
+
+body.light form {
+  background-color: #808080;
+}
+
+body.light .text {
+  background-color: #808080;
+  transition: color 0.3s ease;
+}
 /* ===TOP Navbar start=== */
 
 .top-navbar-container {
@@ -105,6 +138,9 @@ body {
   height: 100%;
   width: 250px;
   background-color: rgb(34, 43, 52);
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+
   border-radius: 10px;
   padding: 10px 14px;
 }
@@ -227,6 +263,8 @@ header .toggle {
   border-radius: 10px;
   background-color: rgb(34, 43, 52);
   height: 60px;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .nav-link {
@@ -234,6 +272,7 @@ header .toggle {
   border-radius: 10px;
   background-color: rgb(34, 43, 52);
   height: 60px;
+  background-color: 0.3s ease, color 0.3s ease;
 }
 
 .nav-link:hover {
@@ -358,6 +397,14 @@ header .toggle {
   left: 5px;
   transform: translateY(-50%);
   background-color: #fff;
+}
+
+body.dark .switch::before {
+  left: 25px;
+}
+
+body.light .switch::after {
+  right: 25px;
 }
 
 /* ===Sidebar END=== */

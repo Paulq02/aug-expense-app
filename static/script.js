@@ -6,5 +6,5 @@ modeSwitch = body.querySelector(".toggle-switch");
 modeText = body.querySelector(".mode-text");
 
 modeSwitch.addEventListener("click", () => {
-  body.classList.toggle("dark");
+  body.classList.toggle("light");
 });
