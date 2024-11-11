@@ -24,14 +24,12 @@ body.light .sidebar {
   transition: color 0.3s ease;
 }
 
-body.light .top-navbar-container {
+body.light .text {
   background-color: #808080;
-  transition: color 0.3s ease;
 }
 
 body.light .second_main_container {
   background-color: #808080;
-  transition: color 0.3s ease;
 }
 
 body.light .header_container {
@@ -42,9 +40,13 @@ body.light form {
   background-color: #808080;
 }
 
-body.light .text {
+body.light .top-navbar-container {
   background-color: #808080;
-  transition: color 0.3s ease;
+}
+
+body.light .nav-link:hover span {
+  background-color: #fca311;
+  border-radius: 10px;
 }
 /* ===TOP Navbar start=== */
 
@@ -138,16 +140,13 @@ body.light .text {
   height: 100%;
   width: 250px;
   background-color: rgb(34, 43, 52);
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
+  transition: color 0.3s ease;
 
   border-radius: 10px;
+  border-top-left-radius: 0px;
   padding: 10px 14px;
 }
 
-.sidebar {
-  transition: 0.3s ease;
-}
 .sidebar header {
   position: relative;
 }
@@ -326,6 +325,7 @@ header .toggle {
 .bottom-content a:hover {
   cursor: pointer;
   background-color: #fca311;
+  transition: 0.3s ease;
 }
 
 .bottom-content a:hover span {
@@ -366,10 +366,6 @@ header .toggle {
   width: 60px;
 }
 
-.menu-bar .mode .moon {
-  opacity: 0;
-}
-
 .menu-bar .mode .toggle-switch {
   display: flex;
   justify-content: center;
@@ -392,19 +388,41 @@ header .toggle {
   height: 15px;
   content: "";
   position: absolute;
-  border-radius: 50%;
   top: 50%;
-  left: 5px;
   transform: translateY(-50%);
+  left: 3px;
+
+  border-radius: 50%;
+
+  background-color: black;
+}
+
+.light .switch::before {
+  left: 25px;
   background-color: #fff;
 }
 
-body.dark .switch::before {
-  left: 25px;
+.light-span {
+  display: none;
 }
 
-body.light .switch::after {
-  right: 25px;
+.light .light-span {
+  display: inline;
+}
+
+.light .dark-span {
+  display: none;
+}
+
+.dark .moon-icon {
+  opacity: 0;
+}
+
+.light .moon-icon {
+  opacity: 1;
+}
+.light .sun-icon {
+  opacity: 0;
 }
 
 /* ===Sidebar END=== */
