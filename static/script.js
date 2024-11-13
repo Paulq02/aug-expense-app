@@ -8,3 +8,7 @@ modeText = body.querySelector(".mode-text");
 modeSwitch.addEventListener("click", () => {
   body.classList.toggle("light");
 });
+
+toggle.addEventListener("click", () => {
+  sidebar.classList.toggle("close");
+});

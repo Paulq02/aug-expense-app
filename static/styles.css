@@ -48,6 +48,11 @@ body.light .nav-link:hover span {
   background-color: #fca311;
   border-radius: 10px;
 }
+
+body.light .nav-link {
+  background: #808080;
+}
+
 /* ===TOP Navbar start=== */
 
 .top-navbar-container {
@@ -135,7 +140,7 @@ body.light .nav-link:hover span {
 /* ===Sidebar START=== */
 
 .sidebar {
-  position: fixed;
+  position: absolute;
 
   height: 100%;
   width: 250px;
@@ -147,6 +152,33 @@ body.light .nav-link:hover span {
   padding: 10px 14px;
 }
 
+.sidebar.close {
+  width: 78px;
+}
+
+.sidebar.close .nav-text {
+  opacity: 0;
+}
+
+.sidebar.close .header-text {
+  opacity: 0;
+}
+
+.sidebar.close .image {
+  justify-content: flex-end;
+}
+
+.sidebar.close .search-input {
+  display: none;
+}
+
+.sidebar.close .nav-text {
+  display: none;
+}
+
+.sidebar.close .nav-link {
+  width: 78px;
+}
 .sidebar header {
   position: relative;
 }
@@ -202,6 +234,7 @@ header .toggle {
   right: -30px;
   top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
 }
 /*
 .toggle-button {
@@ -242,7 +275,7 @@ header .toggle {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-  width: 200px;
+  width: 180px;
   height: 60px;
   display: flex;
   justify-content: center;
@@ -302,11 +335,10 @@ header .toggle {
   justify-content: space-between;
   align-items: center;
 }
-.sidebar-icon {
+.sidebar .sidebar-icon {
   stroke: #fff;
-  height: 30px;
-  width: 30px;
-  margin-right: 6px;
+  height: 35px;
+  width: 35px;
 }
 .bottom-content {
   height: auto;
