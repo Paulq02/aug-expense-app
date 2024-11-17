@@ -14,42 +14,50 @@ body {
 }
 
 body.light {
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   margin: 0;
   height: 100vh;
 }
 
 body.light .sidebar {
-  background-color: #808080;
+  background-color: #edf2f7;
   transition: color 0.3s ease;
 }
 
-.body.light .nav-link:hover .nav-text {
-  background-color: #fca311;
+body.light .nav-text {
+  color: #2d3748;
+}
+
+body.light .nav-link {
+  background-color: #e4e5f1;
+}
+
+body.light .nav-link:hover {
+  background-color: #2b6cb0;
 }
 
 body.light .second_main_container {
-  background-color: #808080;
+  background-color: #edf2f7;
 }
 
 body.light .header_container {
-  background-color: #808080;
+  background-color: #edf2f7;
 }
 
 body.light form {
-  background-color: #808080;
+  background-color: #edf2f7;
 }
 
 body.light .top-navbar-container {
-  background-color: #808080;
+  background-color: #edf2f7;
+}
+
+body.light .paul a {
+  color: #2d3748;
 }
 
 body.light .nav-link:hover span {
   border-radius: 10px;
-}
-
-body.light .nav-link {
-  background: #808080;
 }
 
 /* ===TOP Navbar start=== */
@@ -69,11 +77,11 @@ body.light .nav-link {
   margin: 0 0;
 }
 
-.top-navbar-container .top-navbar a {
+body.light .top-navbar-container .top-navbar a {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #fff;
+  color: #2d3748;
 }
 
 .paul {
@@ -125,15 +133,24 @@ body.light .nav-link {
   border-radius: 10px;
   width: 80px;
   height: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
-.top-navbar a:hover,
-.paul a:hover {
-  color: rgb(34, 43, 52);
-
-  background-color: #fca311;
-  transition: 0.3s;
+body.light .paul:hover a {
+  background-color: #2b6cb0;
 }
+
+body.light .top-navbar:hover a {
+  background-color: #2b6cb0;
+  color: #ffffff;
+}
+
+body.light .paul:hover a {
+  color: #ffffff;
+}
+
 /* ===TOP Navbar END=== */
 
 /* ===Sidebar START=== */
@@ -215,8 +232,11 @@ body.light .nav-link {
 
 .search-icon {
   fill: #fff;
-  height: 30px;
-  width: 30px;
+  font-size: 35px;
+}
+
+body.light .search-icon {
+  color: #2d3748;
 }
 
 .search-box input {
@@ -309,7 +329,15 @@ header .toggle {
 
 .home-icon {
   font-size: 35px;
-  color: #fff;
+  color: #484b6a;
+}
+
+body.light .home-icon {
+  color: #2d3748;
+}
+
+body.light .sidebar a:hover .home-icon {
+  color: #ffffff;
 }
 .nav-link:hover .home-icon {
   color: #000000;
@@ -343,7 +371,8 @@ header .toggle {
   align-items: center;
   text-decoration: none;
   width: 200px;
-  height: 50px;
+  height: 60px;
+  border-radius: 10px;
 }
 
 .menu-bar {
@@ -364,6 +393,14 @@ header .toggle {
   stroke: #fff;
   height: 35px;
   width: 35px;
+}
+
+body.light .sidebar .sidebar-icon {
+  stroke: #2d3748;
+}
+
+body.light .sidebar a:hover .sidebar-icon {
+  stroke: #ffffff;
 }
 .bottom-content {
   height: auto;
@@ -392,6 +429,10 @@ header .toggle {
   color: #fff;
   font-size: 35px;
   margin-right: 6px;
+}
+
+body.light .bottom-content .logout-icon {
+  color: #2d3748;
 }
 
 .bottom-content a:hover .logout-icon {
@@ -459,16 +500,8 @@ header .toggle {
   background-color: #fff;
 }
 
-.light .sidebar.close .nav-link:hover {
-  background-color: #fca311;
-}
-
 .light-span {
   display: none;
-}
-
-.light .nav-link:hover {
-  background-color: #fca311;
 }
 
 .light .light-span {
@@ -536,6 +569,10 @@ h1 {
   height: 250px;
 }
 
+body.light .header_container h1 {
+  color: #2d3748;
+}
+
 .header_container h1 {
   margin-top: 0px;
   margin-bottom: 50px;
@@ -579,6 +616,13 @@ label {
   margin-left: 30px;
 }
 
+body.light label {
+  color: #2d3748;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 input {
   margin-left: 20px;
   height: 25px;
@@ -596,6 +640,7 @@ input {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  background-color: #ffffff;
 }
 
 #select-category option {
@@ -751,12 +796,12 @@ p {
 .icon {
   height: 30px;
 }
-
+/*
 thead {
   background: rgba(113, 99, 186, 255);
   color: #fff;
 }
-
+*/
 th {
   padding: 15px;
   background-color: rgb(26, 35, 44);
@@ -915,10 +960,11 @@ tfoot td {
 .confirmation_container {
   display: none;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.5);
+
   width: 100%;
   z-index: 1;
   justify-content: center;
+  background: transparent;
 }
 
 .edit-name-button,
@@ -974,6 +1020,12 @@ tfoot td {
 .cancel-icon {
   height: 20px;
   width: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.cancel-svg {
+  height: 20px;
+  width: 20px;
 }
 /* =========================================================================== */
 /* EDIT */
@@ -990,10 +1042,11 @@ tfoot td {
   flex-direction: column;
   width: 500px;
   height: 290px;
-  border: solid black 5px;
+  border: solid #fff 8px;
   border-radius: 6px;
   background-color: #fff;
   justify-content: end;
+  background-color: rgb(34, 43, 52);
 }
 
 .prompt {
@@ -1029,13 +1082,14 @@ tfoot td {
 }
 
 .expense_details p {
-  color: black;
+  color: #fff;
   padding: 0;
   margin: 0;
   font-size: 1.5rem;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  text-transform: capitalize;
 }
 
 .btn_container {

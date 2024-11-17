@@ -36,7 +36,7 @@
     />
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </head>
-  <body class="dark">
+  <body>
     <nav class="top-navbar-container">
       <li class="paul"><a href="#">Expense Tracker</a></li>
       <li class="top-navbar"><a href="{{url_for('home_page')}}">Home</a></li>
@@ -60,7 +60,7 @@
         <div class="menu">
           <ul class="menu-links">
             <li class="search-box">
-              <img class="search-icon" src="../static/images/search-icon.png" />
+              <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
                 type="search"
@@ -358,6 +358,6 @@
       });
     </script>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="../static/script.js"></script>
   </body>
 </html>
