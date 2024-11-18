@@ -36,6 +36,10 @@ body.light .nav-link:hover {
   background-color: #2b6cb0;
 }
 
+body.light .nav-link:hover .nav-text {
+  color: #ffffff;
+}
+
 body.light .second_main_container {
   background-color: #edf2f7;
 }
@@ -118,6 +122,16 @@ body.light .top-navbar-container .top-navbar a {
   align-items: center;
 }
 
+.top-navbar a:hover {
+  background-color: #fca311;
+  color: #000000;
+}
+
+.paul a:hover {
+  background-color: #fca311;
+  color: #000000;
+}
+
 .top-navbar {
   border-radius: 10px;
   height: 30px;
@@ -188,6 +202,27 @@ body.light .paul:hover a {
   display: none;
 }
 
+.search-box:hover {
+  background-color: #fca311;
+}
+
+.search-box:hover .search-icon {
+  color: #000000;
+}
+
+body.light .sidebar.close .search-box {
+  width: 78px;
+  height: 60px;
+  background-color: #e4e5f1;
+}
+
+body.light .sidebar.close .search-box:hover {
+  background-color: #2b6cb0;
+}
+
+body.light .sidebar.close .search-box:hover .search-icon {
+  color: #ffffff;
+}
 .sidebar.close .nav-text {
   display: none;
 }
@@ -231,7 +266,7 @@ body.light .paul:hover a {
 }
 
 .search-icon {
-  fill: #fff;
+  color: #ffffff;
   font-size: 35px;
 }
 
@@ -247,10 +282,15 @@ body.light .search-icon {
 }
 .name,
 .profession {
-  color: #fff;
+  color: #ffffff;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+body.light .name,
+.profession {
+  color: #2d3748;
 }
 
 header .image-text .header-text {
@@ -291,6 +331,7 @@ header .toggle {
 .sidebar li {
   list-style: none;
   height: 60px;
+  width: 78px;
   margin-top: 10px;
   border-radius: 10px;
   display: flex;
@@ -329,7 +370,7 @@ header .toggle {
 
 .home-icon {
   font-size: 35px;
-  color: #484b6a;
+  color: #ffffff;
 }
 
 body.light .home-icon {
@@ -402,7 +443,8 @@ body.light .sidebar .sidebar-icon {
 body.light .sidebar a:hover .sidebar-icon {
   stroke: #ffffff;
 }
-.bottom-content {
+
+.edit-icon .bottom-content {
   height: auto;
   width: 250px;
 }
@@ -416,17 +458,28 @@ body.light .sidebar a:hover .sidebar-icon {
   border-radius: 10px;
 }
 
-.bottom-content a:hover {
-  cursor: pointer;
+.bottom-content .bottom-list:hover {
   background-color: #fca311;
-  transition: 0.3s ease;
+}
+
+.bottom-content .bottom-list:hover .logout-icon {
+  color: #000000;
+}
+
+body.light .bottom-list {
+  background-color: #e4e5f1;
+}
+
+body.light .bottom-content a:hover {
+  cursor: pointer;
+  background-color: #2b6cb0;
 }
 
 .bottom-content a:hover span {
   color: #000000;
 }
 .bottom-content .logout-icon {
-  color: #fff;
+  color: #ffffff;
   font-size: 35px;
   margin-right: 6px;
 }
@@ -434,11 +487,13 @@ body.light .sidebar a:hover .sidebar-icon {
 body.light .bottom-content .logout-icon {
   color: #2d3748;
 }
-
-.bottom-content a:hover .logout-icon {
-  color: #000000;
+body.light .bottom-content a:hover .logout-icon {
+  color: #ffffff;
 }
 
+body.light .bottom-content a:hover span {
+  color: #ffffff;
+}
 .bottom-content span {
   color: #fff;
   font-family: "Roboto", sans-serif;
@@ -446,10 +501,18 @@ body.light .bottom-content .logout-icon {
   font-style: normal;
 }
 
+body.light .bottom-content span {
+  color: #2d3748;
+}
+
 .bottom-content .moon-icon,
 .bottom-content .sun-icon {
   font-size: 30px;
   color: #fff;
+}
+
+body.light .sun-icon {
+  color: #2d3748;
 }
 
 .menu-bar .mode i {
@@ -481,6 +544,10 @@ body.light .bottom-content .logout-icon {
   cursor: pointer;
 }
 
+body.light .toggle-switch .switch {
+  background-color: #e4e5f1;
+}
+
 .switch::before {
   width: 15px;
   height: 15px;
@@ -495,9 +562,9 @@ body.light .bottom-content .logout-icon {
   background-color: black;
 }
 
-.light .switch::before {
+body.light .switch::before {
   left: 25px;
-  background-color: #fff;
+  background-color: #2d3748;
 }
 
 .light-span {
@@ -512,10 +579,10 @@ body.light .bottom-content .logout-icon {
   display: none;
 }
 
-.dark .moon-icon {
+.moon-icon {
   opacity: 1;
 }
-.dark .sun-icon {
+.sun-icon {
   opacity: 0;
 }
 
