@@ -9,14 +9,14 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  display: block;
   background-color: rgb(18, 23, 29);
 }
 
 body.light {
   background-color: #ffffff;
   margin: 0;
-  height: 100vh;
+  display: block;
 }
 
 body.light .sidebar {
@@ -202,11 +202,13 @@ body.light .paul:hover a {
   display: none;
 }
 
-.search-box:hover {
+.sidebar.close .search-box:hover {
   background-color: #fca311;
 }
-
-.search-box:hover .search-icon {
+.sidebar.close .search-box {
+  width: 78px;
+}
+.sidebar.close .search-box:hover .search-icon {
   color: #000000;
 }
 
@@ -228,6 +230,10 @@ body.light .sidebar.close .search-box:hover .search-icon {
 }
 
 .sidebar.close .nav-link {
+  width: 78px;
+}
+
+.sidebar.close .menu-links {
   width: 78px;
 }
 
@@ -331,7 +337,7 @@ header .toggle {
 .sidebar li {
   list-style: none;
   height: 60px;
-  width: 78px;
+  width: 200px;
   margin-top: 10px;
   border-radius: 10px;
   display: flex;
@@ -458,6 +464,14 @@ body.light .sidebar a:hover .sidebar-icon {
   border-radius: 10px;
 }
 
+.sidebar.close .bottom-content .bottom-list {
+  width: 78px;
+}
+
+.sidebar.close .bottom-content .mode {
+  width: 78px;
+}
+
 .bottom-content .bottom-list:hover {
   background-color: #fca311;
 }
@@ -524,7 +538,7 @@ body.light .sun-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
+  width: 50px;
 }
 
 .menu-bar .mode .toggle-switch {
