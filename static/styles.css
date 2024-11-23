@@ -797,21 +797,10 @@ p {
   display: flex;
   justify-content: space-around;
 }
-/*
-.money_in_container,
-.receipt_container,
-.money_out_container {
-  text-align: center;
-  background: #12161d;
-  border-radius: 10%;
-  min-width: 300px;
-  text-transform: capitalize;
-}
-*/
 
 .receipt_image_container img {
-  height: 60px;
-  width: 60px;
+  height: auto;
+  width: 4.3vw;
 }
 
 .money_in_container,
@@ -820,9 +809,7 @@ p {
   display: flex;
 
   height: 100px;
-  width: 320px;
-
-  justify-content: space-between;
+  width: 20vw;
 }
 
 .money_in_image_container,
@@ -833,30 +820,32 @@ p {
   justify-content: center;
   align-items: center;
   height: 100px;
-  width: 90px;
+  width: 70px;
   border-top-left-radius: 10px; /* Top-right corner */
   border-bottom-left-radius: 10px;
 }
 
 .details_container {
   display: flex;
+
   flex-direction: column;
   justify-content: center;
   background-color: rgb(26, 35, 44);
   border-top-right-radius: 10px; /* Top-right corner */
   border-bottom-right-radius: 10px;
-  width: 100%;
+
   align-items: center;
+  flex: 1;
 }
 
 .money_in_image_container i {
   color: green;
-  font-size: 60px;
+  font-size: 4.5vw;
 }
 
 .money_out_image_container i {
   color: red;
-  font-size: 60px;
+  font-size: 4.5vw;
 }
 
 .monthly {
@@ -865,7 +854,7 @@ p {
 
 .monthly_details {
   margin-top: 8px;
-  font-size: 2rem;
+  font-size: 1.79vw;
   margin-bottom: 16px;
 }
 
@@ -983,8 +972,14 @@ tfoot td {
   border-radius: 10px;
   background: #12161d;
   padding: 20px;
-  width: 100;
-  column-gap: 60px;
+  width: 100%;
+}
+
+.money_container {
+  display: flex;
+  width: 100%;
+  column-gap: 20px;
+  justify-content: center;
 }
 
 .entries {

@@ -194,37 +194,38 @@
         </div>
       </div>
     </nav>
-
     <div class="summary_container">
-      <div class="money_in_container">
-        <div class="money_in_image_container">
-          <i class="fa-solid fa-dollar-sign fa-2xl green_money_icon"></i>
+      <div class="money_container">
+        <div class="money_in_container">
+          <div class="money_in_image_container">
+            <i class="fa-solid fa-dollar-sign fa-2xl green_money_icon"></i>
+          </div>
+          <div class="details_container">
+            <p class="monthly">Monthly Income</p>
+            <p class="monthly_details">${{ "{:.2f}".format(income) }}</p>
+          </div>
         </div>
-        <div class="details_container">
-          <p class="monthly">Monthly Income</p>
-          <p class="monthly_details">${{ "{:.2f}".format(income) }}</p>
+        <div class="money_out_container">
+          <div class="money_out_image_container">
+            <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
+          </div>
+          <div class="details_container">
+            <p class="monthly">Monthly Expenses</p>
+            <p class="monthly_details">${{ "{:.2f}".format(my_expenses) }}</p>
+          </div>
         </div>
-      </div>
-      <div class="money_out_container">
-        <div class="money_out_image_container">
-          <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
-        </div>
-        <div class="details_container">
-          <p class="monthly">Monthly Expenses</p>
-          <p class="monthly_details">${{ "{:.2f}".format(my_expenses) }}</p>
-        </div>
-      </div>
 
-      <div class="receipt_container">
-        <div class="receipt_image_container">
-          <img
-            src="../static/images/receipt_logo.png"
-            alt="picture of receipt"
-          />
-        </div>
-        <div class="details_container">
-          <p class="monthly">Monthly Entries</p>
-          <p class="monthly_details">{{ entries }}</p>
+        <div class="receipt_container">
+          <div class="receipt_image_container">
+            <img
+              src="../static/images/receipt_logo.png"
+              alt="picture of receipt"
+            />
+          </div>
+          <div class="details_container">
+            <p class="monthly">Monthly Entries</p>
+            <p class="monthly_details">{{ entries }}</p>
+          </div>
         </div>
       </div>
     </div>
