@@ -43,7 +43,7 @@
       <li class="top-navbar"><a href="#">Profile</a></li>
       <li class="top-navbar"><a href="#">Logout</a></li>
     </nav>
-    <nav class="sidebar close" id="sidebar">
+    <nav class="close">
       <header>
         <div class="image-text" id="image-text">
           <span class="image">
@@ -201,7 +201,7 @@
             <i class="fa-solid fa-dollar-sign fa-2xl green_money_icon"></i>
           </div>
           <div class="details_container">
-            <p class="monthly">Monthly Income</p>
+            <p class="monthly">Income</p>
             <p class="monthly_details">${{ "{:.2f}".format(income) }}</p>
           </div>
         </div>
@@ -210,7 +210,7 @@
             <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
           </div>
           <div class="details_container">
-            <p class="monthly">Monthly Expenses</p>
+            <p class="monthly">Expenses</p>
             <p class="monthly_details">${{ "{:.2f}".format(my_expenses) }}</p>
           </div>
         </div>
@@ -223,7 +223,7 @@
             />
           </div>
           <div class="details_container">
-            <p class="monthly">Monthly Entries</p>
+            <p class="monthly">Entries</p>
             <p class="monthly_details">{{ entries }}</p>
           </div>
         </div>
@@ -233,11 +233,11 @@
       <table>
         <thead class="table-head">
           <tr>
-            <th>expense name</th>
-            <th>expense cost</th>
-            <th>expense date</th>
-            <th>Delete Expense</th>
-            <th>Edit expense</th>
+            <th>name</th>
+            <th>cost</th>
+            <th>date</th>
+            <th>Delete</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -384,7 +384,7 @@
               </div>
             </div>
           </td>
-          <td>
+          <td class="delete-table-container">
             <button
               class="button_icon"
               onclick="deleteFunction({{loop.index0}})"
@@ -395,7 +395,7 @@
               />
             </button>
           </td>
-          <td>
+          <td class="edit-table-container">
             <button
               class="main-edit-button"
               type="button"
@@ -667,6 +667,6 @@
         });
       });
     </script>
-    <script src="../static/script.js"></script>
+    <script src="../static/new_js.js"></script>
   </body>
 </html>
