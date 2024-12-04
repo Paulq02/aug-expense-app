@@ -10,7 +10,10 @@
 body {
   margin: 0;
   display: block;
+  /*
   background-color: rgb(18, 23, 29);
+  */
+  background-color: #000000;
 }
 
 body.light {
@@ -83,7 +86,10 @@ body.light .nav-link:hover span {
 /* ===TOP Navbar start=== */
 
 .top-navbar-container {
+  /*
   background-color: rgb(34, 43, 52);
+  */
+  background-color: #bb86fc;
   display: flex;
   height: 60px;
   list-style: none;
@@ -101,7 +107,9 @@ body.light .top-navbar-container .top-navbar a {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  /*
   color: #2d3748;
+  */
 }
 
 .paul {
@@ -123,7 +131,7 @@ body.light .top-navbar-container .top-navbar a {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #fff;
+  color: #121212;
   border-radius: 10px;
   width: 140px;
   height: 30px;
@@ -159,7 +167,7 @@ body.light .top-navbar-container .top-navbar a {
 
 .top-navbar a {
   text-decoration: none;
-  color: #fff;
+  color: #121212;
   border-radius: 10px;
   width: 80px;
   height: 30px;
@@ -204,7 +212,10 @@ body.light .paul:hover a {
 
   height: 100%;
   width: 78px;
+  /*
   background-color: rgb(34, 43, 52);
+  */
+  background-color: #121212;
   transition: color 0.3s ease;
 
   border-radius: 10px;
@@ -282,7 +293,7 @@ header .image-text .header-text {
 }
 
 header .toggle {
-  background-color: #fca311;
+  background-color: #bb86fc;
   border-radius: 50%;
   position: absolute;
   display: flex;
@@ -703,11 +714,15 @@ input {
   margin-top: 12px;
 }
 
-p {
+body.dark .monthly {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
   color: #fff;
+}
+
+body.light .monthly {
+  color: #2d3748;
 }
 
 .profile_logo {
@@ -770,9 +785,9 @@ p {
   min-width: 150px;
 }
 
-.money_in_image_container,
-.money_out_image_container,
-.receipt_image_container {
+body.dark .money_in_image_container,
+body.dark .money_out_image_container,
+body.dark .receipt_image_container {
   background-color: rgb(34, 43, 52);
   display: flex;
   justify-content: center;
@@ -781,6 +796,12 @@ p {
   width: 70px;
   border-top-left-radius: 10px; /* Top-right corner */
   border-bottom-left-radius: 10px;
+}
+
+body.light .money_in_image_container,
+body.light .money_out_image_container,
+body.light .receipt_image_container {
+  background-color: #e4e5f1;
 }
 
 .details_container {
@@ -794,6 +815,10 @@ p {
 
   align-items: center;
   flex: 1;
+}
+
+body.light .details_container {
+  background-color: #e4e5f1;
 }
 
 .money_in_image_container i {
@@ -818,6 +843,17 @@ p {
   margin-bottom: 16px;
 }
 
+body.dark .monthly_details {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #fff;
+}
+
+body.light .monthly_details {
+  color: #2d3748;
+}
+
 .money_out_container img {
   width: 37.5px;
   height: 63px;
@@ -832,16 +868,24 @@ thead {
   color: #fff;
 }
 */
-th {
+body.dark th {
   padding: 15px 10px;
+  /*
   background-color: rgb(26, 35, 44);
-  color: #fff;
+  */
+  background-color: #bb86fc;
+  color: #121212;
 
   text-align: left;
   text-transform: capitalize;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+body.light th {
+  background-color: #e4e5f1;
+  color: #2d3748;
 }
 
 table {
@@ -908,16 +952,34 @@ body.dark tbody:nth-child(odd) {
   background-color: rgb(34, 43, 52);
 }
 
+body.light tbody:nth-child(even) {
+  background-color: #ffffff;
+}
+body.light tbody:nth-child(odd) {
+  background-color: #e4e5f1;
+}
+
 body.dark .name-container {
   color: #fff;
 }
 
+body.light .name-container {
+  color: #2d3748;
+}
 body.dark .cost-container {
   color: #fff;
 }
 
+body.light .cost-container {
+  color: #2d3748;
+}
+
 body.dark .date-container {
   color: #fff;
+}
+
+body.light .date-container {
+  color: #2d3748;
 }
 
 tfoot {
@@ -937,9 +999,16 @@ tfoot td {
   margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
+  /*
   background: #12161d;
+  */
+  background-color: #000000;
   padding: 20px;
   width: 100%;
+}
+
+body.light .summary_container {
+  background-color: #ffffff;
 }
 
 .money_container {
@@ -954,17 +1023,24 @@ tfoot td {
   color: #fff;
 }
 
-.expense_data_container {
+body.dark .expense_data_container {
   display: flex;
   justify-content: center;
   height: auto;
+  /*
   background: rgb(18, 23, 29);
+  */
+  background-color: #000000;
   margin-top: 1rem;
   border-radius: 10px;
   padding: 20px;
   width: 100%;
   margin-right: 0;
   margin-left: auto;
+}
+
+body.light .expense_data_container {
+  background-color: #ffffff;
 }
 
 .button_icon:hover {
