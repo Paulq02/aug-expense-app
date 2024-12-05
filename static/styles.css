@@ -17,30 +17,36 @@ body {
 }
 
 body.light {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
   margin: 0;
   display: block;
 }
 
 body.light .close.sidebar {
-  background-color: #edf2f7;
+  background-color: #ffffff;
   transition: color 0.3s ease;
 }
 
 body.light .close {
-  background-color: #edf2f7;
+  background-color: #ffffff;
   transition: color 0.3s ease;
 }
 body.light .nav-text {
-  color: #2d3748;
+  color: #000000;
 }
 
 body.light .nav-link {
+  /*
   background-color: #e4e5f1;
+  */
+  background-color: #ffffff;
 }
 
 body.dark.light .nav-link:hover {
+  /*
   background-color: #2b6cb0;
+  */
+  background-color: #bb86fc;
 }
 
 body.light .nav-link:hover .home-icon {
@@ -72,11 +78,17 @@ body.light form {
 }
 
 body.light .top-navbar-container {
+  /*
   background-color: #edf2f7;
+  */
+  background-color: #bb86fc;
 }
 
 body.light .paul a {
+  /*
   color: #2d3748;
+  */
+  color: #ffffff;
 }
 
 body.light .nav-link:hover span {
@@ -147,13 +159,19 @@ body.light .top-navbar-container .top-navbar a {
 }
 
 .top-navbar a:hover {
+  /*
   background-color: #fca311;
-  color: #000000;
+  */
+  background-color: #121212;
+  color: #bb86fc;
 }
 
 .paul a:hover {
+  /*
   background-color: #fca311;
-  color: #000000;
+  */
+  background-color: #121212;
+  color: #bb86fc;
 }
 
 .top-navbar {
@@ -176,17 +194,29 @@ body.light .top-navbar-container .top-navbar a {
   font-style: normal;
 }
 
+body.light .top-navbar a {
+  color: #ffffff;
+}
+
 body.light .paul:hover a {
   background-color: #2b6cb0;
 }
 
 body.light .top-navbar:hover a {
+  /*
   background-color: #2b6cb0;
   color: #ffffff;
+  */
+  background-color: #ffffff;
+  color: #bb86fc;
 }
 
 body.light .paul:hover a {
+  /*
   color: #ffffff;
+  */
+  background-color: #ffffff;
+  color: #bb86fc;
 }
 
 /* ===TOP Navbar END=== */
@@ -198,7 +228,7 @@ body.light .paul:hover a {
 
   height: 100%;
   width: 250px;
-  background-color: rgb(34, 43, 52);
+  background-color: #121212;
   transition: color 0.3s ease;
 
   border-radius: 10px;
@@ -234,9 +264,17 @@ body.light .paul:hover a {
 .sidebar header {
   position: relative;
 }
-.sidebar .image-text img {
+body.dark .sidebar .image-text .dark-mode-et {
   width: 40px;
   border-radius: 5px;
+}
+
+body.dark .sidebar .image-text .light-mode-et {
+  display: none;
+}
+
+body.light .sidebar .image-text .dark-mode-et {
+  display: none;
 }
 
 .sidebar header .image-text {
@@ -261,7 +299,10 @@ body.light .paul:hover a {
 }
 
 body.light .search-icon {
+  /*
   color: #2d3748;
+  */
+  color: #000000;
 }
 
 .open-search-box input {
@@ -284,7 +325,7 @@ body.light .search-icon {
 
 body.light .name,
 .profession {
-  color: #2d3748;
+  color: #000000;
 }
 
 header .image-text .header-text {
@@ -358,7 +399,10 @@ body.dark .nav-link:hover .sidebar-icon {
 }
 
 body.light .home-icon {
+  /*
   color: #2d3748;
+  */
+  color: #000000;
 }
 
 body.light .sidebar a:hover .home-icon {
@@ -371,14 +415,20 @@ body.light .sidebar a:hover .home-icon {
 .nav-link {
   width: 200px;
   border-radius: 10px;
+  /*
   background-color: rgb(34, 43, 52);
+  */
+  background-color: #121212;
   height: 60px;
   background-color: 0.3s ease, color 0.3s ease;
 }
 
 .nav-link:hover {
   transition: 0.3s;
+  /*
   background-color: #fca311;
+  */
+  background-color: #bb86fc;
 }
 
 .nav-link a {
@@ -413,7 +463,7 @@ body.dark .sidebar .sidebar-icon {
 }
 
 body.light .sidebar .sidebar-icon {
-  stroke: #2d3748;
+  stroke: #000000;
 }
 
 body.light .sidebar a:hover .sidebar-icon {
@@ -435,7 +485,10 @@ body.light .sidebar a:hover .sidebar-icon {
 }
 
 body.dark .bottom-list:hover {
+  /*
   background-color: #fca311;
+  */
+  background-color: #bb86fc;
 }
 
 body.dark .bottom-list:hover .logout-text {
@@ -443,7 +496,7 @@ body.dark .bottom-list:hover .logout-text {
 }
 
 body.dark.light .logout-text {
-  color: #2d3748;
+  color: #000000;
 }
 
 .bottom-content .bottom-list:hover .logout-icon {
@@ -451,12 +504,15 @@ body.dark.light .logout-text {
 }
 
 body.light .bottom-list {
-  background-color: #e4e5f1;
+  background-color: #ffffff;
 }
 
 body.light .close .bottom-content .bottom-list:hover {
   cursor: pointer;
+  /*
   background-color: #2b6cb0;
+  */
+  background-color: #bb86fc;
 }
 
 body.light .close .bottom-content .bottom-list:hover .logout-icon {
@@ -477,7 +533,7 @@ body.dark.light .close.sidebar .bottom-list:hover .logout-text {
 }
 
 body.light .bottom-content .logout-icon {
-  color: #2d3748;
+  color: #000000;
 }
 body.light .bottom-content a:hover .logout-icon {
   color: #ffffff;
@@ -495,17 +551,17 @@ body.light .bottom-content a:hover span {
 }
 
 body.light .bottom-content span {
-  color: #2d3748;
+  color: #000000;
 }
 
 .bottom-content .moon-icon,
 .bottom-content .sun-icon {
   font-size: 30px;
-  color: #fff;
+  color: #ffffff;
 }
 
 body.light .sun-icon {
-  color: #2d3748;
+  color: #000000;
 }
 
 .menu-bar .mode i {
@@ -531,7 +587,7 @@ body.light .sun-icon {
 .toggle-switch .switch {
   height: 22px;
   width: 44px;
-  background-color: darkgrey;
+  background-color: #ffffff;
   border-radius: 25px;
   position: relative;
   cursor: pointer;
@@ -552,12 +608,12 @@ body.dark .switch::before {
 
   border-radius: 50%;
 
-  background-color: black;
+  background-color: #000000;
 }
 
 .toggle-switch.light .switch::before {
   left: 25px;
-  background-color: #2d3748;
+  background-color: #000000;
 }
 
 .light-span {
@@ -630,7 +686,7 @@ h1 {
 }
 
 body.light .header_container h1 {
-  color: #2d3748;
+  color: #000000;
 }
 
 .header_container h1 {
@@ -666,7 +722,7 @@ label {
 }
 
 body.light label {
-  color: #2d3748;
+  color: #000000;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -722,7 +778,11 @@ body.dark .monthly {
 }
 
 body.light .monthly {
+  /*
   color: #2d3748;
+  */
+  color: #000000;
+  color: #ffffff;
 }
 
 .profile_logo {
@@ -788,7 +848,10 @@ body.light .monthly {
 body.dark .money_in_image_container,
 body.dark .money_out_image_container,
 body.dark .receipt_image_container {
+  /*
   background-color: rgb(34, 43, 52);
+  */
+  background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -801,7 +864,10 @@ body.dark .receipt_image_container {
 body.light .money_in_image_container,
 body.light .money_out_image_container,
 body.light .receipt_image_container {
+  /*
   background-color: #e4e5f1;
+  */
+  background-color: #bb86fc;
 }
 
 .details_container {
@@ -809,7 +875,10 @@ body.light .receipt_image_container {
 
   flex-direction: column;
   justify-content: center;
+  /*
   background-color: rgb(26, 35, 44);
+  */
+  background-color: #121212;
   border-top-right-radius: 10px; /* Top-right corner */
   border-bottom-right-radius: 10px;
 
@@ -818,7 +887,10 @@ body.light .receipt_image_container {
 }
 
 body.light .details_container {
+  /*
   background-color: #e4e5f1;
+  */
+  background-color: #bb86fc;
 }
 
 .money_in_image_container i {
@@ -851,7 +923,7 @@ body.dark .monthly_details {
 }
 
 body.light .monthly_details {
-  color: #2d3748;
+  color: #ffffff;
 }
 
 .money_out_container img {
@@ -884,8 +956,12 @@ body.dark th {
 }
 
 body.light th {
+  /*
   background-color: #e4e5f1;
   color: #2d3748;
+  */
+  background-color: #bb86fc;
+  color: #ffffff;
 }
 
 table {
@@ -946,14 +1022,20 @@ button img {
 }
 
 body.dark tbody:nth-child(even) {
+  /*
   background-color: rgb(18, 23, 29);
+  */
+  background-color: #000000;
 }
 body.dark tbody:nth-child(odd) {
+  /*
   background-color: rgb(34, 43, 52);
+  */
+  background-color: #121212;
 }
 
 body.light tbody:nth-child(even) {
-  background-color: #ffffff;
+  background-color: #f1f1f1;
 }
 body.light tbody:nth-child(odd) {
   background-color: #e4e5f1;
@@ -964,14 +1046,14 @@ body.dark .name-container {
 }
 
 body.light .name-container {
-  color: #2d3748;
+  color: #000000;
 }
 body.dark .cost-container {
   color: #fff;
 }
 
 body.light .cost-container {
-  color: #2d3748;
+  color: #000000;
 }
 
 body.dark .date-container {
@@ -979,7 +1061,7 @@ body.dark .date-container {
 }
 
 body.light .date-container {
-  color: #2d3748;
+  color: #000000;
 }
 
 tfoot {
@@ -1008,7 +1090,7 @@ tfoot td {
 }
 
 body.light .summary_container {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 }
 
 .money_container {
@@ -1040,7 +1122,7 @@ body.dark .expense_data_container {
 }
 
 body.light .expense_data_container {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 }
 
 .button_icon:hover {
@@ -1355,7 +1437,9 @@ body.light .expense_data_container {
 body.light .close .close-search-box {
   width: 78px;
   height: 60px;
+  /*
   background-color: #e4e5f1;
+  */
 }
 
 body.light .close.sidebar .open-search-box {
@@ -1363,7 +1447,10 @@ body.light .close.sidebar .open-search-box {
 }
 
 body.dark.light .close .open-search-box.close-search-box:hover {
+  /*
   background-color: #2b6cb0;
+  */
+  background-color: #bb86fc;
 }
 
 body.dark.light .close .open-search-box.close-search-box:hover .search-icon {
@@ -1371,7 +1458,10 @@ body.dark.light .close .open-search-box.close-search-box:hover .search-icon {
 }
 
 body.dark .close .open-search-box.close-search-box:hover {
+  /*
   background-color: #fca311;
+  */
+  background-color: #bb86fc;
 }
 
 body.dark .close .open-search-box.close-search-box:hover .search-icon {
@@ -1441,7 +1531,7 @@ body.dark.light .close.sidebar .light-span {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #2d3748;
+  color: #000000;
 }
 
 .close .logout-text {
@@ -1488,9 +1578,21 @@ body.dark.light .close.sidebar .light-span {
 .close header {
   position: relative;
 }
-.close .image-text img {
+body.dark .close .image-text .dark-mode-et {
   width: 40px;
   border-radius: 5px;
+}
+
+body.dark .close .image-text .light-mode-et {
+  display: none;
+}
+
+body.light .close .image-text .light-mode-et {
+  display: block;
+}
+
+body.light .close .image-text .dark-mode-et {
+  display: none;
 }
 
 .close header .image-text {
@@ -1521,11 +1623,14 @@ body.dark .sidebar-icon {
 }
 
 body.light .sidebar-icon {
+  /*
   stroke: #2d3748;
+  */
+  stroke: #000000;
 }
 
 body.light .close.sidebar .nav-text {
-  color: #2d3748;
+  color: #000000;
 }
 
 body.light .nav-link:hover .nav-text {
