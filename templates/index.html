@@ -209,7 +209,7 @@
           <div class="money_in_image_container">
             <i class="fa-solid fa-dollar-sign fa-2xl green_money_icon"></i>
           </div>
-          <div class="details_container">
+          <div class="details_container money_in">
             <p class="monthly">Income</p>
             <p class="monthly_details">${{ "{:.2f}".format(income) }}</p>
           </div>
@@ -218,7 +218,7 @@
           <div class="money_out_image_container">
             <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
           </div>
-          <div class="details_container">
+          <div class="details_container money_out">
             <p class="monthly">Expenses</p>
             <p class="monthly_details">${{ "{:.2f}".format(my_expenses) }}</p>
           </div>
@@ -226,12 +226,21 @@
 
         <div class="receipt_container">
           <div class="receipt_image_container">
-            <img
-              src="../static/images/receipt_logo.png"
-              alt="picture of receipt"
-            />
+            <svg
+              class="receipt-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="currentColor"
+            >
+              <path
+                d="M21 11h-3V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14c0 1.654 1.346 3 3 3h14c1.654 0 3-1.346 3-3v-6a1 1 0 0 0-1-1zM5 19a1 1 0 0 1-1-1V5h12v13c0 .351.061.688.171 1H5zm15-1a1 1 0 0 1-2 0v-5h2v5z"
+              ></path>
+              <path d="M6 7h8v2H6zm0 4h8v2H6zm5 4h3v2h-3z"></path>
+            </svg>
           </div>
-          <div class="details_container">
+          <div class="details_container receipt">
             <p class="monthly">Entries</p>
             <p class="monthly_details">{{ entries }}</p>
           </div>

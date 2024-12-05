@@ -88,7 +88,7 @@ body.light .paul a {
   /*
   color: #2d3748;
   */
-  color: #ffffff;
+  color: #000000;
 }
 
 body.light .nav-link:hover span {
@@ -195,11 +195,7 @@ body.light .top-navbar-container .top-navbar a {
 }
 
 body.light .top-navbar a {
-  color: #ffffff;
-}
-
-body.light .paul:hover a {
-  background-color: #2b6cb0;
+  color: #000000;
 }
 
 body.light .top-navbar:hover a {
@@ -774,14 +770,13 @@ body.dark .monthly {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #fff;
+  color: #000000;
 }
 
 body.light .monthly {
   /*
   color: #2d3748;
   */
-  color: #000000;
   color: #ffffff;
 }
 
@@ -802,7 +797,7 @@ body.light .monthly {
   padding: 0;
 }
 
-.receipt_logo {
+.receipt-svg {
   height: 60px;
   width: 60px;
 }
@@ -830,7 +825,7 @@ body.light .monthly {
   justify-content: space-around;
 }
 
-.receipt_image_container img {
+.receipt-svg {
   height: auto;
   width: 4.3vw;
 }
@@ -845,29 +840,49 @@ body.light .monthly {
   min-width: 150px;
 }
 
+.money_in_container {
+  background-color: #1bcfb4;
+  border-radius: 10px;
+}
+
+.money_out_container {
+  background-color: #fe9496;
+  border-radius: 10px;
+}
+
+.receipt_container {
+  background-color: #4bcbeb;
+  border-radius: 10px;
+}
+
 body.dark .money_in_image_container,
 body.dark .money_out_image_container,
 body.dark .receipt_image_container {
   /*
   background-color: rgb(34, 43, 52);
   */
-  background-color: #121212;
+
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
-  width: 70px;
+  width: 100px;
   border-top-left-radius: 10px; /* Top-right corner */
   border-bottom-left-radius: 10px;
 }
 
 body.light .money_in_image_container,
+body.dark .money_in_image_container {
+  background-color: #1bcfb4;
+}
+
 body.light .money_out_image_container,
-body.light .receipt_image_container {
-  /*
-  background-color: #e4e5f1;
-  */
-  background-color: #bb86fc;
+body.dark .money_out_image_container {
+  background-color: #fe9496;
+}
+body.light .receipt_image_container,
+body.dark .receipt_image_container {
+  background-color: #4bcbeb;
 }
 
 .details_container {
@@ -878,7 +893,7 @@ body.light .receipt_image_container {
   /*
   background-color: rgb(26, 35, 44);
   */
-  background-color: #121212;
+
   border-top-right-radius: 10px; /* Top-right corner */
   border-bottom-right-radius: 10px;
 
@@ -886,21 +901,41 @@ body.light .receipt_image_container {
   flex: 1;
 }
 
-body.light .details_container {
-  /*
-  background-color: #e4e5f1;
-  */
-  background-color: #bb86fc;
+.money_in {
+  background-color: #1bcfb4;
 }
 
-.money_in_image_container i {
-  color: green;
+.money_out {
+  background-color: #fe9496;
+}
+
+.receipt {
+  background-color: #4bcbeb;
+}
+body.dark .money_in_image_container i {
+  color: #000000;
   font-size: 4.5vw;
 }
 
-.money_out_image_container i {
-  color: red;
+body.light .money_in_image_container i {
+  color: #ffffff;
+}
+
+body.dark .money_out_image_container i {
+  color: #000000;
   font-size: 4.5vw;
+}
+
+body.light .money_out_image_container i {
+  color: #ffffff;
+}
+
+body.dark .receipt-svg {
+  fill: #000000;
+}
+
+body.light .receipt-svg {
+  fill: #ffffff;
 }
 
 .monthly {
@@ -919,7 +954,7 @@ body.dark .monthly_details {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #fff;
+  color: #000000;
 }
 
 body.light .monthly_details {
@@ -961,7 +996,7 @@ body.light th {
   color: #2d3748;
   */
   background-color: #bb86fc;
-  color: #ffffff;
+  color: #000000;
 }
 
 table {
