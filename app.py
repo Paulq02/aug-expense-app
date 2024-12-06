@@ -13,7 +13,7 @@ cursor = sql_connect.cursor()
 
 
 
-income = float(100000.00)
+income = float(4500.00)
 
 entries = len(my_list)
 

@@ -797,11 +797,6 @@ body.light .monthly {
   padding: 0;
 }
 
-.receipt-svg {
-  height: 60px;
-  width: 60px;
-}
-
 .home_button img {
   height: 60px;
   width: 60px;
@@ -826,8 +821,8 @@ body.light .monthly {
 }
 
 .receipt-svg {
-  height: auto;
-  width: 4.3vw;
+  font-size: 4.5vw;
+  margin-left: 10px;
 }
 
 .money_in_container,
@@ -866,9 +861,21 @@ body.dark .receipt_image_container {
   justify-content: center;
   align-items: center;
   height: 100px;
-  width: 100px;
+
   border-top-left-radius: 10px; /* Top-right corner */
   border-bottom-left-radius: 10px;
+  min-width: 40px;
+  max-width: 70px;
+  margin-left: 15px;
+}
+
+@media (max-width: 850px) {
+  body.dark .money_in_image_container,
+  body.dark .money_out_image_container,
+  body.dark .receipt_image_container {
+    max-width: 50px;
+    margin-left: 5px;
+  }
 }
 
 body.light .money_in_image_container,
@@ -898,7 +905,8 @@ body.dark .receipt_image_container {
   border-bottom-right-radius: 10px;
 
   align-items: center;
-  flex: 1;
+  flex: 1 1 0;
+  margin-right: 40px;
 }
 
 .money_in {
@@ -931,11 +939,11 @@ body.light .money_out_image_container i {
 }
 
 body.dark .receipt-svg {
-  fill: #000000;
+  color: #000000;
 }
 
 body.light .receipt-svg {
-  fill: #ffffff;
+  color: #ffffff;
 }
 
 .monthly {
@@ -1004,6 +1012,10 @@ table {
   min-width: 500px;
   border-collapse: collapse;
   position: relative;
+}
+
+.table-head {
+  background-color: #bb86fc;
 }
 
 tbody {
