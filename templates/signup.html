@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Expense Tracker</title>
+    <!-- CSS File -->
+    <link rel="stylesheet" href="../static/styles.css" />
+    <!-- Add your favicon -->
+  </head>
+  <body>
+    <div class="signup-page-container">
+      <img class="signup-logo" src="../static/images/ET_lightmode.png" />
+      <h1>Expense Tracker</h1>
+      <h2>Create an account</h2>
+    </div>
+    <div class="signup-form-container">
+      <form class="signup-form" method="post" action="">
+        <input type="text" name="name" placeholder="first name" />
+        <input type="text" name="email" placeholder="email" />
+        <input type="text" name="password" placeholder="password" />
+      </form>
+      <div class="link-container">
+        <p>
+          Already have an account? <a href="{{url_for('login_page')}}">Login</a>
+        </p>
+      </div>
+    </div>
+
+    <script src="../static/script.js"></script>
+  </body>
+</html>

@@ -7,9 +7,14 @@
 }
 */
 
+html {
+  height: 100vh;
+}
+
 body {
   margin: 0;
   display: block;
+  min-height: 100vh;
   /*
   background-color: rgb(18, 23, 29);
   */
@@ -1687,3 +1692,113 @@ body.light .nav-link:hover .nav-text {
 body.light .close .nav-link:hover .sidebar-icon {
   stroke: #ffffff;
 }
+
+/* ========== LOGIN PAGE START ===================*/
+.image-container {
+  display: block;
+  text-align: center;
+  margin-top: 100px;
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.login-container form {
+  width: 300px;
+  align-items: center;
+  background-color: #000000;
+}
+
+.login-image {
+  width: 200px;
+  height: auto;
+}
+.login-container button {
+  height: 30px;
+  width: 100px;
+}
+
+.my-data-container p {
+  color: #ffffff;
+}
+
+/* ========== LOGIN PAGE START ===================*/
+
+.signup-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup-container p {
+  color: #ffffff;
+}
+
+/* ========== LOGIN PAGE END ===================*/
+
+/* ========== SIGNUP PAGE START ===================*/
+
+.signup-page-container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.link-container {
+  text-align: center;
+}
+
+.link-container p {
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.link-container a {
+  color: #bb86fc;
+}
+
+.signup-link {
+  color: #bb86fc;
+}
+
+.signup-page-container h1 {
+  color: #ffffff;
+}
+
+.signup-page-container h2 {
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.signup-logo {
+  width: 200px;
+  height: 200px;
+}
+
+.have-account {
+  color: #ffffff;
+}
+
+.signup-form-container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+.signup-form-container form {
+  background-color: #000000;
+  width: 100%;
+}
+.signup-form-container input {
+  max-width: 250px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ========== LOGIN PAGE END ===================*/

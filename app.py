@@ -174,8 +174,29 @@ def update_date(index, id):
 
 
 
+@app.route("/login_page", methods=['get', 'post'])
+def login_page() :
+    
+    return render_template("/login_page.html")
 
 
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup_page():
+    return render_template("/signup.html")
+
+
+
+
+
+
+
+@app.route("/myinfo", methods=["GET", "POST"])
+def submit_login():
+    username = request.form["username"]
+    password = request.form["password"]
+    
+    return render_template("my_info.html", username=username, password=password)
 
 if __name__ == "__main__":
     app.run(debug=True)
