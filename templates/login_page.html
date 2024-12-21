@@ -16,14 +16,15 @@
     <div class="login-container">
       <form
         class="login-form"
-        method="post"
-        action="{{url_for('submit_login')}}"
+        method="POST"
+        action="{{url_for('checkpassword')}}"
       >
         <label class="username-label">Username</label>
         <input type="text" name="username" class="username-input" />
 
         <label class="password-label">Password</label>
         <input type="text" name="password" class="password-input" />
+        <p class="login-error">{{error}}</p>
 
         <button type="submit" class="login-button">Login</button>
       </form>

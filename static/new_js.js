@@ -13,3 +13,47 @@ toggleSwitch.addEventListener("click", () => {
   toggleSwitch.classList.toggle("light");
   bodyLight.classList.toggle("light");
 });
+
+function checkPassword() {
+  const password = document.querySelector("[name='password']").value;
+  const confirmPassword = document.querySelector(
+    "[name='confirm_password']"
+  ).value;
+  if (password !== confirmPassword) {
+    window.alert("passwords do not match");
+  }
+}
+
+function validatePassword() {
+  const password = document.querySelector('[name="password"]').value;
+  const confirmPasswordInput = document.querySelector(
+    '[name="confirm_password"]'
+  );
+  const message = document.querySelector("#password-error");
+
+  if (confirmPasswordInput.value !== password) {
+    message.textContent = "Passwords do not match";
+    message.style.color = "red";
+    confirmPasswordInput.style.borderColor = "red";
+  } else {
+    message.textContent = ""; // Clear the error message
+    confirmPasswordInput.style.borderColor = ""; // Reset border color
+  }
+}
+
+function confirmPassword() {
+  const createAccountButton = document.querySelector(".create-account-button");
+  const messageBox = document.querySelector(".password-alert");
+  const password = document.querySelector("[name='password']").value;
+  const secondPassword = document.querySelector(
+    "[name='confirm-password']"
+  ).value;
+  if (password !== secondPassword) {
+    messageBox.textContent = "Passwords do not match";
+    messageBox.style.color = "red";
+    createAccountButton.disabled = true;
+  } else {
+    messageBox.textContent = "";
+    createAccountButton.disabled = false;
+  }
+}

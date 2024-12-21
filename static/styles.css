@@ -719,7 +719,9 @@ label {
   font-style: normal;
   justify-content: space-between;
   margin-bottom: 10px;
+  /*
   margin-left: 30px;
+  */
 }
 
 body.light label {
@@ -730,7 +732,9 @@ body.light label {
 }
 
 input {
+  /*
   margin-left: 20px;
+  */
   height: 25px;
   margin-bottom: 10px;
   width: 250px;
@@ -1715,10 +1719,6 @@ body.light .close .nav-link:hover .sidebar-icon {
   width: 200px;
   height: auto;
 }
-.login-container button {
-  height: 30px;
-  width: 100px;
-}
 
 .my-data-container p {
   color: #ffffff;
@@ -1733,6 +1733,22 @@ body.light .close .nav-link:hover .sidebar-icon {
 
 .signup-container p {
   color: #ffffff;
+}
+
+.login-button {
+  width: 100px;
+  background-color: #bb86fc;
+  border-radius: 10px;
+  height: 40px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.login-error {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: red;
 }
 
 /* ========== LOGIN PAGE END ===================*/
@@ -1799,6 +1815,16 @@ body.light .close .nav-link:hover .sidebar-icon {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+.create-account-button {
+  background-color: #bb86fc;
+  width: 100px;
+  border-radius: 10px;
+  height: 40px;
+  margin-right: auto;
+  margin-left: auto;
+  width: fit-content;
 }
 
 /* ========== LOGIN PAGE END ===================*/
