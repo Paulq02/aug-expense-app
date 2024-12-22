@@ -27,15 +27,30 @@ entries = len(my_list)
 @app.route('/',  methods=["GET", "POST"])
 
 
+
 def home_page():
     my_list.clear()
     
     return render_template('login_page.html')
-    """ results = cursor.fetchall()
+   
+
+
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
+    user_id = session.get("user_id")
+    username = session.get("username")
+    password = session.get("password")
+    sql = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s"
+    cursor.execute(sql, (user_id,))
+    results = cursor.fetchall()
+    if not results:
+        return render_template('first_login.html', username=username)
+    
     for data in results:
         id_row = data[0] # type: ignore
         expense_row = data[1] # type: ignore
         amount_row = float(data[2]) # type: ignore
+    
         date_from_db = data[3] # type: ignore
         
         formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
@@ -44,7 +59,7 @@ def home_page():
         my_list.append({"id":id_row, "expense":expense_row, "amount":amount_row, "date":formatted_date})
         
         
-    
+
     
 
     my_expenses = expenses_total()
@@ -53,8 +68,12 @@ def home_page():
 
     entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries)
-    """
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=username)
+    
+
+
+
+
 
 @app.route('/submitted_data', methods=["GET", "POST"])
 def submit_expense():
@@ -63,8 +82,14 @@ def submit_expense():
     amount = float(request.form.get("amount", 0))
     date = request.form.get("date")
     cursor = sql_connect.cursor()
+    user_id = session.get("user_id")
+    print(user_id)
+    username = session.get("username")
+    password = session.get("password")
+    """sql = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s"
+    cursor.execute(sql, (username, password))"""
     
-    cursor.execute("INSERT INTO oct_expenses (expense-name, amount, date) VALUES (%s, %s, %s)", (expense, amount, date))
+    cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date) VALUES (%s, %s, %s, %s)", (user_id, expense, amount, date))
     sql_connect.commit()
     cursor.close()
     entries += 1
@@ -72,7 +97,7 @@ def submit_expense():
     
     
     
-    return redirect(url_for('home_page'))
+    return redirect(url_for('dashboard', username=username))
 
 
 @app.route('/add_expense/', methods=["GET", "POST"])
@@ -100,17 +125,6 @@ def get_entries():
     return entries
 
 
-"""@app.route('/delete_expense/<int:index>', methods=['POST','GET'])
-def delete_expense(index):
-    
-    if 0 <= index < len(my_list):
-        my_list.pop(index)
-        
-    
-    
-    return redirect(url_for('home_page', index=index, entries=entries))"""
-
-
 
 
 @app.route('/delete_expense/<int:id>', methods = ['POST', 'GET'])
@@ -123,31 +137,6 @@ def delete_expense(id):
 @app.route('/users/<name>')
 def user(name):
 	return "<h3>Welcome {}</h3>".format(name)
-
-"""def check_list():
-    cursor = sql_connect.cursor()
-    cursor.execute("SELECT id, name, amount FROM oct_expenses")
-    results = cursor.fetchall()
-    for data in results:
-        id_row = data[0] # type: ignore
-        name_row = data[1] # type: ignore
-        amount_row = float(data[2]) # type: ignore
-
-        my_entries.append({"id":id_row, "name":name_row, "amount":amount_row})
-
-       """
-
-        
-
-"""@app.route('/update/<int:id>/<int:index>', methods=['GET', 'POST'])
-def update_data(id, index):
-    updated_name = request.form.get(f"new-name-input-{index}")
-    cursor.execute("UPDATE oct_expenses SET name = %s WHERE id = %s ", ((updated_name,id)))
-    sql_connect.commit()
-    return redirect(url_for('home_page'))
-    """
-
-
 
 
 @app.route('/update_name/<int:index>/<int:id>', methods=["GET", "POST"])
@@ -203,20 +192,25 @@ def checkpassword():
     password_input = request.form.get("password")
 
     try:
-        sql = "SELECT username, password FROM expense_tracker_users WHERE username = %s and password = %s"
+        sql = "SELECT id, username, password FROM expense_tracker_users WHERE username = %s and password = %s"
         cursor.execute(sql, (username_input, password_input))
         results = cursor.fetchone()
         #not sure why these below I had to ignore squiggly line?
-        saved_username = results[0] # type: ignore
-        saved_password = results[1] # type: ignore
+        saved_id = results[0] # type: ignore
+        saved_username = results[1] # type: ignore
+        saved_password = results[2] # type: ignore
         if username_input == saved_username and password_input == saved_password:
-            return render_template('first_login.html', username=saved_username)
+            session["user_id"] = saved_id
+            session["username"] = saved_username
+            session["password"] =  saved_password
+          
+            return render_template('dashboard', username=saved_username)
 
     
     except TypeError:
         error = "Incorrect Username or Password"
         return render_template('login_page.html', error=error )
-    return "lol"
+    return ""
    
    
     
@@ -243,12 +237,21 @@ def create_account():
     password = request.form.get("password")
     confirm_password = request.form.get("confirm-password")
 
+
     sql = "INSERT INTO expense_tracker_users (username, email, password) VALUES (%s, %s, %s)"
     values = (username, email, password)
     cursor.execute(sql, values)
     sql_connect.commit()
+    sql_get_user_id = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s"
+    cursor.execute(sql_get_user_id, (username, password))
+    results = cursor.fetchone()
+    session["username"] = username
+    session["password"] = password
+    my_id = session["user_id"] = results[0]
+    print(my_id)
+    
     #cursor.close()
-    return render_template('first_login.html', username=username)
+    return redirect(url_for("dashboard"))
    
 # ================== LOGOUT FUNCTION ================== # 
 
@@ -260,13 +263,22 @@ def logout():
 
 
 
-# MUST WORK ON LOGIN FUNCTION !!! ONCE USER HAS CREATED AN ACCOUNT THEY CAN LOGIN, CHECK THE DATABASE FOR THEIR USERNAME AND PASSWORD
 
 
 
 
-# IF THEY MATCH LOAD A PAGE 
-# THEN USER CAN START ADDING EXPENSES SPECFIC TO THE USER 
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
