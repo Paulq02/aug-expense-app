@@ -220,6 +220,16 @@ body.light .paul:hover a {
   color: #bb86fc;
 }
 
+.welcome-container {
+  margin-right: 10px;
+}
+
+.welcome {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* ===TOP Navbar END=== */
 
 /* ===Sidebar START=== */

@@ -39,7 +39,10 @@
   <body class="dark">
     <nav class="top-navbar-container">
       <li class="paul"><a href="#">Expense Tracker</a></li>
-      <li class="welcome">Welcome {{username}}</li>
+      <div class="welcome-container">
+        <li class="welcome">Welcome, {{username}}</li>
+      </div>
+
       <li class="top-navbar"><a href="{{url_for('home_page')}}">Home</a></li>
       <li class="top-navbar"><a href="#">Profile</a></li>
       <li class="top-navbar">
@@ -374,7 +377,7 @@
                   class="edit-date-form"
                   id="edit-date-form-{{loop.index0}}"
                   method="POST"
-                  action="{{url_for('update_date', index = loop.index0, id = item.id) }}"
+                  action="{{url_for('update_date', index = loop.index0, expense_id = item.id) }}"
                 >
                   <input
                     id="datepicker-{{loop.index0}}"
@@ -436,7 +439,7 @@
                 Cancel
               </button>
               <form
-                action="{{url_for('delete_expense', id=item.id)}}"
+                action="{{url_for('delete_expense', expense_id=item.id)}}"
                 method="post"
               >
                 <button class="confirm_delete" type="submit">

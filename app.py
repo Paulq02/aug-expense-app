@@ -37,14 +37,16 @@ def home_page():
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
+    my_list.clear()
     user_id = session.get("user_id")
     username = session.get("username")
+    
     password = session.get("password")
     sql = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s"
     cursor.execute(sql, (user_id,))
     results = cursor.fetchall()
     if not results:
-        return render_template('first_login.html', username=username)
+        return render_template('first_login.html', username=str(username).capitalize())
     
     for data in results:
         id_row = data[0] # type: ignore
@@ -68,7 +70,7 @@ def dashboard():
 
     entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=username)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize())
     
 
 
@@ -127,12 +129,14 @@ def get_entries():
 
 
 
-@app.route('/delete_expense/<int:id>', methods = ['POST', 'GET'])
-def delete_expense(id):
+@app.route('/delete_expense/<int:expense_id>', methods = ['POST', 'GET'])
+def delete_expense(expense_id):
+    user_id = session["user_id"]
     cursor = sql_connect.cursor()
-    cursor.execute("DELETE FROM oct_expenses WHERE id = %s ", (id,))
+    sql = "DELETE FROM expense_tracker_expense_data WHERE expense_id = %s AND user_id = %s "
+    cursor.execute(sql, (expense_id,user_id))
     sql_connect.commit()
-    return redirect(url_for('home_page'))
+    return redirect(url_for('dashboard'))
 
 @app.route('/users/<name>')
 def user(name):
@@ -160,12 +164,14 @@ def update_cost(index, id):
 
 
 
-@app.route("/update_date/<int:index>/<int:id>", methods=["GET", "POST"])
-def update_date(index, id):
+@app.route("/update_date/<int:index>/<int:expense_id>", methods=["GET", "POST"])
+def update_date(index, expense_id):
+    user_id = session["user_id"]
     new_date = request.form[f"new-date-input-{index}"]
-    cursor.execute("UPDATE oct_expenses SET date = %s WHERE id = %s", (new_date, id))
+    sql_date = "UPDATE expense_tracker_expense_data SET expense_date = %s WHERE expense_id = %s AND user_id = %s"
+    cursor.execute(sql_date, (new_date,expense_id, user_id ))
     sql_connect.commit()
-    return redirect(url_for('home_page'))
+    return redirect(url_for('dashboard'))
 
 
 
@@ -204,7 +210,7 @@ def checkpassword():
             session["username"] = saved_username
             session["password"] =  saved_password
           
-            return render_template('dashboard', username=saved_username)
+            return redirect(url_for('dashboard'))
 
     
     except TypeError:
@@ -247,7 +253,7 @@ def create_account():
     results = cursor.fetchone()
     session["username"] = username
     session["password"] = password
-    my_id = session["user_id"] = results[0]
+    my_id = session["user_id"] = results[0] # type: ignore
     print(my_id)
     
     #cursor.close()
