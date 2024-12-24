@@ -49,7 +49,7 @@ def dashboard():
         return render_template('first_login.html', username=str(username).capitalize())
     
     for data in results:
-        id_row = data[0] # type: ignore
+        expense_id_row = data[0] # type: ignore
         expense_row = data[1] # type: ignore
         amount_row = float(data[2]) # type: ignore
     
@@ -58,7 +58,7 @@ def dashboard():
         formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
        
        
-        my_list.append({"id":id_row, "expense":expense_row, "amount":amount_row, "date":formatted_date})
+        my_list.append({"expense_id":expense_id_row, "expense":expense_row, "amount":amount_row, "date":formatted_date})
         
         
 
@@ -105,8 +105,8 @@ def submit_expense():
 @app.route('/add_expense/', methods=["GET", "POST"])
 
 def add_expense():
-
-    return render_template('add_expense.html')
+    username = session["username"]
+    return render_template('add_expense.html', username=username)
 
 
 
@@ -143,23 +143,28 @@ def user(name):
 	return "<h3>Welcome {}</h3>".format(name)
 
 
-@app.route('/update_name/<int:index>/<int:id>', methods=["GET", "POST"])
-def update_name(index, id):
+@app.route('/update_name/<int:index>/<int:expense_id>', methods=["GET", "POST"])
+def update_name(index, expense_id):
+    user_id = session["user_id"]
     new_name = request.form[f"new-name-input-{index}"]
-    cursor.execute("UPDATE oct_expenses SET expense = %s WHERE id = %s", (new_name, id))
+    sql_update_name = "UPDATE expense_tracker_expense_data SET expense_name  = %s WHERE expense_id = %s AND user_id = %s "
+    cursor.execute(sql_update_name, (new_name,expense_id, user_id ))
     sql_connect.commit()
-    return redirect(url_for('home_page'))
+    return redirect(url_for('dashboard'))
 
 
 
 
-@app.route("/update_cost/<int:index>/<int:id>", methods=["GET", "POST"])
-def update_cost(index, id):
+@app.route("/update_cost/<int:index>/<int:expense_id>", methods=["GET", "POST"])
+def update_cost(index, expense_id):
+    user_id = session["user_id"]
     new_amount = request.form[f"new-cost-input-{index}"]
-    cursor.execute("UPDATE oct_expenses SET amount = %s WHERE id = %s",(new_amount, id))
+    sql_update_cost = "UPDATE expense_tracker_expense_data SET expense_cost = %s WHERE expense_id = %s AND user_id = %s"
+    cursor.execute(sql_update_cost, (new_amount,expense_id,user_id ))
+
     sql_connect.commit()
 
-    return redirect(url_for('home_page'))
+    return redirect(url_for('dashboard'))
 
 
 

@@ -43,7 +43,7 @@
         <li class="welcome">Welcome, {{username}}</li>
       </div>
 
-      <li class="top-navbar"><a href="{{url_for('home_page')}}">Home</a></li>
+      <li class="top-navbar"><a href="{{url_for('dashboard')}}">Home</a></li>
       <li class="top-navbar"><a href="#">Profile</a></li>
       <li class="top-navbar">
         <a href="{{url_for('logout')}}">Logout</a>
@@ -282,7 +282,7 @@
                 <form
                   class="edit-name-form"
                   id="edit-name-form-{{loop.index0}}"
-                  action="{{url_for('update_name', index = loop.index0, id = item.id)}}"
+                  action="{{url_for('update_name', index = loop.index0, expense_id = item.expense_id)}}"
                   method="post"
                 >
                   <input
@@ -331,7 +331,7 @@
                   class="edit-cost-form"
                   id="edit-cost-form-{{loop.index0}}"
                   method="POST"
-                  action="{{url_for('update_cost', index = loop.index0, id = item.id) }}"
+                  action="{{url_for('update_cost', index = loop.index0, expense_id = item.expense_id) }}"
                 >
                   <input
                     class="edit-cost-input"
@@ -377,7 +377,7 @@
                   class="edit-date-form"
                   id="edit-date-form-{{loop.index0}}"
                   method="POST"
-                  action="{{url_for('update_date', index = loop.index0, expense_id = item.id) }}"
+                  action="{{url_for('update_date', index = loop.index0, expense_id = item.expense_id) }}"
                 >
                   <input
                     id="datepicker-{{loop.index0}}"
@@ -439,7 +439,7 @@
                 Cancel
               </button>
               <form
-                action="{{url_for('delete_expense', expense_id=item.id)}}"
+                action="{{url_for('delete_expense', expense_id=item.expense_id)}}"
                 method="post"
               >
                 <button class="confirm_delete" type="submit">

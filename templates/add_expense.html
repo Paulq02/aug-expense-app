@@ -36,18 +36,33 @@
     />
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </head>
-  <body>
+  <body class="dark">
     <nav class="top-navbar-container">
       <li class="paul"><a href="#">Expense Tracker</a></li>
-      <li class="top-navbar"><a href="{{url_for('home_page')}}">Home</a></li>
+      <div class="welcome-container">
+        <li class="welcome">Welcome, {{username}}</li>
+      </div>
+
+      <li class="top-navbar"><a href="{{url_for('dashboard')}}">Home</a></li>
       <li class="top-navbar"><a href="#">Profile</a></li>
-      <li class="top-navbar"><a href="#">Logout</a></li>
+      <li class="top-navbar">
+        <a href="{{url_for('logout')}}">Logout</a>
+      </li>
     </nav>
-    <nav class="close" id="sidebar">
+    <nav class="close">
       <header>
         <div class="image-text" id="image-text">
           <span class="image">
-            <img src="../static/images/ET.png" alt="icon of expense tracker" />
+            <img
+              class="light-mode-et"
+              src="../static/images/NEW_ET_logo.png"
+              alt="icon of expense tracker"
+            />
+            <img
+              class="dark-mode-et"
+              src="../static/images/ET_lightmode.png"
+              alt="icon of expense tracker"
+            />
           </span>
           <div class="text header-text" id="header-text">
             <span class="name">Expense Tracker</span>
@@ -59,7 +74,7 @@
       <div class="menu-bar">
         <div class="menu">
           <ul class="menu-links">
-            <li class="search-box">
+            <li class="open-search-box close-search-box">
               <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
@@ -134,7 +149,7 @@
             <li class="nav-link">
               <a>
                 <svg
-                  class="sidebar-icon"
+                  class="sidebar-icon edit-icon"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,12 +168,14 @@
                           fill-rule="evenodd"
                           clip-rule="evenodd"
                           d="M4.3367 16.071L3.94269 19.6888C3.9081 20.0064 4.17624 20.2746 4.49389 20.24L8.11161 19.846C8.45133 19.809 8.76823 19.6571 9.00986 19.4154L20.0011 8.42417C20.5869 7.83838 20.5869 6.88863 20.0011 6.30285L17.8798 4.18153C17.294 3.59574 16.3443 3.59574 15.7585 4.18153L4.76722 15.1728C4.52559 15.4144 4.3737 15.7313 4.3367 16.071ZM18.9405 3.12087L21.0618 5.24219C22.2334 6.41376 22.2334 8.31325 21.0618 9.48483L10.0705 20.4761C9.58725 20.9594 8.95345 21.2631 8.27401 21.3371L4.65629 21.7311C3.38571 21.8695 2.31313 20.7969 2.45151 19.5264L2.84552 15.9086C2.91952 15.2292 3.22329 14.5954 3.70656 14.1121L14.6978 3.12087C15.8694 1.94929 17.7689 1.94929 18.9405 3.12087Z"
+                          fill="#currentColor"
                         ></path>
                         <path
                           id="vector (Stroke)_2"
                           fill-rule="evenodd"
                           clip-rule="evenodd"
                           d="M20.0011 6.30285L17.8798 4.18153C17.294 3.59574 16.3443 3.59574 15.7585 4.18153L14.4857 5.45432L18.7283 9.69696L20.0011 8.42417C20.5869 7.83838 20.5869 6.88863 20.0011 6.30285ZM18.7283 11.8183L12.3644 5.45432L14.6978 3.12087C15.8694 1.94929 17.7689 1.94929 18.9405 3.12087L21.0618 5.24219C22.2334 6.41376 22.2334 8.31326 21.0618 9.48483L18.7283 11.8183Z"
+                          fill="#currentColor"
                         ></path>
                       </g>
                     </g>
