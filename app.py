@@ -42,7 +42,7 @@ def dashboard():
     username = session.get("username")
     
     password = session.get("password")
-    sql = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s"
+    sql = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date DESC "
     cursor.execute(sql, (user_id,))
     results = cursor.fetchall()
     if not results:
@@ -199,8 +199,8 @@ def signup_page():
 
 @app.route('/checking', methods=["GET", "POST"])
 def checkpassword():
-    username_input = request.form.get("username")
-    password_input = request.form.get("password")
+    username_input = request.form.get("username").lower().rstrip() # type: ignore
+    password_input = request.form.get("password").rstrip() # type: ignore
 
     try:
         sql = "SELECT id, username, password FROM expense_tracker_users WHERE username = %s and password = %s"
@@ -210,6 +210,8 @@ def checkpassword():
         saved_id = results[0] # type: ignore
         saved_username = results[1] # type: ignore
         saved_password = results[2] # type: ignore
+        print(f"username entered{username_input}")
+        print(f"saved username {saved_username}")
         if username_input == saved_username and password_input == saved_password:
             session["user_id"] = saved_id
             session["username"] = saved_username
@@ -281,6 +283,46 @@ def logout():
 
 
 
+#SORT BY DATE 
+@app.route("/ascending", methods = ["GET", "POST"])
+def sort_date_asc():
+    my_list.clear()
+    username = session["username"]
+    user_id = session["user_id"]
+    sql_sort_query = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date ASC;"
+
+    cursor.execute(sql_sort_query, (user_id,))
+    results = cursor.fetchall()
+    for data in results:
+        expense_id_row = data[0] # type: ignore
+        expense_row = data[1] # type: ignore
+        amount_row = float(data[2]) # type: ignore
+    
+        date_from_db = data[3] # type: ignore
+        
+        formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+        my_list.append({"expense_id":expense_id_row, "expense":expense_row, "amount":amount_row, "date":formatted_date})
+
+    my_expenses = expenses_total()
+
+    free_money = calclulate_money_leftover()
+
+    entries = get_entries()
+   
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize())
+    
+       
+       
+       
+
+
+
+       
+    
+      
+        
+    
+    
 
 
 

@@ -247,7 +247,13 @@
           <tr>
             <th>name</th>
             <th>cost</th>
-            <th>date</th>
+            <th>
+              <form action="{{url_for('sort_date_asc')}}" method="get">
+                <button type="submit">
+                  <i class="bx bx-up-arrow-alt"></i>
+                </button>
+              </form>
+            </th>
             <th>Delete</th>
             <th>Edit</th>
           </tr>
