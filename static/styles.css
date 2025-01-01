@@ -1002,6 +1002,7 @@ thead {
   color: #fff;
 }
 */
+
 body.dark th {
   padding: 15px 10px;
   /*
@@ -1017,6 +1018,16 @@ body.dark th {
   font-style: normal;
 }
 
+.date-th {
+  display: flex;
+
+  align-items: center;
+}
+
+.date-th p {
+  margin-right: 50px;
+}
+
 body.light th {
   /*
   background-color: #e4e5f1;
@@ -1027,7 +1038,7 @@ body.light th {
 }
 
 table {
-  width: 57.91vw;
+  width: 53vw;
   min-width: 500px;
   border-collapse: collapse;
   position: relative;
@@ -1055,6 +1066,26 @@ td {
   font-style: normal;
   margin-top: 15px;
   width: 80px;
+}
+
+.date-button-form {
+  width: 20px;
+}
+
+.sort-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  background-color: #bb86fc;
+  border: none;
+  cursor: pointer;
+}
+
+.up-arrow,
+.down-arrow {
+  font-size: 25px;
+  color: #121212;
 }
 
 td .button_icon,
@@ -1838,3 +1869,7 @@ body.light .close .nav-link:hover .sidebar-icon {
 }
 
 /* ========== LOGIN PAGE END ===================*/
+.first_timer p {
+  color: red;
+  font-size: 50px;
+}

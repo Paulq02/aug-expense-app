@@ -57,3 +57,34 @@ function confirmPassword() {
     createAccountButton.disabled = false;
   }
 }
+
+function sortDates() {
+  dateButton = document.querySelector(".sort-button");
+  recentExpenses = document.querySelector(".newest-first");
+  olderExpenses = document.querySelector(".oldest-first");
+
+  if (recentExpenses.style.display === "flex") {
+    recentExpenses.style.display = "none";
+    olderExpenses.style.display = "flex";
+    localStorage.setItem("sortBy", "oldest");
+  } else {
+    recentExpenses.style.display = "flex";
+    olderExpenses.style.display = "none";
+    localStorage.setItem("sortBy", "newest");
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  dateButton = document.querySelector(".sort-button");
+  recentExpenses = document.querySelector(".newest-first");
+  olderExpenses = document.querySelector(".oldest-first");
+
+  buttonState = localStorage.getItem("sortBy");
+  if (buttonState == "oldest") {
+    recentExpenses.style.display = "none";
+    olderExpenses.style.display = "flex";
+  } else {
+    recentExpenses.style.display = "flex";
+    olderExpenses.style.display = "none";
+  }
+});

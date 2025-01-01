@@ -38,17 +38,19 @@ def home_page():
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
     my_list.clear()
+    
+  
+
     user_id = session.get("user_id")
     username = session.get("username")
-    
     password = session.get("password")
+    
+    sql = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s AND username = %s ORDER BY expense_date DESC "
+    username_tuple = (user_id,username)
 
-    sort_order = request.args.get("sortOrder","desc")
-
-  
-    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
-    cursor.execute(sql, (user_id,))
+    cursor.execute(sql, username_tuple)
     results = cursor.fetchall()
+    print(f"THESE ARE YOUR RESULTS ----> {results}")
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
     
@@ -62,10 +64,8 @@ def dashboard():
         formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
        
        
-       
         my_list.append({"expense_id":expense_id_row, "expense":expense_row, "amount":amount_row, "date":formatted_date})
         
-
         
 
     
@@ -76,7 +76,7 @@ def dashboard():
 
     entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), sort_order=sort_order)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize())
     
 
 
@@ -201,45 +201,9 @@ def signup_page():
 
 
 
-# LOGIN FUNCTION
 
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    username_input = request.form.get("username").lower().rstrip() # type: ignore
-    password_input = request.form.get("password").rstrip() # type: ignore
-
-    try:
-        sql = "SELECT id, username, password FROM expense_tracker_users WHERE username = %s and password = %s"
-        cursor.execute(sql, (username_input, password_input))
-        results = cursor.fetchone()
-        #not sure why these below I had to ignore squiggly line?
-        saved_id = results[0] # type: ignore
-        saved_username = results[1] # type: ignore
-        saved_password = results[2] # type: ignore
-        print(f"username entered{username_input}")
-        print(f"saved username {saved_username}")
-        if username_input == saved_username and password_input == saved_password:
-            session["user_id"] = saved_id
-            session["username"] = saved_username
-            session["password"] =  saved_password
-          
-            return redirect(url_for('dashboard'))
-
-    
-    except TypeError:
-        error = "Incorrect Username or Password"
-        return render_template('login_page.html', error=error )
-    return ""
-   
    
     
-
-
-
-
-
-
-
 
 
 
@@ -251,10 +215,10 @@ def login():
 @app.route("/submit", methods=["GET", "POST"])
 def create_account():
     
-    username = request.form.get("username")
-    email = request.form.get("email")
-    password = request.form.get("password")
-    confirm_password = request.form.get("confirm-password")
+    username = request.form.get("username").lower().rstrip() # type: ignore
+    email = request.form.get("email").lower().rstrip() # type: ignore
+    password = request.form.get("password").rstrip() # type: ignore
+    
 
 
     sql = "INSERT INTO expense_tracker_users (username, email, password) VALUES (%s, %s, %s)"
@@ -263,13 +227,14 @@ def create_account():
     sql_connect.commit()
     sql_get_user_id = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s"
     cursor.execute(sql_get_user_id, (username, password))
-    results = cursor.fetchone()
-    session["username"] = username
-    session["password"] = password
-    my_id = session["user_id"] = results[0] # type: ignore
-    print(my_id)
+    #results = cursor.fetchone()
+    #session["username"] = username
+    #session["password"] = password
+    #my_id = session["user_id"] = results[0] # type: ignore
+   
+    #create_session()
     
-    #cursor.close()
+    
     return redirect(url_for("dashboard"))
    
 # ================== LOGOUT FUNCTION ================== # 
@@ -280,6 +245,108 @@ def logout():
     session.clear()  # Clear all session data
     return redirect(url_for('home_page'))  # Redirect to login page
 
+
+
+
+
+
+
+
+
+
+#SORT BY DATE 
+@app.route("/ascending", methods = ["GET", "POST"])
+def sort_date_asc():
+    my_list.clear()
+    username = session["username"]
+    user_id = session["user_id"]
+    sql_sort_query = "SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date ASC;"
+
+    cursor.execute(sql_sort_query, (user_id,))
+    results = cursor.fetchall()
+    for data in results:
+        expense_id_row = data[0] # type: ignore
+        expense_row = data[1] # type: ignore
+        amount_row = float(data[2]) # type: ignore
+    
+        date_from_db = data[3] # type: ignore
+        
+        formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+        my_list.append({"expense_id":expense_id_row, "expense":expense_row, "amount":amount_row, "date":formatted_date})
+
+    my_expenses = expenses_total()
+
+    free_money = calclulate_money_leftover()
+
+    entries = get_entries()
+   
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize())
+    
+       
+       
+       
+
+def create_session(username_input, password_input):
+   
+    
+   
+
+    sql_user_id = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s;"
+    cursor.execute(sql_user_id, (username_input,password_input))
+    results = cursor.fetchone()
+    
+    #You dont need to run a for loop!
+    session["user_id"] = results
+    session["username"] = username_input
+    session["password"] = password_input
+    user_id =  session["user_id"]
+    username = session["username"] 
+    password =  session["password"]
+    
+    
+    
+
+
+   
+    
+    return user_id, username, password
+    
+
+# LOGIN FUNCTION
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    username_input = request.form.get("username").lower().rstrip() # type: ignore
+    password_input = request.form.get("password").rstrip() # type: ignore
+
+    try:
+        sql = "SELECT id, username, password FROM expense_tracker_users WHERE username = %s and password = %s"
+        cursor.execute(sql, (username_input, password_input))
+        results = cursor.fetchone()
+        
+        #not sure why these below I had to ignore squiggly line?
+        user_id = results[0] # type: ignore
+        saved_username = results[1] # type: ignore
+        saved_password = results[2] # type: ignore
+        
+        if username_input == saved_username and password_input == saved_password:
+            create_session(username_input=username_input, password_input=password_input)
+          
+            return redirect(url_for('dashboard'))
+
+    
+    except TypeError:
+        error = "Incorrect Username or Password"
+        return render_template('login_page.html', error=error )
+    return ""
+   
+
+       
+    
+      
+        
+    
+    
 
 
 

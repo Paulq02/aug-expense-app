@@ -14,11 +14,7 @@
       <img class="login-image" src="../static/images/ET_lightmode.png" />
     </div>
     <div class="login-container">
-      <form
-        class="login-form"
-        method="POST"
-        action="{{url_for('checkpassword')}}"
-      >
+      <form class="login-form" method="POST" action="{{url_for('login')}}">
         <label class="username-label">Username</label>
         <input type="text" name="username" class="username-input" />
 
