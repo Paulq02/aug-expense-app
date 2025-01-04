@@ -294,7 +294,11 @@
             </svg>
             <h1>Add Expense</h1>
           </div>
-          <form method="POST" action="{{ url_for('submit_expense') }}">
+          <form
+            method="POST"
+            action="{{ url_for('submit_expense') }}"
+            class="add-expense-form"
+          >
             <label for="amount" name="amount" id="amount"
               >Amount
               <input

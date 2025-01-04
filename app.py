@@ -79,7 +79,31 @@ def dashboard():
     return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), sort_order=sort_order)
     
 
+@app.route('/selection', methods=["POST", "GET"])
+def print_result():
+    selection = request.args.get("year")
+    user_id = session.get("user_id")
+    sql_get_year = "SELECT expense_date FROM expense_tracker_expense_data WHERE user_id = %s"
+    cursor.execute(sql_get_year,(user_id,))
+    my_dates = cursor.fetchall()
+    date_list = my_dates # type: ignore
+    for date in date_list:
+        converted_date = str(date)
+        print(f"HERES A DATE BELOW ------")
+        print(converted_date)
+        print(f"{converted_date[15:27]}") # type: ignore
 
+    
+   
+    
+    return redirect("/dashboard")
+
+
+"""
+@app.route("/function", methods=["GET", "POST"])
+def print_function():
+    return redirect(url_for('print_result'))"""
+    
 
 
 

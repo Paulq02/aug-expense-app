@@ -248,39 +248,60 @@
             <th>name</th>
             <th>cost</th>
             <th class="date-th">
-              <p>Date</p>
-              <form
-                action="{{url_for('dashboard')}}"
-                method="get"
-                class="date-button-form"
-              >
-                <button
-                  type="submit"
-                  class="sort-button"
-                  name="sortOrder"
-                  value="{{ 'asc' if sort_order == 'desc' else 'desc' }}"
+              <div class="arrow-container">
+                <span>Date</span>
+                <form
+                  action="{{url_for('dashboard')}}"
+                  method="get"
+                  class="date-button-form"
                 >
-                  {% if sort_order == 'desc' %}
-                  <i
-                    class="bx bx-up-arrow-alt up-arrow"
-                    style="display: none"
-                  ></i>
-                  <i
-                    class="bx bx-up-arrow-alt bx-rotate-180 down-arrow"
-                    style="display: flex"
-                  ></i>
-                  {% else %}
-                  <i
-                    class="bx bx-up-arrow-alt up-arrow"
-                    style="display: flex"
-                  ></i>
-                  <i
-                    class="bx bx-up-arrow-alt bx-rotate-180 down-arrow"
-                    style="display: none"
-                  ></i>
-                  {% endif %}
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    class="sort-button"
+                    name="sortOrder"
+                    value="{{ 'asc' if sort_order == 'desc' else 'desc' }}"
+                  >
+                    {% if sort_order == 'desc' %}
+                    <i
+                      class="bx bx-up-arrow-alt up-arrow"
+                      style="display: none"
+                    ></i>
+                    <i
+                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow"
+                      style="display: flex"
+                    ></i>
+                    {% else %}
+                    <i
+                      class="bx bx-up-arrow-alt up-arrow"
+                      style="display: flex"
+                    ></i>
+                    <i
+                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow"
+                      style="display: none"
+                    ></i>
+                    {% endif %}
+                  </button>
+                </form>
+                <div class="select-container">
+                  <form
+                    class="select-form"
+                    action="{{url_for('print_result')}}"
+                    method="get"
+                  >
+                    <select
+                      name="year"
+                      id="year-select"
+                      onchange="requestSubmit()"
+                    >
+                      <option value="2025">2025</option>
+                      <option value="2024">2024</option>
+                      <option value="2023">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
             </th>
             <th>Delete</th>
             <th>Edit</th>
