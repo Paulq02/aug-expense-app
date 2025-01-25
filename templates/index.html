@@ -225,7 +225,7 @@
             <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
           </div>
           <div class="details_container money_out">
-            <p class="monthly">Expenses</p>
+            <p class="monthly haha">Expenses</p>
             <p class="monthly_details">${{ "{:.2f}".format(my_expenses) }}</p>
           </div>
         </div>
@@ -259,45 +259,50 @@
                     type="submit"
                     class="sort-button"
                     name="sortOrder"
-                    value="{{ 'asc' if sort_order == 'desc' else 'desc' }}"
+                    value="{{ 'asc' if sort_order == 'desc' else 'desc'}}"
                   >
-                    {% if sort_order == 'desc' %}
+                    {% if sort_order == "desc" %}
                     <i
-                      class="bx bx-up-arrow-alt up-arrow"
-                      style="display: none"
-                    ></i>
-                    <i
-                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow"
+                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                       style="display: flex"
+                    ></i>
+
+                    <i
+                      class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                      style="display: none"
                     ></i>
                     {% else %}
                     <i
-                      class="bx bx-up-arrow-alt up-arrow"
-                      style="display: flex"
-                    ></i>
-                    <i
-                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow"
+                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                       style="display: none"
+                    ></i>
+
+                    <i
+                      class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                      style="display: flex"
                     ></i>
                     {% endif %}
                   </button>
                 </form>
+
                 <div class="select-container">
                   <form
                     class="select-form"
-                    action="{{url_for('print_result')}}"
+                    action="{{url_for('sort_year')}}"
                     method="get"
                   >
-                    <select
-                      name="year"
-                      id="year-select"
-                      onchange="requestSubmit()"
-                    >
-                      <option value="2025">2025</option>
-                      <option value="2024">2024</option>
-                      <option value="2023">2023</option>
-                      <option value="2022">2022</option>
-                      <option value="2021">2021</option>
+                    <select name="year" id="year-select">
+                      <option value="2025" selected>2025</option>
+
+                      <option value="2024" selected>2024</option>
+
+                      <option value="2023" selected>2023</option>
+
+                      <option value="2022" selected>2022</option>
+
+                      <option value="2021" selected>2021</option>
+                      <option value="all" selected>all</option>
+                      <option value="none" selected>--Select a year --</option>
                     </select>
                   </form>
                 </div>
@@ -313,7 +318,7 @@
           <td>
             <div class="name_flex_container">
               <div class="name-container">
-                {{ item.expense }}
+                {{ item.expense_name }}
                 <button
                   type="button"
                   class="edit-name-button"
@@ -408,7 +413,7 @@
           <td>
             <div class="date_flex_container" id="date_flex_container">
               <div class="date-container">
-                {{ item.date}}
+                {{ item.expense_date}}
                 <button
                   class="edit-date-button"
                   id="edit-date-button-{{loop.index0}}"
@@ -483,7 +488,7 @@
               <p>Are you sure you want to delete?</p>
             </div>
             <div class="expense_details">
-              <p>Expense: <span>{{ item.name}} </span></p>
+              <p>Expense: <span>{{ item.expense_name}} </span></p>
               <p>
                 Expense Cost: $<span>{{ "{:.2f}".format(item.amount) }} </span>
               </p>

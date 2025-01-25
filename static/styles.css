@@ -722,13 +722,15 @@ body.light .header_container h1 {
 }
 
 label {
+  /*
   display: flex;
+  */
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   /*
   margin-left: 30px;
   */
@@ -1757,6 +1759,7 @@ body.light .close .nav-link:hover .sidebar-icon {
   display: block;
   text-align: center;
   margin-top: 100px;
+  margin-bottom: 30px;
 }
 .login-container {
   display: flex;
@@ -1766,7 +1769,7 @@ body.light .close .nav-link:hover .sidebar-icon {
 }
 .login-container form {
   width: 300px;
-  align-items: center;
+  text-align: center;
   background-color: #000000;
 }
 
@@ -1863,7 +1866,8 @@ body.light .close .nav-link:hover .sidebar-icon {
 
 .signup-form-container form {
   background-color: #000000;
-  width: 100%;
+  width: 300px;
+  text-align: center;
 }
 .signup-form-container input {
   max-width: 250px;
@@ -1882,8 +1886,18 @@ body.light .close .nav-link:hover .sidebar-icon {
   width: fit-content;
 }
 
+.box-alert-container {
+  display: flex;
+  flex-direction: column;
+}
+
 /* ========== LOGIN PAGE END ===================*/
 .first_timer p {
   color: red;
   font-size: 50px;
+}
+
+.my_year {
+  font-size: 80px;
+  color: red;
 }

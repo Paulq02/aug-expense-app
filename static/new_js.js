@@ -14,77 +14,54 @@ toggleSwitch.addEventListener("click", () => {
   bodyLight.classList.toggle("light");
 });
 
-function checkPassword() {
-  const password = document.querySelector("[name='password']").value;
-  const confirmPassword = document.querySelector(
-    "[name='confirm_password']"
-  ).value;
-  if (password !== confirmPassword) {
-    window.alert("passwords do not match");
-  }
-}
-
-function validatePassword() {
-  const password = document.querySelector('[name="password"]').value;
-  const confirmPasswordInput = document.querySelector(
-    '[name="confirm_password"]'
-  );
-  const message = document.querySelector("#password-error");
-
-  if (confirmPasswordInput.value !== password) {
-    message.textContent = "Passwords do not match";
-    message.style.color = "red";
-    confirmPasswordInput.style.borderColor = "red";
-  } else {
-    message.textContent = ""; // Clear the error message
-    confirmPasswordInput.style.borderColor = ""; // Reset border color
-  }
-}
-
 function confirmPassword() {
   const createAccountButton = document.querySelector(".create-account-button");
   const messageBox = document.querySelector(".password-alert");
-  const password = document.querySelector("[name='password']").value;
-  const secondPassword = document.querySelector(
-    "[name='confirm-password']"
-  ).value;
+  const password = document.querySelector(".first-password").value;
+
+  const secondPassword = document.querySelector(".confirm-password").value;
   if (password !== secondPassword) {
-    messageBox.textContent = "Passwords do not match";
+    messageBox.innerHTML = "Passwords do not match";
     messageBox.style.color = "red";
     createAccountButton.disabled = true;
   } else {
-    messageBox.textContent = "";
+    messageBox.innerHTML = "";
     createAccountButton.disabled = false;
   }
 }
 
-function sortDates() {
-  dateButton = document.querySelector(".sort-button");
-  recentExpenses = document.querySelector(".newest-first");
-  olderExpenses = document.querySelector(".oldest-first");
+/*
+const dateButton = document.querySelector(".sort-button");
+const newestExpenses = document.querySelector(".newest-first");
+const olderExpenses = document.querySelector(".oldest-first");
 
-  if (recentExpenses.style.display === "flex") {
-    recentExpenses.style.display = "none";
-    olderExpenses.style.display = "flex";
-    localStorage.setItem("sortBy", "oldest");
-  } else {
-    recentExpenses.style.display = "flex";
+dateButton.addEventListener("click", () => {
+  let sortBy = localStorage.getItem("sortBy");
+
+  if (sortBy === "newest") {
     olderExpenses.style.display = "none";
-    localStorage.setItem("sortBy", "newest");
-  }
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  dateButton = document.querySelector(".sort-button");
-  recentExpenses = document.querySelector(".newest-first");
-  olderExpenses = document.querySelector(".oldest-first");
-
-  buttonState = localStorage.getItem("sortBy");
-  if (buttonState == "oldest") {
-    recentExpenses.style.display = "none";
-    olderExpenses.style.display = "flex";
+    newestExpenses.style.display = "flex";
   } else {
-    recentExpenses.style.display = "flex";
     olderExpenses.style.display = "none";
+    newestExpenses.style.display = "flex";
   }
+});
+
+window.addEventListener("load", () => {
+  const sortBy = localStorage.getItem("sortBy");
+
+  if (sortBy == "newest") {
+    newestExpenses.style.display = "flex";
+    olderExpenses.style.display = "none";
+  } else {
+    newestExpenses.style.display = "none";
+    olderExpenses.style.display = "flex";
+  }
+});
+*/
+const yearSelect = document.getElementById("year-select");
+
+yearSelect.addEventListener("change", () => {
+  const selectForm = document.querySelector(".select-form");
+  selectForm.submit();
 });
