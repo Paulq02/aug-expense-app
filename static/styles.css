@@ -1018,13 +1018,13 @@ body.dark th {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+  max-width: 120px;
 }
 
 .date-th {
   display: flex;
 
   align-items: center;
-  justify-content: space-between;
 }
 
 .date-th span {
@@ -1043,19 +1043,16 @@ body.light th {
   display: inline-flex;
   align-items: center;
 
-  width: 100%;
   height: 30px;
 }
 
 .select-container {
   display: inline-flex;
   justify-content: flex-end;
-  width: 100%;
 }
 
 table {
-  width: 53vw;
-  min-width: 500px;
+  min-width: 800px;
   border-collapse: collapse;
   position: relative;
 }

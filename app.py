@@ -17,6 +17,8 @@ app.secret_key = "padthai123Z$meme"
 my_list = []
 
 
+year_selection = []
+
 cursor = sql_connect.cursor()
 
 
@@ -94,7 +96,7 @@ def dashboard():
 
     entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), sort_order=sort_order)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection)
 
 
 
@@ -123,10 +125,13 @@ def sort_year():
     
    
 
-    sort_order = request.args.get("sortOrder","desc")
+    #sort_order = request.args.get("sortOrder","desc")
 
     my_list.clear()
+    year_selection.clear()
     user_year_selection = request.args.get("year","none")
+
+    year_selection.append(user_year_selection)
     
     
     #converted_user_year_selection = str(user_year_selection)
@@ -142,6 +147,8 @@ def sort_year():
    
 
     sort_order = request.args.get("sortOrder","desc")
+    print(f"THE SORT ORDER IS  ------------------------------{sort_order}")
+    
 
     my_list.clear()
 
@@ -155,7 +162,7 @@ def sort_year():
 
 
     if user_year_selection == "all":
-        sql_all_expenses = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s "
+        sql_all_expenses = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} "
         cursor.execute(sql_all_expenses,(user_id,))
         results = cursor.fetchall()
         for data in results:
@@ -163,7 +170,13 @@ def sort_year():
            expense_name = data[2]
            expense_cost = float(data[3])
            expense_date = data[4]
-           my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":expense_date})
+          
+           converted_date = expense_date.strftime("%m-%d-%Y")
+           my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
+           print(converted_date)
+           print("the IF BLOCK IS printing")
+        
+
         
     
     
@@ -177,7 +190,7 @@ def sort_year():
 
     else:
 
-        sql_get_year = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= %s"
+        sql_get_year = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= %s ORDER BY expense_date {sort_order.upper()}"
         cursor.execute(sql_get_year,(user_id,user_year_selection))
         year_list = cursor.fetchall()
         for year in year_list:
@@ -187,6 +200,7 @@ def sort_year():
             converted_date = datetime.strftime(year[4],"%m-%d-%Y" ) # type: ignore
         
             my_list.append({"expense_id":expense_id,"expense_name":name,"amount":cost, "expense_date":converted_date}) 
+            print("THE ELSE BLOCK IS PRINTING")
     my_expenses = expenses_total()
 
     free_money = calclulate_money_leftover()
@@ -194,8 +208,8 @@ def sort_year():
             
        
         
-    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection)
+    print(f"THE SORT ORDER IS -----------{sort_order}")
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order)
 
       
   
@@ -214,14 +228,64 @@ def sort_year():
    
 
     
-    return redirect("/dashboard")
-
-
-"""
-@app.route("/function", methods=["GET", "POST"])
-def print_function():
-    return redirect(url_for('print_result'))"""
+@app.route("/new_sort", methods = ['POST', 'GET'])
+def new_sort():
+   
+    my_list.clear()
+    user_id = session.get("user_id")
     
+    sort_order = request.args.get("sortOrder", "desc")
+    print(sort_order)
+   
+
+    username = session.get("username")
+   
+    current_year_selected = year_selection[0]
+    print(current_year_selected)
+
+    if "all" in current_year_selected:
+        sql_select_all = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}"
+        cursor.execute(sql_select_all, (user_id,))
+        results = cursor.fetchall()
+        for column in results:
+            expense_id = column[0]
+            expense_name = column[2]
+            expense_cost = float(column[3])
+            expense_date = column[4]
+            converted_date = expense_date.strftime("%m-%d-%Y")
+
+            my_list.append({"expense_id":expense_id,"expense_name":expense_name,"amount":expense_cost,"expense_date":converted_date })
+
+
+
+
+
+
+
+    else:
+
+   
+        my_list.clear()
+        sql_query = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_order.upper()} "
+        cursor.execute(sql_query,(user_id, current_year_selected) )
+        my_data = cursor.fetchall()
+        for column in my_data:
+            expense_id = column[0]
+            expense_name = column[2]
+            expense_cost = float(column[3])
+            expense_date = column[4]
+            converted_date = datetime.strftime(expense_date,"%m-%d-%Y" ) # type: ignore
+            my_list.append({"expense_id":expense_id, "expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
+
+    my_expenses = expenses_total()
+
+    free_money = calclulate_money_leftover()
+    entries = get_entries()
+    
+    print(f"THE CURRENT SORT ORDER IS ---------{sort_order}")
+    print(my_list)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  current_year_selected=current_year_selected, sort_order=sort_order)
+
 
 
 
@@ -233,7 +297,7 @@ def submit_expense():
     date = request.form.get("expense_date")
     cursor = sql_connect.cursor()
     user_id = session.get("user_id")
-    print(user_id)
+    
     username = session.get("username")
     password = session.get("password")
     """sql = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s"
