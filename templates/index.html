@@ -241,13 +241,36 @@
         </div>
       </div>
     </div>
+    <div class="sorting-container">
+      <div class="sort-options">
+        <form
+          class="select-form"
+          action="{{url_for('sort_year')}}"
+          method="get"
+        >
+          <select name="year" id="year-select">
+            <option value="2025" selected>2025</option>
+
+            <option value="2024" selected>2024</option>
+
+            <option value="2023" selected>2023</option>
+
+            <option value="2022" selected>2022</option>
+
+            <option value="2021" selected>2021</option>
+            <option value="All" selected>All</option>
+            <option value="none" selected>--Sort by year--</option>
+          </select>
+        </form>
+      </div>
+    </div>
     <div class="expense_data_container">
       <table>
         <thead class="table-head">
           <tr>
             <th>name</th>
             <th>cost</th>
-            <th class="date-th">
+            <th>
               <div class="arrow-container">
                 <span>Date</span>
                 <form
@@ -283,27 +306,6 @@
                     ></i>
                     {% endif %}
                   </button>
-                </form>
-              </div>
-              <div class="select-container">
-                <form
-                  class="select-form"
-                  action="{{url_for('sort_year')}}"
-                  method="get"
-                >
-                  <select name="year" id="year-select">
-                    <option value="2025" selected>2025</option>
-
-                    <option value="2024" selected>2024</option>
-
-                    <option value="2023" selected>2023</option>
-
-                    <option value="2022" selected>2022</option>
-
-                    <option value="2021" selected>2021</option>
-                    <option value="all" selected>all</option>
-                    <option value="none" selected>--Select a year --</option>
-                  </select>
                 </form>
               </div>
             </th>

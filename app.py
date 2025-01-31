@@ -161,7 +161,7 @@ def sort_year():
     user_id = session.get("user_id")
 
 
-    if user_year_selection == "all":
+    if user_year_selection == "All":
         sql_all_expenses = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} "
         cursor.execute(sql_all_expenses,(user_id,))
         results = cursor.fetchall()
@@ -243,7 +243,7 @@ def new_sort():
     current_year_selected = year_selection[0]
     print(current_year_selected)
 
-    if "all" in current_year_selected:
+    if "All" in current_year_selected:
         sql_select_all = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}"
         cursor.execute(sql_select_all, (user_id,))
         results = cursor.fetchall()
