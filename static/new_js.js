@@ -65,3 +65,9 @@ yearSelect.addEventListener("change", () => {
   const selectForm = document.querySelector(".select-form");
   selectForm.submit();
 });
+
+const sortAscDesc = document.querySelector(".asc-desc");
+const sortAscDescForm = document.querySelector(".sort-desc-asc");
+sortFunction = sortAscDesc.addEventListener("change", () => {
+  sortAscDescForm.submit();
+});

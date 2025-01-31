@@ -234,7 +234,7 @@ def new_sort():
     my_list.clear()
     user_id = session.get("user_id")
     
-    sort_order = request.args.get("sortOrder", "desc")
+    sort_order = request.args.get("sort-by-asc-desc", "desc")
     print(sort_order)
    
 

@@ -1018,9 +1018,11 @@ thead {
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
 }
 
-#year-select {
+#year-select,
+.asc-desc {
   color: #bb86fc;
   background-color: #000000;
   font-family: "Roboto", sans-serif;
@@ -1028,7 +1030,7 @@ thead {
   font-style: normal;
   font-size: 1.2rem;
   height: 40px;
-  justify-content: space-around;
+
   border: #bb86fc solid 3px;
   border-radius: 5px;
 }

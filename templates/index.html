@@ -262,6 +262,18 @@
             <option value="none" selected>--Sort by year--</option>
           </select>
         </form>
+        <form
+          class="sort-desc-asc"
+          name="sortOrder"
+          action="{{url_for('new_sort')}}"
+          method="get"
+        >
+          <select name="sort-by-asc-desc" class="asc-desc">
+            <option value="none">--Sort by (newest/oldest)--</option>
+            <option value="desc">Newest first</option>
+            <option value="asc">Oldest first</option>
+          </select>
+        </form>
       </div>
     </div>
     <div class="expense_data_container">
@@ -272,41 +284,27 @@
             <th>cost</th>
             <th>
               <div class="arrow-container">
-                <span>Date</span>
-                <form
-                  action="{{url_for('new_sort')}}"
-                  method="get"
-                  class="date-button-form"
-                >
-                  <button
-                    type="submit"
-                    class="sort-button"
-                    name="sortOrder"
-                    value="{{ 'asc' if sort_order == 'desc' else 'desc'}}"
-                  >
-                    {% if sort_order == "desc" %}
-                    <i
-                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                      style="display: flex"
-                    ></i>
+                Date {% if sort_order == "desc" %}
+                <i
+                  class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                  style="display: flex"
+                ></i>
 
-                    <i
-                      class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                      style="display: none"
-                    ></i>
-                    {% else %}
-                    <i
-                      class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                      style="display: none"
-                    ></i>
+                <i
+                  class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                  style="display: none"
+                ></i>
+                {% else %}
+                <i
+                  class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                  style="display: none"
+                ></i>
 
-                    <i
-                      class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                      style="display: flex"
-                    ></i>
-                    {% endif %}
-                  </button>
-                </form>
+                <i
+                  class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                  style="display: flex"
+                ></i>
+                {% endif %}
               </div>
             </th>
             <th>Delete</th>
