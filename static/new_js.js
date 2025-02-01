@@ -66,8 +66,21 @@ yearSelect.addEventListener("change", () => {
   selectForm.submit();
 });
 
+/*
 const sortAscDesc = document.querySelector(".asc-desc");
 const sortAscDescForm = document.querySelector(".sort-desc-asc");
 sortFunction = sortAscDesc.addEventListener("change", () => {
-  sortAscDescForm.submit();
+  sortAscDescForm.this.form.submit();
+});
+*/
+
+const mySelectElement = document.querySelector(".asc-desc");
+
+mySelectElement.addEventListener("change", function () {
+  this.form.submit();
+});
+
+const sortCost = document.querySelector(".sort-expense-dropdown");
+sortCost.addEventListener("change", function () {
+  this.form.submit();
 });

@@ -244,6 +244,18 @@
     <div class="sorting-container">
       <div class="sort-options">
         <form
+          class="sort-expense-form"
+          method="get"
+          action="{{url_for('sort_by_cost')}}"
+        >
+          <select name="sort-expense" class="sort-expense-dropdown">
+            <option value="none">--Sort by Cost--</option>
+            <option value="desc">High to Low</option>
+            <option value="asc">Low to High</option>
+          </select>
+        </form>
+
+        <form
           class="select-form"
           action="{{url_for('sort_year')}}"
           method="get"
@@ -258,7 +270,7 @@
             <option value="2022" selected>2022</option>
 
             <option value="2021" selected>2021</option>
-            <option value="All" selected>All</option>
+            <option value="all" selected>All</option>
             <option value="none" selected>--Sort by year--</option>
           </select>
         </form>
@@ -268,7 +280,7 @@
           action="{{url_for('new_sort')}}"
           method="get"
         >
-          <select name="sort-by-asc-desc" class="asc-desc">
+          <select name="sort-by" class="asc-desc">
             <option value="none">--Sort by (newest/oldest)--</option>
             <option value="desc">Newest first</option>
             <option value="asc">Oldest first</option>

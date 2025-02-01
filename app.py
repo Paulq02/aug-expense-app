@@ -161,7 +161,7 @@ def sort_year():
     user_id = session.get("user_id")
 
 
-    if user_year_selection == "All":
+    if user_year_selection == "all":
         sql_all_expenses = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} "
         cursor.execute(sql_all_expenses,(user_id,))
         results = cursor.fetchall()
@@ -216,8 +216,37 @@ def sort_year():
 
     
 
+@app.route("/sort_cost", methods=["GET", "POST"])
+def sort_by_cost():
+    my_list.clear()
+    username = session.get("username")
+    user_id = session.get("user_id")
+    sort_order = request.args.get("sort-expense", "none")
+
+    sql_sort_cost = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY (expense_cost) {sort_order.upper()}"
+    cursor.execute(sql_sort_cost, (user_id,))
+    results = cursor.fetchall()
+    for expense in results:
+      expense_id = expense[0]
+      expense_name = expense[2]
+      expense_cost = float(expense[3])
+      expense_date = expense[4]
+      converted_date = expense_date.strftime("%m-%d-%Y")
+      my_list.append({"expense_id":expense_id, "expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
+      
+    my_expenses = expenses_total()
+
+    free_money = calclulate_money_leftover()
+    entries = get_entries()
+
+      
     
+    return render_template("index.html", income=income,my_list=my_list,expense_id=expense_id, expense_name=expense_name, amount=expense_cost, expense_date=converted_date,my_expenses=my_expenses,free_money=free_money,sort_order=sort_order, entries=entries )
+
   
+
+
+    
 
        
      
@@ -234,16 +263,17 @@ def new_sort():
     my_list.clear()
     user_id = session.get("user_id")
     
-    sort_order = request.args.get("sort-by-asc-desc", "desc")
-    print(sort_order)
+    sort_order = request.args.get("sort-by", "desc")
+   
    
 
     username = session.get("username")
    
     current_year_selected = year_selection[0]
     print(current_year_selected)
+    
 
-    if "All" in current_year_selected:
+    if "all" in current_year_selected:
         sql_select_all = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}"
         cursor.execute(sql_select_all, (user_id,))
         results = cursor.fetchall()

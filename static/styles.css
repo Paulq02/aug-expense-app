@@ -1014,7 +1014,7 @@ thead {
 }
 
 .sort-options {
-  width: 40%;
+  width: 45%;
   height: 50px;
   display: flex;
   align-items: center;
@@ -1022,7 +1022,8 @@ thead {
 }
 
 #year-select,
-.asc-desc {
+.asc-desc,
+.sort-expense-dropdown {
   color: #bb86fc;
   background-color: #000000;
   font-family: "Roboto", sans-serif;
@@ -1119,7 +1120,6 @@ td {
   width: 20px;
   background-color: #bb86fc;
   border: none;
-  cursor: pointer;
 }
 
 .up-arrow,
