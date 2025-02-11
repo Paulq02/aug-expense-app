@@ -1,22 +1,106 @@
-const body = document.querySelector("body");
-sidebar = body.querySelector(".sidebar");
-toggle = body.querySelector(".toggle");
-modeSwitch = body.querySelector(".toggle-switch");
-modeText = body.querySelector(".mode-text");
-searchButton = body.querySelector(".search-box");
+const openSidebar = document.querySelector(".close");
+const toggleButton = document.querySelector(".toggle");
+const toggleSwitch = document.querySelector(".toggle-switch");
+const bodyLight = document.querySelector("body");
+const closeSearchBox = document.querySelector(".open-search-box");
 
-modeSwitch.addEventListener("click", () => {
-  body.classList.toggle("light");
+toggleButton.addEventListener("click", () => {
+  openSidebar.classList.toggle("sidebar");
+  closeSearchBox.classList.toggle("close-search-box");
 });
 
-toggle.addEventListener("click", () => {
-  sidebar.classList.toggle("close");
+toggleSwitch.addEventListener("click", () => {
+  toggleSwitch.classList.toggle("light");
+  bodyLight.classList.toggle("light");
 });
 
-sidebar.addEventListener("mouseenter", () => {
-  sidebar.classList.remove("close"); // Open sidebar on hover
+function confirmPassword() {
+  const createAccountButton = document.querySelector(".create-account-button");
+  const messageBox = document.querySelector(".password-alert");
+  const password = document.querySelector(".first-password").value;
+
+  const secondPassword = document.querySelector(".confirm-password").value;
+  if (password !== secondPassword) {
+    messageBox.innerHTML = "Passwords do not match";
+    messageBox.style.color = "red";
+    createAccountButton.disabled = true;
+  } else {
+    messageBox.innerHTML = "";
+    createAccountButton.disabled = false;
+  }
+}
+
+/*
+const dateButton = document.querySelector(".sort-button");
+const newestExpenses = document.querySelector(".newest-first");
+const olderExpenses = document.querySelector(".oldest-first");
+
+dateButton.addEventListener("click", () => {
+  let sortBy = localStorage.getItem("sortBy");
+
+  if (sortBy === "newest") {
+    olderExpenses.style.display = "none";
+    newestExpenses.style.display = "flex";
+  } else {
+    olderExpenses.style.display = "none";
+    newestExpenses.style.display = "flex";
+  }
 });
 
-sidebar.addEventListener("mouseleave", () => {
-  sidebar.classList.add("close"); // Close sidebar when no longer hovered
+window.addEventListener("load", () => {
+  const sortBy = localStorage.getItem("sortBy");
+
+  if (sortBy == "newest") {
+    newestExpenses.style.display = "flex";
+    olderExpenses.style.display = "none";
+  } else {
+    newestExpenses.style.display = "none";
+    olderExpenses.style.display = "flex";
+  }
+});
+*/
+const yearSelect = document.getElementById("year-select");
+
+yearSelect.addEventListener("change", () => {
+  const selectForm = document.querySelector(".select-form");
+  selectForm.submit();
+});
+
+/*
+const sortAscDesc = document.querySelector(".asc-desc");
+const sortAscDescForm = document.querySelector(".sort-desc-asc");
+sortFunction = sortAscDesc.addEventListener("change", () => {
+  sortAscDescForm.this.form.submit();
+});
+*/
+
+const mySelectElement = document.querySelector(".asc-desc");
+
+mySelectElement.addEventListener("change", function () {
+  this.form.submit();
+});
+
+const sortCost = document.querySelector(".sort-expense-dropdown");
+sortCost.addEventListener("change", function () {
+  this.form.submit();
+});
+
+const myExpenses = ["Beer", "Steaks", "Coffee", "Internet", "Cat food"];
+
+const expenseAmount = [16, 23, 9, 100, 12];
+
+const pieColors = ["red", "green", "blue", "pink", "yellow"];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: myExpenses,
+    datasets: [
+      {
+        label: "Monthly Expenses",
+        data: expenseAmount,
+        backgroundColor: pieColors,
+      },
+    ],
+  },
 });
