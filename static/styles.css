@@ -768,8 +768,14 @@ label {
 
 #amount {
   padding-left: 20px;
-  width: 227px;
+  width: 230px;
 }
+
+#expense_name {
+  width: 245px;
+  padding-left: 5px;
+}
+
 body.light label {
   color: #000000;
   font-family: "Roboto", sans-serif;
@@ -789,13 +795,13 @@ input {
   border-radius: 5px;
   font-size: large;
   border: 2px;
-  width: 247px;
+  width: 250px;
   padding-left: 0;
   padding-right: 0;
 }
 
 #select-category {
-  width: 247px;
+  width: 250px;
   height: 32px;
 
   border-radius: 5px;
