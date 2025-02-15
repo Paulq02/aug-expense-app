@@ -104,3 +104,15 @@ new Chart("myChart", {
     ],
   },
 });
+
+const myDropDown = document.getElementById("select-category");
+
+myDropDown.addEventListener("focus", (event) => {
+  if (event.target.tagName === "option") {
+    event.target.style.backgroundColor = "#bb86fc";
+  }
+});
+
+myDropDown.addEventListener("blur", () => {
+  myDropDown.style.backgroundColor = ""; // Reset on blur
+});

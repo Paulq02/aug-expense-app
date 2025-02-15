@@ -225,20 +225,21 @@
               action="{{ url_for('submit_expense') }}"
               class="add-expense-form"
             >
-              <div class="amount-form-container">
-                <label for="amount" name="amount" id="amount">Amount </label>
-                <div class="span-input-container">
-                  <span class="money-symbol-span"> $</span>
-                  <input
-                    type="number"
-                    name="amount"
-                    id="amount"
-                    step="0.01"
-                    required
-                  />
+              <div class="add-amount-container">
+                <label for="amount" name="amount">Amount </label>
+                <div class="main-money-symbol-input-container">
+                  <div class="money-symbol-icon-div">
+                    <input
+                      type="number"
+                      name="amount"
+                      id="amount"
+                      step="0.01"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
-              <div class="name-form-container">
+              <div class="add-name-container">
                 <label for="expense" id="expense">Expense name</label>
                 <input
                   type="text"
@@ -248,7 +249,7 @@
                   required
                 />
               </div>
-              <div class="date-form-container">
+              <div class="add-date-container">
                 <label for="date"> Date of expense</label>
                 <input
                   type="text"
@@ -257,7 +258,7 @@
                   autocomplete="off"
                 />
               </div>
-              <div class="category-container">
+              <div class="add-category-container">
                 <label for="select-category">Expense category</label>
                 <select name="category" id="select-category">
                   <option value="">--Please choose expense category--</option>
