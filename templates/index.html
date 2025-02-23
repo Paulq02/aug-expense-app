@@ -290,7 +290,9 @@
     </div>
     <div class="expense_data_container">
       <div class="chart-container">
-        <canvas id="myChart"></canvas>
+        <canvas id="myCanvas"> </canvas>
+
+        <p class="json_data">{{my_json}}</p>
       </div>
 
       <table>
@@ -528,6 +530,7 @@
         {% endfor %}
       </table>
     </div>
+
     <!--
     <button class="add_expense_button" type="button">
       <a href="{{url_for('add_expense')}}">
@@ -755,6 +758,7 @@
       });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
     <script src="../static/script.js"></script>
   </body>
 </html>

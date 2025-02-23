@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from datetime import datetime
 import mysql.connector
 
-
+import json
 
 
 
@@ -61,12 +61,14 @@ def dashboard():
     
     
     user_year_selection = request.args.get("year", "none")
+
+    
    
     converted_user_year_selection = str(user_year_selection)
     
 
   
-    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
+    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
     cursor.execute(sql, (user_id,))
     results = cursor.fetchall()
     if not results:
@@ -78,13 +80,18 @@ def dashboard():
         amount_row = float(data[2]) # type: ignore
     
         date_from_db = data[3] # type: ignore
+
+        expense_category_row = data[4] # type: ignore
         
         formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
        
+    
        
+        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row, "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
        
-        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row, "amount":amount_row, "expense_date":formatted_date})
-        
+    my_json= json.dumps(my_list)
+
+
 
         
 
@@ -96,7 +103,7 @@ def dashboard():
 
     entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json)
 
 
 
@@ -325,6 +332,8 @@ def submit_expense():
     expense = request.form.get("expense_name")
     amount = float(request.form.get("amount", 0))
     date = request.form.get("expense_date")
+    expense_category = request.form.get("category", None)
+    
     cursor = sql_connect.cursor()
     user_id = session.get("user_id")
     
@@ -333,7 +342,7 @@ def submit_expense():
     """sql = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s"
     cursor.execute(sql, (username, password))"""
     
-    cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date) VALUES (%s, %s, %s, %s)", (user_id, expense, amount, date))
+    cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date, expense_category) VALUES (%s, %s, %s, %s, %s)", (user_id, expense, amount, date, expense_category))
     sql_connect.commit()
     cursor.close()
     entries += 1
