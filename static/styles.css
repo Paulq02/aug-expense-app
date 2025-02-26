@@ -941,15 +941,6 @@ body.dark .receipt_image_container {
   margin-left: 15px;
 }
 
-@media (max-width: 850px) {
-  body.dark .money_in_image_container,
-  body.dark .money_out_image_container,
-  body.dark .receipt_image_container {
-    max-width: 50px;
-    margin-left: 5px;
-  }
-}
-
 body.light .money_in_image_container,
 body.dark .money_in_image_container {
   background-color: #1bcfb4;
@@ -1131,9 +1122,8 @@ body.light th {
 table {
   border-collapse: collapse;
   position: relative;
-  flex-basis: 500px;
+  width: 900px;
   align-items: center;
-  flex-shrink: 1;
 }
 
 .table-head {
@@ -1293,6 +1283,16 @@ body.light .summary_container {
   color: #fff;
 }
 
+.summary-detail {
+  color: #ffffff;
+  font-size: 30px;
+  margin-left: 200px;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 body.dark .expense_data_container {
   display: flex;
   justify-content: center;
@@ -1308,11 +1308,6 @@ body.dark .expense_data_container {
   margin-right: 0;
   margin-left: auto;
   padding-top: 0;
-}
-
-.chart-container {
-  width: 400px;
-  height: auto;
 }
 
 body.light .expense_data_container {
@@ -1585,20 +1580,6 @@ body.light .expense_data_container {
   display: flex;
 }
 /* EDIT ENTRIES END SECTION*/
-
-@media (max-width: 1026px) {
-  table {
-    margin-right: 10px;
-  }
-}
-@media (min-width: 1026px) {
-  .monthly {
-    font-size: 1.7vw;
-  }
-  .monthly_details {
-    font-size: 1.7vw;
-  }
-}
 
 .close .nav-text {
   opacity: 0;
@@ -1973,12 +1954,118 @@ body.light .close .nav-link:hover .sidebar-icon {
 }
 
 /* ========== LOGIN PAGE END ===================*/
+
+/* ========== FIRST TIME LOGIN / NO EXPENSE ENTRIES START ===================*/
+
+.first_timer {
+  position: relative;
+  top: 200px;
+  display: flex;
+  justify-content: center;
+}
 .first_timer p {
-  color: red;
-  font-size: 50px;
+  color: #ffffff;
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  border: solid 3px #ffffff;
+  border-radius: 10px;
+  padding: 15px;
 }
 
 .my_year {
   font-size: 80px;
   color: red;
+}
+
+.first-expense-container {
+  position: relative;
+  top: 230px;
+  display: flex;
+  justify-content: center;
+}
+
+body.dark .first-expense-container .sidebar-icon {
+  stroke: #ffffff;
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+}
+
+.first-expense {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #ffffff;
+}
+
+.first-expense-container a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 3px #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+/* ========== CHART STYLING START ===================*/
+.chart-main-container {
+  display: flex;
+  justify-content: center;
+  background-color: #121212;
+}
+.chart-second-container {
+  width: 600px;
+}
+
+.category-summary-container {
+  background-color: #121212;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.category-summary {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 200px;
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+/* ==========  CHART STYLING END ===================*/
+
+/* ========== FIRST TIME LOGIN / NO EXPENSE ENTRIES END ===================*/
+
+@media (max-width: 1026px) {
+  table {
+    margin-right: 10px;
+  }
+}
+@media (min-width: 1026px) {
+  .monthly {
+    font-size: 1.7vw;
+  }
+  .monthly_details {
+    font-size: 1.7vw;
+  }
+}
+
+@media (max-width: 850px) {
+  body.dark .money_in_image_container,
+  body.dark .money_out_image_container,
+  body.dark .receipt_image_container {
+    max-width: 50px;
+    margin-left: 5px;
+  }
+}
+
+@media (max-width: 1025px) {
 }

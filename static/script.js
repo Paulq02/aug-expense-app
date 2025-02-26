@@ -143,7 +143,7 @@ console.log(nameArray);
 console.log(amountArray);
 
 new Chart(document.getElementById("myCanvas"), {
-  type: "pie",
+  type: "doughnut",
   data: {
     labels: nameArray,
     datasets: [
