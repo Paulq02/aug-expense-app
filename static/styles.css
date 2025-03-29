@@ -19,6 +19,7 @@ body {
   background-color: rgb(18, 23, 29);
   */
   background-color: #000000;
+  position: relative;
 }
 
 body.light {
@@ -248,10 +249,11 @@ body.light .paul:hover a {
   z-index: 100;
 }
 
-.close {
-  position: absolute;
+nav.close {
+  top: 0;
+  position: sticky;
 
-  height: 100%;
+  height: 100vh;
   width: 78px;
   /*
   background-color: rgb(34, 43, 52);
@@ -262,7 +264,6 @@ body.light .paul:hover a {
   border-radius: 10px;
   border-top-left-radius: 0px;
   padding: 10px 14px;
-  z-index: 100;
 }
 
 .close .nav-text {
@@ -453,6 +454,7 @@ body.light .sidebar a:hover .home-icon {
 }
 
 .menu-bar {
+  position: sticky;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -660,9 +662,13 @@ body.light .close.sidebar .light-span {
 }
 
 .main_container {
+  position: absolute;
+  top: 80px;
   margin-top: 100px;
   display: flex;
   justify-content: center;
+  width: 100%;
+  z-index: -1;
 }
 
 .add_expense_main_container h1 {
@@ -1253,6 +1259,8 @@ tfoot td {
 }
 
 .summary_container {
+  position: absolute;
+  top: 50px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -1265,6 +1273,7 @@ tfoot td {
   background-color: #000000;
   padding: 20px;
   width: 100%;
+  z-index: -1;
 }
 
 body.light .summary_container {
@@ -2011,14 +2020,13 @@ body.dark .first-expense-container .sidebar-icon {
   padding: 15px;
 }
 
-/* ========== CHART STYLING START ===================*/
+/* ========== DOUGHNUT CHART STYLING START ===================*/
 .chart-main-container {
+  width: 100%;
+  height: 500px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: #121212;
-}
-.chart-second-container {
-  width: 600px;
 }
 
 .category-summary-container {
@@ -2040,7 +2048,11 @@ body.dark .first-expense-container .sidebar-icon {
   padding-bottom: 40px;
 }
 
-/* ==========  CHART STYLING END ===================*/
+/* ==========   DOUGHNUT CHART STYLING END ===================*/
+
+/* ==========   BAR CHART STYLING END ===================*/
+
+/* ==========  BAR CHART STYLING END ===================*/
 
 /* ========== FIRST TIME LOGIN / NO EXPENSE ENTRIES END ===================*/
 
@@ -2067,5 +2079,32 @@ body.dark .first-expense-container .sidebar-icon {
   }
 }
 
-@media (max-width: 1025px) {
+/* ========== CHART MEDIA QUERIES START ===================*/
+@media (min-width: 1221px) {
+  .bar-chart-container {
+    width: 600px;
+  }
+  .pie-container {
+    width: 500px;
+  }
 }
+
+@media (min-width: 1120px) and (max-width: 1220px) {
+  .bar-chart-container {
+    width: 500px;
+  }
+  .pie-container {
+    width: 500px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1119px) {
+  .bar-chart-container {
+    width: 500px;
+  }
+  .pie-container {
+    width: 320px;
+  }
+}
+
+/* ========== CHART MEDIA QUERIES END ===================*/

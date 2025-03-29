@@ -532,24 +532,17 @@
     </div>
 
     <div class="chart-main-container">
-      <div class="chart-second-container">
+      <div class="pie-container">
         <canvas id="myCanvas"> </canvas>
 
         <p style="display: none" class="json_data">{{my_json}}</p>
+        <canvas id="practice" width="600px"></canvas>
+      </div>
+      <div class="bar-chart-container">
+        <canvas id="barChart"></canvas>
       </div>
     </div>
 
-    <!--
-    <button class="add_expense_button" type="button">
-      <a href="{{url_for('add_expense')}}">
-        <img
-          src="../static/images/new_add_expense_icon.png"
-          alt="picture of money being added to a wallet"
-        />
-        Add Expense
-      </a>
-    </button>
-    -->
     <script>
       /* DELETE FUNCTION START SECTION */
       function deleteFunction(index) {

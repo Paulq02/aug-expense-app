@@ -1,3 +1,6 @@
+Chart.defaults.color = "#ffffff";
+(Chart.defaults.family = "Roboto"), "sans-serif";
+
 const openSidebar = document.querySelector(".close");
 const toggleButton = document.querySelector(".toggle");
 const toggleSwitch = document.querySelector(".toggle-switch");
@@ -89,10 +92,6 @@ my_json_data = document.querySelector(".json_data").textContent;
 
 converted_to_javascript_object = JSON.parse(my_json_data);
 
-colorList = ["red", "purple", "yellow", "green", "blue", "pink"];
-
-console.log(converted_to_javascript_object);
-
 categoryArray = [
   { category: "entertainment", amount: 0 },
   { category: "groceries", amount: 0 },
@@ -139,18 +138,105 @@ for (let cat of categoryArray) {
   amountArray.push(amount);
 }
 
-console.log(nameArray);
-console.log(amountArray);
+const gapPlugin = {
+  id: "gapPlugin",
+  beforeInit(chart) {
+    const originalFit = chart.legend.fit;
 
-new Chart(document.getElementById("myCanvas"), {
+    chart.legend.fit = function () {
+      originalFit.bind(chart.legend)();
+
+      this.height += 80;
+    };
+  },
+};
+
+const doughnutChart = new Chart(document.getElementById("myCanvas"), {
   type: "doughnut",
   data: {
     labels: nameArray,
     datasets: [
       {
         data: amountArray,
-        backgroundColor: colorList,
       },
     ],
   },
+  options: {
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 30,
+          },
+        },
+      },
+    },
+  },
+  plugins: [gapPlugin],
+});
+
+new Chart(document.getElementById("barChart"), {
+  type: "bar",
+  data: {
+    labels: nameArray,
+    datasets: [
+      {
+        label: "Expenses by Category",
+        data: amountArray,
+        backgroundColor: "#bb86fc",
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          font: {
+            size: 23,
+          },
+        },
+      },
+      x: {
+        ticks: {
+          font: {
+            size: 23,
+          },
+        },
+      },
+    },
+
+    plugins: {
+      legend: {
+        labels: {
+          // This more specific font property overrides the global property
+          font: {
+            size: 23,
+          },
+        },
+      },
+    },
+  },
+});
+
+function doughChartText(chart) {
+  let windowWidth = window.outerWidth;
+
+  if (windowWidth >= 1120) {
+    let fontSize = 30;
+
+    chart.options.plugins.legend.labels.font.size = fontSize;
+
+    chart.update();
+  }
+
+  if (windowWidth <= 1119) {
+    let fontSize = 25;
+    chart.options.plugins.legend.labels.font.size = fontSize;
+    chart.update();
+  }
+}
+
+window.addEventListener("resize", function () {
+  doughChartText(doughnutChart);
 });
