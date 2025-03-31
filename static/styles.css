@@ -19,7 +19,6 @@ body {
   background-color: rgb(18, 23, 29);
   */
   background-color: #000000;
-  position: relative;
 }
 
 body.light {
@@ -236,7 +235,7 @@ body.light .paul:hover a {
 /* ===Sidebar START=== */
 
 .close.sidebar {
-  position: absolute;
+  position: fixed;
 
   height: 100%;
   width: 250px;
@@ -250,8 +249,7 @@ body.light .paul:hover a {
 }
 
 nav.close {
-  top: 0;
-  position: sticky;
+  position: fixed;
 
   height: 100vh;
   width: 78px;
@@ -264,6 +262,7 @@ nav.close {
   border-radius: 10px;
   border-top-left-radius: 0px;
   padding: 10px 14px;
+  z-index: 10;
 }
 
 .close .nav-text {
@@ -662,13 +661,9 @@ body.light .close.sidebar .light-span {
 }
 
 .main_container {
-  position: absolute;
-  top: 80px;
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  width: 100%;
-  z-index: -1;
 }
 
 .add_expense_main_container h1 {
@@ -1259,8 +1254,6 @@ tfoot td {
 }
 
 .summary_container {
-  position: absolute;
-  top: 50px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -1272,8 +1265,6 @@ tfoot td {
   */
   background-color: #000000;
   padding: 20px;
-  width: 100%;
-  z-index: -1;
 }
 
 body.light .summary_container {
