@@ -2011,10 +2011,37 @@ body.dark .first-expense-container .sidebar-icon {
   padding: 15px;
 }
 
+footer {
+  width: 90%;
+  display: flex;
+  padding: 10px;
+  align-content: center;
+  justify-content: space-between;
+  margin-left: 78px;
+}
+small {
+  margin-left: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #bb86fc;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+small li {
+  list-style: none;
+}
+
 /* ========== DOUGHNUT CHART STYLING START ===================*/
 .chart-main-container {
   width: 100%;
-  height: 500px;
+  height: auto;
   display: flex;
   justify-content: space-evenly;
   background-color: #121212;
