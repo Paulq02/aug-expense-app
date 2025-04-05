@@ -13,8 +13,25 @@ toggleButton.addEventListener("click", () => {
 });
 
 toggleSwitch.addEventListener("click", () => {
-  toggleSwitch.classList.toggle("light");
-  bodyLight.classList.toggle("light");
+  currentColor = window.localStorage.getItem("color");
+
+  if (currentColor === "dark") {
+    bodyLight.classList.toggle("light");
+    setColor = window.localStorage.setItem("color", "light");
+  }
+
+  if (currentColor === "light") {
+    bodyLight.classList.toggle("light");
+    setColor = localStorage.setItem("color", "dark");
+  }
+  console.log(currentColor);
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  currentColor = window.localStorage.getItem("color");
+  if (currentColor === "light") {
+    bodyLight.classList.add("light");
+  }
 });
 
 function confirmPassword() {
@@ -33,49 +50,12 @@ function confirmPassword() {
   }
 }
 
-/*
-const dateButton = document.querySelector(".sort-button");
-const newestExpenses = document.querySelector(".newest-first");
-const olderExpenses = document.querySelector(".oldest-first");
-
-dateButton.addEventListener("click", () => {
-  let sortBy = localStorage.getItem("sortBy");
-
-  if (sortBy === "newest") {
-    olderExpenses.style.display = "none";
-    newestExpenses.style.display = "flex";
-  } else {
-    olderExpenses.style.display = "none";
-    newestExpenses.style.display = "flex";
-  }
-});
-
-window.addEventListener("load", () => {
-  const sortBy = localStorage.getItem("sortBy");
-
-  if (sortBy == "newest") {
-    newestExpenses.style.display = "flex";
-    olderExpenses.style.display = "none";
-  } else {
-    newestExpenses.style.display = "none";
-    olderExpenses.style.display = "flex";
-  }
-});
-*/
 const yearSelect = document.getElementById("year-select");
 
 yearSelect.addEventListener("change", () => {
   const selectForm = document.querySelector(".select-form");
   selectForm.submit();
 });
-
-/*
-const sortAscDesc = document.querySelector(".asc-desc");
-const sortAscDescForm = document.querySelector(".sort-desc-asc");
-sortFunction = sortAscDesc.addEventListener("change", () => {
-  sortAscDescForm.this.form.submit();
-});
-*/
 
 const mySelectElement = document.querySelector(".asc-desc");
 
@@ -146,8 +126,16 @@ const gapPlugin = {
     chart.legend.fit = function () {
       originalFit.bind(chart.legend)();
 
-      this.height += 80;
+      this.height += 60;
     };
+  },
+};
+
+const textColorPlugin = {
+  id: "text_color_plugin",
+  afterEvent(chart) {
+    chart.defaults.color = "#36A2EB";
+    chart.update();
   },
 };
 
@@ -172,7 +160,7 @@ const doughnutChart = new Chart(document.getElementById("myCanvas"), {
       },
     },
   },
-  plugins: [gapPlugin],
+  plugins: [gapPlugin, textColorPlugin],
 });
 
 new Chart(document.getElementById("barChart"), {
