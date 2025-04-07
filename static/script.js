@@ -1,5 +1,13 @@
-Chart.defaults.color = "#ffffff";
 (Chart.defaults.family = "Roboto"), "sans-serif";
+
+function checkCurrentColor() {
+  inititalColor = window.localStorage.getItem("color");
+  if (inititalColor === null) {
+    let currentColor = window.localStorage.setItem("color", "dark");
+  }
+}
+
+checkCurrentColor();
 
 const openSidebar = document.querySelector(".close");
 const toggleButton = document.querySelector(".toggle");
@@ -24,7 +32,6 @@ toggleSwitch.addEventListener("click", () => {
     bodyLight.classList.toggle("light");
     setColor = localStorage.setItem("color", "dark");
   }
-  console.log(currentColor);
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -133,9 +140,16 @@ const gapPlugin = {
 
 const textColorPlugin = {
   id: "text_color_plugin",
-  afterEvent(chart) {
-    chart.defaults.color = "#36A2EB";
-    chart.update();
+  afterDraw(chart) {
+    let currentColor = window.localStorage.getItem("color");
+
+    if (currentColor === "light") {
+      chart.options.plugins.legend.labels.color = "#000000";
+      chart.update();
+    } else {
+      chart.options.plugins.legend.labels.color = "#ffffff";
+      chart.update();
+    }
   },
 };
 
