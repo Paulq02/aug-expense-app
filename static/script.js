@@ -137,8 +137,7 @@ const gapPlugin = {
     };
   },
 };
-
-const textColorPlugin = {
+const doughnutTextPlugin = {
   id: "text_color_plugin",
   afterDraw(chart) {
     let currentColor = window.localStorage.getItem("color");
@@ -174,8 +173,30 @@ const doughnutChart = new Chart(document.getElementById("myCanvas"), {
       },
     },
   },
-  plugins: [gapPlugin, textColorPlugin],
+  plugins: [gapPlugin, doughnutTextPlugin],
 });
+
+const barChartTextPlugin = {
+  id: "barTextColor",
+  afterDraw(chart) {
+    let currentColor = window.localStorage.getItem("color");
+    if (currentColor === "dark") {
+      chart.options.scales.y.ticks.color = "#ffffff";
+      chart.options.scales.x.ticks.color = "#ffffff";
+      chart.options.plugins.legend.labels.color = "#ffffff";
+      chart.options.scales.y.grid.color = "#ffffff";
+      chart.options.scales.x.grid.color = "#ffffff";
+      chart.update();
+    } else {
+      chart.options.scales.y.ticks.color = "#000000";
+      chart.options.scales.x.ticks.color = "#000000";
+      chart.options.plugins.legend.labels.color = "#000000";
+      chart.options.scales.y.grid.color = "#000000";
+      chart.options.scales.x.grid.color = "#000000";
+      chart.update();
+    }
+  },
+};
 
 new Chart(document.getElementById("barChart"), {
   type: "bar",
@@ -219,6 +240,7 @@ new Chart(document.getElementById("barChart"), {
       },
     },
   },
+  plugins: [barChartTextPlugin],
 });
 
 function doughChartText(chart) {
