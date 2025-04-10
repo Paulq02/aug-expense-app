@@ -182,14 +182,14 @@ const barChartTextPlugin = {
     let currentColor = window.localStorage.getItem("color");
     if (currentColor === "dark") {
       chart.options.scales.y.ticks.color = "#ffffff";
-      chart.options.scales.x.ticks.color = "#ffffff";
+      chart.options.scales.x.ticks.color = colors;
       chart.options.plugins.legend.labels.color = "#ffffff";
       chart.options.scales.y.grid.color = "#ffffff";
       chart.options.scales.x.grid.color = "#ffffff";
       chart.update();
     } else {
       chart.options.scales.y.ticks.color = "#000000";
-      chart.options.scales.x.ticks.color = "#000000";
+      chart.options.scales.x.ticks.color = colors;
       chart.options.plugins.legend.labels.color = "#000000";
       chart.options.scales.y.grid.color = "#000000";
       chart.options.scales.x.grid.color = "#000000";
@@ -197,11 +197,19 @@ const barChartTextPlugin = {
     }
   },
 };
-
+const colors = [
+  "rgb(54, 162, 235)", // blue
+  "rgb(255, 159, 64)", // orange
+  "rgb(255, 205, 86)", // yellow
+  "rgb(75, 192, 192)", // green
+  "rgb(153, 102, 255)", // purple
+  "rgb(255, 99, 132)", // red
+];
 new Chart(document.getElementById("barChart"), {
   type: "bar",
   data: {
     labels: nameArray,
+
     datasets: [
       {
         label: "Expenses by Category",
@@ -222,6 +230,7 @@ new Chart(document.getElementById("barChart"), {
       },
       x: {
         ticks: {
+          color: "red",
           font: {
             size: 23,
           },
