@@ -474,43 +474,42 @@
           <td class="edit-table-container">
             <button
               class="main-edit-button"
+              id="main-edit-button-{{loop.index0}}"
               type="button"
-              onclick="editNamebutton({{loop.index0}});showCostbutton({{loop.index0}});showDatebutton({{loop.index0}});showCancelIcons({{loop.index0}});showCostCancelButtons({{loop.index0}})"
+              onclick="showCostBtn({{loop.index0}});showDatebutton({{loop.index0}});showNameBtn({{loop.index0}});"
             >
               <img class="edit-icon" src="../static/images/pencil_345648.png" />
             </button>
           </td>
         </tbody>
 
-        <div class="confirmation_container" id="delete-{{loop.index0}}">
-          <div class="btn_window">
-            <div class="prompt">
-              <img
-                src="../static/images/warning_icon.png"
-                alt="picture of a warning symbol"
-              />
-              <p>Are you sure you want to delete?</p>
-            </div>
-            <div class="expense_details">
-              <p>Expense: <span>{{ item.expense_name}} </span></p>
-              <p>
-                Expense Cost: $<span>{{ "{:.2f}".format(item.amount) }} </span>
-              </p>
-            </div>
+        <div class="btn_window" id="delete-{{loop.index0}}">
+          <div class="prompt">
+            <img
+              src="../static/images/warning_icon.png"
+              alt="picture of a warning symbol"
+            />
+            <p>Are you sure you want to delete?</p>
+          </div>
+          <div class="expense_details">
+            <p>Expense: <span>{{ item.expense_name}} </span></p>
+            <p>
+              Expense Cost: $<span>{{ "{:.2f}".format(item.amount) }} </span>
+            </p>
+          </div>
 
-            <div class="btn_container">
-              <button class="cancel" onclick="cancelDelete({{loop.index0}})">
-                Cancel
+          <div class="btn_container">
+            <button class="cancel" onclick="cancelDelete({{loop.index0}})">
+              Cancel
+            </button>
+            <form
+              action="{{url_for('delete_expense', expense_id=item.expense_id)}}"
+              method="post"
+            >
+              <button class="confirm_delete" type="submit">
+                Yes, I want to delete
               </button>
-              <form
-                action="{{url_for('delete_expense', expense_id=item.expense_id)}}"
-                method="post"
-              >
-                <button class="confirm_delete" type="submit">
-                  Yes, I want to delete
-                </button>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
 
@@ -650,6 +649,8 @@
       /* DELETE FUNCTION START SECTION */
       function deleteFunction(index) {
         document.getElementById("delete-" + index).style.display = "flex";
+        document.getElementById("delete-" + index).style.flexDirection =
+          "column";
       }
 
       function cancelDelete(index) {
@@ -664,12 +665,15 @@
       /* =============================================================================================================== */
 
       /* NAME EDIT START SECTION */
+
+      /*
       function editNamebutton(index) {
         const name_edit = document.getElementById("edit-name-button-" + index);
         name_edit.style.display = "inline-flex";
         name_edit.style.justifyContent = "center";
         name_edit.style.alignItems = "center";
       }
+      */
 
       function showEditnameForm(index) {
         const formInput = document.getElementById("edit-name-form-" + index);
@@ -703,6 +707,47 @@
         );
         clearNameInput.value = "";
       }
+
+      /*
+      function clearEditNameButton(index) {
+        editNameBtn = document.getElementById("edit-name-button-" + index);
+        if (
+          editNameBtn.style.display == "inline-flex" &&
+          editNameBtn.classList.contains("on")
+        ) {
+        } else {
+          const cancelIcon = document.querySelector(".cancel-icon");
+          editNameBtn.style.display = "none";
+          cancelIcon.style.display = "none";
+        }
+      }
+        */
+      /*
+      function clearEditNameButton(index) {
+        editNameBtn = document.getElementById("edit-name-button-" + index);
+        classEditNameBtn = document.getElementById(
+          ".edit-name-button-" + index
+        );
+        const cancelIcon = document.getElementById(
+          ".cancel-svg-button-" + index
+        );
+        if (
+          editNameBtn.style.display == "none" &&
+          cancelIcon.style.display == "none"
+        ) {
+          editNameBtn.style.display = "inline-flex";
+        }
+      }
+
+      */
+      /*
+        if (classEditNameBtn.classList.contains("on")) {
+          const cancelIcon = document.querySelector(".cancel-svg-button");
+          editNameBtn.style.display = "none";
+          cancelIcon.style.display = "none";
+        }
+      }
+        */
 
       /* NAME EDIT END SECTION */
 
@@ -759,12 +804,15 @@
 
       /* DATE EDIT START SECTION */
 
+      /*
+
       function showDatebutton(index) {
         const dateButton = document.getElementById("edit-date-button-" + index);
-        dateButton.style.display = "inline-flex";
-        dateButton.style.justifyContent = "center";
-        dateButton.style.alignItems = "center";
+        const dateBtnCss = getComputedStyle(dateButton).style;
+        console.log(dateBtnCss);
       }
+
+      */
 
       function showDateForm(index) {
         const showDate = document.getElementById("edit-date-form-" + index);
@@ -798,6 +846,8 @@
 
       /* SVG CANCEL BUTTONS START */
 
+      /*
+
       function showCancelIcons(index) {
         const showNameCancel = document.getElementById(
           "cancel-svg-name-button-" + index
@@ -818,6 +868,8 @@
         showDateCancel.style.justifyContent = "center";
         showDateCancel.style.alignItems = "center";
       }
+
+      */
 
       /* SVG CANCEL BUTTONS END */
     </script>

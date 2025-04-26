@@ -517,7 +517,8 @@ def create_account():
     #cursor.close()
     return redirect(url_for("dashboard"))
    
-# ================== LOGOUT FUNCTION ================== # 
+# ================== 
+#  FUNCTION ================== # 
 
 
 @app.route('/logout')

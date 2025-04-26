@@ -1366,13 +1366,18 @@ body.light .expense_data_container {
 }
 */
 .confirmation_container {
-  display: none;
+  display: flex;
   position: absolute;
 
   width: 100%;
+  height: auto;
   z-index: 1;
-  justify-content: center;
+
   background: transparent;
+}
+
+.edit-name-button .off {
+  display: none;
 }
 
 .edit-name-button,
@@ -1446,15 +1451,17 @@ body.light .expense_data_container {
 }
 
 .btn_window {
-  display: flex;
-  flex-direction: column;
+  display: none;
   width: 500px;
   height: 290px;
   border: solid #fff 8px;
   border-radius: 6px;
   background-color: #fff;
-  justify-content: end;
+
   background-color: rgb(34, 43, 52);
+  position: fixed; /* NOT absolute */
+
+  z-index: 9999; /* Make sure it’s on top */
 }
 
 .prompt {

@@ -116,6 +116,7 @@ for (let item of converted_to_javascript_object) {
 }
 
 const nameArray = [];
+
 const amountArray = [];
 
 for (let cat of categoryArray) {
@@ -133,7 +134,7 @@ const gapPlugin = {
     chart.legend.fit = function () {
       originalFit.bind(chart.legend)();
 
-      this.height += 60;
+      this.height += 25;
     };
   },
 };
@@ -273,3 +274,95 @@ function doughChartText(chart) {
 window.addEventListener("resize", function () {
   doughChartText(doughnutChart);
 });
+
+const showNameBtn = function (index) {
+  console.log(index);
+  const mainEditButton = document.getElementById("main-edit-button-" + index);
+  const EditNameBtn = document.getElementById("edit-name-button-" + index);
+  const yellowEditnameBtn = getComputedStyle(EditNameBtn).display;
+
+  if (yellowEditnameBtn === "none") {
+    EditNameBtn.style.display = "inline-flex";
+    EditNameBtn.style.alignItems = "center";
+    EditNameBtn.style.justifyContent = "center";
+  } else {
+    EditNameBtn.style.display = "none";
+  }
+};
+
+showCostBtn = function (index) {
+  const mainEditButton = document.getElementById("main-edit-button-" + index);
+  const costBtn = document.getElementById("edit-cost-button-" + index);
+  const yellowCostBtn = getComputedStyle(costBtn).display;
+
+  if (yellowCostBtn === "none") {
+    costBtn.style.display = "inline-flex";
+    costBtn.style.justifyContent = "center";
+    costBtn.style.alignItems = "center";
+  } else {
+    costBtn.style.display = "none";
+  }
+};
+
+showDatebutton = function (index) {
+  const dateButton = document.getElementById("edit-date-button-" + index);
+  const dateBtnCss = getComputedStyle(dateButton).display;
+  if (dateBtnCss === "none") {
+    dateButton.style.display = "inline-flex";
+    dateButton.style.justifyContent = "center";
+    dateButton.style.alignItems = "center";
+  } else {
+    dateButton.style.display = "none";
+  }
+};
+
+/*
+function editNamebutton(index) {
+  const name_edit = document.getElementById("edit-name-button-" + index);
+  name_edit.style.display = "inline-flex";
+  name_edit.style.justifyContent = "center";
+  name_edit.style.alignItems = "center";
+}
+
+*/
+
+/*
+function clearEditNameButton(index) {
+  editNameBtn = document.getElementById("edit-name-button-" + index);
+  classEditNameBtn = document.getElementById(
+    ".edit-name-button-" + index
+  );
+  const cancelIcon = document.getElementById(
+    ".cancel-svg-button-" + index
+  );
+  if (
+    editNameBtn.style.display == "none" &&
+    cancelIcon.style.display == "none"
+  ) {
+    editNameBtn.style.display = "inline-flex";
+  }
+}
+/*
+
+/*
+function showCancelIcons(index) {
+        const showNameCancel = document.getElementById(
+          "cancel-svg-name-button-" + index
+        );
+        showNameCancel.style.display = "flex";
+        showNameCancel.style.justifyContent = "center";
+        showNameCancel.style.alignItems = "center";
+        const showCostCancel = document.getElementById(
+          "cancel-svg-cost-button-" + index
+        );
+        showCostCancel.style.display = "flex";
+        showCostCancel.style.justifyContent = "center";
+        showCostCancel.style.alignItems = "center";
+        const showDateCancel = document.getElementById(
+          "cancel-svg-date-button-" + index
+        );
+        showDateCancel.style.display = "flex";
+        showDateCancel.style.justifyContent = "center";
+        showDateCancel.style.alignItems = "center";
+      }
+*/
