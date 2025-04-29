@@ -476,9 +476,18 @@
               class="main-edit-button"
               id="main-edit-button-{{loop.index0}}"
               type="button"
-              onclick="showCostBtn({{loop.index0}});showDatebutton({{loop.index0}});showNameBtn({{loop.index0}});"
+              onclick="showCostBtn({{loop.index0}});showDatebutton({{loop.index0}});showNameBtn({{loop.index0}}); editModeActivated({{loop.index0}})"
             >
-              <img class="edit-icon" src="../static/images/pencil_345648.png" />
+              <img
+                class="edit-icon"
+                id="edit-icon-{{loop.index0}}"
+                src="../static/images/pencil_345648.png"
+              />
+              <img
+                class="edit-mode"
+                id="edit-mode-{{loop.index0}}"
+                src="../static/images/edit-mode.png"
+              />
             </button>
           </td>
         </tbody>

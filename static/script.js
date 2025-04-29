@@ -276,10 +276,13 @@ window.addEventListener("resize", function () {
 });
 
 const showNameBtn = function (index) {
-  console.log(index);
-  const mainEditButton = document.getElementById("main-edit-button-" + index);
+  console.log("hio");
   const EditNameBtn = document.getElementById("edit-name-button-" + index);
   const yellowEditnameBtn = getComputedStyle(EditNameBtn).display;
+
+  const cancelEditNameForm = document.getElementById("edit-name-form-" + index);
+  const cancelEditNameFormDisplay =
+    getComputedStyle(cancelEditNameForm).display;
 
   if (yellowEditnameBtn === "none") {
     EditNameBtn.style.display = "inline-flex";
@@ -287,6 +290,7 @@ const showNameBtn = function (index) {
     EditNameBtn.style.justifyContent = "center";
   } else {
     EditNameBtn.style.display = "none";
+    cancelEditNameForm.style.display = "none";
   }
 };
 
@@ -295,24 +299,48 @@ showCostBtn = function (index) {
   const costBtn = document.getElementById("edit-cost-button-" + index);
   const yellowCostBtn = getComputedStyle(costBtn).display;
 
+  const editCostForm = document.getElementById("edit-cost-form-" + index);
+
   if (yellowCostBtn === "none") {
     costBtn.style.display = "inline-flex";
     costBtn.style.justifyContent = "center";
     costBtn.style.alignItems = "center";
   } else {
     costBtn.style.display = "none";
+
+    editCostForm.style.display = "none";
   }
 };
 
 showDatebutton = function (index) {
   const dateButton = document.getElementById("edit-date-button-" + index);
   const dateBtnCss = getComputedStyle(dateButton).display;
+
+  const editDateForm = document.getElementById("edit-date-form-" + index);
   if (dateBtnCss === "none") {
     dateButton.style.display = "inline-flex";
     dateButton.style.justifyContent = "center";
     dateButton.style.alignItems = "center";
   } else {
     dateButton.style.display = "none";
+
+    editDateForm.style.display = "none";
+  }
+};
+
+const editModeActivated = function (index) {
+  const editIcon = document.getElementById("main-edit-button-" + index);
+  const editPNG = document.getElementById("edit-icon-" + index);
+  const editPNGDisplay = getComputedStyle(editPNG).display;
+  const editModePNG = document.getElementById("edit-mode-" + index);
+  const editModePNGDisplay = getComputedStyle(editModePNG);
+
+  if (editPNGDisplay === "inline") {
+    editPNG.style.display = "none";
+    editModePNG.style.display = "inline";
+  } else {
+    editPNG.style.display = "inline";
+    editModePNG.style.display = "none";
   }
 };
 

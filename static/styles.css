@@ -889,6 +889,18 @@ body.light .monthly {
   height: 30px;
 }
 
+.edit-mode {
+  display: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.edit-mode:hover {
+  width: 35px;
+  height: 35px;
+}
+
 .edit-icon:hover {
   height: 40px;
   width: 40px;
@@ -1420,7 +1432,7 @@ body.light .expense_data_container {
   background: none;
 
   position: relative;
-  right: 8px;
+  right: 15px;
   bottom: 8px;
   cursor: pointer;
 }
