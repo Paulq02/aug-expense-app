@@ -169,14 +169,14 @@ def sort_year():
 
 
     if user_year_selection == "all":
-        sql_all_expenses = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} "
+        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
         cursor.execute(sql_all_expenses,(user_id,))
         results = cursor.fetchall()
         for data in results:
            expense_id = data[0]
-           expense_name = data[2]
-           expense_cost = float(data[3])
-           expense_date = data[4]
+           expense_name = data[1]
+           expense_cost = float(data[2])
+           expense_date = data[3]
           
            converted_date = expense_date.strftime("%m-%d-%Y")
            my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
@@ -197,7 +197,7 @@ def sort_year():
 
     else:
 
-        sql_get_year = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= %s ORDER BY expense_date {sort_order.upper()}"
+        sql_get_year = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET 0"
         cursor.execute(sql_get_year,(user_id,user_year_selection))
         year_list = cursor.fetchall()
         for year in year_list:
@@ -281,20 +281,20 @@ def new_sort():
     
 
     if "all" in current_year_selected:
-        sql_select_all = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}"
+        sql_select_all = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
         cursor.execute(sql_select_all, (user_id,))
         results = cursor.fetchall()
         for column in results:
             expense_id = column[0]
-            expense_name = column[2]
-            expense_cost = float(column[3])
-            expense_date = column[4]
+            expense_name = column[1]
+            expense_cost = float(column[2])
+            expense_date = column[3]
             converted_date = expense_date.strftime("%m-%d-%Y")
 
             my_list.append({"expense_id":expense_id,"expense_name":expense_name,"amount":expense_cost,"expense_date":converted_date })
 
 
-
+        my_json= json.dumps(my_list)
 
 
 
@@ -313,6 +313,7 @@ def new_sort():
             expense_date = column[4]
             converted_date = datetime.strftime(expense_date,"%m-%d-%Y" ) # type: ignore
             my_list.append({"expense_id":expense_id, "expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
+        my_json= json.dumps(my_list)
 
     my_expenses = expenses_total()
 
@@ -320,8 +321,9 @@ def new_sort():
     entries = get_entries()
     
     print(f"THE CURRENT SORT ORDER IS ---------{sort_order}")
+    
     print(my_list)
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  current_year_selected=current_year_selected, sort_order=sort_order)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  current_year_selected=current_year_selected, sort_order=sort_order, my_json=my_json)
 
 
 

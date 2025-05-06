@@ -1343,6 +1343,20 @@ body.light .expense_data_container {
   background-color: #f8f8f8;
 }
 
+.next-button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.previous-results,
+.next-results {
+  background-color: #000000;
+  color: #bb86fc;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  border: solid #bb86fc 5px;
+  cursor: pointer;
+}
+
 .button_icon:hover {
   cursor: pointer;
 }
@@ -1885,6 +1899,21 @@ body.light .close .nav-link:hover .sidebar-icon {
 .signup-container {
   text-align: center;
   margin-top: 20px;
+}
+
+.input-div {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.input-div input {
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 3px #bb86fc;
+  border-radius: 5px;
+  padding: 2px 5px;
 }
 
 .signup-container p {

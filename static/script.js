@@ -1,13 +1,6 @@
-(Chart.defaults.family = "Roboto"), "sans-serif";
-
-function checkCurrentColor() {
-  inititalColor = window.localStorage.getItem("color");
-  if (inititalColor === null) {
-    let currentColor = window.localStorage.setItem("color", "dark");
-  }
+if (typeof Chart !== "undefined") {
+  Chart.defaults.font.family = '"Roboto", "sans-serif"';
 }
-
-checkCurrentColor();
 
 const openSidebar = document.querySelector(".close");
 const toggleButton = document.querySelector(".toggle");
@@ -15,24 +8,94 @@ const toggleSwitch = document.querySelector(".toggle-switch");
 const bodyLight = document.querySelector("body");
 const closeSearchBox = document.querySelector(".open-search-box");
 
-toggleButton.addEventListener("click", () => {
-  openSidebar.classList.toggle("sidebar");
-  closeSearchBox.classList.toggle("close-search-box");
-});
+if (toggleButton) {
+  toggleButton.addEventListener("click", () => {
+    openSidebar.classList.toggle("sidebar");
+    closeSearchBox.classList.toggle("close-search-box");
+  });
+}
 
-toggleSwitch.addEventListener("click", () => {
-  currentColor = window.localStorage.getItem("color");
+if (toggleSwitch)
+  toggleSwitch.addEventListener("click", () => {
+    currentColor = window.localStorage.getItem("color");
 
-  if (currentColor === "dark") {
-    bodyLight.classList.toggle("light");
-    setColor = window.localStorage.setItem("color", "light");
+    function checkCurrentColor() {
+      inititalColor = window.localStorage.getItem("color");
+      if (inititalColor === null) {
+        let currentColor = window.localStorage.setItem("color", "dark");
+      }
+    }
+
+    checkCurrentColor();
+
+    const yearSelect = document.getElementById("year-select");
+
+    if (yearSelect) {
+      yearSelect.addEventListener("change", () => {
+        const selectForm = document.querySelector(".select-form");
+        selectForm.submit();
+      });
+    }
+
+    if (currentColor === "dark") {
+      bodyLight.classList.toggle("light");
+      setColor = window.localStorage.setItem("color", "light");
+    }
+
+    if (currentColor === "light") {
+      bodyLight.classList.toggle("light");
+      setColor = localStorage.setItem("color", "dark");
+    }
+  });
+
+const mySelectElement = document.querySelector(".asc-desc");
+
+if (mySelectElement) {
+  mySelectElement.addEventListener("change", function () {
+    this.form.submit();
+  });
+}
+
+const sortCost = document.querySelector(".sort-expense-dropdown");
+
+if (sortCost) {
+  sortCost.addEventListener("change", function () {
+    this.form.submit();
+  });
+}
+
+const jsonStuff = document.querySelector(".json_data");
+
+if (jsonStuff) {
+  const my_json_data = document.querySelector(".json_data").textContent;
+  converted_to_javascript_object = JSON.parse(my_json_data);
+  for (let item of converted_to_javascript_object) {
+    if (item.expense_category === "entertainment") {
+      let newAmount = item.amount;
+      categoryArray[0].amount += newAmount;
+    }
+    if (item.expense_category === "groceries") {
+      let newAmount = item.amount;
+      categoryArray[1].amount += newAmount;
+    }
+    if (item.expense_category === "rent") {
+      let newAmount = item.amount;
+      categoryArray[2].amount += newAmount;
+    }
+    if (item.expense_category === "non-essentials") {
+      let newAmount = item.amount;
+      categoryArray[3].amount += newAmount;
+    }
+    if (item.expense_category === "monthly") {
+      let newAmount = item.amount;
+      categoryArray[4].amount += newAmount;
+    }
+    if (item.expense_category === "other") {
+      let newAmount = item.amount;
+      categoryArray[5].amount += newAmount;
+    }
   }
-
-  if (currentColor === "light") {
-    bodyLight.classList.toggle("light");
-    setColor = localStorage.setItem("color", "dark");
-  }
-});
+}
 
 window.addEventListener("DOMContentLoaded", () => {
   currentColor = window.localStorage.getItem("color");
@@ -41,7 +104,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-function confirmPassword() {
+const confirmPassword = function () {
   const createAccountButton = document.querySelector(".create-account-button");
   const messageBox = document.querySelector(".password-alert");
   const password = document.querySelector(".first-password").value;
@@ -55,29 +118,7 @@ function confirmPassword() {
     messageBox.innerHTML = "";
     createAccountButton.disabled = false;
   }
-}
-
-const yearSelect = document.getElementById("year-select");
-
-yearSelect.addEventListener("change", () => {
-  const selectForm = document.querySelector(".select-form");
-  selectForm.submit();
-});
-
-const mySelectElement = document.querySelector(".asc-desc");
-
-mySelectElement.addEventListener("change", function () {
-  this.form.submit();
-});
-
-const sortCost = document.querySelector(".sort-expense-dropdown");
-sortCost.addEventListener("change", function () {
-  this.form.submit();
-});
-
-my_json_data = document.querySelector(".json_data").textContent;
-
-converted_to_javascript_object = JSON.parse(my_json_data);
+};
 
 categoryArray = [
   { category: "entertainment", amount: 0 },
@@ -87,33 +128,6 @@ categoryArray = [
   { category: "monthly", amount: 0 },
   { category: "other", amount: 0 },
 ];
-
-for (let item of converted_to_javascript_object) {
-  if (item.expense_category === "entertainment") {
-    let newAmount = item.amount;
-    categoryArray[0].amount += newAmount;
-  }
-  if (item.expense_category === "groceries") {
-    let newAmount = item.amount;
-    categoryArray[1].amount += newAmount;
-  }
-  if (item.expense_category === "rent") {
-    let newAmount = item.amount;
-    categoryArray[2].amount += newAmount;
-  }
-  if (item.expense_category === "non-essentials") {
-    let newAmount = item.amount;
-    categoryArray[3].amount += newAmount;
-  }
-  if (item.expense_category === "monthly") {
-    let newAmount = item.amount;
-    categoryArray[4].amount += newAmount;
-  }
-  if (item.expense_category === "other") {
-    let newAmount = item.amount;
-    categoryArray[5].amount += newAmount;
-  }
-}
 
 const nameArray = [];
 
@@ -152,30 +166,33 @@ const doughnutTextPlugin = {
     }
   },
 };
+const canvasDoughnut = document.getElementById("myCanvas");
 
-const doughnutChart = new Chart(document.getElementById("myCanvas"), {
-  type: "doughnut",
-  data: {
-    labels: nameArray,
-    datasets: [
-      {
-        data: amountArray,
-      },
-    ],
-  },
-  options: {
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            size: 30,
+if (canvasDoughnut) {
+  const doughnutChart = new Chart(document.getElementById("myCanvas"), {
+    type: "doughnut",
+    data: {
+      labels: nameArray,
+      datasets: [
+        {
+          data: amountArray,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 30,
+            },
           },
         },
       },
     },
-  },
-  plugins: [gapPlugin, doughnutTextPlugin],
-});
+    plugins: [gapPlugin, doughnutTextPlugin],
+  });
+}
 
 const barChartTextPlugin = {
   id: "barTextColor",
@@ -206,52 +223,57 @@ const colors = [
   "rgb(153, 102, 255)", // purple
   "rgb(255, 99, 132)", // red
 ];
-new Chart(document.getElementById("barChart"), {
-  type: "bar",
-  data: {
-    labels: nameArray,
 
-    datasets: [
-      {
-        label: "Expenses by Category",
-        data: amountArray,
-        backgroundColor: "#bb86fc",
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          font: {
-            size: 23,
+const chartBar = document.getElementById("barChart");
+
+if (chartBar) {
+  new Chart(document.getElementById("barChart"), {
+    type: "bar",
+    data: {
+      labels: nameArray,
+
+      datasets: [
+        {
+          label: "Expenses by Category",
+          data: amountArray,
+          backgroundColor: "#bb86fc",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            font: {
+              size: 23,
+            },
+          },
+        },
+        x: {
+          ticks: {
+            color: "red",
+            font: {
+              size: 23,
+            },
           },
         },
       },
-      x: {
-        ticks: {
-          color: "red",
-          font: {
-            size: 23,
+
+      plugins: {
+        legend: {
+          labels: {
+            // This more specific font property overrides the global property
+            font: {
+              size: 23,
+            },
           },
         },
       },
     },
-
-    plugins: {
-      legend: {
-        labels: {
-          // This more specific font property overrides the global property
-          font: {
-            size: 23,
-          },
-        },
-      },
-    },
-  },
-  plugins: [barChartTextPlugin],
-});
+    plugins: [barChartTextPlugin],
+  });
+}
 
 function doughChartText(chart) {
   let windowWidth = window.outerWidth;
@@ -294,7 +316,8 @@ const showNameBtn = function (index) {
   }
 };
 
-showCostBtn = function (index) {
+const showCostBtn = function (index) {
+  console.log("hi");
   const mainEditButton = document.getElementById("main-edit-button-" + index);
   const costBtn = document.getElementById("edit-cost-button-" + index);
   const yellowCostBtn = getComputedStyle(costBtn).display;
