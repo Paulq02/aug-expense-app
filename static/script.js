@@ -111,7 +111,7 @@ const confirmPassword = function () {
 
   const secondPassword = document.querySelector(".confirm-password").value;
   if (password !== secondPassword) {
-    messageBox.innerHTML = "Passwords do not match";
+    messageBox.textContent = "Passwords do not match";
     messageBox.style.color = "red";
     createAccountButton.disabled = true;
   } else {
@@ -417,3 +417,11 @@ function showCancelIcons(index) {
         showDateCancel.style.alignItems = "center";
       }
 */
+
+const clearErrorMessage = function () {
+  const errorElement = document.querySelector(".login-error");
+  const myDisplay = getComputedStyle(errorElement).display;
+  if (myDisplay === "block") {
+    errorElement.style.color = "#000000";
+  }
+};
