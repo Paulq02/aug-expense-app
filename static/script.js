@@ -15,7 +15,7 @@ if (toggleButton) {
   });
 }
 
-if (toggleSwitch)
+if (toggleSwitch) {
   toggleSwitch.addEventListener("click", () => {
     currentColor = window.localStorage.getItem("color");
 
@@ -25,29 +25,28 @@ if (toggleSwitch)
         let currentColor = window.localStorage.setItem("color", "dark");
       }
     }
-
-    checkCurrentColor();
-
-    const yearSelect = document.getElementById("year-select");
-
-    if (yearSelect) {
-      yearSelect.addEventListener("change", () => {
-        const selectForm = document.querySelector(".select-form");
-        selectForm.submit();
-      });
-    }
-
-    if (currentColor === "dark") {
-      bodyLight.classList.toggle("light");
-      setColor = window.localStorage.setItem("color", "light");
-    }
-
-    if (currentColor === "light") {
-      bodyLight.classList.toggle("light");
-      setColor = localStorage.setItem("color", "dark");
-    }
   });
+}
 
+const yearSelect = document.getElementById("year-select");
+
+if (yearSelect) {
+  console.log("form is working111111");
+  yearSelect.addEventListener("change", () => {
+    const selectForm = document.querySelector(".select-form");
+    selectForm.submit();
+  });
+}
+
+if (currentColor === "dark") {
+  bodyLight.classList.toggle("light");
+  setColor = window.localStorage.setItem("color", "light");
+}
+
+if (currentColor === "light") {
+  bodyLight.classList.toggle("light");
+  setColor = localStorage.setItem("color", "dark");
+}
 const mySelectElement = document.querySelector(".asc-desc");
 
 if (mySelectElement) {
@@ -69,6 +68,14 @@ const jsonStuff = document.querySelector(".json_data");
 if (jsonStuff) {
   const my_json_data = document.querySelector(".json_data").textContent;
   converted_to_javascript_object = JSON.parse(my_json_data);
+  categoryArray = [
+    { category: "entertainment", amount: 0 },
+    { category: "groceries", amount: 0 },
+    { category: "rent", amount: 0 },
+    { category: "non-essentials", amount: 0 },
+    { category: "monthly", amount: 0 },
+    { category: "other", amount: 0 },
+  ];
   for (let item of converted_to_javascript_object) {
     if (item.expense_category === "entertainment") {
       let newAmount = item.amount;
@@ -120,15 +127,6 @@ const confirmPassword = function () {
   }
 };
 
-categoryArray = [
-  { category: "entertainment", amount: 0 },
-  { category: "groceries", amount: 0 },
-  { category: "rent", amount: 0 },
-  { category: "non-essentials", amount: 0 },
-  { category: "monthly", amount: 0 },
-  { category: "other", amount: 0 },
-];
-
 const nameArray = [];
 
 const amountArray = [];
@@ -166,33 +164,32 @@ const doughnutTextPlugin = {
     }
   },
 };
+
 const canvasDoughnut = document.getElementById("myCanvas");
 
-if (canvasDoughnut) {
-  const doughnutChart = new Chart(document.getElementById("myCanvas"), {
-    type: "doughnut",
-    data: {
-      labels: nameArray,
-      datasets: [
-        {
-          data: amountArray,
-        },
-      ],
-    },
-    options: {
-      plugins: {
-        legend: {
-          labels: {
-            font: {
-              size: 30,
-            },
+const doughnutChart = new Chart(document.getElementById("myCanvas"), {
+  type: "doughnut",
+  data: {
+    labels: nameArray,
+    datasets: [
+      {
+        data: amountArray,
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 30,
           },
         },
       },
     },
-    plugins: [gapPlugin, doughnutTextPlugin],
-  });
-}
+  },
+  plugins: [gapPlugin, doughnutTextPlugin],
+});
 
 const barChartTextPlugin = {
   id: "barTextColor",
