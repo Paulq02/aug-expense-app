@@ -191,10 +191,10 @@ def sort_year():
     free_money = calclulate_money_leftover()
     entries = get_entries()
             
-       
+    my_json= json.dumps(my_list)
         
     print(f"THE SORT ORDER IS -----------{sort_order}")
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order, my_json=my_json)
 
       
   

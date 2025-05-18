@@ -3,11 +3,10 @@ if (typeof Chart !== "undefined") {
 }
 
 const openSidebar = document.querySelector(".close");
-const toggleButton = document.querySelector(".toggle");
-const toggleSwitch = document.querySelector(".toggle-switch");
-const bodyLight = document.querySelector("body");
+
 const closeSearchBox = document.querySelector(".open-search-box");
 
+const toggleButton = document.querySelector(".toggle");
 if (toggleButton) {
   toggleButton.addEventListener("click", () => {
     openSidebar.classList.toggle("sidebar");
@@ -15,38 +14,49 @@ if (toggleButton) {
   });
 }
 
+let bodyColor = document.querySelector(".dark");
+
+const toggleSwitch = document.querySelector(".toggle-switch");
 if (toggleSwitch) {
   toggleSwitch.addEventListener("click", () => {
-    currentColor = window.localStorage.getItem("color");
+    let currentColor = window.localStorage.getItem("color");
 
-    function checkCurrentColor() {
-      inititalColor = window.localStorage.getItem("color");
-      if (inititalColor === null) {
-        let currentColor = window.localStorage.setItem("color", "dark");
-      }
+    if (currentColor === "dark") {
+      window.localStorage.setItem("color", "light");
+      bodyColor.classList.toggle("light");
+    }
+    if (currentColor === "light") {
+      window.localStorage.setItem("color", "dark");
+      bodyColor.classList.toggle("light");
     }
   });
 }
 
-const yearSelect = document.getElementById("year-select");
+const logoutButton = document
+  .querySelector(".logout-button")
+  .addEventListener("click", () => {
+    window.localStorage.clear();
+  });
 
+window.addEventListener("DOMContentLoaded", () => {
+  let currentColor = window.localStorage.getItem("color");
+  if (currentColor === null || "dark") {
+    window.localStorage.setItem("color", "dark");
+  }
+  if (currentColor === "light") {
+    window.localStorage.setItem("color", "light");
+    bodyColor.classList.toggle("light");
+  }
+});
+
+const yearSelect = document.getElementById("year-select");
 if (yearSelect) {
-  console.log("form is working111111");
   yearSelect.addEventListener("change", () => {
     const selectForm = document.querySelector(".select-form");
     selectForm.submit();
   });
 }
 
-if (currentColor === "dark") {
-  bodyLight.classList.toggle("light");
-  setColor = window.localStorage.setItem("color", "light");
-}
-
-if (currentColor === "light") {
-  bodyLight.classList.toggle("light");
-  setColor = localStorage.setItem("color", "dark");
-}
 const mySelectElement = document.querySelector(".asc-desc");
 
 if (mySelectElement) {
@@ -64,8 +74,9 @@ if (sortCost) {
 }
 
 const jsonStuff = document.querySelector(".json_data");
+let categoryArray = [];
 
-if (jsonStuff) {
+if (jsonStuff && categoryArray) {
   const my_json_data = document.querySelector(".json_data").textContent;
   converted_to_javascript_object = JSON.parse(my_json_data);
   categoryArray = [
@@ -103,13 +114,6 @@ if (jsonStuff) {
     }
   }
 }
-
-window.addEventListener("DOMContentLoaded", () => {
-  currentColor = window.localStorage.getItem("color");
-  if (currentColor === "light") {
-    bodyLight.classList.add("light");
-  }
-});
 
 const confirmPassword = function () {
   const createAccountButton = document.querySelector(".create-account-button");
@@ -165,31 +169,54 @@ const doughnutTextPlugin = {
   },
 };
 
-const canvasDoughnut = document.getElementById("myCanvas");
-
-const doughnutChart = new Chart(document.getElementById("myCanvas"), {
-  type: "doughnut",
-  data: {
-    labels: nameArray,
-    datasets: [
-      {
-        data: amountArray,
-      },
-    ],
-  },
-  options: {
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            size: 30,
+const doughnutChart = document.getElementById("myCanvas");
+if (doughnutChart) {
+  const doughnutChart = new Chart(document.getElementById("myCanvas"), {
+    type: "doughnut",
+    data: {
+      labels: nameArray,
+      datasets: [
+        {
+          data: amountArray,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 30,
+            },
           },
         },
       },
     },
-  },
-  plugins: [gapPlugin, doughnutTextPlugin],
-});
+    plugins: [gapPlugin, doughnutTextPlugin],
+  });
+
+  function doughChartText(chart) {
+    let windowWidth = window.outerWidth;
+
+    if (windowWidth >= 1120) {
+      let fontSize = 30;
+
+      chart.options.plugins.legend.labels.font.size = fontSize;
+
+      chart.update();
+    }
+
+    if (windowWidth <= 1119) {
+      let fontSize = 25;
+      chart.options.plugins.legend.labels.font.size = fontSize;
+      chart.update();
+    }
+  }
+
+  window.addEventListener("resize", function () {
+    doughChartText(doughnutChart);
+  });
+}
 
 const barChartTextPlugin = {
   id: "barTextColor",
@@ -271,7 +298,7 @@ if (chartBar) {
     plugins: [barChartTextPlugin],
   });
 }
-
+/*
 function doughChartText(chart) {
   let windowWidth = window.outerWidth;
 
@@ -293,6 +320,8 @@ function doughChartText(chart) {
 window.addEventListener("resize", function () {
   doughChartText(doughnutChart);
 });
+
+*/
 
 const showNameBtn = function (index) {
   console.log("hio");
@@ -422,3 +451,14 @@ const clearErrorMessage = function () {
     errorElement.style.color = "#000000";
   }
 };
+
+const errorElement = document.querySelector(".login-error");
+if (errorElement) {
+  const clearErrorMessage = function () {
+    const errorElement = document.querySelector(".login-error");
+    const myDisplay = getComputedStyle(errorElement).display;
+    if (myDisplay === "block") {
+      errorElement.style.color = "#000000";
+    }
+  };
+}

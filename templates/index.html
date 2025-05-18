@@ -46,7 +46,7 @@
       <li class="top-navbar"><a href="{{url_for('dashboard')}}">Home</a></li>
       <li class="top-navbar"><a href="#">Profile</a></li>
       <li class="top-navbar">
-        <a href="{{url_for('logout')}}">Logout</a>
+        <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
       </li>
     </nav>
     <nav class="close">
@@ -524,6 +524,7 @@
 
         {% endfor %}
       </table>
+      <p style="display: none" class="json_data">{{my_json}}</p>
     </div>
     <div class="next-button-container">
       <button class="previous-results" type="submit">previous results</button>
@@ -536,8 +537,6 @@
     <div class="chart-main-container">
       <div class="pie-container">
         <canvas id="myCanvas"> </canvas>
-
-        <p style="display: none" class="json_data">{{my_json}}</p>
       </div>
       <div class="bar-chart-container">
         <canvas id="barChart"></canvas>
