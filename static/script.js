@@ -14,7 +14,7 @@ if (toggleButton) {
   });
 }
 
-let bodyColor = document.querySelector(".dark");
+let htmlColor = document.querySelector("html");
 
 const toggleSwitch = document.querySelector(".toggle-switch");
 if (toggleSwitch) {
@@ -23,20 +23,24 @@ if (toggleSwitch) {
 
     if (currentColor === "dark") {
       window.localStorage.setItem("color", "light");
-      bodyColor.classList.toggle("light");
+      htmlColor.classList.remove("dark");
+      htmlColor.classList.toggle("light");
     }
     if (currentColor === "light") {
       window.localStorage.setItem("color", "dark");
-      bodyColor.classList.toggle("light");
+      htmlColor.classList.remove("light");
+      htmlColor.classList.toggle("dark");
     }
   });
 }
 
-const logoutButton = document
-  .querySelector(".logout-button")
-  .addEventListener("click", () => {
+const logoutButton = document.querySelector(".logout-button");
+
+if (logoutButton) {
+  logoutButton.addEventListener("click", () => {
     window.localStorage.clear();
   });
+}
 
 window.addEventListener("DOMContentLoaded", () => {
   let currentColor = window.localStorage.getItem("color");

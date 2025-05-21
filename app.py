@@ -128,7 +128,7 @@ def sort_year():
 
     """
     
-    print("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+   
     username = session.get("username")
     
    
@@ -161,6 +161,8 @@ def sort_year():
     my_list.clear()
 
     user_year_selection = request.args.get("year","none")
+
+    print(f"your YEAR SELECTION IS -----------------{user_year_selection}")
     
     
     
@@ -169,9 +171,13 @@ def sort_year():
     user_id = session.get("user_id")
 
 
+    if user_year_selection == "all" :
+        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) ORDER BY expense_date {sort_order.upper()}"
+
+
    
-    sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_order.upper()}  "
-    cursor.execute(sql_all_expenses,(user_id,user_year_selection))
+    sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_order.upper()}  "
+    cursor.execute(sql_year_expenses,(user_id,user_year_selection))
     results = cursor.fetchall()
     for data in results:
         expense_id = data[0]

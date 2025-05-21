@@ -34,9 +34,21 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script>
+      let currentColor = window.localStorage.getItem("color");
+      console.log(`the current color is-----------------${currentColor}`);
+      let html = document.querySelector("html");
+      if (currentColor === "light") {
+        html.classList.remove("dark");
+        html.classList.add("light");
+      } else {
+        html.classList.remove("light");
+        html.classList.add("dark");
+      }
+    </script>
   </head>
 
-  <body class="dark">
+  <body>
     <nav class="top-navbar-container">
       <li class="paul"><a href="#">Expense Tracker</a></li>
       <div class="welcome-container">
