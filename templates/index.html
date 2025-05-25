@@ -55,7 +55,9 @@
         <li class="welcome">Welcome, {{username}}</li>
       </div>
 
-      <li class="top-navbar"><a href="{{url_for('dashboard')}}">Home</a></li>
+      <li class="top-navbar">
+        <a href="{{url_for('dashboard')}}">Home</a>
+      </li>
       <li class="top-navbar"><a href="#">Profile</a></li>
       <li class="top-navbar">
         <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
@@ -538,10 +540,31 @@
       </table>
       <p style="display: none" class="json_data">{{my_json}}</p>
     </div>
+
     <div class="next-button-container">
-      <button class="previous-results" type="submit">previous results</button>
-      <button class="next-results" type="submit">more results</button>
+      <form
+        class="previousresults"
+        action="{{url_for('dashboard_previous')}}"
+        method="get"
+      >
+        {% if current_offset == 0 %}
+        <button class="previous-results" type="submit" style="display: none">
+          previous results
+        </button>
+        {% else %}
+        <button class="previous-results" type="submit">previous results</button>
+        {% endif %}
+      </form>
+
+      <form
+        class="nextresults"
+        action="{{url_for('dashboard_next')}}"
+        method="get"
+      >
+        <button class="next-results" type="submit">next results</button>
+      </form>
     </div>
+
     <div class="category-summary-container">
       <p class="category-summary">Category Summary</p>
     </div>

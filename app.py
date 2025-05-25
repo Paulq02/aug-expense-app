@@ -28,9 +28,9 @@ income = float(4500.00)
 entries = len(my_list)
 
 
+current_offset = 0
 
 
-   
    
 
 
@@ -45,8 +45,91 @@ def home_page():
    
 
 
-@app.route("/dashboard", methods=["GET", "POST"])
+
+@app.route("/dashboard", methods = ['GET', 'POST'])
 def dashboard():
+    global current_offset
+
+    current_offset = 0
+
+    my_list.clear()
+   
+    user_id = session.get("user_id")
+    username = session.get("username")
+    
+    password = session.get("password")
+
+    sort_order = request.args.get("sortOrder", "desc")
+    
+   
+    
+    
+    user_year_selection = request.args.get("year", "none")
+
+    
+   
+    #converted_user_year_selection = str(user_year_selection)
+    
+    
+
+    
+    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s "
+    cursor.execute(sql, (user_id,current_offset))
+    results = cursor.fetchall()
+    if not results:
+        return render_template('first_login.html', username=str(username).capitalize())
+    
+    for data in results:
+        expense_id_row = data[0] # type: ignore
+        expense_row = data[1] # type: ignore
+        amount_row = float(data[2]) # type: ignore
+        
+        date_from_db = data[3] # type: ignore
+
+        expense_category_row = data[4] # type: ignore
+            
+        formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+        
+        
+        
+        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row, "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
+        
+   
+       
+    my_json= json.dumps(my_list)
+
+
+
+        
+
+    
+
+    my_expenses = expenses_total()
+
+    free_money = calclulate_money_leftover()
+
+    entries = get_entries()
+   
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, current_offset=current_offset)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/dashboard_results", methods=["GET", "POST"])
+def dashboard_next():
+    global current_offset
+    
+    current_offset += 10
     
     my_list.clear()
    
@@ -66,10 +149,11 @@ def dashboard():
    
     converted_user_year_selection = str(user_year_selection)
     
-
-  
-    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
-    cursor.execute(sql, (user_id,))
+    
+       
+    
+    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s "
+    cursor.execute(sql, (user_id,current_offset))
     results = cursor.fetchall()
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
@@ -78,16 +162,19 @@ def dashboard():
         expense_id_row = data[0] # type: ignore
         expense_row = data[1] # type: ignore
         amount_row = float(data[2]) # type: ignore
-    
+        
         date_from_db = data[3] # type: ignore
 
         expense_category_row = data[4] # type: ignore
-        
+            
         formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
-       
-    
-       
+        
+        
+        
         my_list.append({"expense_id":expense_id_row, "expense_name":expense_row, "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
+        
+    
+        
        
     my_json= json.dumps(my_list)
 
@@ -103,9 +190,77 @@ def dashboard():
 
     entries = get_entries()
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, current_offset=current_offset)
 
 
+
+
+
+@app.route("/dashboard_previous_results", methods=["GET", "POST"])
+def dashboard_previous():
+    global current_offset
+    current_offset -= 10
+    
+    my_list.clear()
+   
+    user_id = session.get("user_id")
+    username = session.get("username")
+    
+    password = session.get("password")
+
+    sort_order = request.args.get("sortOrder", "desc")
+    
+   
+    
+    
+    user_year_selection = request.args.get("year", "none")
+
+    
+   
+    converted_user_year_selection = str(user_year_selection)
+    
+    
+       
+    
+    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s "
+    cursor.execute(sql, (user_id,current_offset))
+    results = cursor.fetchall()
+    if not results:
+        return render_template('first_login.html', username=str(username).capitalize())
+    
+    for data in results:
+        expense_id_row = data[0] # type: ignore
+        expense_row = data[1] # type: ignore
+        amount_row = float(data[2]) # type: ignore
+        
+        date_from_db = data[3] # type: ignore
+
+        expense_category_row = data[4] # type: ignore
+            
+        formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+        
+        
+        
+        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row, "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
+        
+    
+        
+       
+    my_json= json.dumps(my_list)
+
+
+
+        
+
+    
+
+    my_expenses = expenses_total()
+
+    free_money = calclulate_money_leftover()
+
+    entries = get_entries()
+   
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, current_offset=current_offset)
 
 
 
