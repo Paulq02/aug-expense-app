@@ -1424,6 +1424,7 @@ tfoot td {
   font-size: 1.3rem;
   border: solid #bb86fc 5px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .light .previous-results,

@@ -542,27 +542,27 @@
     </div>
 
     <div class="next-button-container">
-      <form
-        class="previousresults"
-        action="{{url_for('dashboard_previous')}}"
-        method="get"
+      {% if offset == 0 %}
+      <a
+        style="display: none"
+        class="previous-results"
+        href="{{url_for('dashboard', offset = offset - 10)}}"
+        >previous results</a
       >
-        {% if current_offset == 0 %}
-        <button class="previous-results" type="submit" style="display: none">
-          previous results
-        </button>
-        {% else %}
-        <button class="previous-results" type="submit">previous results</button>
-        {% endif %}
-      </form>
+      {% else %}
+      <a
+        class="previous-results"
+        href="{{url_for('dashboard', offset = offset - 10)}}"
+        >previous results</a
+      >
 
-      <form
-        class="nextresults"
-        action="{{url_for('dashboard_next')}}"
-        method="get"
+      {% endif %}
+
+      <a
+        class="next-results"
+        href="{{url_for('dashboard', offset = offset + 10)}}"
+        >next results</a
       >
-        <button class="next-results" type="submit">next results</button>
-      </form>
     </div>
 
     <div class="category-summary-container">
