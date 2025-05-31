@@ -31,8 +31,6 @@ entries = len(my_list)
 
 
 
-   
-
 
 @app.route('/',  methods=["GET", "POST"])
 
@@ -51,7 +49,7 @@ def dashboard():
     
 
     
-    offset = int(request.args.get("offset", 0))
+    
 
 
     my_list.clear()
@@ -64,20 +62,48 @@ def dashboard():
     sort_order = request.args.get("sortOrder", "desc")
     
    
-    
+    offset = int(request.args.get("offset", 0))
+
+   
+
     
     user_year_selection = request.args.get("year", "none")
 
     
    
-   
     
+    
+    sql_all_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
+    cursor.execute(sql_all_results,(user_id,))
+    all_results = cursor.fetchall()
+    all_results_amount = len(all_results)
+    all_results_int= int(all_results_amount)
+   
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
     
 
     
     sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s "
     cursor.execute(sql, (user_id,offset))
     results = cursor.fetchall()
+    results_amount = len(results)
+    converted_results_amount = int(results_amount)
+    
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
     
@@ -89,7 +115,7 @@ def dashboard():
         date_from_db = data[3] # type: ignore
 
         expense_category_row = data[4] # type: ignore
-            
+        
         formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
         
         
@@ -111,8 +137,12 @@ def dashboard():
     free_money = calclulate_money_leftover()
 
     entries = get_entries()
+
+    difference_amount = all_results_int - converted_results_amount
+
+    print(f"THE DIFFERENCE AMOUNT IS  -------------------------------------{difference_amount}")
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, results_amount=results_amount, all_results_amount = all_results_amount)
 
 
 
@@ -451,7 +481,7 @@ def login():
             session["username"] = saved_username
             session["password"] =  saved_password
           
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('dashboard', offset = 0))
 
     
     except TypeError:

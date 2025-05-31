@@ -1949,6 +1949,11 @@ tfoot td {
 }
 
 /* ========== LOGIN PAGE START ===================*/
+
+.login-dark-mode {
+  background-color: #000000;
+}
+
 .image-container {
   display: block;
   text-align: center;
@@ -2048,6 +2053,10 @@ tfoot td {
 /* ========== LOGIN PAGE END ===================*/
 
 /* ========== SIGNUP PAGE START ===================*/
+
+.signup-dark-mode {
+  background-color: #000000;
+}
 
 .signup-page-container {
   text-align: center;

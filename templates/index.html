@@ -543,26 +543,83 @@
 
     <div class="next-button-container">
       {% if offset == 0 %}
-      <a
+      <form
         style="display: none"
-        class="previous-results"
-        href="{{url_for('dashboard', offset = offset - 10)}}"
-        >previous results</a
+        class="form-previous-results"
+        method="get"
+        action="{{url_for('dashboard')}}"
       >
+        <input
+          class="p-results"
+          style="display: none"
+          name="offset"
+          value="{{offset - 10}}"
+        />
+
+        <button style="display: none" class="previous-results" type="submit">
+          previous results
+        </button>
+        {% endif %}
+      </form>
+
+      {% if offset > 0 %}
+      <form
+        class="form-previous-results"
+        method="get"
+        action="{{url_for('dashboard')}}"
+      >
+        <input
+          class="p-results"
+          style="display: none"
+          name="offset"
+          value="{{offset - 10}}"
+        />
+
+        <button class="previous-results" type="submit">
+          <i class="fas fa-angle-double-left"></i>
+          previous results
+        </button>
+        {% endif %}
+      </form>
+      {% if results_amount < 10 %}
+      <form
+        style="display: none"
+        method="get"
+        class="form-next-results"
+        action="{{url_for('dashboard')}}"
+      >
+        <input
+          style="display: none"
+          class="n-results"
+          name="offset"
+          value="{{offset + 10}}"
+        />
+
+        <button style="display: none" class="next-results" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+      </form>
       {% else %}
-      <a
-        class="previous-results"
-        href="{{url_for('dashboard', offset = offset - 10)}}"
-        >previous results</a
+      <form
+        method="get"
+        class="form-next-results"
+        action="{{url_for('dashboard')}}"
       >
+        <input
+          style="display: none"
+          class="n-results"
+          name="offset"
+          value="{{offset + 10}}"
+        />
 
-      {% endif %}
+        <button class="next-results" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
 
-      <a
-        class="next-results"
-        href="{{url_for('dashboard', offset = offset + 10)}}"
-        >next results</a
-      >
+        {% endif %}
+      </form>
     </div>
 
     <div class="category-summary-container">
