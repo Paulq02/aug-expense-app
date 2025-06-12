@@ -29,7 +29,7 @@ entries = len(my_list)
 
 
 
-
+#amount_of_results = 10
 
 
 @app.route('/',  methods=["GET", "POST"])
@@ -47,10 +47,14 @@ def home_page():
 @app.route("/dashboard", methods = ['GET', 'POST'])
 def dashboard():
     
+   #global amount_of_results
 
+    add_to_results = request.args.get("add-results", 10)
+
+    add_to_results = int(add_to_results)
+   
     
     
-
 
     my_list.clear()
    
@@ -65,7 +69,7 @@ def dashboard():
     offset = int(request.args.get("offset", 0))
 
    
-
+   
     
     user_year_selection = request.args.get("year", "none")
 
@@ -73,36 +77,22 @@ def dashboard():
    
     
     
-    sql_all_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
-    cursor.execute(sql_all_results,(user_id,))
-    all_results = cursor.fetchall()
-    all_results_amount = len(all_results)
-    all_results_int= int(all_results_amount)
+    sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
+    cursor.execute(sql_complete_results,(user_id,))
+    complete_results = cursor.fetchall()
+    complete_results_amount = len(complete_results)
+    
+    
+   
    
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-    
 
     
     sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s "
     cursor.execute(sql, (user_id,offset))
     results = cursor.fetchall()
-    results_amount = len(results)
-    converted_results_amount = int(results_amount)
+    max_10_results_amount = len(results)
+    max_10_results_amount = int(max_10_results_amount)
     
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
@@ -125,6 +115,7 @@ def dashboard():
    
        
     my_json= json.dumps(my_list)
+    
 
 
 
@@ -138,11 +129,10 @@ def dashboard():
 
     entries = get_entries()
 
-    difference_amount = all_results_int - converted_results_amount
+    #difference_amount = all_results_int - converted_results_amount
 
-    print(f"THE DIFFERENCE AMOUNT IS  -------------------------------------{difference_amount}")
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, results_amount=results_amount, all_results_amount = all_results_amount)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results)
 
 
 
@@ -238,7 +228,7 @@ def sort_year():
             
     my_json= json.dumps(my_list)
         
-    print(f"THE SORT ORDER IS -----------{sort_order}")
+   
     return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order, my_json=my_json)
 
       
@@ -249,31 +239,60 @@ def sort_year():
 @app.route("/sort_cost", methods=["GET", "POST"])
 def sort_by_cost():
     my_list.clear()
+
+    add_to_results = request.args.get("add-results", 10)
+
+    add_to_results = int(add_to_results)
     username = session.get("username").capitalize()
     
+    offset = request.args.get("offset", 0)
+    offset = int(offset)
     
     user_id = session.get("user_id")
     sort_order = request.args.get("sort-expense", "none")
 
-    sql_sort_cost = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY (expense_cost) {sort_order.upper()}"
-    cursor.execute(sql_sort_cost, (user_id,))
+    sql_select_all = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
+    cursor.execute(sql_select_all,(user_id,))
+    sql_all_results = cursor.fetchall()
+    complete_results_amount = len(sql_all_results)
+    complete_results_amount = int(complete_results_amount)
+
+
+
+
+
+    sql_sort_cost = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_cost {sort_order.upper()} LIMIT 10 OFFSET %s "
+    cursor.execute(sql_sort_cost, (user_id,offset))
     results = cursor.fetchall()
+
+    max_10_results_amount= len(results)
+    max_10_results_amount = int(max_10_results_amount)
+
+
+
+
     for expense in results:
-      expense_id = expense[0]
-      expense_name = expense[2]
-      expense_cost = float(expense[3])
-      expense_date = expense[4]
-      converted_date = expense_date.strftime("%m-%d-%Y")
-      my_list.append({"expense_id":expense_id, "expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
+      expense_id = expense[0] # type: ignore
+      expense_name = expense[1] # type: ignore
+      expense_cost = float(expense[2]) # type: ignore
+      expense_date = expense[3] # type: ignore
+      expense_category = expense[4] # type: ignore
+      converted_date = datetime.strftime(expense_date,"%m-%d-%Y")
+      my_list.append({"expense_id":expense_id, "expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
+
+    
+    my_json= json.dumps(my_list)
+
       
     my_expenses = expenses_total()
 
     free_money = calclulate_money_leftover()
     entries = get_entries()
 
-      
     
-    return render_template("index.html", income=income,my_list=my_list,expense_id=expense_id, expense_name=expense_name, amount=expense_cost, expense_date=converted_date,my_expenses=my_expenses,free_money=free_money,sort_order=sort_order, entries=entries, username=username)
+    
+    #return render_template("index.html", income=income,my_list=my_list,expense_id=expense_id, expense_name=expense_name, amount=expense_cost, expense_date=converted_date,my_expenses=my_expenses,free_money=free_money,sort_order=sort_order, entries=entries, username=username, offset = offset, add_to_results = add_to_results, complete_results_amount = complete_results_amount, max_10_results_amount = max_10_results_amount, my_json = my_json)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results)
 
   
 

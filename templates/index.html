@@ -36,7 +36,7 @@
     />
     <script>
       let currentColor = window.localStorage.getItem("color");
-      console.log(`the current color is-----------------${currentColor}`);
+
       let html = document.querySelector("html");
       if (currentColor === "light") {
         html.classList.remove("dark");
@@ -250,8 +250,10 @@
         <form
           class="sort-expense-form"
           method="get"
-          action="{{url_for('sort_by_cost')}}"
+          action="{{url_for('sort_by_cost', offset = offset )}}"
         >
+          <input name="offset" style="display: none" value="{{0}}" />
+
           <select name="sort-expense" class="sort-expense-dropdown">
             <option value="none">--Sort by Cost--</option>
             <option value="desc">High to Low</option>
@@ -533,10 +535,9 @@
                 Yes, I want to delete
               </button>
             </form>
+            {% endfor %}
           </div>
         </div>
-
-        {% endfor %}
       </table>
       <p style="display: none" class="json_data">{{my_json}}</p>
     </div>
@@ -549,6 +550,12 @@
         method="get"
         action="{{url_for('dashboard')}}"
       >
+        <input
+          name="add-results"
+          style="display: none"
+          value="{{add_to_results - 10}}"
+        />
+
         <input
           class="p-results"
           style="display: none"
@@ -574,6 +581,11 @@
           name="offset"
           value="{{offset - 10}}"
         />
+        <input
+          name="add-results"
+          style="display: none"
+          value="{{add_to_results - 10}}"
+        />
 
         <button class="previous-results" type="submit">
           <i class="fas fa-angle-double-left"></i>
@@ -581,7 +593,8 @@
         </button>
         {% endif %}
       </form>
-      {% if results_amount < 10 %}
+      {% if max_10_results_amount < 10 or add_to_results ==
+      complete_results_amount%}
       <form
         style="display: none"
         method="get"
@@ -593,6 +606,11 @@
           class="n-results"
           name="offset"
           value="{{offset + 10}}"
+        />
+        <input
+          style="display: none"
+          name="add-results"
+          value="{{add_to_results + 10}}"
         />
 
         <button style="display: none" class="next-results" type="submit">
@@ -611,6 +629,11 @@
           class="n-results"
           name="offset"
           value="{{offset + 10}}"
+        />
+        <input
+          style="display: none"
+          name="add-results"
+          value="{{add_to_results + 10}}"
         />
 
         <button class="next-results" type="submit">

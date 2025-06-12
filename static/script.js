@@ -71,12 +71,6 @@ if (mySelectElement) {
 
 const sortCost = document.querySelector(".sort-expense-dropdown");
 
-if (sortCost) {
-  sortCost.addEventListener("change", function () {
-    this.form.submit();
-  });
-}
-
 const jsonStuff = document.querySelector(".json_data");
 let categoryArray = [];
 
@@ -135,9 +129,9 @@ const confirmPassword = function () {
   }
 };
 
-const nameArray = [];
+let nameArray = [];
 
-const amountArray = [];
+let amountArray = [];
 
 for (let cat of categoryArray) {
   let name = cat.category;
@@ -158,6 +152,7 @@ const gapPlugin = {
     };
   },
 };
+
 const doughnutTextPlugin = {
   id: "text_color_plugin",
   afterDraw(chart) {
@@ -302,30 +297,11 @@ if (chartBar) {
     plugins: [barChartTextPlugin],
   });
 }
-/*
-function doughChartText(chart) {
-  let windowWidth = window.outerWidth;
-
-  if (windowWidth >= 1120) {
-    let fontSize = 30;
-
-    chart.options.plugins.legend.labels.font.size = fontSize;
-
-    chart.update();
-  }
-
-  if (windowWidth <= 1119) {
-    let fontSize = 25;
-    chart.options.plugins.legend.labels.font.size = fontSize;
-    chart.update();
-  }
+if (sortCost) {
+  sortCost.addEventListener("change", function () {
+    this.form.submit();
+  });
 }
-
-window.addEventListener("resize", function () {
-  doughChartText(doughnutChart);
-});
-
-*/
 
 const showNameBtn = function (index) {
   console.log("hio");
