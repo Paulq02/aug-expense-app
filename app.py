@@ -167,11 +167,15 @@ def sort_year():
     my_list.clear()
     year_selection.clear()
     user_year_selection = request.args.get("year","none")
+    print(f"5 AMMMMMMM                 THE USER YEAR SELECTION IS  -----------------------{user_year_selection}")
 
     
     
+    add_to_results = request.args.get("add-results", 10)
+
+    add_to_results = int(add_to_results)
     
-   
+    
     
    
     user_id = session.get("user_id")
@@ -184,40 +188,60 @@ def sort_year():
    
 
     sort_order = request.args.get("sortOrder","desc")
-    print(f"THE SORT ORDER IS  ------------------------------{sort_order}")
+    #print(f"THE SORT ORDER IS  ------------------------------{sort_order}")
     
 
-    my_list.clear()
+    #my_list.clear()
 
     user_year_selection = request.args.get("year","none")
 
     print(f"your YEAR SELECTION IS -----------------{user_year_selection}")
     
     
-    
+    offset = request.args.get("offset", 0)
    
    
     user_id = session.get("user_id")
 
 
     if user_year_selection == "all" :
-        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) ORDER BY expense_date {sort_order.upper()}"
+        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s"
+        cursor.execute(sql_all_expenses,(user_id,offset))
+        results = cursor.fetchall()
+        max_10_results_amount = len(results)
+        max_10_results_amount = int(max_10_results_amount)
+        
+        for data in results:
+            expense_id = data[0] # type: ignore
+            expense_name = data[1] # type: ignore
+            expense_cost = float(data[2]) # type: ignore
+            expense_date = data[3]# type: ignore
+            expense_category = data[4]# type: ignore
+            
+            converted_date = expense_date.strftime("%m-%d-%Y") # type: ignore
+            my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
+        
+        
 
 
-   
-    sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_order.upper()}  "
-    cursor.execute(sql_year_expenses,(user_id,user_year_selection))
-    results = cursor.fetchall()
-    for data in results:
-        expense_id = data[0]
-        expense_name = data[1]
-        expense_cost = float(data[2])
-        expense_date = data[3]
-          
-        converted_date = expense_date.strftime("%m-%d-%Y")
-        my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date})
-        print(converted_date)
-        print("the IF BLOCK IS printing")
+    else:
+        sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s  "
+        cursor.execute(sql_year_expenses,(user_id,user_year_selection,offset))
+        results = cursor.fetchall()
+        max_10_results_amount = len(results)
+        max_10_results_amount = int(max_10_results_amount)
+
+
+        for data in results:
+            expense_id = data[0] # type: ignore
+            expense_name = data[1] # type: ignore
+            expense_cost = float(data[2]) # type: ignore
+            expense_date = data[3]# type: ignore
+            expense_category = data[4]# type: ignore
+            
+            converted_date = expense_date.strftime("%m-%d-%Y") # type: ignore
+            my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
+            
         
 
         
@@ -229,7 +253,7 @@ def sort_year():
     my_json= json.dumps(my_list)
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order, my_json=my_json)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
 
       
   
@@ -277,7 +301,7 @@ def sort_by_cost():
       expense_cost = float(expense[2]) # type: ignore
       expense_date = expense[3] # type: ignore
       expense_category = expense[4] # type: ignore
-      converted_date = datetime.strftime(expense_date,"%m-%d-%Y")
+      converted_date = datetime.strftime(expense_date,"%m-%d-%Y") # type: ignore
       my_list.append({"expense_id":expense_id, "expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
 
     
@@ -318,24 +342,34 @@ def new_sort():
     sort_order = request.args.get("sort-by", "desc")
     print(f"THIS IS THE SORT ORDER-----------------------{sort_order}")
    
-   
+    offset = request.args.get("offset", 0)
+    offset = int(offset)
 
     username = session.get("username")
    
+    add_to_results = request.args.get("add-results", 10)
+
+    add_to_results = int(add_to_results)
     
 
     
-    sql_select_all = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()}  "
-    cursor.execute(sql_select_all, (user_id,))
+    sql_select_all = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s  "
+    cursor.execute(sql_select_all, (user_id,offset))
     results = cursor.fetchall()
+    max_10_results_amount= len(results)
+    max_10_results_amount = int(max_10_results_amount)
+
+
+
     for column in results:
-        expense_id = column[0]
+        expense_id = column[0] # type: ignore
         expense_name = column[1]
         expense_cost = float(column[2])
-        expense_date = column[3]
+        expense_date = column[3] # type: ignore
         converted_date = expense_date.strftime("%m-%d-%Y")
+        expense_category = column[4] # type: ignore
 
-        my_list.append({"expense_id":expense_id,"expense_name":expense_name,"amount":expense_cost,"expense_date":converted_date })
+        my_list.append({"expense_id":expense_id,"expense_name":expense_name,"amount":expense_cost,"expense_date":converted_date,"expense_category":expense_category })
 
 
     my_json= json.dumps(my_list)
@@ -353,7 +387,7 @@ def new_sort():
     print(f"THE CURRENT SORT ORDER IS ---------{sort_order}")
     
     print(my_list)
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_order=sort_order, my_json=my_json)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_order=sort_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
 
 
 
