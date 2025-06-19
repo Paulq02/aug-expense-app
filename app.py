@@ -81,6 +81,8 @@ def dashboard():
     cursor.execute(sql_complete_results,(user_id,))
     complete_results = cursor.fetchall()
     complete_results_amount = len(complete_results)
+    complete_results_amount = int(complete_results_amount)
+    print(f"total results are{complete_results_amount}")
     
     
    
@@ -93,6 +95,7 @@ def dashboard():
     results = cursor.fetchall()
     max_10_results_amount = len(results)
     max_10_results_amount = int(max_10_results_amount)
+    print(f"max 10 results are -- {max_10_results_amount}")
     
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
@@ -132,7 +135,7 @@ def dashboard():
     #difference_amount = all_results_int - converted_results_amount
 
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_order = sort_order)
 
 
 
@@ -271,9 +274,12 @@ def sort_by_cost():
     
     offset = request.args.get("offset", 0)
     offset = int(offset)
+    print(f"THE 4:54AM OFFSET is ----------------------{ offset}")
+    
     
     user_id = session.get("user_id")
-    sort_order = request.args.get("sort-expense", "none")
+    sort_expense_order = request.args.get("sort-expense", "none")
+    print(f"THE SORT EXPENSE ORDER IS  -------{sort_expense_order}")
 
     sql_select_all = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
     cursor.execute(sql_select_all,(user_id,))
@@ -285,7 +291,7 @@ def sort_by_cost():
 
 
 
-    sql_sort_cost = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_cost {sort_order.upper()} LIMIT 10 OFFSET %s "
+    sql_sort_cost = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_cost {sort_expense_order.upper()} LIMIT 10 OFFSET %s "
     cursor.execute(sql_sort_cost, (user_id,offset))
     results = cursor.fetchall()
 
@@ -316,7 +322,7 @@ def sort_by_cost():
     
     
     #return render_template("index.html", income=income,my_list=my_list,expense_id=expense_id, expense_name=expense_name, amount=expense_cost, expense_date=converted_date,my_expenses=my_expenses,free_money=free_money,sort_order=sort_order, entries=entries, username=username, offset = offset, add_to_results = add_to_results, complete_results_amount = complete_results_amount, max_10_results_amount = max_10_results_amount, my_json = my_json)
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_expense_order = sort_expense_order)
 
   
 

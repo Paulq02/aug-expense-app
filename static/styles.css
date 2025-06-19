@@ -1413,11 +1413,12 @@ tfoot td {
 
 .next-button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-bottom: 50px;
 }
 .dark .previous-results,
-.dark .next-results {
+.dark .next-results,
+.dark .cost-next-button {
   background-color: #000000;
   color: #bb86fc;
   border-radius: 5px;
@@ -1428,7 +1429,8 @@ tfoot td {
 }
 
 .light .previous-results,
-.light .next-results {
+.light .next-results, 
+.light .cost-next-button {
   background-color: #bb86fc;
   color: #ffffff;
   border-radius: 5px;
