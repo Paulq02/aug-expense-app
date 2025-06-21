@@ -302,20 +302,53 @@
         <thead class="table-head">
           <tr>
             <th>name</th>
-            <th>cost</th>
             <th>
-              <div class="arrow-container">
-                Date {% if sort_order == "desc" or sort_expense_order == 'desc'%}
+
+              
+              <div class="arrow-container">cost
+                {% if sort_expense_order == 'desc' %}
                 <i
                   class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                   style="display: flex"
                 ></i>
 
+               {% elif sort_expense_order == 'asc' %}
+               <i
+                  class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                  style="display: none"
+                ></i>
                 <i
                   class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                  style="display: none"
+                  style="display: flex"
                 ></i>
                 {% else %}
+
+                <i
+                  class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                  style="display: none"
+                ></i>
+                <i
+                  class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                  style="display: none"
+                ></i>
+                </div>
+                {% endif %}
+
+
+            </th>
+            <th>
+              <div class="arrow-container">
+                Date {% if sort_order == "desc" %}
+                <i
+                  class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                  style="display: flex"
+                ></i>
+
+                <i
+                  class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                  style="display: none"
+                ></i>
+                {% elif sort_order == 'asc' %}
                 <i
                   class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                   style="display: none"
@@ -324,6 +357,16 @@
                 <i
                   class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
                   style="display: flex"
+                ></i>
+                {% elif sort_expense_order == 'asc' or sort_expense_order == 'asc' %}
+                  <i
+                  class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                  style="display: none"
+                ></i>
+
+                <i
+                  class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
+                  style="display: none"
                 ></i>
                 {% endif %}
               </div>

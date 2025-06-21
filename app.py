@@ -47,6 +47,7 @@ def home_page():
 @app.route("/dashboard", methods = ['GET', 'POST'])
 def dashboard():
     
+    
    #global amount_of_results
 
     add_to_results = request.args.get("add-results", 10)
@@ -165,7 +166,7 @@ def sort_year():
     
    
 
-    #sort_order = request.args.get("sortOrder","desc")
+    
 
     my_list.clear()
     year_selection.clear()
@@ -190,7 +191,7 @@ def sort_year():
     
    
 
-    sort_order = request.args.get("sortOrder","desc")
+    sort_year_order = request.args.get("sortOrder","desc")
     #print(f"THE SORT ORDER IS  ------------------------------{sort_order}")
     
 
@@ -208,7 +209,7 @@ def sort_year():
 
 
     if user_year_selection == "all" :
-        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s"
+        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_year_order.upper()} LIMIT 10 OFFSET %s"
         cursor.execute(sql_all_expenses,(user_id,offset))
         results = cursor.fetchall()
         max_10_results_amount = len(results)
@@ -228,7 +229,7 @@ def sort_year():
 
 
     else:
-        sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s  "
+        sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_year_order.upper()} LIMIT 10 OFFSET %s  "
         cursor.execute(sql_year_expenses,(user_id,user_year_selection,offset))
         results = cursor.fetchall()
         max_10_results_amount = len(results)
@@ -256,7 +257,7 @@ def sort_year():
     my_json= json.dumps(my_list)
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_order=sort_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_year_order=sort_year_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
 
       
   
@@ -321,7 +322,6 @@ def sort_by_cost():
 
     
     
-    #return render_template("index.html", income=income,my_list=my_list,expense_id=expense_id, expense_name=expense_name, amount=expense_cost, expense_date=converted_date,my_expenses=my_expenses,free_money=free_money,sort_order=sort_order, entries=entries, username=username, offset = offset, add_to_results = add_to_results, complete_results_amount = complete_results_amount, max_10_results_amount = max_10_results_amount, my_json = my_json)
     return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_expense_order = sort_expense_order)
 
   
@@ -345,8 +345,8 @@ def new_sort():
     my_list.clear()
     user_id = session.get("user_id")
     
-    sort_order = request.args.get("sort-by", "desc")
-    print(f"THIS IS THE SORT ORDER-----------------------{sort_order}")
+    sort_new_order = request.args.get("sort-by", "desc")
+   
    
     offset = request.args.get("offset", 0)
     offset = int(offset)
@@ -359,7 +359,7 @@ def new_sort():
     
 
     
-    sql_select_all = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s  "
+    sql_select_all = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_new_order.upper()} LIMIT 10 OFFSET %s  "
     cursor.execute(sql_select_all, (user_id,offset))
     results = cursor.fetchall()
     max_10_results_amount= len(results)
@@ -390,10 +390,10 @@ def new_sort():
     free_money = calclulate_money_leftover()
     entries = get_entries()
     
-    print(f"THE CURRENT SORT ORDER IS ---------{sort_order}")
+   
     
     print(my_list)
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_order=sort_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
 
 
 

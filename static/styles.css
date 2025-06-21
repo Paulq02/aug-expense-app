@@ -1160,6 +1160,7 @@ input {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+ 
 }
 
 .light th {
@@ -1178,7 +1179,7 @@ input {
 }
 .arrow-container {
   display: flex;
-  justify-content: space-between;
+  
   align-items: center;
 }
 
@@ -1243,6 +1244,7 @@ td {
 .down-arrow {
   font-size: 25px;
   color: #121212;
+  margin-left: 15px;
 }
 
 td .button_icon,
