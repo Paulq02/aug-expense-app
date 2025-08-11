@@ -27,9 +27,9 @@ income = float(4500.00)
 
 entries = len(my_list)
 
+running_count = 0
 
 
-#amount_of_results = 10
 
 
 @app.route('/',  methods=["GET", "POST"])
@@ -46,13 +46,9 @@ def home_page():
 
 @app.route("/dashboard", methods = ['GET', 'POST'])
 def dashboard():
-    
-    
-   #global amount_of_results
-
-    add_to_results = request.args.get("add-results", 10)
-
-    add_to_results = int(add_to_results)
+    global running_count
+    view_mode = "dashboard"
+   
    
     
     
@@ -64,15 +60,19 @@ def dashboard():
     
     password = session.get("password")
 
-    sort_order = request.args.get("sortOrder", "desc")
+    asc_or_desc = request.args.get("sortOrder", "desc")
     
    
     offset = int(request.args.get("offset", 0))
+   
+   
+
 
    
    
     
     user_year_selection = request.args.get("year", "none")
+    
 
     
    
@@ -83,20 +83,52 @@ def dashboard():
     complete_results = cursor.fetchall()
     complete_results_amount = len(complete_results)
     complete_results_amount = int(complete_results_amount)
-    print(f"total results are{complete_results_amount}")
+    
     
     
    
-   
+    
 
 
     
-    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_order.upper()} LIMIT 10 OFFSET %s "
+    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s "
     cursor.execute(sql, (user_id,offset))
     results = cursor.fetchall()
     max_10_results_amount = len(results)
     max_10_results_amount = int(max_10_results_amount)
-    print(f"max 10 results are -- {max_10_results_amount}")
+    
+    previous_button = request.args.get("dash_prev_button",None)
+    print(f"THIS IS THE PREVIOUS BUTTON AFTER MAX 10 -------{previous_button}")
+    
+    
+    if offset == 0 and previous_button == None:
+        running_count = 0
+        running_count = max_10_results_amount
+        
+    elif offset > 0 and running_count < complete_results_amount and previous_button == None:
+        running_count = running_count
+        running_count += max_10_results_amount # type: ignore
+
+    elif offset > 0 and running_count == complete_results_amount:
+        if previous_button == "yes":
+            previous_max_10_amount = request.args.get("previous_max_10", None)
+            previous_max_10_amount = int(previous_max_10_amount)
+            print(f"THIS IS THE MAX 10 -------{previous_max_10_amount}")
+            running_count -= previous_max_10_amount
+
+
+           
+            
+
+
+
+    
+
+    print(f"THE RUNNING COUNT AUG8TH IS ----{running_count}")
+    print(f"THE complete results COUNT AUG8TH IS ----{complete_results_amount}")
+
+    
+   
     
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
@@ -133,10 +165,10 @@ def dashboard():
 
     entries = get_entries()
 
-    #difference_amount = all_results_int - converted_results_amount
+   
 
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_order = sort_order)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count,  previous_button =  previous_button)
 
 
 
@@ -147,6 +179,8 @@ def dashboard():
 
 @app.route('/sort_by_year', methods=["POST", "GET"])
 def sort_year():
+    global running_count
+    global year_selection
     """
     Sorts Expense Dates by Year 
     
@@ -160,60 +194,73 @@ def sort_year():
 
 
     """
-    
-   
-    username = session.get("username")
-    
-   
+    view_mode = "sort-year"
 
-    
-
+    #running_count = 0
     my_list.clear()
-    year_selection.clear()
-    user_year_selection = request.args.get("year","none")
-    print(f"5 AMMMMMMM                 THE USER YEAR SELECTION IS  -----------------------{user_year_selection}")
-
-    
-    
-    add_to_results = request.args.get("add-results", 10)
-
-    add_to_results = int(add_to_results)
-    
-    
-    
-   
-    user_id = session.get("user_id")
-
-
-    
-
     username = session.get("username")
+    user_id = session.get("user_id")
+    
     
    
 
-    sort_year_order = request.args.get("sortOrder","desc")
-    #print(f"THE SORT ORDER IS  ------------------------------{sort_order}")
     
 
-    #my_list.clear()
-
+    
+    asc_or_desc = request.args.get("sortOrder","desc")
+   
+    
     user_year_selection = request.args.get("year","none")
+   
+  
+   
+      
+   
+    prev_button_clicked = request.args.get("minus_10", None)
+    
+   
+   
+   
+    
+    #add_to_results = request.args.get("add-results", 10)
 
-    print(f"your YEAR SELECTION IS -----------------{user_year_selection}")
+    #add_to_results = int(add_to_results)
     
     
     offset = request.args.get("offset", 0)
+
+    offset = int(offset)
+    
+    
+
+
+    
+    
+
    
-   
-    user_id = session.get("user_id")
+
 
 
     if user_year_selection == "all" :
-        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_year_order.upper()} LIMIT 10 OFFSET %s"
+        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
         cursor.execute(sql_all_expenses,(user_id,offset))
         results = cursor.fetchall()
         max_10_results_amount = len(results)
         max_10_results_amount = int(max_10_results_amount)
+
+        if offset == 0:
+            running_count = 0
+            running_count += max_10_results_amount
+
+        elif offset > 0 and prev_button_clicked == None:
+            running_count = running_count
+            running_count += max_10_results_amount
+        
+        elif offset > 0 and prev_button_clicked == "yes":
+            previous_max_10 = request.args.get("previous_max_10", None)
+            previous_max_10 = int(previous_max_10) # type: ignore
+            running_count -= previous_max_10
+
         
         for data in results:
             expense_id = data[0] # type: ignore
@@ -226,14 +273,44 @@ def sort_year():
             my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
         
         
+        
+        
+        sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
+        cursor.execute(sql_complete_results,(user_id,))
+        fetched_results = cursor.fetchall()
+        complete_results_amount = len(fetched_results)
+       
+      
 
 
     else:
-        sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {sort_year_order.upper()} LIMIT 10 OFFSET %s  "
+        sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
         cursor.execute(sql_year_expenses,(user_id,user_year_selection,offset))
         results = cursor.fetchall()
+        
         max_10_results_amount = len(results)
         max_10_results_amount = int(max_10_results_amount)
+
+       
+       
+        if offset == 0:
+            running_count = max_10_results_amount
+
+
+        elif offset > 0 and prev_button_clicked == None:
+            running_count = running_count
+            running_count += max_10_results_amount
+
+        elif offset > 0 and prev_button_clicked == "yes":
+            previous_max_10 = request.args.get("previous_max_10", None)
+            previous_max_10 = int(previous_max_10) # type: ignore
+            running_count -= previous_max_10
+          
+        
+
+
+
+
 
 
         for data in results:
@@ -246,7 +323,14 @@ def sort_year():
             converted_date = expense_date.strftime("%m-%d-%Y") # type: ignore
             my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
             
+       
+        sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s"
+        cursor.execute(sql_complete_results,(user_id,user_year_selection))
+        fetched_results = cursor.fetchall()
+        complete_results_amount = len(fetched_results)
         
+        
+
 
         
     my_expenses = expenses_total()
@@ -255,9 +339,10 @@ def sort_year():
     entries = get_entries()
             
     my_json= json.dumps(my_list)
+    
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, sort_year_order=sort_year_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count)
 
       
   
@@ -266,7 +351,10 @@ def sort_year():
 
 @app.route("/sort_cost", methods=["GET", "POST"])
 def sort_by_cost():
+    global running_count
     my_list.clear()
+
+    view_mode = "sort-cost"
 
     add_to_results = request.args.get("add-results", 10)
 
@@ -275,12 +363,11 @@ def sort_by_cost():
     
     offset = request.args.get("offset", 0)
     offset = int(offset)
-    print(f"THE 4:54AM OFFSET is ----------------------{ offset}")
+    
     
     
     user_id = session.get("user_id")
     sort_expense_order = request.args.get("sort-expense", "none")
-    print(f"THE SORT EXPENSE ORDER IS  -------{sort_expense_order}")
 
     sql_select_all = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
     cursor.execute(sql_select_all,(user_id,))
@@ -300,7 +387,11 @@ def sort_by_cost():
     max_10_results_amount = int(max_10_results_amount)
 
 
-
+    if offset == 0:
+        running_count = max_10_results_amount
+    elif offset > 0:
+        running_count = running_count
+        running_count += max_10_results_amount
 
     for expense in results:
       expense_id = expense[0] # type: ignore
@@ -322,7 +413,7 @@ def sort_by_cost():
 
     
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_expense_order = sort_expense_order)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count)
 
   
 
@@ -392,7 +483,6 @@ def new_sort():
     
    
     
-    print(my_list)
     return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, add_to_results = add_to_results, max_10_results_amount = max_10_results_amount)
 
 
@@ -533,8 +623,7 @@ def login():
         saved_id = results[0] # type: ignore
         saved_username = results[1] # type: ignore
         saved_password = results[2] # type: ignore
-        #print(f"username entered{username_input}")
-        #print(f"saved username {saved_username}")
+        
         if username_input == saved_username and password_input == saved_password:
             session["user_id"] = saved_id
             session["username"] = saved_username
@@ -584,7 +673,6 @@ def create_account():
     session["username"] = username
     session["password"] = password
     my_id = session["user_id"] = results[0] # type: ignore
-    print(my_id)
     
     #cursor.close()
     return redirect(url_for("dashboard"))

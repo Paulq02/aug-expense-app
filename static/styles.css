@@ -1379,6 +1379,16 @@ tfoot td {
   font-style: normal;
 }
 
+.dark .showing-results {
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 .dark .expense_data_container {
   display: flex;
   justify-content: center;

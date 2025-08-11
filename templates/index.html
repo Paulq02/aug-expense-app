@@ -282,7 +282,7 @@
         </form>
         <form
           class="sort-desc-asc"
-          name="sortOrder"
+          
           action="{{url_for('new_sort')}}"
           method="get"
         >
@@ -296,10 +296,12 @@
     </div>
     <div class="detail-summary-container">
       <p class="summary-detail">Detail Summary</p>
+      <p class="showing-results">Showing {{running_count}} of {{complete_results_amount}} results</p>
     </div>
     <div class="expense_data_container">
       <table>
         <thead class="table-head">
+
           <tr>
             <th>name</th>
             <th>
@@ -338,7 +340,7 @@
             </th>
             <th>
               <div class="arrow-container">
-                Date {% if sort_order == "desc" %}
+                Date {% if asc_or_desc == "desc" %}
                 <i
                   class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                   style="display: flex"
@@ -348,7 +350,7 @@
                   class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
                   style="display: none"
                 ></i>
-                {% elif sort_order == 'asc' %}
+                {% elif asc_or_desc == 'asc' %}
                 <i
                   class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                   style="display: none"
@@ -589,7 +591,7 @@
 
     <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
     <!-- START OF DASHBOARD BUTONS -----------------------------------------------------------------------------> 
-       {% if sort_order == "desc" and offset == 0 %}
+       {% if  view_mode == "dashboard" and asc_or_desc == "desc"  and offset == 0 %}
        
          
      
@@ -599,11 +601,7 @@
         method="get"
         action="{{url_for('dashboard')}}"
       >
-        <input
-          name="add-results"
-          style="display: none"
-          value="{{add_to_results - 10}}"
-        />
+       
 
         <input
           class="p-results"
@@ -629,21 +627,18 @@
           name="offset"
           value="{{offset + 10}}"
         />
-        <input
-          style="display: none"
-          name="add-results"
-          value="{{add_to_results + 10}}"
-        />
+      
 
         <button class="next-results" type="submit">
           next results
           <i class="fas fa-angle-double-right"></i>
         </button>
+       
 
       </form>
        {% endif %}
 
-      {% if sort_order == "desc" and offset > 0 and add_to_results != complete_results_amount%}
+      {% if asc_or_desc == "desc" and view_mode == "dashboard" and offset > 0 and running_count < complete_results_amount %}
      
        
       <form
@@ -657,12 +652,7 @@
           name="offset"
           value="{{offset - 10}}"
         />
-        <input
-          name="add-results"
-          style="display: none"
-          value="{{add_to_results - 10}}"
-        />
-
+        
         <button class="previous-results" type="submit">
           <i class="fas fa-angle-double-left"></i>previous results
         </button>
@@ -678,11 +668,7 @@
           name="offset"
           value="{{offset + 10}}"
         />
-        <input
-          style="display: none"
-          name="add-results"
-          value="{{add_to_results + 10}}"
-        />
+      
 
         <button class="next-results" type="submit">next results <i class="fas fa-angle-double-right"></i>
         </button>
@@ -692,25 +678,36 @@
 
 
 
-      {% if sort_order == 'desc' or sort_order == 'asc'%}
-      {% if max_10_results_amount < 10 or add_to_results == complete_results_amount %}
-
+      {% if view_mode == "dashboard" and asc_or_desc == "desc" and running_count == complete_results_amount %}
+     
+     
        <form
+       
+      
+        
         class="form-previous-results"
         method="get"
         action="{{url_for('dashboard')}}"
       >
+     
         <input
-          class="p-results"
-          style="display: none"
+          class="p-results" 
+          style="display: none;"
+          
           name="offset"
           value="{{offset - 10}}"
         />
+
         <input
-          name="add-results"
-          style="display: none"
-          value="{{add_to_results - 10}}"
-        />
+        style="display: none;"
+        name="previous_max_10"
+        value="{{max_10_results_amount}}">
+
+        <input
+        style="display: none;"
+        name="dash_prev_button"
+        value="yes">
+       
 
         <button class="previous-results" type="submit">
           <i class="fas fa-angle-double-left"></i> previous results
@@ -718,31 +715,11 @@
          </form>
        
      
-      <form
-        style="display: none"
-        method="get"
-        class="form-next-results"
-        action="{{url_for('dashboard')}}"
-      >
-        <input
-          style="display: none"
-          class="n-results"
-          name="offset"
-          value="{{offset + 10}}"
-        />
-        <input
-          style="display: none"
-          name="add-results"
-          value="{{add_to_results + 10}}"
-        />
-
-        <button style="display: none" class="next-results" type="submit">
-          next results
-          <i class="fas fa-angle-double-right"></i>
-        </button>
-      </form>
+      
     {% endif %}
-    {% endif %}
+    
+   
+    
     <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
     <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
 
@@ -750,7 +727,7 @@
 
     
     <!--START OF SORT_COST BUTTONS ------------------------------------------------->
-   {% if sort_expense_order == "desc" or sort_expense_order == "asc" %} 
+   {% if sort_expense_order == "desc" or sort_expense_order == "asc" and view_mode == "sort-cost" %} 
     {% if offset == 0 %}
      
 
@@ -854,7 +831,259 @@
       {% endif %}
       {% endif %}
 
+      <!--END OF SORT_COST BUTTONS ------------------------------------------------->
+      <!--END OF SORT_COST BUTTONS ------------------------------------------------->
+
+
+
+      <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
+      <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
+
+
+
+      {% if view_mode == "sort-year" and user_year_selection == "all" and offset == 0 %}
+
+      <form
+      method="get"
+      action="{{url_for('sort_year')}}">
+       <input
+        name="offset"
+        style="display: none;"
+        value="{{offset + 10}}">
+
+      <input 
+     
+      name="year"
+      
+      value="{{user_year_selection}}">
+       
+
+        <button 
+        type="submit"
+        class="year-next-button dark next-results">
+       <i class="fas fa-angle-double-right"></i> next results
+       
+      </button>
+        
+      </form>
+
+      {% endif %}
+
+
+
+    {%  if view_mode == "sort-year" and user_year_selection == "all" and offset > 0 and running_count < complete_results_amount %}
+
+      <form
+      action="{{url_for('sort_year')}}"
+      method="get">
+
+      <input
+      name="offset"
+      value="{{offset - 10}}">
+
+      <input 
+      name="year"
+      value="{{user_year_selection}}">
+
+      <button 
+     
+      class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> AUG 7TH PREVIOUS RESULTS
+        </button>
+
+     </form>
+
+     <form
+     action="{{url_for('sort_year')}}"
+     method="get">
+
+     <input
+     name="offset"
+     value="{{offset + 10}}">
+
+     <input 
+      name="year"
+      value="{{user_year_selection}}">
+    
+   
+      <button 
+        type="submit"
+        class="year-next-button dark next-results">
+       <i class="fas fa-angle-double-right"></i> AUG 7TH NEXT RESULTS
+       
+      </button>
+    
+    
+    
+    </form>
+
+  {% endif %}
+
+
+   {%  if view_mode == "sort-year" and user_year_selection == "all" and offset > 0 and running_count == complete_results_amount %}
+
+
+  <p
+  style="color: red;">
+
+  RAMON IS KING
+</p>
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+      {% if user_year_selection != "all" and offset == 0 and view_mode == "sort-year"%}
+     
+      
+
+      <form 
+      action="{{url_for('sort_year')}}"
+      method="get"
+      >
+      
+          
+       <input 
+      style="display: none;"
+      name="sort-expense"
+      value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
+      class="sort-order-input">
+
+        <input
+     style="display: none;"
+     name="add-results"
+     class="sort-year-input"
+     value="{{add_to_results + 10}}">
+
+      <input 
+       name="offset"
+      style="display: none;"
+      class="sort-cost-input"
+      value="{{offset + 10}}">
+
+     <input
+     name="year"
+     value="2025"
+     style="display: none;">
+
+
+      
+       <button 
+       style="display: {{'none' if  max_10_results_amount < 10 else 'block'}};"
+       class="year-next-button dark next-results" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+      
+    </form>
+
+      {% endif %}
+
+
+  {% if view_mode == "sort-year" and offset > 0 and user_year_selection != "all" and running_count < complete_results_amount  %}
+
+    <form
+    action="{{url_for('sort_year')}}"
+    method="get"
+    >
+
+    <input
+    style="display: none;"
+    name="offset"
+    value="{{offset - 10}}">
+
+    <input
+    style="display: none;"
+    name="year"
+    value="{{user_year_selection}}">
+
+
+
+    <button
+    
+     class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> previous results
+        </button>
+
+  </form>
+
+  <form
+  action="{{url_for('sort_year')}}"
+  method="get"
+  >
+
+   <input
+   style="display: none;"
+    name="year"
+    value="{{user_year_selection}}">
+    
+  <input
+  style="display: none;"
+  name="offset"
+  value="{{offset + 10}}">
+
+    <button 
+      
+       class="year-next-button dark next-results" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+
+
+
+
+</form>
+
+ {% endif %}
+
+
+ {% if view_mode == "sort-year" and offset > 0 and user_year_selection != "all" and running_count == complete_results_amount %}
+
+ <form
+ action="{{url_for('sort_year')}}"
+ method="get">
+
+<input
+style="display: none;"
+name="offset"
+value="{{offset - 10}}">
+
+<input
+style="display: none;"
+name="year"
+value="{{user_year_selection}}">
+
+<input
+style="display: none;"
+name="minus_10"
+value="yes">
+
+<input
+style="display: none;"
+name="previous_max_10"
+value="{{ max_10_results_amount}}">
+
+ <button
+    
+     class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> previous results
+        </button>
+
+
+
+</form>
+ {% endif %}
   </div>
+
+  
+  
+  
   
 
     <div class="category-summary-container">
