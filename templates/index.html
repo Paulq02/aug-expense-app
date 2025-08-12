@@ -743,11 +743,7 @@
      name="offset"
      value="{{offset - 10}}">
 
-     <input
-     style="display: none;"
-     name="add-results"
-     class="sort-cost-input"
-     value="{{add_to_results - 10}}">
+    
 
       <button 
       style="display: none;"
@@ -776,16 +772,8 @@
       value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
       class="sort-order-input">
 
-      <input
-      style="display: none;"
-      name="add-results"
-      value="{{add_to_results + 10}}">
       
-     
-      
-
-
-       <button class="cost-next-button" type="submit">
+      <button class="cost-next-button" type="submit">
           next results
           <i class="fas fa-angle-double-right"></i>
         </button>
@@ -796,8 +784,8 @@
 
 
    
-     {% if sort_expense_order == "desc" or sort_expense_order == "asc" %}
-     {%if offset > 0 %}
+     {% if view_mode == "sort-cost" and sort_expense_order == "desc" or sort_expense_order == "asc" %}
+     {%if offset > 0 and running_count < complete_results_amount %}
        <form 
      method="get"
      action="{{url_for('sort_by_cost')}}"
@@ -805,7 +793,7 @@
 
 
       <input 
-      style="display: none;"
+    
       name="sort-expense"
       value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
       class="sort-order-input">
@@ -816,11 +804,7 @@
      name="offset"
      value="{{offset - 10}}">
 
-     <input
-     style="display: none;"
-     name="add-results"
-     class="sort-cost-input"
-     value="{{add_to_results - 10}}">
+    
 
       <button 
      
@@ -828,7 +812,84 @@
        <i class="fas fa-angle-double-left"></i> previous results
         </button>
      </form>
+     
+
+      <form
+      action="{{url_for('sort_by_cost')}}"
+      method="get">
+
+      <input
+      name="offset"
+      value="{{offset + 10}}">
+
+      <input
+      name="sort-expense"
+      value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}">
+      
+
+      <button class="cost-next-button" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+    
+    
+  </form>
+  {% endif %}
       {% endif %}
+    
+
+
+
+    {%if view_mode == "sort-cost" and offset > 0 and running_count == complete_results_amount%}
+
+
+      <form
+      action="{{url_for('sort_by_cost')}}"
+      method="get">
+
+      <input
+      name="offset"
+      value="{{offset - 10}}">
+
+       <input
+      name="sort-expense"
+      value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}">
+
+
+      <input
+      name="prev_cost_button"
+      value="yes">
+
+
+      <input
+      name="cost_max_10"
+      value="{{max_10_results_amount}}">
+
+
+       <button 
+     
+      class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> previous results
+        </button>
+
+
+    </form>
+    
+
+
+
+
+
+
+      <button
+      style="display: none;"
+      class="cost-next-button" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+
+
+
       {% endif %}
 
       <!--END OF SORT_COST BUTTONS ------------------------------------------------->

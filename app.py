@@ -98,7 +98,6 @@ def dashboard():
     max_10_results_amount = int(max_10_results_amount)
     
     previous_button = request.args.get("dash_prev_button",None)
-    print(f"THIS IS THE PREVIOUS BUTTON AFTER MAX 10 -------{previous_button}")
     
     
     if offset == 0 and previous_button == None:
@@ -113,7 +112,6 @@ def dashboard():
         if previous_button == "yes":
             previous_max_10_amount = request.args.get("previous_max_10", None)
             previous_max_10_amount = int(previous_max_10_amount)
-            print(f"THIS IS THE MAX 10 -------{previous_max_10_amount}")
             running_count -= previous_max_10_amount
 
 
@@ -124,8 +122,7 @@ def dashboard():
 
     
 
-    print(f"THE RUNNING COUNT AUG8TH IS ----{running_count}")
-    print(f"THE complete results COUNT AUG8TH IS ----{complete_results_amount}")
+   
 
     
    
@@ -356,18 +353,19 @@ def sort_by_cost():
 
     view_mode = "sort-cost"
 
-    add_to_results = request.args.get("add-results", 10)
+    #add_to_results = request.args.get("add-results", 10)
 
-    add_to_results = int(add_to_results)
+    #add_to_results = int(add_to_results)
     username = session.get("username").capitalize()
     
     offset = request.args.get("offset", 0)
     offset = int(offset)
+   
     
     
     
     user_id = session.get("user_id")
-    sort_expense_order = request.args.get("sort-expense", "none")
+    sort_expense_order = request.args.get("sort-expense", None)
 
     sql_select_all = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
     cursor.execute(sql_select_all,(user_id,))
@@ -376,8 +374,9 @@ def sort_by_cost():
     complete_results_amount = int(complete_results_amount)
 
 
-
-
+    
+    print(f"THE complete results COUNT AUG 11TH IS ----{complete_results_amount}")
+    
 
     sql_sort_cost = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_cost {sort_expense_order.upper()} LIMIT 10 OFFSET %s "
     cursor.execute(sql_sort_cost, (user_id,offset))
@@ -385,13 +384,29 @@ def sort_by_cost():
 
     max_10_results_amount= len(results)
     max_10_results_amount = int(max_10_results_amount)
+    print(f"THE 1ST MAX 10 COUNT AUG 11TH {max_10_results_amount}")
+
+    previous_cost_button = request.args.get("prev_cost_button", None)
 
 
     if offset == 0:
         running_count = max_10_results_amount
-    elif offset > 0:
+    elif offset > 0 and running_count < complete_results_amount:
         running_count = running_count
         running_count += max_10_results_amount
+        print("NIGGGGGGERRRRRRRRRR")
+       
+        
+    elif offset > 0 and running_count == complete_results_amount and previous_cost_button == "yes":
+        previous_cost_button_amount = request.args.get("cost_max_10")
+        previous_cost_button_amount = int(previous_cost_button_amount)
+        print(f"THE 2ND MAX 10 COUNT AUG 11TH {max_10_results_amount}")
+        print("RAMON COCK KING")
+        running_count -= previous_cost_button_amount
+
+            
+    print(f"THE RUNNING COUNT AUG11TH IS ----{running_count}")
+
 
     for expense in results:
       expense_id = expense[0] # type: ignore
@@ -413,7 +428,7 @@ def sort_by_cost():
 
     
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, add_to_results =add_to_results, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, previous_cost_button = previous_cost_button)
 
   
 
