@@ -793,7 +793,7 @@
 
 
       <input 
-    
+      style="display: none;"
       name="sort-expense"
       value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
       class="sort-order-input">
@@ -819,10 +819,12 @@
       method="get">
 
       <input
+      style="display: none;"
       name="offset"
       value="{{offset + 10}}">
 
       <input
+      style="display: none;"
       name="sort-expense"
       value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}">
       
@@ -848,20 +850,24 @@
       method="get">
 
       <input
+      style="display: none;"
       name="offset"
       value="{{offset - 10}}">
 
        <input
+       style="display: none;"
       name="sort-expense"
       value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}">
 
 
       <input
+      style="display: none;"
       name="prev_cost_button"
       value="yes">
 
 
       <input
+      style="display: none;"
       name="cost_max_10"
       value="{{max_10_results_amount}}">
 
@@ -913,7 +919,7 @@
         value="{{offset + 10}}">
 
       <input 
-     
+      style="display: none;"
       name="year"
       
       value="{{user_year_selection}}">
@@ -922,7 +928,7 @@
         <button 
         type="submit"
         class="year-next-button dark next-results">
-       <i class="fas fa-angle-double-right"></i> next results
+       next results  <i class="fas fa-angle-double-right"></i>
        
       </button>
         
@@ -939,17 +945,25 @@
       method="get">
 
       <input
+      style="display: none;"
       name="offset"
       value="{{offset - 10}}">
 
-      <input 
+      <input
+      style="display: none;"
       name="year"
       value="{{user_year_selection}}">
+
+
+      <input
+     
+      name="prev_max_10_yes"
+      value="yes">
 
       <button 
      
       class="previous-results" type="submit">
-       <i class="fas fa-angle-double-left"></i> AUG 7TH PREVIOUS RESULTS
+       <i class="fas fa-angle-double-left"></i> previous results
         </button>
 
      </form>
@@ -959,10 +973,12 @@
      method="get">
 
      <input
+     style="display: none;"
      name="offset"
      value="{{offset + 10}}">
 
      <input 
+     style="display: none;"
       name="year"
       value="{{user_year_selection}}">
     
@@ -970,7 +986,7 @@
       <button 
         type="submit"
         class="year-next-button dark next-results">
-       <i class="fas fa-angle-double-right"></i> AUG 7TH NEXT RESULTS
+        next results <i class="fas fa-angle-double-right"></i>
        
       </button>
     
@@ -984,11 +1000,48 @@
    {%  if view_mode == "sort-year" and user_year_selection == "all" and offset > 0 and running_count == complete_results_amount %}
 
 
-  <p
-  style="color: red;">
+  <form
+  action="{{url_for('sort_year')}}"
+  method="get">
 
-  RAMON IS KING
-</p>
+  <input
+  style="display: none;"
+  name="offset"
+  value="{{offset - 10}}">
+
+  <input
+  style="display: none;"
+  name="year"
+  value="{{user_year_selection}}">
+
+
+  <input
+  style="display: none;"
+  name="prev_max_10_yes"
+  value="yes">
+
+  <input
+  style="display: none;"
+  name="prev_max_10"
+  value="{{max_10_results_amount}}">
+
+
+
+   <button 
+     
+      class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> previous results
+        </button>
+
+
+
+
+
+
+
+
+
+</form>
 
 
 
@@ -1016,12 +1069,7 @@
       value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
       class="sort-order-input">
 
-        <input
-     style="display: none;"
-     name="add-results"
-     class="sort-year-input"
-     value="{{add_to_results + 10}}">
-
+      
       <input 
        name="offset"
       style="display: none;"
@@ -1063,6 +1111,11 @@
     style="display: none;"
     name="year"
     value="{{user_year_selection}}">
+
+     <input
+    style="display: none;"
+    name="prev_max_10_yes"
+    value="yes">
 
 
 
@@ -1140,6 +1193,10 @@ value="{{ max_10_results_amount}}">
 
 </form>
  {% endif %}
+
+
+
+
   </div>
 
   
