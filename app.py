@@ -221,6 +221,7 @@ def sort_year():
     offset = request.args.get("offset", 0)
 
     offset = int(offset)
+    print(f"NIGGGGGEERRRR THE OFFSET ISSS -----------{offset}")
     
     
 
@@ -253,30 +254,29 @@ def sort_year():
 
         if offset == 0:
             running_count = 0
-            running_count += max_10_results_amount
-            #print(f"THE RUNNING COUNT OFFSET 0 IS-----------------{running_count}")
-
-        elif offset > 0 and running_count < complete_results_amount:
-               
-            prev_button_clicked = request.args.get("prev_max_10_yes", None)
-            print(prev_button_clicked)
            
-            if prev_button_clicked == "yes":
+            running_count += max_10_results_amount
+            print("COWABUNGA DUUUDEEE")
+
+        elif prev_button_clicked == "yes":
+            if running_count == complete_results_amount:
+                prev_max_10 = request.args.get("prev_max_10", None)
+                prev_max_10 = int(prev_max_10)
+                
+                running_count -=prev_max_10
+            else:
                 running_count = running_count
                 running_count -= max_10_results_amount
-            else:
-                print("ELSE BLOCK PRINTING")
-                running_count = running_count
-                running_count += max_10_results_amount
-                print(f"THE RUNNING COUNT ELIF STATEMENT IS-----------------{running_count}")
-               
-        
-        elif offset > 0 and running_count == complete_results_amount and prev_button_clicked == "yes":
-            previous_max_10 = request.args.get("prev_max_10", None)
-            previous_max_10 = int(previous_max_10) # type: ignore
-            print(f"LAST ELIF BLOCK  PREV MAX 10 IS ----{previous_max_10}")
+       
+        elif running_count < complete_results_amount:
+            running_count += max_10_results_amount
             
-            running_count -= previous_max_10
+
+           
+        
+            
+        
+        
 
         
         for data in results:
@@ -305,7 +305,7 @@ def sort_year():
         cursor.execute(sql_specifc_year_query,(user_id,user_year_selection))
         specific_year_results = cursor.fetchall()
         specific_year_complete_results_amount = len(specific_year_results)
-        print(f"THE SPECIFIC RESULTS AMOUNT IS  ---{specific_year_complete_results_amount}")
+       
 
 
 
@@ -320,16 +320,27 @@ def sort_year():
        
         if offset == 0:
             running_count = max_10_results_amount
+            print("GOTCHA BITCH")
 
 
-        elif offset > 0 and running_count < specific_year_complete_results_amount :
-            running_count = running_count
-            running_count += max_10_results_amount
 
-        elif offset > 0 and prev_button_clicked == "yes":
-            previous_max_10 = request.args.get("previous_max_10", None)
-            previous_max_10 = int(previous_max_10) # type: ignore
-            running_count -= previous_max_10
+        elif running_count < specific_year_complete_results_amount:
+            prev_button_clicked = request.args.get("prev_max_10_yes", None)
+            print(f"THE PREV_BUTTON_CLICKED VALUE ISSSS {prev_button_clicked}")
+            if prev_button_clicked == "yes":
+                running_count = running_count
+                running_count -= max_10_results_amount
+                print("SUBTRacTED")
+                print(f"THE RUNNING COUNT after subtracting IS ----{running_count}")
+
+            else:
+                running_count = running_count
+                running_count += max_10_results_amount
+                print(f"THE RUNNING COUNT IS after adding is ----{running_count}")
+
+        elif offset > 0 and running_count == specific_year_complete_results_amount and prev_button_clicked == "yes":
+            print("MELISSA CREAMPIE TOMMOROW")
+           
           
         
 
