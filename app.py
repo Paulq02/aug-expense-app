@@ -97,22 +97,9 @@ def dashboard():
     max_10_results_amount = len(results)
     max_10_results_amount = int(max_10_results_amount)
     
-    previous_button = request.args.get("dash_prev_button",None)
     
     
-    if offset == 0 and previous_button == None:
-        running_count = 0
-        running_count = max_10_results_amount
-        
-    elif offset > 0 and running_count < complete_results_amount and previous_button == None:
-        running_count = running_count
-        running_count += max_10_results_amount # type: ignore
-
-    elif offset > 0 and running_count == complete_results_amount:
-        if previous_button == "yes":
-            previous_max_10_amount = request.args.get("previous_max_10", None)
-            previous_max_10_amount = int(previous_max_10_amount) # type: ignore #ignore
-            running_count -= previous_max_10_amount
+    running_count = offset + max_10_results_amount
 
 
            
@@ -165,7 +152,7 @@ def dashboard():
    
 
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count,  previous_button =  previous_button)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count)
 
 
 
@@ -199,40 +186,17 @@ def sort_year():
     user_id = session.get("user_id")
     
     
-   
-
-    
-
-    
     asc_or_desc = request.args.get("sortOrder","desc")
    
     
     user_year_selection = request.args.get("year","none")
-   
-  
-   
-      
-   
-    prev_button_clicked = request.args.get("prev_max_10_yes", None)
-    
-   
-   
-    
+
     offset = request.args.get("offset", 0)
 
     offset = int(offset)
-    print(f"NIGGGGGEERRRR THE OFFSET ISSS -----------{offset}")
     
     
-
-
     
-    
-
-   
-
-
-
     if user_year_selection == "all" :
 
         sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
@@ -242,42 +206,16 @@ def sort_year():
 
 
 
-
-
-
-
         sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
         cursor.execute(sql_all_expenses,(user_id,offset))
         results = cursor.fetchall()
         max_10_results_amount = len(results)
         max_10_results_amount = int(max_10_results_amount)
 
-        if offset == 0:
-            running_count = 0
-           
-            running_count += max_10_results_amount
-            print("COWABUNGA DUUUDEEE")
-
-        elif prev_button_clicked == "yes":
-            if running_count == complete_results_amount:
-                prev_max_10 = request.args.get("prev_max_10", None)
-                prev_max_10 = int(prev_max_10)
-                
-                running_count -=prev_max_10
-            else:
-                running_count = running_count
-                running_count -= max_10_results_amount
        
-        elif running_count < complete_results_amount:
-            running_count += max_10_results_amount
+        running_count = offset + max_10_results_amount
             
-
-           
-        
             
-        
-        
-
         
         for data in results:
             expense_id = data[0] # type: ignore
@@ -291,12 +229,6 @@ def sort_year():
         
         
         
-        
-       
-       
-      
-
-
     else:
 
 
@@ -318,34 +250,7 @@ def sort_year():
 
        
        
-        if offset == 0:
-            running_count = max_10_results_amount
-            print("GOTCHA BITCH")
-
-
-
-        elif running_count < specific_year_complete_results_amount:
-            prev_button_clicked = request.args.get("prev_max_10_yes", None)
-            print(f"THE PREV_BUTTON_CLICKED VALUE ISSSS {prev_button_clicked}")
-            if prev_button_clicked == "yes":
-                running_count = running_count
-                running_count -= max_10_results_amount
-                print("SUBTRacTED")
-                print(f"THE RUNNING COUNT after subtracting IS ----{running_count}")
-
-            else:
-                running_count = running_count
-                running_count += max_10_results_amount
-                print(f"THE RUNNING COUNT IS after adding is ----{running_count}")
-
-        elif offset > 0 and running_count == specific_year_complete_results_amount and prev_button_clicked == "yes":
-            print("MELISSA CREAMPIE TOMMOROW")
-           
-          
-        
-
-
-
+        running_count = offset + max_10_results_amount
 
 
 
@@ -378,7 +283,7 @@ def sort_year():
     
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count, prev_button_clicked = prev_button_clicked)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count)
 
       
   
@@ -423,20 +328,8 @@ def sort_by_cost():
     max_10_results_amount= len(results)
     max_10_results_amount = int(max_10_results_amount)
 
-    previous_cost_button = request.args.get("prev_cost_button", None)
 
-
-    if offset == 0:
-        running_count = max_10_results_amount
-    elif offset > 0 and running_count < complete_results_amount:
-        running_count = running_count
-        running_count += max_10_results_amount
-       
-        
-    elif offset > 0 and running_count == complete_results_amount and previous_cost_button == "yes":
-        previous_cost_button_amount = request.args.get("cost_max_10")
-        previous_cost_button_amount = int(previous_cost_button_amount)
-        running_count -= previous_cost_button_amount
+    running_count = offset + max_10_results_amount
 
             
 
@@ -461,7 +354,7 @@ def sort_by_cost():
 
     
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, previous_cost_button = previous_cost_button)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count)
 
   
 
@@ -470,13 +363,6 @@ def sort_by_cost():
 
        
      
-    
-        
-
-    
-   
-
-    
 @app.route("/new_sort", methods = ['POST', 'GET'])
 def new_sort():
 
@@ -518,14 +404,7 @@ def new_sort():
 
 
 
-    if offset == 0:
-        running_count = max_10_results_amount
-    
-    elif offset > 0 and running_count < complete_results_amount:
-        running_count += max_10_results_amount
-    
-    elif running_count == complete_results_amount:
-        print("YEAAA NIGGGGA")
+    running_count = offset + max_10_results_amount
     
 
 
@@ -555,7 +434,7 @@ def new_sort():
     
    
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count)
 
 
 

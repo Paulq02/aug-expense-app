@@ -340,7 +340,7 @@
             </th>
             <th>
               <div class="arrow-container">
-                Date {% if asc_or_desc == "desc" %}
+                Date {% if asc_or_desc or sort_new_order == "desc" %}
                 <i
                   class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                   style="display: flex"
@@ -350,7 +350,7 @@
                   class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
                   style="display: none"
                 ></i>
-                {% elif asc_or_desc == 'asc' %}
+                {% elif asc_or_desc or sort_new_order == 'asc' %}
                 <i
                   class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
                   style="display: none"
@@ -923,6 +923,8 @@
       name="year"
       
       value="{{user_year_selection}}">
+
+        
        
 
         <button 
@@ -955,14 +957,7 @@
       value="{{user_year_selection}}">
 
 
-      <input
-     
-      name="prev_max_10_yes"
-      value="yes">
-
-       <p
-        style="color: red;font-size:large">I WILL SUCK RAMONES COCK AND SWALLOW HIS CUM</p>
-
+    
       <button 
      
       class="previous-results" type="submit">
@@ -984,7 +979,8 @@
      style="display: none;"
       name="year"
       value="{{user_year_selection}}">
-    
+
+
    
       <button 
         type="submit"
@@ -1020,14 +1016,6 @@
 
   <input
 
-  name="prev_max_10_yes"
-  value="yes">
-
-  <p
-        style="color: red;font-size:large">I wish brandon iron would fuck me and choke me </p>
-
-  <input
-
   name="prev_max_10"
   value="{{max_10_results_amount}}">
 
@@ -1038,13 +1026,6 @@
       class="previous-results" type="submit">
        <i class="fas fa-angle-double-left"></i> previous results
         </button>
-
-
-
-
-
-
-
 
 
 </form>
@@ -1109,23 +1090,15 @@
     >
 
     <input
-    
+    style="display: none;"
     name="offset"
     value="{{offset - 10}}">
 
     <input
-    
+    style="display: none;"
     name="year"
     value="{{user_year_selection}}">
 
-     <input
-    
-    name="prev_max_10_yes"
-    value="yes">
-
-    
- <p
- style="color: red;font-size:large">RAMON IS KING</p>
 
 
 
@@ -1175,27 +1148,17 @@
  method="get">
 
 <input
+style="display: none;"
 
 name="offset"
 value="{{offset - 10}}">
 
 <input
-
+style="display: none;"
 name="year"
 value="{{user_year_selection}}">
 
-    <input
-    
-    name="prev_max_10_yes"
-    value="yes">
-
-  <p
- style="color: red;font-size:large"> SUCK RAMONE COCK HE IS THE ALPHA</p>
-
-<input
-
-name="previous_max_10"
-value="{{ max_10_results_amount}}">
+ 
 
  <button
     
@@ -1210,12 +1173,159 @@ value="{{ max_10_results_amount}}">
 
 
 
+ <!--START OF NEW SORT  BUTTONS ------------------------------------------------->
+<!--START OF NEW SORT BUTTONS ------------------------------------------------->
+ 
+
+
+ {% if view_mode == "new-sort" and offset == 0 %}
+
+ <form
+ method="get"
+ action="{{url_for('new_sort')}}">
+
+<input
+style="display: none;"
+name="offset"
+value="{{offset + 10}}">
+
+
+
+<input
+style="display: none;"
+name="sort-by"
+value="{{sort_new_order}}">
+
+
+  <button 
+      
+       class="year-next-button dark next-results" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+
+
+
+
+
+
+
+</form>
+
+{% endif %}
+
+
+
+
+{% if view_mode == "new-sort" and offset != 0 and running_count != complete_results_amount %}
+
+
+<form
+method="get"
+action="{{url_for('new_sort')}}">
+
+
+<input
+style="display: none;"
+name="sort-by"
+value="{{sort_new_order}}">
+
+
+<input
+style="display: none;"
+
+name="offset"
+value="{{offset - 10}}">
+
+ 
+
+ <button
+    
+     class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> previous results
+        </button>
+
+
+
+
+</form>
+
+<form
+method="get"
+action="{{url_for('new_sort')}}">
+
+
+<input
+style="display: none;"
+name="sort-by"
+value="{{sort_new_order}}">
+
+
+<input
+style="display: none;"
+name="offset"
+value="{{offset + 10}}">
+
+
+
+
+
+  <button 
+      
+       class="year-next-button dark next-results" type="submit">
+          next results
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+
+
+
+</form>
+
+{% endif %}
+
+{% if  view_mode == "new-sort" and running_count == complete_results_amount %}
+
+
+<form
+method="get"
+action="{{url_for('new_sort')}}">
+
+
+<input
+style="display: none;"
+name="sort-by"
+value="{{sort_new_order}}">
+
+
+<input
+style="display: none;"
+
+name="offset"
+value="{{offset - 10}}">
+
+ 
+
+ <button
+    
+     class="previous-results" type="submit">
+       <i class="fas fa-angle-double-left"></i> previous results
+        </button>
+
+
+
+
+
+</form>
+
+{% endif %}
+
 
   </div>
 
   
   
-  
+<!--END OF NEW SORT  BUTTONS ------------------------------------------------->
+<!--END OF NEW SORT BUTTONS ------------------------------------------------->
   
 
     <div class="category-summary-container">
