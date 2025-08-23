@@ -36,7 +36,7 @@
     />
     <script>
       let currentColor = window.localStorage.getItem("color");
-
+      
       let html = document.querySelector("html");
       if (currentColor === "light") {
         html.classList.remove("dark");
@@ -44,6 +44,8 @@
       } else {
         html.classList.remove("light");
         html.classList.add("dark");
+
+      
       }
     </script>
   </head>

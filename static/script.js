@@ -1,6 +1,41 @@
+/*
+
+This checks if Chart.js module exists 
+if it exists then go into font defaults and set the default font to Roboto
+
+*/
 if (typeof Chart !== "undefined") {
   Chart.defaults.font.family = '"Roboto", "sans-serif"';
+  
 }
+
+/* 
+
+The Window checks for DOMcontent being loaded
+at login there wont be a currentColor set, so it will return null
+if null then set the initial color to dark in local storage
+
+This also keeps the color toggle feature working
+when you click the toggle button it changes/updates the color scheme to light mode
+also saves to local storage the updated color
+
+*/
+window.addEventListener("DOMContentLoaded", () => {
+  let currentColor = window.localStorage.getItem("color");
+  if (currentColor === null) {
+    window.localStorage.setItem("color", "dark");
+  }
+  if (currentColor === "light") {
+    window.localStorage.setItem("color", "light");
+    bodyColor.classList.toggle("light");
+  }
+});
+
+
+/* 
+
+
+*/
 
 const openSidebar = document.querySelector(".close");
 
@@ -42,16 +77,6 @@ if (logoutButton) {
   });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  let currentColor = window.localStorage.getItem("color");
-  if (currentColor === null || "dark") {
-    window.localStorage.setItem("color", "dark");
-  }
-  if (currentColor === "light") {
-    window.localStorage.setItem("color", "light");
-    bodyColor.classList.toggle("light");
-  }
-});
 
 const yearSelect = document.getElementById("year-select");
 if (yearSelect) {
