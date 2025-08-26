@@ -31,8 +31,11 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 /* 
+I've added an event listener to a button attached to my sidebar
+When this button is clicked, the sidebar class is toggled and added which adds a 250px width to the sidebar
+which opens the sidebar, if clicked again the sidebar class is removed 
+I'm going to be adding a search feature soon
 
 
 */
@@ -48,6 +51,17 @@ if (toggleButton) {
     closeSearchBox.classList.toggle("close-search-box");
   });
 }
+
+
+/* 
+
+I've added a toggle feature to switch from Dark/Light mode by clicking a button.
+This gets a hold of many elements and adds/removes Dark/Light classes to fit the users specification.
+It also updates the local storage on the current color scheme.
+
+
+
+*/
 
 let htmlColor = document.querySelector("html");
 
@@ -69,6 +83,12 @@ if (toggleSwitch) {
   });
 }
 
+
+/* 
+I've added a click event listener to the logout button, which clears the local storage
+
+*/
+
 const logoutButton = document.querySelector(".logout-button");
 
 if (logoutButton) {
@@ -78,6 +98,14 @@ if (logoutButton) {
 }
 
 
+
+
+/* 
+
+I've added a change event listener to a "select" element which defaults to a "none" value at login.
+Once a user makes their choice of a YEAR they would like to filter by, the form that's wrapped around the select element is submitted and a query is made
+
+*/
 const yearSelect = document.getElementById("year-select");
 if (yearSelect) {
   yearSelect.addEventListener("change", () => {
@@ -85,6 +113,13 @@ if (yearSelect) {
     selectForm.submit();
   });
 }
+
+/* 
+
+I've added a change event listener to a "select" element which defaults to a "none" value at login.
+Once a user makes their choice of sorting expenses by ascending or descending by DATE the form that's wrapped around the select element is submitted and a query is made
+
+*/
 
 const mySelectElement = document.querySelector(".asc-desc");
 
@@ -94,7 +129,22 @@ if (mySelectElement) {
   });
 }
 
+
+
+/* 
+
+I've added a change event listener to a "select" element which defaults to a "none" value at login.
+Once a user makes their choice of sorting expenses by ascending or descending by COST the form that's wrapped around the select element is submitted and a query is made
+
+*/
+
 const sortCost = document.querySelector(".sort-expense-dropdown");
+
+if (sortCost) {
+  sortCost.addEventListener("change", function () {
+    this.form.submit();
+  });
+}
 
 const jsonStuff = document.querySelector(".json_data");
 let categoryArray = [];
@@ -322,11 +372,7 @@ if (chartBar) {
     plugins: [barChartTextPlugin],
   });
 }
-if (sortCost) {
-  sortCost.addEventListener("change", function () {
-    this.form.submit();
-  });
-}
+
 
 const showNameBtn = function (index) {
   console.log("hio");
