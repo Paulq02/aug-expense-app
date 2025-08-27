@@ -146,12 +146,36 @@ if (sortCost) {
   });
 }
 
+
+
+/*
+If the user has entered expenses, it has been added the the MySql database.
+
+Whether the user is just logging in or making a specific selection on what to retrieve/display - Python appends the Data in key/value pairs (dictionary.
+
+"my_list" is a list of these key/value pairs - The Python dictionary is then converted to JSON and injected into the Jinja template.
+
+I stuck the JSON inside a <p> tag, then grabbed it with JavaScript using textContent.
+
+The JSON string from the <p> element was parsed with JSON.parse() to produce a JavaScript object.
+
+The parsed JSON produces an array of category objects. Each object has two properties: a category string (e.g., groceries, rent, entertainment) and an amount defaulting as 0. 
+As expenses are added, the corresponding category’s amount is incremented, allowing totals to be tracked per category.
+
+
+
+*/
+
 const jsonStuff = document.querySelector(".json_data");
 let categoryArray = [];
 
 if (jsonStuff && categoryArray) {
   const my_json_data = document.querySelector(".json_data").textContent;
   converted_to_javascript_object = JSON.parse(my_json_data);
+  
+  
+  
+  
   categoryArray = [
     { category: "entertainment", amount: 0 },
     { category: "groceries", amount: 0 },
@@ -160,6 +184,22 @@ if (jsonStuff && categoryArray) {
     { category: "monthly", amount: 0 },
     { category: "other", amount: 0 },
   ];
+
+
+  
+
+/* 
+// Loop through each expense object in the converted JavaScript data.
+// Each expense has an "expense_category" (like groceries, rent, entertainment)
+// and an "amount" representing how much was spent.
+// We check which category the expense belongs to by matching the key name.
+// When a match is found, we take the expense amount and add it to that
+// category's total inside categoryArray. This keeps a running total for
+// each category so we can track overall spending by type.
+
+*/
+
+
   for (let item of converted_to_javascript_object) {
     if (item.expense_category === "entertainment") {
       let newAmount = item.amount;
