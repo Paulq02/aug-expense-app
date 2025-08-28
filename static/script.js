@@ -186,7 +186,7 @@ if (jsonStuff && categoryArray) {
   ];
 
 
-  
+
 
 /* 
 // Loop through each expense object in the converted JavaScript data.
@@ -228,21 +228,27 @@ if (jsonStuff && categoryArray) {
   }
 }
 
-const confirmPassword = function () {
-  const createAccountButton = document.querySelector(".create-account-button");
-  const messageBox = document.querySelector(".password-alert");
-  const password = document.querySelector(".first-password").value;
 
-  const secondPassword = document.querySelector(".confirm-password").value;
-  if (password !== secondPassword) {
-    messageBox.textContent = "Passwords do not match";
-    messageBox.style.color = "red";
-    createAccountButton.disabled = true;
-  } else {
-    messageBox.innerHTML = "";
-    createAccountButton.disabled = false;
-  }
-};
+
+/*
+
+Prepare data for Chart.js by separating category names and amounts.
+
+Two empty arrays are created: nameArray and amountArray.
+
+We loop through categoryArray (which already holds totals for each category after processing the converted expense objects).
+
+"name" refers to the category name (e.g., groceries, rent, entertainment) chosen by the user when they created an expense.
+
+"amount" refers to the running total of all expenses for that category.
+
+For each category object in categoryArray, push the name into nameArray and the amount into amountArray. These arrays will be passed to Chart.js
+to display the chart labels (names) and corresponding values (amounts).
+
+
+*/
+
+
 
 let nameArray = [];
 
@@ -254,6 +260,15 @@ for (let cat of categoryArray) {
   nameArray.push(name);
   amountArray.push(amount);
 }
+
+
+
+/* 
+
+
+
+
+*/
 
 const gapPlugin = {
   id: "gapPlugin",
@@ -412,6 +427,49 @@ if (chartBar) {
     plugins: [barChartTextPlugin],
   });
 }
+
+
+/* 
+
+Function "confirmPassword" used to validate password confirmation when creating an account.
+
+The user must enter their chosen password twice (password + confirm password).
+
+On each input, the function compares both values:
+
+If the two passwords do not match → show an alert message and keep the "Create Account" button disabled.
+
+If both passwords match → remove the alert (if any) and enable the "Create Account" button so the user can submit.
+
+This ensures the user confirms their intended password before account creation.
+
+*/
+
+
+
+
+const confirmPassword = function () {
+  const createAccountButton = document.querySelector(".create-account-button");
+  const messageBox = document.querySelector(".password-alert");
+  const password = document.querySelector(".first-password").value;
+
+  const secondPassword = document.querySelector(".confirm-password").value;
+  if (password !== secondPassword) {
+    messageBox.textContent = "Passwords do not match";
+    messageBox.style.color = "red";
+    createAccountButton.disabled = true;
+  } else {
+    messageBox.innerHTML = "";
+    createAccountButton.disabled = false;
+  }
+};
+
+
+
+
+
+
+
 
 
 const showNameBtn = function (index) {
