@@ -265,23 +265,53 @@ for (let cat of categoryArray) {
 
 /* 
 
+ * Why: By default the gap between the chart and the legend labels (groceries, non-essentials, other)
+ *      feels too tight. I’m making that gap bigger with a tiny custom plugin.
+ *
+ * What I’m doing (in my words):
+ * - Custom plugins need an id → I’m calling this one "gapPlugin".
+ * - I run it in `beforeInit` so I can tweak legend sizing *before* Chart.js locks in the layout.
+ * - I grab the legend’s built-in `fit` method (the thing that measures the legend box)
+ *   and store it as `originalFit`.
+ * - Then I “reprogram” `fit` by assigning my own function to `chart.legend.fit`.
+ * - Inside my function, I let the original run first with the legend as `this`:
+ *     originalFit.call(this);
+ *   That way it does all the normal measuring it already knows how to do.
+ * - After it finishes, I add my bump:
+ *     this.height += 25;
+ *   (Important: I do this *after* calling the original. If I add first, the original will overwrite it.)
+ *
+ * Notes to future me:
+ * - Keep this as `function () {}` not an arrow function, so `this` is the legend.
+ * - I’m not tweaking label padding here; I’m making the whole legend box taller so the chart
+ *   reserves extra space under it.
+ 
+ */
+
+const gapPlugin = {
+  id: "gapPlugin",
+  beforeInit(chart) {
+   const originalFit = chart.legend.fit;
+  chart.legend.fit = function () {
+  originalFit.call(this);   
+  this.height += 25;
+};
+  },
+};
+
+
+/* 
+
 
 
 
 */
 
-const gapPlugin = {
-  id: "gapPlugin",
-  beforeInit(chart) {
-    const originalFit = chart.legend.fit;
 
-    chart.legend.fit = function () {
-      originalFit.bind(chart.legend)();
 
-      this.height += 25;
-    };
-  },
-};
+
+
+
 
 const doughnutTextPlugin = {
   id: "text_color_plugin",
@@ -314,6 +344,7 @@ if (doughnutChart) {
       plugins: {
         legend: {
           labels: {
+            
             font: {
               size: 30,
             },
