@@ -292,25 +292,31 @@ const gapPlugin = {
   id: "gapPlugin",
   beforeInit(chart) {
    const originalFit = chart.legend.fit;
+  
   chart.legend.fit = function () {
-  originalFit.call(this);   
+  originalFit.call(this);
+ 
   this.height += 25;
 };
   },
 };
 
 
-/* 
 
 
+/*
+  doughnutTextPlugin notes:
 
+  - This plugin switches the doughnut chart label text color 
+    depending on the light/dark mode the user selects.
+  - The toggle button saves the mode into localStorage as "color".
+  - Each time the chart draws, the plugin checks localStorage.
+  - If "Dark Mode" → text color is set to white.
+  - If "Light Mode" → text color is set to black.
 
+  In short: it keeps the chart labels readable by flipping the 
+  text color when the theme changes.
 */
-
-
-
-
-
 
 
 const doughnutTextPlugin = {
@@ -319,14 +325,34 @@ const doughnutTextPlugin = {
     let currentColor = window.localStorage.getItem("color");
 
     if (currentColor === "light") {
-      chart.options.plugins.legend.labels.color = "#000000";
+      Chart.defaults.color = "#000000";
       chart.update();
     } else {
-      chart.options.plugins.legend.labels.color = "#ffffff";
+      Chart.defaults.color = "#ffffff";
       chart.update();
     }
   },
 };
+
+
+
+/*
+  doughnutChart notes:
+
+  - This chart helps the user visualize their expense data.
+  - After grabbing the JSON data from the HTML element, it’s 
+    converted into a JavaScript object.
+  - The categoryArray holds all expense categories and amounts 
+    that the user has entered.
+  - I iterate through categoryArray to pull out each category 
+    name and its corresponding amount.
+  - These values are split into two separate arrays:
+      • nameArray   → holds all category names
+      • amountArray → holds all expense amounts
+  - Both arrays are then inserted into the doughnut chart to 
+    display the data visually.
+*/
+
 
 const doughnutChart = document.getElementById("myCanvas");
 if (doughnutChart) {
@@ -355,6 +381,22 @@ if (doughnutChart) {
     plugins: [gapPlugin, doughnutTextPlugin],
   });
 
+
+/*
+  doughChartText notes:
+
+  - This function changes the legend label font size of the doughnut chart
+    depending on the browser window width.
+  - It uses window.outerWidth to check how wide the full browser window is.
+  - If width is 1120px or larger → font size = 30.
+  - If width is 1119px or smaller → font size = 25.
+  - The new font size is set in chart.options.plugins.legend.labels.font.size.
+  - Finally, chart.update() is called to redraw the chart with the new size.
+
+  In short: the chart legend text resizes automatically when the window width changes.
+*/
+
+
   function doughChartText(chart) {
     let windowWidth = window.outerWidth;
 
@@ -363,20 +405,51 @@ if (doughnutChart) {
 
       chart.options.plugins.legend.labels.font.size = fontSize;
 
-      chart.update();
+     
     }
 
     if (windowWidth <= 1119) {
       let fontSize = 25;
-      chart.options.plugins.legend.labels.font.size = fontSize;
-      chart.update();
+        chart.options.plugins.legend.labels.font.size = fontSize;
+      
     }
-  }
 
-  window.addEventListener("resize", function () {
+    chart.update();
+  }
+ 
+
+
+/*
+  resize event notes:
+
+  - window.addEventListener("resize", ...) listens for when the browser window is resized.
+  - Each time the window size changes, the doughChartText function is called.
+  - The chart instance (doughnutChart) is passed in so its legend text size can be updated.
+  - This makes the chart responsive: the legend font will adjust automatically
+    whenever the window is resized.
+*/
+
+
+window.addEventListener("resize", function () {
     doughChartText(doughnutChart);
   });
 }
+
+
+/*
+  barChartTextPlugin notes:
+
+  - This plugin changes the text and grid colors of the bar chart 
+    depending on the user's selected theme (light or dark).
+  - The current theme is stored in localStorage as "color".
+  - After the chart draws, the plugin checks localStorage:
+      • If "dark" → ticks, legend labels, and grid lines are set to white.
+      • If not "dark" (light mode) → they are set to black.
+  - The chart.update() call ensures the chart is redrawn with the 
+    updated colors.
+*/
+
+
 
 const barChartTextPlugin = {
   id: "barTextColor",
@@ -399,6 +472,9 @@ const barChartTextPlugin = {
     }
   },
 };
+
+
+
 const colors = [
   "rgb(54, 162, 235)", // blue
   "rgb(255, 159, 64)", // orange
