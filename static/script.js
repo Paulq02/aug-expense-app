@@ -354,9 +354,11 @@ const doughnutTextPlugin = {
 */
 
 
-const doughnutChart = document.getElementById("myCanvas");
-if (doughnutChart) {
-  const doughnutChart = new Chart(document.getElementById("myCanvas"), {
+const doughnutCanvas = document.getElementById("myCanvas");
+let doughnutChart;
+
+if (doughnutCanvas) {
+  doughnutChart = new Chart(document.getElementById("myCanvas"), {
     type: "doughnut",
     data: {
       labels: nameArray,
@@ -380,6 +382,8 @@ if (doughnutChart) {
     },
     plugins: [gapPlugin, doughnutTextPlugin],
   });
+
+
 
 
 /*
@@ -447,7 +451,20 @@ window.addEventListener("resize", function () {
       • If not "dark" (light mode) → they are set to black.
   - The chart.update() call ensures the chart is redrawn with the 
     updated colors.
+  -  - The x-axis (category names) uses a "colors" array to style each 
+    tick label with its own color:
 */
+
+
+
+const colors = [
+  "rgb(54, 162, 235)", // blue
+  "rgb(255, 159, 64)", // orange
+  "rgb(255, 205, 86)", // yellow
+  "rgb(75, 192, 192)", // green
+  "rgb(153, 102, 255)", // purple
+  "rgb(255, 99, 132)", // red
+];
 
 
 
@@ -473,21 +490,36 @@ const barChartTextPlugin = {
   },
 };
 
+/* 
+
+Bar Chart Setup:
+
+- This code makes a bar chart to show expenses by category. It first checks if the canvas (chartBarCanvas) exists before creating the chart.
+
+- chartBarCanvas = the canvas element in HTML
+
+- chartBar = the Chart.js chart drawn on that canvas
+
+- The data comes from iterating through the converted_to_javascript_object:
+    • nameArray = each category option the user selected when entering an expense
+    • amountArray = the matching cost of that expense
+
+- The y-axis starts at 0 with bigger font (23), the x-axis labels are red with font size 23, and the legend labels also use font size 23.
+
+- A custom plugin (barChartTextPlugin) is added to handle extra styling or updates.
+    • barChartTextPlugin controls the scale tick colors when switching between light and dark mode.
+
+- This setup makes sure the chart only loads when the canvas is there and avoids errors on other pages.
+
+*/
 
 
-const colors = [
-  "rgb(54, 162, 235)", // blue
-  "rgb(255, 159, 64)", // orange
-  "rgb(255, 205, 86)", // yellow
-  "rgb(75, 192, 192)", // green
-  "rgb(153, 102, 255)", // purple
-  "rgb(255, 99, 132)", // red
-];
+const chartBarCanvas = document.getElementById("barChart");
 
-const chartBar = document.getElementById("barChart");
+let chartBar;
 
-if (chartBar) {
-  new Chart(document.getElementById("barChart"), {
+if (chartBarCanvas) {
+   chartBar = new Chart(document.getElementById("barChart"), {
     type: "bar",
     data: {
       labels: nameArray,
@@ -536,6 +568,8 @@ if (chartBar) {
 }
 
 
+
+
 /* 
 
 Function "confirmPassword" used to validate password confirmation when creating an account.
@@ -573,20 +607,25 @@ const confirmPassword = function () {
 
 
 
+/* 
 
 
 
+
+*/
 
 
 
 const showNameBtn = function (index) {
-  console.log("hio");
+  
   const EditNameBtn = document.getElementById("edit-name-button-" + index);
   const yellowEditnameBtn = getComputedStyle(EditNameBtn).display;
 
   const cancelEditNameForm = document.getElementById("edit-name-form-" + index);
   const cancelEditNameFormDisplay =
     getComputedStyle(cancelEditNameForm).display;
+
+  
 
   if (yellowEditnameBtn === "none") {
     EditNameBtn.style.display = "inline-flex";
@@ -596,10 +635,14 @@ const showNameBtn = function (index) {
     EditNameBtn.style.display = "none";
     cancelEditNameForm.style.display = "none";
   }
+
+  
 };
 
+
+
 const showCostBtn = function (index) {
-  console.log("hi");
+  
   const mainEditButton = document.getElementById("main-edit-button-" + index);
   const costBtn = document.getElementById("edit-cost-button-" + index);
   const yellowCostBtn = getComputedStyle(costBtn).display;
@@ -718,3 +761,6 @@ if (errorElement) {
     }
   };
 }
+
+
+
