@@ -496,7 +496,7 @@ def get_entries():
 
 @app.route('/delete_expense/<int:expense_id>', methods = ['POST', 'GET'])
 def delete_expense(expense_id):
-    user_id = session["user_id"]
+    user_id = session.get("user_id")
     cursor = sql_connect.cursor()
     sql = "DELETE FROM expense_tracker_expense_data WHERE expense_id = %s AND user_id = %s "
     cursor.execute(sql, (expense_id,user_id))
@@ -510,8 +510,15 @@ def user(name):
 
 @app.route('/update_name/<int:index>/<int:expense_id>', methods=["GET", "POST"])
 def update_name(index, expense_id):
-    user_id = session["user_id"]
-    new_name = request.form[f"new-name-input-{index}"]
+    """sumary_line
+    
+    Keyword arguments:
+    argument -- description
+    Return: return_description
+    """
+    
+    user_id = session.get("user_id")
+    new_name = request.form.get(f"new-name-input-{index}")
     sql_update_name = "UPDATE expense_tracker_expense_data SET expense_name  = %s WHERE expense_id = %s AND user_id = %s "
     cursor.execute(sql_update_name, (new_name,expense_id, user_id ))
     sql_connect.commit()
@@ -522,7 +529,7 @@ def update_name(index, expense_id):
 
 @app.route("/update_cost/<int:index>/<int:expense_id>", methods=["GET", "POST"])
 def update_cost(index, expense_id):
-    user_id = session["user_id"]
+    user_id = session.get("user_id")
     new_amount = request.form[f"new-cost-input-{index}"]
     sql_update_cost = "UPDATE expense_tracker_expense_data SET expense_cost = %s WHERE expense_id = %s AND user_id = %s"
     cursor.execute(sql_update_cost, (new_amount,expense_id,user_id ))

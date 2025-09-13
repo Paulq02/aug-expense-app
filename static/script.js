@@ -607,11 +607,18 @@ const confirmPassword = function () {
 
 
 
-/* 
+/*
+  showNameBtn notes:
 
-
-
-
+  - This function is tied to the "main-edit-button" for each expense entry.
+  - When the "main-edit-button" is clicked, three individual buttons appear:
+      • EditNameBtn  → edit the expense name
+      • costBtn      → edit the expense cost
+      • dateButton   → edit the expense date
+  - The function checks the current CSS display style of these buttons.
+  - If the display is "inline-flex", it hides them by setting it to "none".
+    If the display is "none", it shows them by setting it back to "inline-flex".
+  - This lets the user toggle editing options for an existing expense.
 */
 
 
@@ -619,11 +626,11 @@ const confirmPassword = function () {
 const showNameBtn = function (index) {
   
   const EditNameBtn = document.getElementById("edit-name-button-" + index);
-  const yellowEditnameBtn = getComputedStyle(EditNameBtn).display;
+  const yellowEditnameBtn = getComputedStyle(EditNameBtn).display
+  
 
   const cancelEditNameForm = document.getElementById("edit-name-form-" + index);
-  const cancelEditNameFormDisplay =
-    getComputedStyle(cancelEditNameForm).display;
+  let cancelEditNameFormDisplay = getComputedStyle(cancelEditNameForm).display;
 
   
 
@@ -639,6 +646,21 @@ const showNameBtn = function (index) {
   
 };
 
+
+
+/*
+   showCostBtn notes:
+
+  - This function is tied to the "main-edit-button" for each expense entry.
+  - When the "main-edit-button" is clicked, three individual buttons appear:
+      • EditNameBtn  → edit the expense name
+      • costBtn      → edit the expense cost
+      • dateButton   → edit the expense date
+  - The function checks the current CSS display style of these buttons.
+  - If the display is "inline-flex", it hides them by setting it to "none".
+    If the display is "none", it shows them by setting it back to "inline-flex".
+  - This lets the user toggle editing options for an existing expense.
+*/
 
 
 const showCostBtn = function (index) {
@@ -660,6 +682,25 @@ const showCostBtn = function (index) {
   }
 };
 
+/*
+  showDatebutton  notes:
+
+  - This function is tied to the "main-edit-button" for each expense entry.
+  - When the "main-edit-button" is clicked, three individual buttons appear:
+      • EditNameBtn  → edit the expense name
+      • costBtn      → edit the expense cost
+      • dateButton   → edit the expense date
+  - The function checks the current CSS display style of these buttons.
+  - If the display is "inline-flex", it hides them by setting it to "none".
+    If the display is "none", it shows them by setting it back to "inline-flex".
+  - This lets the user toggle editing options for an existing expense.
+*/
+
+
+
+
+ 
+
 showDatebutton = function (index) {
   const dateButton = document.getElementById("edit-date-button-" + index);
   const dateBtnCss = getComputedStyle(dateButton).display;
@@ -675,6 +716,28 @@ showDatebutton = function (index) {
     editDateForm.style.display = "none";
   }
 };
+
+
+
+/*
+  editModeActivated notes:
+
+  - This function is attached to each "main-edit-button" in the table of expenses.
+  - Each row has its own main-edit-button identified by its index.
+  - When a user clicks the main-edit-button, "edit mode" starts for that row.
+  - Edit mode shows three separate buttons:
+      • edit name
+      • edit cost
+      • edit date
+  - These buttons let the user edit a specific piece of data in that row.
+  - If the user decides not to edit anything, they can click the same
+    main-edit-button again (now showing a red “X”) to cancel edit mode
+    and return the row to normal view.
+*/
+
+
+
+
 
 const editModeActivated = function (index) {
   const editIcon = document.getElementById("main-edit-button-" + index);
@@ -692,56 +755,10 @@ const editModeActivated = function (index) {
   }
 };
 
-/*
-function editNamebutton(index) {
-  const name_edit = document.getElementById("edit-name-button-" + index);
-  name_edit.style.display = "inline-flex";
-  name_edit.style.justifyContent = "center";
-  name_edit.style.alignItems = "center";
-}
 
-*/
 
-/*
-function clearEditNameButton(index) {
-  editNameBtn = document.getElementById("edit-name-button-" + index);
-  classEditNameBtn = document.getElementById(
-    ".edit-name-button-" + index
-  );
-  const cancelIcon = document.getElementById(
-    ".cancel-svg-button-" + index
-  );
-  if (
-    editNameBtn.style.display == "none" &&
-    cancelIcon.style.display == "none"
-  ) {
-    editNameBtn.style.display = "inline-flex";
-  }
-}
-/*
 
-/*
-function showCancelIcons(index) {
-        const showNameCancel = document.getElementById(
-          "cancel-svg-name-button-" + index
-        );
-        showNameCancel.style.display = "flex";
-        showNameCancel.style.justifyContent = "center";
-        showNameCancel.style.alignItems = "center";
-        const showCostCancel = document.getElementById(
-          "cancel-svg-cost-button-" + index
-        );
-        showCostCancel.style.display = "flex";
-        showCostCancel.style.justifyContent = "center";
-        showCostCancel.style.alignItems = "center";
-        const showDateCancel = document.getElementById(
-          "cancel-svg-date-button-" + index
-        );
-        showDateCancel.style.display = "flex";
-        showDateCancel.style.justifyContent = "center";
-        showDateCancel.style.alignItems = "center";
-      }
-*/
+
 
 const clearErrorMessage = function () {
   const errorElement = document.querySelector(".login-error");

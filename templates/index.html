@@ -1452,14 +1452,7 @@ value="{{offset - 10}}">
 
       /* NAME EDIT START SECTION */
 
-      /*
-      function editNamebutton(index) {
-        const name_edit = document.getElementById("edit-name-button-" + index);
-        name_edit.style.display = "inline-flex";
-        name_edit.style.justifyContent = "center";
-        name_edit.style.alignItems = "center";
-      }
-      */
+    
 
       function showEditnameForm(index) {
         const formInput = document.getElementById("edit-name-form-" + index);
@@ -1494,46 +1487,6 @@ value="{{offset - 10}}">
         clearNameInput.value = "";
       }
 
-      /*
-      function clearEditNameButton(index) {
-        editNameBtn = document.getElementById("edit-name-button-" + index);
-        if (
-          editNameBtn.style.display == "inline-flex" &&
-          editNameBtn.classList.contains("on")
-        ) {
-        } else {
-          const cancelIcon = document.querySelector(".cancel-icon");
-          editNameBtn.style.display = "none";
-          cancelIcon.style.display = "none";
-        }
-      }
-        */
-      /*
-      function clearEditNameButton(index) {
-        editNameBtn = document.getElementById("edit-name-button-" + index);
-        classEditNameBtn = document.getElementById(
-          ".edit-name-button-" + index
-        );
-        const cancelIcon = document.getElementById(
-          ".cancel-svg-button-" + index
-        );
-        if (
-          editNameBtn.style.display == "none" &&
-          cancelIcon.style.display == "none"
-        ) {
-          editNameBtn.style.display = "inline-flex";
-        }
-      }
-
-      */
-      /*
-        if (classEditNameBtn.classList.contains("on")) {
-          const cancelIcon = document.querySelector(".cancel-svg-button");
-          editNameBtn.style.display = "none";
-          cancelIcon.style.display = "none";
-        }
-      }
-        */
 
       /* NAME EDIT END SECTION */
 
