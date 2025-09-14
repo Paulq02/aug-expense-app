@@ -569,8 +569,29 @@ def signup_page():
 
 # LOGIN FUNCTION
 
+
 @app.route('/login', methods=["GET", "POST"])
 def login():
+
+    """ 
+    Process a login request.
+
+    - Reads username and password from the submitted form.
+    - Lowercases and trims the username; trims the password.
+    - Queries the database for a matching username and password.
+    - If credentials match:
+        • stores the user’s id, username, and password in the session
+        • redirects to the dashboard page (offset = 0)
+    - If credentials don’t match:
+        • catches TypeError from cursor.fetchone()
+        • returns the login page with an “Incorrect Username or Password” message.
+    
+    """
+    
+  
+
+    
+   
     username_input = request.form.get("username").lower().rstrip() # type: ignore
     password_input = request.form.get("password").rstrip() # type: ignore
 
@@ -588,14 +609,14 @@ def login():
             session["username"] = saved_username
             session["password"] =  saved_password
           
-            return redirect(url_for('dashboard', offset = 0))
+            
 
     
     except TypeError:
         error = "Incorrect Username or Password"
         return render_template('login_page.html', error=error )
-    return ""
-   
+    
+    return redirect(url_for('dashboard', offset = 0))
    
     
 
