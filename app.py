@@ -584,7 +584,7 @@ def login():
         saved_password = results[2] # type: ignore
         
         if username_input == saved_username and password_input == saved_password:
-            session["user_id"] = saved_id
+            session["user_id"] = saved_id 
             session["username"] = saved_username
             session["password"] =  saved_password
           

@@ -757,27 +757,39 @@ const editModeActivated = function (index) {
 
 
 
+/*
+  clearErrorMessage notes:
+
+  - This function clears the red error message shown when a user enters
+    wrong login details.
+  - The <p> element called "errorElement" sits under the password input
+    and shows the text: "Incorrect Username or Password" in red.
+  - The function is triggered by the input field’s oninput event.
+  - When the user starts typing again, the function changes the
+    message color back to black, effectively clearing the error state.
+*/
 
 
 
-const clearErrorMessage = function () {
+  
+  const clearErrorMessage = function () {
   const errorElement = document.querySelector(".login-error");
-  const myDisplay = getComputedStyle(errorElement).display;
+  
+  
+  const myDisplay = getComputedStyle(errorElement).display
+ 
+
+  
   if (myDisplay === "block") {
     errorElement.style.color = "#000000";
   }
 };
 
-const errorElement = document.querySelector(".login-error");
-if (errorElement) {
-  const clearErrorMessage = function () {
-    const errorElement = document.querySelector(".login-error");
-    const myDisplay = getComputedStyle(errorElement).display;
-    if (myDisplay === "block") {
-      errorElement.style.color = "#000000";
-    }
-  };
-}
+
+
+
+
+
 
 
 

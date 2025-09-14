@@ -2031,6 +2031,7 @@ tfoot td {
 }
 
 .login-error {
+  display: block;
   position: relative;
   top: 20px;
   font-family: "Roboto", sans-serif;
