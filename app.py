@@ -40,7 +40,7 @@ income = float(0)
 
 
 
-entries = len(my_list)
+
 
 running_count = 0
 
@@ -51,7 +51,16 @@ running_count = 0
 
 
 
-def home_page():
+def login_page():
+    """
+login_page notes:
+
+- This function serves as the main login page.
+- When the program starts, the user can either log in or create a new account.
+- It is also called when the user logs out, returning them to the login page.
+- When logout occurs, my_list is cleared of all key/value pairs to reset the session data.
+"""
+
     my_list.clear()
     
     return render_template('login_page.html')
@@ -61,6 +70,38 @@ def home_page():
 
 @app.route("/dashboard", methods = ['GET', 'POST'])
 def dashboard():
+    """
+dashboard notes:
+- The "view_mode" value is sent to the Jinja index template to tell it which forms and buttons to show when a specific function runs.
+
+- Called after a user logs in; serves as the default page.
+- Uses the global variable running_count to keep track of pagination.
+- Clears my_list so each query starts fresh (removes any previous results).
+- Gets the user's unique user_id and username from the session data.
+- Checks whether the expense rows should be sorted ascending or descending.
+- Retrieves user_year_selection (defaults to "all") to show all expenses
+  regardless of year.
+
+SQL queries:
+    1. complete_results_amount - number of all expense entries for this user
+       (shown in the "Entries" section).
+    2. total_sum_cost - total of all expense costs for this user
+       (shown in the "Expenses" section).
+    3. max_10_results_amount - fetches up to 10 expenses at a time
+       for easier viewing (pagination).
+
+- running_count tracks which batch of expenses the user is viewing.
+- If no rows are found in max_10_results_amount, the user is redirected
+  to the first_login template prompting them to start adding expenses.
+- If data is found:
+    • Converts expense_cost to float.
+    • Converts expense_date to mm/dd/yyyy format.
+    • Appends expense_id, expense_name, expense_cost, expense_date,
+      and expense_category as key/value pairs to my_list.
+- Converts my_list to JSON and calls render_template("index.html")
+  passing all required values to display the dashboard.
+"""
+
     global running_count
     view_mode = "dashboard"
    
@@ -73,19 +114,11 @@ def dashboard():
     user_id = session.get("user_id")
     username = session.get("username")
     
-    password = session.get("password")
 
     asc_or_desc = request.args.get("sortOrder", "desc")
     
-   
     offset = int(request.args.get("offset", 0))
    
-   
-
-
-   
-   
-    
     user_year_selection = request.args.get("year", "none")
     
 
@@ -110,8 +143,8 @@ def dashboard():
 
 
     
-    sql = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s "
-    cursor.execute(sql, (user_id,offset))
+    sql_max_10_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s "
+    cursor.execute(sql_max_10_query, (user_id,offset))
     results = cursor.fetchall()
     max_10_results_amount = len(results)
     max_10_results_amount = int(max_10_results_amount)
@@ -121,17 +154,6 @@ def dashboard():
     running_count = offset + max_10_results_amount
 
 
-           
-            
-
-
-
-    
-
-   
-
-    
-   
     
     if not results:
         return render_template('first_login.html', username=str(username).capitalize())
@@ -156,22 +178,11 @@ def dashboard():
     my_json= json.dumps(my_list)
 
     
-
-
-
-        
-
-    
-
     my_expenses = expenses_total()
 
     free_money = calclulate_money_leftover()
 
     
-
-   
-
-   
     return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost)
 
 
@@ -185,22 +196,9 @@ def dashboard():
 def sort_year():
     global running_count
     
-    """
-    Sorts Expense Dates by Year 
-    
-    Keyword arguments:
-
-    None -- (Uses request arguments and session data)
-    
-    Return:
-
-    None  
-
-
-    """
+   
     view_mode = "sort-year"
 
-    #running_count = 0
     my_list.clear()
     username = session.get("username")
     user_id = session.get("user_id")
@@ -679,7 +677,7 @@ def create_account():
 @app.route('/logout')
 def logout():
     session.clear()  # Clear all session data
-    return redirect(url_for('home_page'))  # Redirect to login page
+    return redirect(url_for('login_page'))  # Redirect to login page
 
 
 
