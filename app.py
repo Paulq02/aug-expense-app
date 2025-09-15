@@ -13,17 +13,32 @@ sql_connect = mysql.connector.connect(user="root", password="95w696fX#", host="l
 
 
 app.secret_key = "padthai123Z$meme"
+cursor = sql_connect.cursor()
+
+
+"""
+my_list notes:
+
+- my_list is a Python list that stores key/value pairs fetched from the MySQL database.
+- Each time the query runs, the resulting key/value data is appended to this list.
+- This allows easy access and iteration over the database records later in the code.
+
+"""
+
 
 my_list = []
 
 
 
 
-cursor = sql_connect.cursor()
 
 
 
-income = float(4500.00)
+
+income = float(0)
+
+
+
 
 entries = len(my_list)
 
@@ -86,7 +101,11 @@ def dashboard():
     
     
     
-   
+    sql_sum_total_query = "SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s "
+    cursor.execute(sql_sum_total_query,(user_id,))
+    sql_sum_total_results = cursor.fetchone()
+    total_sum_cost = sql_sum_total_results[0] # type: ignore
+  
     
 
 
@@ -148,12 +167,12 @@ def dashboard():
 
     free_money = calclulate_money_leftover()
 
-    entries = get_entries()
+    
 
    
 
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost)
 
 
 
@@ -278,13 +297,12 @@ def sort_year():
     my_expenses = expenses_total()
 
     free_money = calclulate_money_leftover()
-    entries = get_entries()
             
     my_json= json.dumps(my_list)
     
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count)
 
       
   
@@ -351,11 +369,11 @@ def sort_by_cost():
     my_expenses = expenses_total()
 
     free_money = calclulate_money_leftover()
-    entries = get_entries()
+   
 
     
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count)
 
   
 
@@ -431,18 +449,18 @@ def new_sort():
     my_expenses = expenses_total()
 
     free_money = calclulate_money_leftover()
-    entries = get_entries()
+   
     
    
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, entries=entries, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count)
 
 
 
 
 @app.route('/submitted_data', methods=["GET", "POST"])
 def submit_expense():
-    entries = get_entries()
+   
     expense = request.form.get("expense_name")
     amount = float(request.form.get("amount", 0))
     date = request.form.get("expense_date")
@@ -459,7 +477,7 @@ def submit_expense():
     cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date, expense_category) VALUES (%s, %s, %s, %s, %s)", (user_id, expense, amount, date, expense_category))
     sql_connect.commit()
     cursor.close()
-    entries += 1
+  
     
     
     
@@ -487,9 +505,6 @@ def calclulate_money_leftover():
     return float(money_leftover)
 
 
-def get_entries():
-    entries = len(my_list)
-    return entries
 
 
 
