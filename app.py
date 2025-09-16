@@ -278,6 +278,13 @@ def sort_year():
         cursor.execute(sql_complete_results,(user_id,user_year_selection))
         fetched_results = cursor.fetchall()
         complete_results_amount = len(fetched_results)
+
+
+
+        sql_sum_total_year_query = "SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s and YEAR(expense_date) = %s"
+        cursor.execute(sql_sum_total_year_query,(user_id, user_year_selection))
+        sql_sum_total_results = cursor.fetchone()
+        total_sum_cost = sql_sum_total_results[0] # type: ignore
         
         
 
@@ -291,7 +298,7 @@ def sort_year():
     
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count, total_sum_cost = total_sum_cost)
 
       
   
