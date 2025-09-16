@@ -1016,7 +1016,7 @@
 
 
 
-      {% if user_year_selection != "all" and offset == 0 and view_mode == "sort-year"%}
+      {% if user_year_selection != "all" and offset == 0 and view_mode == "sort-year" %}
      
       
 
@@ -1041,15 +1041,15 @@
 
      <input
      name="year"
-     value="2025"
+     value="{{user_year_selection}}"
      style="display: none;">
 
-
+ 
       
        <button 
-       style="display: {{'none' if  max_10_results_amount < 10 else 'block'}};"
+       style="display: {{'none' if running_count == complete_results_amount else 'block'}};"
        class="year-next-button dark next-results" type="submit">
-          next results
+          next results your mom
           <i class="fas fa-angle-double-right"></i>
         </button>
       
@@ -1145,6 +1145,14 @@ value="{{user_year_selection}}">
 
 
 </form>
+
+ <p
+ style="color: red;"
+ 
+ >SUCK HIS COCK</p>
+
+
+
  {% endif %}
 
 

@@ -250,15 +250,6 @@ def sort_year():
     else:
 
 
-
-        sql_specifc_year_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s"
-        cursor.execute(sql_specifc_year_query,(user_id,user_year_selection))
-        specific_year_results = cursor.fetchall()
-        specific_year_complete_results_amount = len(specific_year_results)
-       
-
-
-
         sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
         cursor.execute(sql_year_expenses,(user_id,user_year_selection,offset))
         results = cursor.fetchall()
@@ -486,7 +477,7 @@ def submit_expense():
 @app.route('/add_expense/', methods=["GET", "POST"])
 
 def add_expense():
-    username = session["username"]
+    username = session.get("username")
     return render_template('add_expense.html', username=username)
 
 
@@ -556,7 +547,7 @@ def update_cost(index, expense_id):
 
 @app.route("/update_date/<int:index>/<int:expense_id>", methods=["GET", "POST"])
 def update_date(index, expense_id):
-    user_id = session["user_id"]
+    user_id = session.get("user_id")
     new_date = request.form[f"new-date-input-{index}"]
     sql_date = "UPDATE expense_tracker_expense_data SET expense_date = %s WHERE expense_id = %s AND user_id = %s"
     cursor.execute(sql_date, (new_date,expense_id, user_id ))
@@ -667,7 +658,7 @@ def create_account():
     session["password"] = password
     my_id = session["user_id"] = results[0] # type: ignore
     
-    #cursor.close()
+   
     return redirect(url_for("dashboard"))
    
 # ================== 
