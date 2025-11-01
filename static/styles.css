@@ -233,7 +233,27 @@ html {
 
 /* ===TOP Navbar END=== */
 
+
+
+/* ===Search bar inside Sidebar=== */
+
+th {
+  text-align: left;
+}
+
+.no-results {
+  display: none;
+  
+
+}
+
+
+
+/* ===Search bar inside Sidebar END === */
+
 /* ===Sidebar START=== */
+
+
 
 .close.sidebar {
   position: fixed;
@@ -296,8 +316,25 @@ html.dark .light-mode-et {
 
 .close.sidebar .search-input {
   display: flex;
-  margin-top: 10px;
+  padding: 5px;
+  font-size: 1rem;
+  
+  
 }
+
+/* ---NO RESULTS CONTAININER SETTINGS START -------- */
+
+.searched-expense-display-container {
+  display: none;
+}
+
+.no-results {
+  font-size: 5rem;
+}
+
+
+
+/* ---NO RESULTS CONTAININER SETTINGS END -------- */
 
 .sidebar .image {
   min-width: 60px;
@@ -363,12 +400,13 @@ header .toggle {
 .close.sidebar li {
   list-style: none;
   height: 60px;
-  width: 200px;
+  width: 250px;
   margin-top: 10px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .close.sidebar ul {
@@ -462,6 +500,7 @@ html.dark .nav-link:hover .sidebar-icon {
 }
 
 .menu {
+  position: relative;
   height: 80%;
   display: flex;
   flex-direction: column;
@@ -1559,6 +1598,10 @@ tfoot td {
 }
 
 .btn_window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   display: none;
   width: 500px;
   height: 290px;
@@ -1567,7 +1610,7 @@ tfoot td {
   background-color: #fff;
 
   background-color: rgb(34, 43, 52);
-  position: fixed; /* NOT absolute */
+  
 
   z-index: 9999; /* Make sure it’s on top */
 }
@@ -1735,6 +1778,7 @@ tfoot td {
 
 .close .search-input {
   display: none;
+  padding: 5px;
 }
 
 .close .close-search-box {

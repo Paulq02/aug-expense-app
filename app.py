@@ -1,19 +1,21 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from datetime import datetime
 import mysql.connector
 
-import json
+import json, time
+
+
 
 
 
 app = Flask(__name__)
-sql_connect = mysql.connector.connect(user="root", password="95w696fX#", host="localhost", database="expense_data")
+db = mysql.connector.connect(user="root", password="95w696fX#", host="localhost", database="expense_data")
 
 
 
 
 app.secret_key = "padthai123Z$meme"
-cursor = sql_connect.cursor()
+cursor = db.cursor()
 
 
 """
@@ -156,7 +158,7 @@ SQL queries:
 
     
     if not results:
-        return render_template('first_login.html', username=str(username).capitalize())
+        return render_template('first_login.html', username=str(username).capitalize(), time = time)
     
     for data in results:
         expense_id_row = data[0] # type: ignore
@@ -183,9 +185,95 @@ SQL queries:
     free_money = calclulate_money_leftover()
 
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time)
 
 
+
+    
+
+
+
+
+"""@app.route("/user_search", methods=["GET", "POST"])
+def user_search():
+
+    user_id = session.get("user_id")
+
+   
+
+   
+    search = request.args.get("searchedExpense")
+    print(f"THIS IS THE SEARCH -----{search}")
+    
+    user_search_sql_query = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s"
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(user_search_sql_query,(user_id,search + "%")) # type: ignore
+    results = cursor.fetchall()
+
+    return jsonify(results)"""
+
+
+
+
+
+
+@app.route("/user_search", methods = ["GET"])
+def user_search():
+
+    user_id = session.get("user_id")
+    user_input = request.args.get("userSearch", "")
+
+    cursor = db.cursor(dictionary=True)
+    sql_search_expense_name = ("SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s")
+    cursor.execute(sql_search_expense_name,(user_id, user_input + "%"))
+    results = cursor.fetchall()
+    if not results:
+        no_results = {"message": "no results"}
+        return jsonify(no_results)
+       
+    else:
+        return jsonify(results)
+   
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
 
 
 
@@ -232,6 +320,12 @@ def sort_year():
 
        
         running_count = offset + max_10_results_amount
+
+
+        sql_sum_total_year_query = "SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s"
+        cursor.execute(sql_sum_total_year_query,(user_id,))
+        sql_sum_total_results = cursor.fetchone()
+        total_sum_cost = sql_sum_total_results[0] # type: ignore
             
             
         
@@ -298,7 +392,7 @@ def sort_year():
     
         
    
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count, total_sum_cost = total_sum_cost)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  user_year_selection=user_year_selection, asc_or_desc = asc_or_desc, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, view_mode = view_mode, complete_results_amount = complete_results_amount, running_count = running_count, total_sum_cost = total_sum_cost, time = time)
 
       
   
@@ -369,7 +463,7 @@ def sort_by_cost():
 
     
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, time = time)
 
   
 
@@ -462,7 +556,7 @@ def submit_expense():
     date = request.form.get("expense_date")
     expense_category = request.form.get("category", None)
     
-    cursor = sql_connect.cursor()
+    cursor = db.cursor()
     user_id = session.get("user_id")
     
     username = session.get("username")
@@ -485,7 +579,7 @@ def submit_expense():
 
 def add_expense():
     username = session.get("username")
-    return render_template('add_expense.html', username=username)
+    return render_template('add_expense.html', username=username, time = time )
 
 
 
@@ -572,7 +666,7 @@ def update_date(index, expense_id):
 @app.route("/signup", methods=["GET", "POST"])
 def signup_page():
     
-    return render_template("signup.html")
+    return render_template("signup.html", time = time)
 
 
 
@@ -625,7 +719,7 @@ def login():
     
     except TypeError:
         error = "Incorrect Username or Password"
-        return render_template('login_page.html', error=error )
+        return render_template('login_page.html', error=error, time = time  )
     
     return redirect(url_for('dashboard', offset = 0))
    
@@ -689,3 +783,6 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+

@@ -1,3 +1,5 @@
+
+
 /*
 
 This checks if Chart.js module exists 
@@ -29,7 +31,11 @@ window.addEventListener("DOMContentLoaded", () => {
     window.localStorage.setItem("color", "light");
     bodyColor.classList.toggle("light");
   }
-});
+}
+
+
+
+);
 
 /* 
 I've added an event listener to a button attached to my sidebar
@@ -786,10 +792,151 @@ const editModeActivated = function (index) {
 };
 
 
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 
 
+async function searchExpenseByName() {
+  console.log("function called")
+
+  let noResultsMessage = document.querySelector(".no-results")
+  
+  const tbodyParentBody = document.getElementById("tbodyParent")
+    tbodyParentBody.innerHTML = "" 
+  
+  const userInput = document.getElementById("search-input")
+  const userInputValue = userInput.value
+
+  const trimmedUserInputValue = userInputValue.trim()
+
+  let searchTableDiv = document.querySelector(".searched-expense-display-container")
+
+  if (trimmedUserInputValue === "") {
+    console.log("IF BLOCK PRINTING ")
+    let searchTableDiv = document.querySelector(".searched-expense-display-container")
+    searchTableDiv.style.display = "none"
+  }
+
+  else {
+     
+  
+   try {
+      console.log("TRY BLOCK PRINTING")
+      const response = await fetch(`/user_search?userSearch=${encodeURIComponent(trimmedUserInputValue)}`)
+      const data = await response.json()
+      console.log(data)
+
+      if (data.message == "no results") {
+        let searchTable = document.querySelector(".search-table")
+        searchTable.style.display = "none"
+        
+        let searchTableDiv = document.querySelector(".searched-expense-display-container")
+        searchTableDiv.style.display = "flex"
+        searchTableDiv.style.justifyContent = "center"
+        noResultsMessage = document.querySelector(".no-results")
+        noResultsMessage.style.display = "flex"
+        return
+      }
+
+      else {
+        noResultsMessage.style.display = "none"
+        let searchTable = document.querySelector(".search-table")
+        searchTable.style.display = "table"
+      }
 
 
+      const searchTableDiv = document.querySelector(".searched-expense-display-container")
+        searchTableDiv.style.display = "flex"
+        searchTableDiv.style.justifyContent = "center"
+
+    const expenseDataHeaderRow = document.createElement("tr")
+
+    const expenseNameHeader = document.createElement("th")
+      expenseNameHeader.textContent= "Name"
+   
+
+    const expenseCostHeader = document.createElement("th")
+      expenseCostHeader.textContent = "Cost"
+   
+
+    const expenseDateHeader = document.createElement("th")
+    expenseDateHeader.textContent = "Date"
+
+  
+      
+      expenseDataHeaderRow.appendChild(expenseNameHeader)
+      expenseDataHeaderRow.appendChild(expenseCostHeader)
+      expenseDataHeaderRow.appendChild(expenseDateHeader)
+
+      
+      expenseNameHeader.style.color =  "#bb86fc"
+      expenseCostHeader.style.color =  "#bb86fc"
+      expenseDateHeader.style.color =  "#bb86fc"
+
+      tbodyParentBody.appendChild(expenseDataHeaderRow)
+
+   
+
+      for (const info of data) {
+        expense_name = info.expense_name
+        expense_cost = info.expense_cost
+        expense_date = info.expense_date
 
 
+        const trDataRow = document.createElement("tr")
+
+        const tdName = document.createElement("td")
+          tdName.textContent = expense_name
+
+        const tdCost = document.createElement("td")
+          tdCost.textContent = expense_cost
+
+        const tdDate = document.createElement("td")
+          tdDate.textContent = expense_date
+
+      
+      
+      trDataRow.appendChild(tdName)
+      trDataRow.appendChild(tdCost)
+      trDataRow.appendChild(tdDate)
+
+      tdName.style.color = "red"
+      tdCost.style.color = "red"
+      tdDate.style.color = "red"
+      
+
+     
+      tbodyParentBody.appendChild(trDataRow)
+    }
+}
+
+catch(error) {
+    console.log(error)
+  }
+
+}
+
+}
+
+ 
+const closedSidebar = document.querySelector(".close")
+closedSidebar.addEventListener("mouseenter", ()=> {
+  closedSidebar.classList.toggle("sidebar")
+})
+
+closedSidebar.addEventListener("mouseleave", ()=> {
+  closedSidebar.classList.toggle("sidebar")
+})
