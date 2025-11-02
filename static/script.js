@@ -932,11 +932,35 @@ catch(error) {
 }
 
  
-const closedSidebar = document.querySelector(".close")
+/* const closedSidebar = document.querySelector(".close")
 closedSidebar.addEventListener("mouseenter", ()=> {
   closedSidebar.classList.toggle("sidebar")
 })
 
 closedSidebar.addEventListener("mouseleave", ()=> {
   closedSidebar.classList.toggle("sidebar")
+}) */
+const userInput = document.getElementById("search-input")
+
+const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon")
+function turnOnCancelIcon() {
+  let userInputValue = userInput.value
+  let trimmedValue = userInputValue.trim()
+  
+  if (trimmedValue.length > 0) {
+    searchInputCancelIcon.style.display = "flex"
+  }
+  else {
+    searchInputCancelIcon.style.display = "none"
+  }
+  
+}
+
+const searchTableDiv = document.querySelector(".searched-expense-display-container")
+searchInputCancelIcon.addEventListener("click", ()=> {
+  userInput.value = ""
+  searchInputCancelIcon.style.display = "none"
+  searchTableDiv.style.display = "none"
+  userInput.focus()
 })
+

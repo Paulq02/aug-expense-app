@@ -96,11 +96,18 @@
                <input
                 type="text"
                 name="user-search"
-                oninput="searchExpenseByName()"
+                oninput="searchExpenseByName(), turnOnCancelIcon()"
                 placeholder="Search expense by name"
                 id="search-input"
                 class="search-input"
+                
+               
               />
+              <img
+              class="search-input-cancel-icon"
+              
+              width="20" height="20" src="https://img.icons8.com/fluency-systems-filled/48/multiply.png" alt="multiply"/>
+               
               
             
             </li>
