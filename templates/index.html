@@ -271,25 +271,7 @@
         </div>
       </div>
     </div>
-    <div 
-    style="background-color: black;"
-    class="searched-expense-display-container">
-    <img class="quick-search"
-    src="../static/images/quick_search.png" alt="magnifying glass with lighting next to it">
-     <p
-      
-      style="color: #bb86fc;"
-      class="no-results">No results, want to try again?
-  </p>
-      
-      <table
-      class="search-table">
-       
-        <tbody id="tbodyParent"></tbody>
-       
-      </table>
-     
-              </div>
+   
     <div class="sorting-container">
       <div class="sort-options">
         <form
@@ -344,7 +326,39 @@
       <p class="showing-results">Showing {{running_count}} of {{complete_results_amount}} results</p>
     </div>
     <div class="expense_data_container">
-      <table>
+       <div 
+    style="background-color: black;"
+    class="searched-expense-display-container">
+    
+    <div class="quick-search-container">
+      
+      <div class="quick-search-image-container">
+         <img class="quick-search" src="../static/images/quick-search.png" alt="magnifying glass with lighting next to it">
+         <p class="quick-search-text">Quick Search</p>
+      </div>
+     
+
+     
+    </div>
+   
+    <p
+      
+      style="color: #bb86fc;"
+      class="no-results">No results, want to try again?
+    </p>
+    <div class="search-table-main-container">
+        <table 
+        class="search-table">
+        
+        <tbody id="tbodyParent"></tbody>
+       
+        </table>
+
+    </div>
+     
+     
+</div>
+      <table class="dashboard-table">
         <thead class="table-head">
 
           <tr>

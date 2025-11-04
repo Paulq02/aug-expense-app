@@ -812,7 +812,11 @@ const editModeActivated = function (index) {
 async function searchExpenseByName() {
   console.log("function called")
 
+  let dashboardTable = document.querySelector(".dashboard-table")
+
   let noResultsMessage = document.querySelector(".no-results")
+
+  let nextButtonContainer = document.querySelector(".next-button-container")
   
   const tbodyParentBody = document.getElementById("tbodyParent")
     tbodyParentBody.innerHTML = "" 
@@ -852,9 +856,12 @@ async function searchExpenseByName() {
       }
 
       else {
+        nextButtonContainer.style.display = "none"
+        dashboardTable.style.display = "none"
         noResultsMessage.style.display = "none"
         let searchTable = document.querySelector(".search-table")
         searchTable.style.display = "table"
+        
       }
 
 

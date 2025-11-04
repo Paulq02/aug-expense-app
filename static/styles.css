@@ -251,6 +251,11 @@ th {
 
 /* ===Search bar inside Sidebar END === */
 
+
+
+
+
+
 /* ===Sidebar START=== */
 
 
@@ -329,28 +334,66 @@ html.dark .light-mode-et {
   cursor: pointer;
 }
 
-/* ---NO RESULTS CONTAININER SETTINGS START -------- */
+
+
+
+
+/* ===quick-search-image-container START=== */
+
+.quick-search-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quick-search {
+  height: 200px;
+}
+
+
+
+
+
+
+/* ===quick-search-image-container END=== */
+
+/* ---NO RESULTS/ quick-search-expense-display-container SETTINGS START -------- */
 
 .searched-expense-display-container {
   display: none;
-  z-index: 9;
+  flex-direction: column;
+  
   width: 100%;
   height: 50%;
   background-color: black;
-  position: fixed;
-  z-index: 9;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+ 
 }
 
 .no-results {
   font-size: 5rem;
 }
 
+.quick-search-text {
+  color: #f1f1f1;
+  font-size: 2rem;
+}
+
+.search-table-main-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-table {
+  width: 900px;
+}
+
 
 
 /* ---NO RESULTS CONTAININER SETTINGS END -------- */
+
+
+
+
 
 .sidebar .image {
   min-width: 60px;
@@ -1251,7 +1294,7 @@ input {
     width: 100%;
   }
   */
-table {
+.dashboard-table {
   border-collapse: collapse;
   position: relative;
   width: 900px;
@@ -2369,7 +2412,7 @@ body.dark .chart-main-container {
 /* ========== FIRST TIME LOGIN / NO EXPENSE ENTRIES END ===================*/
 
 @media (max-width: 1026px) {
-  table {
+  .dashboard-table {
     margin-right: 10px;
   }
 }
