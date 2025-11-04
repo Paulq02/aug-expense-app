@@ -1831,6 +1831,18 @@ tfoot td {
   background-color: #bb86fc;
 }
 
+.dark .close .open-search-box:hover {
+  /*
+    background-color: #fca311;
+    */
+  background-color: #bb86fc;
+}
+
+.dark .close .open-search-box:hover .search-icon {
+  color: #000000;
+}
+
+
 .dark .close .open-search-box.close-search-box:hover .search-icon {
   color: #000000;
 }

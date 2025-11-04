@@ -227,12 +227,33 @@ def user_search():
     sql_search_expense_name = ("SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s")
     cursor.execute(sql_search_expense_name,(user_id, user_input + "%"))
     results = cursor.fetchall()
+
+   
+    
+    user_search_list = []
+    
+    for data in results:
+       
+        expense_id = data["expense_id"] # type: ignore
+        expense_name = data["expense_name"] # type: ignore
+        expense_cost = data["expense_cost"] # type: ignore
+        expense_date = data["expense_date"] # type: ignore
+
+        converted_date = expense_date.strftime("%m-%d-%Y")
+       
+        data_dict = {"expense_id":expense_id, "expense_name":expense_name,"expense_cost":f"${expense_cost}", "expense_date":converted_date }
+
+        
+        user_search_list.append(data_dict)
+     
+       
+
     if not results:
         no_results = {"message": "no results"}
         return jsonify(no_results)
        
     else:
-        return jsonify(results)
+        return jsonify(user_search_list)
    
 
 

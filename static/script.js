@@ -888,9 +888,10 @@ async function searchExpenseByName() {
 
       tbodyParentBody.appendChild(expenseDataHeaderRow)
 
-   
 
-      for (const info of data) {
+        
+
+      for (let info of data) {
         expense_name = info.expense_name
         expense_cost = info.expense_cost
         expense_date = info.expense_date
@@ -964,3 +965,13 @@ searchInputCancelIcon.addEventListener("click", ()=> {
   userInput.focus()
 })
 
+
+const userSearchIcon = document.querySelector(".search-icon")
+
+
+
+userSearchIcon.addEventListener("click", ()=> {
+ 
+  openSidebar.classList.toggle("sidebar")
+  userInput.focus()
+}) 
