@@ -46,6 +46,8 @@ I'm going to be adding a search feature soon
 
 */
 
+/* const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon") */
+
 const openSidebar = document.querySelector(".close");
 
 const closeSearchBox = document.querySelector(".open-search-box");
@@ -55,7 +57,15 @@ if (toggleButton) {
   toggleButton.addEventListener("click", () => {
     openSidebar.classList.toggle("sidebar");
     closeSearchBox.classList.toggle("close-search-box");
+     if (openSidebar.classList.contains("sidebar") && trimmedUserInputValue.length > 0 ) {
+       searchInputCancelIcon.style.display = "flex"
+    }
+    else {
+      searchInputCancelIcon.style.display = "none"
+    }
+   
   });
+
 }
 
 
@@ -810,7 +820,7 @@ const editModeActivated = function (index) {
 
 
 async function searchExpenseByName() {
-  console.log("function called")
+  
 
   let dashboardTable = document.querySelector(".dashboard-table")
 
@@ -830,7 +840,8 @@ async function searchExpenseByName() {
 
   if (trimmedUserInputValue === "") {
     console.log("IF BLOCK PRINTING ")
-    let searchTableDiv = document.querySelector(".searched-expense-display-container")
+    /*  let searchTableDiv = document.querySelector(".searched-expense-display-container") */
+   
     searchTableDiv.style.display = "none"
   }
 
@@ -838,10 +849,11 @@ async function searchExpenseByName() {
      
   
    try {
-      console.log("TRY BLOCK PRINTING")
+     
       const response = await fetch(`/user_search?userSearch=${encodeURIComponent(trimmedUserInputValue)}`)
       const data = await response.json()
-      console.log(data)
+      
+      let resultsAmount = data.length
 
       if (data.message == "no results") {
         let searchTable = document.querySelector(".search-table")
@@ -863,6 +875,13 @@ async function searchExpenseByName() {
         searchTable.style.display = "table"
         
       }
+
+      let dashboardResults = document.querySelector(".showing-results")
+        dashboardResults.style.display = "none"
+
+     
+      let showQuickSearchResults = document.querySelector(".quick-search-results")
+        showQuickSearchResults.innerHTML = `Showing ${resultsAmount} of ${resultsAmount} results`
 
 
       const searchTableDiv = document.querySelector(".searched-expense-display-container")
@@ -921,13 +940,19 @@ async function searchExpenseByName() {
       trDataRow.appendChild(tdCost)
       trDataRow.appendChild(tdDate)
 
-      tdName.style.color = "red"
-      tdCost.style.color = "red"
-      tdDate.style.color = "red"
+      tdName.style.color = "#FFFFFF"
+      tdCost.style.color = "#FFFFFF"
+      tdDate.style.color = "#FFFFFF"
+
+      
+      
+      
       
 
      
       tbodyParentBody.appendChild(trDataRow)
+
+      
     }
 }
 
@@ -981,4 +1006,5 @@ userSearchIcon.addEventListener("click", ()=> {
  
   openSidebar.classList.toggle("sidebar")
   userInput.focus()
-}) 
+})
+

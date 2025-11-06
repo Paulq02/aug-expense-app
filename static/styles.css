@@ -1312,12 +1312,12 @@ tbody {
 td {
   padding: 15px 10px;
 
-  text-transform: capitalize;
+  text-transform: capitalize; 
 
   color: rgb(34, 43, 52);
 
   text-align: left;
-  text-transform: capitalize;
+  
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -1478,6 +1478,16 @@ tfoot td {
 }
 
 .dark .showing-results {
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.dark .quick-search-results {
   color: #ffffff;
   font-size: 30px;
   text-align: center;

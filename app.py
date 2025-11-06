@@ -173,7 +173,7 @@ SQL queries:
         
         
         
-        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row, "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
+        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row.title(), "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
         
    
        
@@ -186,31 +186,6 @@ SQL queries:
 
     
     return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time)
-
-
-
-    
-
-
-
-
-"""@app.route("/user_search", methods=["GET", "POST"])
-def user_search():
-
-    user_id = session.get("user_id")
-
-   
-
-   
-    search = request.args.get("searchedExpense")
-    print(f"THIS IS THE SEARCH -----{search}")
-    
-    user_search_sql_query = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s"
-    cursor = db.cursor(dictionary=True)
-    cursor.execute(user_search_sql_query,(user_id,search + "%")) # type: ignore
-    results = cursor.fetchall()
-
-    return jsonify(results)"""
 
 
 
@@ -235,7 +210,7 @@ def user_search():
     for data in results:
        
         expense_id = data["expense_id"] # type: ignore
-        expense_name = data["expense_name"] # type: ignore
+        expense_name = data["expense_name"].title() # type: ignore
         expense_cost = data["expense_cost"] # type: ignore
         expense_date = data["expense_date"] # type: ignore
 
