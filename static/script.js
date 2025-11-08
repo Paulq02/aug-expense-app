@@ -1,4 +1,10 @@
+const openSidebar = document.querySelector(".close");
 
+const searchBoxUl = document.querySelector(".close-search-box")
+
+const toggleButton = document.querySelector(".toggle");
+
+const userSearchIcon = document.querySelector(".search-icon")
 
 /*
 
@@ -48,26 +54,47 @@ I'm going to be adding a search feature soon
 
 /* const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon") */
 
-const openSidebar = document.querySelector(".close");
 
-const closeSearchBox = document.querySelector(".open-search-box");
-
-const toggleButton = document.querySelector(".toggle");
 if (toggleButton) {
-  toggleButton.addEventListener("click", () => {
-    openSidebar.classList.toggle("sidebar");
-    closeSearchBox.classList.toggle("close-search-box");
-     if (openSidebar.classList.contains("sidebar") && trimmedUserInputValue.length > 0 ) {
+    toggleButton.addEventListener("click", () => {
+      if (searchBoxUl.classList.contains("close-search-box")){
+        searchBoxUl.classList.add("opened-search-box")
+        searchBoxUl.classList.remove("close-search-box")
+
+      }
+      else {
+        searchBoxUl.classList.remove("opened-search-box")
+        searchBoxUl.classList.add("close-search-box")
+      }
+
+      if (toggleButton.classList.contains("bx-chevron-right")) {
+        toggleButton.classList.add("bx-chevron-left")
+        toggleButton.classList.remove("bx-chevron-right")
+      }
+      else {
+        toggleButton.classList.remove("bx-chevron-left")
+        toggleButton.classList.add("bx-chevron-right")
+      }
+
+      openSidebar.classList.toggle("sidebar");
+      
+
+
+      if (openSidebar.classList.contains("sidebar") && trimmedUserInputValue.length > 0 ) {
        searchInputCancelIcon.style.display = "flex"
-    }
-    else {
-      searchInputCancelIcon.style.display = "none"
-    }
-   
-  });
+       
+      }
 
-}
+      else {
+       searchInputCancelIcon.style.display = "none"
 
+      
+      }
+})}
+      
+      
+
+ 
 
 /* 
 
@@ -998,13 +1025,30 @@ searchInputCancelIcon.addEventListener("click", ()=> {
 })
 
 
-const userSearchIcon = document.querySelector(".search-icon")
 
 
 
-userSearchIcon.addEventListener("click", ()=> {
+
+searchBoxUl.addEventListener("click", ()=> {
+   if (toggleButton.classList.contains("bx-chevron-right")) {
+        toggleButton.classList.add("bx-chevron-left")
+        toggleButton.classList.remove("bx-chevron-right")
+      }
+      else {
+        toggleButton.classList.remove("bx-chevron-left")
+        toggleButton.classList.add("bx-chevron-right")
+      }
  
   openSidebar.classList.toggle("sidebar")
+  if (searchBoxUl.classList.contains("close-search-box")) {
+    searchBoxUl.classList.remove("close-search-box")
+    searchBoxUl.classList.add("opened-search-box")
+  }
+  else {
+    searchBoxUl.classList.remove("opened-search-box")
+    searchBoxUl.classList.add("close-search-box")
+  }
+
   userInput.focus()
 })
 
