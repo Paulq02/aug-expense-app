@@ -85,7 +85,8 @@
           </div>
         </div>
 
-        <i 
+        <i
+        
         style="font-size: 30px;"
         class="bx bx-chevron-right toggle"></i>
       </header>
@@ -330,7 +331,7 @@
     </div>
     <div class="expense_data_container">
        <div 
-    style="background-color: black;"
+   
     class="searched-expense-display-container">
     
     <div class="quick-search-container">
@@ -338,6 +339,9 @@
       <div class="quick-search-image-container">
          <img class="quick-search" src="../static/images/quick-search.png" alt="magnifying glass with lighting next to it">
          <p class="quick-search-text">Quick Search</p>
+      </div>
+      <div class="quick-search-results-amount-container">
+        <p class="quick-search-results-amount">Showing 10 of 10 results</p>
       </div>
      
 
@@ -440,9 +444,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for item in my_list %}
-
+          
+           {% for item in my_list %}
+          <tr>
           <td>
+           
             <div class="name_flex_container">
               <div class="name-container">
                 {{ item.expense_name }}
@@ -586,7 +592,7 @@
               />
             </button>
           </td>
-        </tbody>
+        
 
         <div class="btn_window" id="delete-{{loop.index0}}">
           <div class="prompt">
@@ -615,9 +621,15 @@
                 Yes, I want to delete
               </button>
             </form>
-            {% endfor %}
+
+         
+            
           </div>
         </div>
+          
+            </tr>
+             {% endfor %}
+        </tbody>
       </table>
       <p style="display: none;"
       class="json_data">{{my_json}}</p>

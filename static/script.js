@@ -6,6 +6,36 @@ const toggleButton = document.querySelector(".toggle");
 
 const userSearchIcon = document.querySelector(".search-icon")
 
+const toggleSwitch = document.querySelector(".toggle-switch");
+
+const logoutButton = document.querySelector(".logout-button");
+
+const yearSelect = document.getElementById("year-select");
+
+const mySelectElement = document.querySelector(".asc-desc");
+
+const sortCost = document.querySelector(".sort-expense-dropdown");
+
+const jsonStuff = document.querySelector(".json_data");
+
+const userInput = document.querySelector(".search-input")
+
+const searchTableDiv = document.querySelector(".searched-expense-display-container")
+
+const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon")
+
+
+
+/* 
+
+ALL ChartJS Constants Below 
+
+*/
+
+const doughnutCanvas = document.getElementById("myCanvas");
+
+const chartBarCanvas = document.getElementById("barChart");
+
 /*
 
 This checks if Chart.js module exists 
@@ -17,81 +47,8 @@ if (typeof Chart !== "undefined") {
   
 }
 
-/* 
-
-The Window checks for DOMcontent being loaded
-at login there wont be a currentColor set, so it will return null
-if null then set the initial color to dark in local storage
-
-This also keeps the color toggle feature working
-when you click the toggle button it changes/updates the color scheme to light mode
-also saves to local storage the updated color
-
-*/
-window.addEventListener("DOMContentLoaded", () => {
-  let currentColor = window.localStorage.getItem("color");
-  if (currentColor === null) {
-    window.localStorage.setItem("color", "dark");
-  }
-  if (currentColor === "light") {
-    window.localStorage.setItem("color", "light");
-    bodyColor.classList.toggle("light");
-  }
-}
 
 
-
-);
-
-/* 
-I've added an event listener to a button attached to my sidebar
-When this button is clicked, the sidebar class is toggled and added which adds a 250px width to the sidebar
-which opens the sidebar, if clicked again the sidebar class is removed 
-I'm going to be adding a search feature soon
-
-
-*/
-
-/* const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon") */
-
-
-if (toggleButton) {
-    toggleButton.addEventListener("click", () => {
-      if (searchBoxUl.classList.contains("close-search-box")){
-        searchBoxUl.classList.add("opened-search-box")
-        searchBoxUl.classList.remove("close-search-box")
-
-      }
-      else {
-        searchBoxUl.classList.remove("opened-search-box")
-        searchBoxUl.classList.add("close-search-box")
-      }
-
-      if (toggleButton.classList.contains("bx-chevron-right")) {
-        toggleButton.classList.add("bx-chevron-left")
-        toggleButton.classList.remove("bx-chevron-right")
-      }
-      else {
-        toggleButton.classList.remove("bx-chevron-left")
-        toggleButton.classList.add("bx-chevron-right")
-      }
-
-      openSidebar.classList.toggle("sidebar");
-      
-
-
-      if (openSidebar.classList.contains("sidebar") && trimmedUserInputValue.length > 0 ) {
-       searchInputCancelIcon.style.display = "flex"
-       
-      }
-
-      else {
-       searchInputCancelIcon.style.display = "none"
-
-      
-      }
-})}
-      
       
 
  
@@ -108,7 +65,7 @@ It also updates the local storage on the current color scheme.
 
 let htmlColor = document.querySelector("html");
 
-const toggleSwitch = document.querySelector(".toggle-switch");
+
 if (toggleSwitch) {
   toggleSwitch.addEventListener("click", () => {
     let currentColor = window.localStorage.getItem("color");
@@ -132,7 +89,7 @@ I've added a click event listener to the logout button, which clears the local s
 
 */
 
-const logoutButton = document.querySelector(".logout-button");
+
 
 if (logoutButton) {
   logoutButton.addEventListener("click", () => {
@@ -149,7 +106,7 @@ I've added a change event listener to a "select" element which defaults to a "no
 Once a user makes their choice of a YEAR they would like to filter by, the form that's wrapped around the select element is submitted and a query is made
 
 */
-const yearSelect = document.getElementById("year-select");
+
 if (yearSelect) {
   yearSelect.addEventListener("change", () => {
     const selectForm = document.querySelector(".select-form");
@@ -164,7 +121,7 @@ Once a user makes their choice of sorting expenses by ascending or descending by
 
 */
 
-const mySelectElement = document.querySelector(".asc-desc");
+
 
 if (mySelectElement) {
   mySelectElement.addEventListener("change", function () {
@@ -181,7 +138,7 @@ Once a user makes their choice of sorting expenses by ascending or descending by
 
 */
 
-const sortCost = document.querySelector(".sort-expense-dropdown");
+
 
 if (sortCost) {
   sortCost.addEventListener("change", function () {
@@ -209,7 +166,7 @@ As expenses are added, the corresponding category’s amount is incremented, all
 
 */
 
-const jsonStuff = document.querySelector(".json_data");
+
 let categoryArray = [];
 
 if (jsonStuff && categoryArray) {
@@ -397,7 +354,7 @@ const doughnutTextPlugin = {
 */
 
 
-const doughnutCanvas = document.getElementById("myCanvas");
+
 let doughnutChart;
 
 if (doughnutCanvas) {
@@ -557,7 +514,7 @@ Bar Chart Setup:
 */
 
 
-const chartBarCanvas = document.getElementById("barChart");
+
 
 let chartBar;
 
@@ -847,6 +804,11 @@ const editModeActivated = function (index) {
 
 
 async function searchExpenseByName() {
+  searchTableDiv.style.display = "flex"
+  searchTableDiv.style.position = "fixed"
+
+  let userInputValue = userInput.value
+  let trimmedUserInputValue = userInputValue.trim()
   
 
   let dashboardTable = document.querySelector(".dashboard-table")
@@ -858,16 +820,11 @@ async function searchExpenseByName() {
   const tbodyParentBody = document.getElementById("tbodyParent")
     tbodyParentBody.innerHTML = "" 
   
-  const userInput = document.getElementById("search-input")
-  const userInputValue = userInput.value
-
-  const trimmedUserInputValue = userInputValue.trim()
-
-  let searchTableDiv = document.querySelector(".searched-expense-display-container")
+  
 
   if (trimmedUserInputValue === "") {
-    console.log("IF BLOCK PRINTING ")
-    /*  let searchTableDiv = document.querySelector(".searched-expense-display-container") */
+    console.log(trimmedUserInputValue)
+    
    
     searchTableDiv.style.display = "none"
   }
@@ -886,7 +843,7 @@ async function searchExpenseByName() {
         let searchTable = document.querySelector(".search-table")
         searchTable.style.display = "none"
         
-        let searchTableDiv = document.querySelector(".searched-expense-display-container")
+        
         searchTableDiv.style.display = "flex"
         searchTableDiv.style.justifyContent = "center"
         noResultsMessage = document.querySelector(".no-results")
@@ -896,7 +853,10 @@ async function searchExpenseByName() {
 
       else {
         nextButtonContainer.style.display = "none"
+        /* 
         dashboardTable.style.display = "none"
+         */
+        
         noResultsMessage.style.display = "none"
         let searchTable = document.querySelector(".search-table")
         searchTable.style.display = "table"
@@ -911,9 +871,9 @@ async function searchExpenseByName() {
         showQuickSearchResults.innerHTML = `Showing ${resultsAmount} of ${resultsAmount} results`
 
 
-      const searchTableDiv = document.querySelector(".searched-expense-display-container")
-        searchTableDiv.style.display = "flex"
-        searchTableDiv.style.justifyContent = "center"
+      
+       
+        
 
     const expenseDataHeaderRow = document.createElement("tr")
 
@@ -935,9 +895,9 @@ async function searchExpenseByName() {
       expenseDataHeaderRow.appendChild(expenseDateHeader)
 
       
-      expenseNameHeader.style.color =  "#bb86fc"
-      expenseCostHeader.style.color =  "#bb86fc"
-      expenseDateHeader.style.color =  "#bb86fc"
+      expenseNameHeader.style.color =  "#000000"
+      expenseCostHeader.style.color =  "#000000"
+      expenseDateHeader.style.color =  "#000000"
 
       tbodyParentBody.appendChild(expenseDataHeaderRow)
 
@@ -974,7 +934,7 @@ async function searchExpenseByName() {
       
       
       
-      
+     
 
      
       tbodyParentBody.appendChild(trDataRow)
@@ -992,17 +952,8 @@ catch(error) {
 }
 
  
-/* const closedSidebar = document.querySelector(".close")
-closedSidebar.addEventListener("mouseenter", ()=> {
-  closedSidebar.classList.toggle("sidebar")
-})
 
-closedSidebar.addEventListener("mouseleave", ()=> {
-  closedSidebar.classList.toggle("sidebar")
-}) */
-const userInput = document.getElementById("search-input")
 
-const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon")
 function turnOnCancelIcon() {
   let userInputValue = userInput.value
   let trimmedValue = userInputValue.trim()
@@ -1016,7 +967,7 @@ function turnOnCancelIcon() {
   
 }
 
-const searchTableDiv = document.querySelector(".searched-expense-display-container")
+
 searchInputCancelIcon.addEventListener("click", ()=> {
   userInput.value = ""
   searchInputCancelIcon.style.display = "none"
@@ -1030,7 +981,84 @@ searchInputCancelIcon.addEventListener("click", ()=> {
 
 
 searchBoxUl.addEventListener("click", ()=> {
+
+
+
+  if (searchBoxUl.classList.contains("close-search-box")) {
+    openSidebar.classList.add("sidebar")
+  }
+  
    if (toggleButton.classList.contains("bx-chevron-right")) {
+        toggleButton.classList.add("bx-chevron-left")
+        toggleButton.classList.remove("bx-chevron-right")
+      }
+     
+ 
+  if (searchBoxUl.classList.contains("close-search-box")) {
+    searchBoxUl.classList.remove("close-search-box")
+    searchBoxUl.classList.add("opened-search-box")
+  }
+
+  
+ 
+
+  userInput.focus()
+})
+
+/* 
+
+The Window checks for DOMcontent being loaded
+at login there wont be a currentColor set, so it will return null
+if null then set the initial color to dark in local storage
+
+This also keeps the color toggle feature working
+when you click the toggle button it changes/updates the color scheme to light mode
+also saves to local storage the updated color
+
+*/
+window.addEventListener("DOMContentLoaded", () => {
+  let currentColor = window.localStorage.getItem("color");
+  if (currentColor === null) {
+    window.localStorage.setItem("color", "dark");
+  }
+  if (currentColor === "light") {
+    window.localStorage.setItem("color", "light");
+    bodyColor.classList.toggle("light");
+  }
+}
+);
+
+/* 
+I've added an event listener to a button attached to my sidebar
+When this button is clicked, the sidebar class is toggled and added which adds a 250px width to the sidebar
+which opens the sidebar, if clicked again the sidebar class is removed 
+I'm going to be adding a search feature soon
+
+
+*/
+
+if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
+      let userInputValue = userInput.value
+      let trimmedUserInputValue = userInputValue.trim()
+      
+     
+
+
+      if (searchBoxUl.classList.contains("close-search-box")){
+        searchBoxUl.classList.add("opened-search-box")
+        searchBoxUl.classList.remove("close-search-box")
+       
+        }
+
+      
+      
+      else {
+        searchBoxUl.classList.remove("opened-search-box")
+        searchBoxUl.classList.add("close-search-box")
+      }
+
+      if (toggleButton.classList.contains("bx-chevron-right")) {
         toggleButton.classList.add("bx-chevron-left")
         toggleButton.classList.remove("bx-chevron-right")
       }
@@ -1038,17 +1066,22 @@ searchBoxUl.addEventListener("click", ()=> {
         toggleButton.classList.remove("bx-chevron-left")
         toggleButton.classList.add("bx-chevron-right")
       }
- 
-  openSidebar.classList.toggle("sidebar")
-  if (searchBoxUl.classList.contains("close-search-box")) {
-    searchBoxUl.classList.remove("close-search-box")
-    searchBoxUl.classList.add("opened-search-box")
-  }
-  else {
-    searchBoxUl.classList.remove("opened-search-box")
-    searchBoxUl.classList.add("close-search-box")
-  }
 
-  userInput.focus()
-})
+      openSidebar.classList.toggle("sidebar");
+      
+
+
+      if (openSidebar.classList.contains("sidebar") && trimmedUserInputValue.length > 0 ) {
+        
+       searchInputCancelIcon.style.display = "flex"
+       
+      }
+
+      else {
+       searchInputCancelIcon.style.display = "none"
+
+      
+      }
+})}
+
 

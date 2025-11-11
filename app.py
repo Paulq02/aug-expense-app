@@ -104,6 +104,7 @@ SQL queries:
   passing all required values to display the dashboard.
 """
 
+
     global running_count
     view_mode = "dashboard"
    
@@ -561,7 +562,7 @@ def submit_expense():
     cursor.execute(sql, (username, password))"""
     
     cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date, expense_category) VALUES (%s, %s, %s, %s, %s)", (user_id, expense, amount, date, expense_category))
-    sql_connect.commit()
+    db.commit()
     cursor.close()
   
     
@@ -598,10 +599,10 @@ def calclulate_money_leftover():
 @app.route('/delete_expense/<int:expense_id>', methods = ['POST', 'GET'])
 def delete_expense(expense_id):
     user_id = session.get("user_id")
-    cursor = sql_connect.cursor()
+    cursor = db.cursor()
     sql = "DELETE FROM expense_tracker_expense_data WHERE expense_id = %s AND user_id = %s "
     cursor.execute(sql, (expense_id,user_id))
-    sql_connect.commit()
+    db.commit()
     return redirect(url_for('dashboard'))
 
 @app.route('/users/<name>')
@@ -622,7 +623,7 @@ def update_name(index, expense_id):
     new_name = request.form.get(f"new-name-input-{index}")
     sql_update_name = "UPDATE expense_tracker_expense_data SET expense_name  = %s WHERE expense_id = %s AND user_id = %s "
     cursor.execute(sql_update_name, (new_name,expense_id, user_id ))
-    sql_connect.commit()
+    db.commit()
     return redirect(url_for('dashboard'))
 
 
@@ -635,7 +636,7 @@ def update_cost(index, expense_id):
     sql_update_cost = "UPDATE expense_tracker_expense_data SET expense_cost = %s WHERE expense_id = %s AND user_id = %s"
     cursor.execute(sql_update_cost, (new_amount,expense_id,user_id ))
 
-    sql_connect.commit()
+    db.commit()
 
     return redirect(url_for('dashboard'))
 
@@ -648,7 +649,7 @@ def update_date(index, expense_id):
     new_date = request.form[f"new-date-input-{index}"]
     sql_date = "UPDATE expense_tracker_expense_data SET expense_date = %s WHERE expense_id = %s AND user_id = %s"
     cursor.execute(sql_date, (new_date,expense_id, user_id ))
-    sql_connect.commit()
+    db.commit()
     return redirect(url_for('dashboard'))
 
 
@@ -747,7 +748,7 @@ def create_account():
     sql = "INSERT INTO expense_tracker_users (username, email, password) VALUES (%s, %s, %s)"
     values = (username, email, password)
     cursor.execute(sql, values)
-    sql_connect.commit()
+    db.commit()
     sql_get_user_id = "SELECT id FROM expense_tracker_users WHERE username = %s AND password = %s"
     cursor.execute(sql_get_user_id, (username, password))
     results = cursor.fetchone()

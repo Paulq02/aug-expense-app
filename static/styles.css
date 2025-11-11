@@ -239,6 +239,12 @@ html {
 
 th {
   text-align: left;
+  padding: 15px;
+  background-color: #bb86fc;
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .no-results {
@@ -348,7 +354,7 @@ html.dark .light-mode-et {
 }
 
 .quick-search {
-  height: 200px;
+  height: 100px;
 }
 
 
@@ -364,19 +370,51 @@ html.dark .light-mode-et {
   display: none;
   flex-direction: column;
   
-  width: 100%;
-  height: 50%;
-  background-color: black;
+  width: 70%;
+  height: 85%;
+
+  background-color: rgba(30, 30, 30, 0.85); /* 85% opaque */
+  border: 1px solid rgba(181, 127, 255, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(181, 127, 255, 0.2);
+  padding: 20px;
  
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
 }
+
+.quick-search-results-amount-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quick-search-results-amount {
+  color: white;
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+ 
+
 
 .no-results {
   font-size: 5rem;
 }
 
 .quick-search-text {
-  color: #f1f1f1;
-  font-size: 2rem;
+  color: white;
+  font-size: 2.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .search-table-main-container {
@@ -387,6 +425,9 @@ html.dark .light-mode-et {
 .search-table {
   width: 900px;
 }
+
+
+
 
 
 
@@ -460,6 +501,10 @@ header .toggle {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+.toggle:hover {
+  height: 35px;
+  width: 35px;
 }
 
 .close.sidebar li {
@@ -664,6 +709,10 @@ html.dark .sidebar .sidebar-icon {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+.dark .bottom-content a:hover .logout-text{
+  color:  #000000 ;
 }
 .light .close.sidebar .logout-text {
   display: flex;
@@ -1382,18 +1431,17 @@ button img {
   background: none;
 }
 
-.dark tbody:nth-child(even) {
-  /*
-    background-color: rgb(18, 23, 29);
-    */
+
+.dark tbody tr:nth-child(odd) {
+  
   background-color: #000000;
 }
-.dark tbody:nth-child(odd) {
-  /*
-    background-color: rgb(34, 43, 52);
-    */
-  background-color: #121212;
+
+.dark tbody tr:nth-child(even) {
+  
+  background-color: rgb(34, 43, 52);
 }
+
 
 .light tbody:nth-child(even) {
   background-color: #f1f1f1;
@@ -1505,6 +1553,7 @@ tfoot td {
 }
 
 .dark .expense_data_container {
+
   display: flex;
   justify-content: center;
   height: auto;
