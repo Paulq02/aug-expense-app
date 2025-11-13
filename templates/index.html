@@ -242,7 +242,11 @@
         </div>
       </div>
     </nav>
-    <div class="summary_container">
+   
+
+   
+    <div class="expense_data_container">
+       <div class="summary_container">
       <div class="money_container">
         <div class="money_in_container">
           <div class="money_in_image_container">
@@ -274,8 +278,7 @@
         </div>
       </div>
     </div>
-   
-    <div class="sorting-container">
+      <div class="sorting-container">
       <div class="sort-options">
         <form
           class="sort-expense-form"
@@ -324,47 +327,15 @@
         </form>
       </div>
     </div>
-    <div class="detail-summary-container">
+
+
+
+       <div class="detail-summary-container">
       <p class="summary-detail">Detail Summary</p>
       <p class="showing-results">Showing {{running_count}} of {{complete_results_amount}} results</p>
       <p class="quick-search-results"></p>
     </div>
-    <div class="expense_data_container">
-       <div 
-   
-    class="searched-expense-display-container">
-    
-    <div class="quick-search-container">
       
-      <div class="quick-search-image-container">
-         <img class="quick-search" src="../static/images/quick-search.png" alt="magnifying glass with lighting next to it">
-         <p class="quick-search-text">Quick Search</p>
-      </div>
-      <div class="quick-search-results-amount-container">
-        <p class="quick-search-results-amount">Showing 10 of 10 results</p>
-      </div>
-     
-
-     
-    </div>
-   
-    <p
-      
-      style="color: #bb86fc;"
-      class="no-results">No results, want to try again?
-    </p>
-    <div class="search-table-main-container">
-        <table 
-        class="search-table">
-        
-        <tbody id="tbodyParent"></tbody>
-       
-        </table>
-
-    </div>
-     
-     
-</div>
       <table class="dashboard-table">
         <thead class="table-head">
 
@@ -633,9 +604,7 @@
       </table>
       <p style="display: none;"
       class="json_data">{{my_json}}</p>
-    </div>
-
-    <div class="next-button-container">
+       <div class="next-button-container">
 
     <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
     <!-- START OF DASHBOARD BUTONS -----------------------------------------------------------------------------> 
@@ -1380,6 +1349,7 @@ value="{{offset - 10}}">
   
 <!--END OF NEW SORT  BUTTONS ------------------------------------------------->
 <!--END OF NEW SORT BUTTONS ------------------------------------------------->
+<!--START OF CHARTJS MAIN CONTAINER ------------------------------------------------->
   
 
     <div class="category-summary-container">
@@ -1394,7 +1364,57 @@ value="{{offset - 10}}">
         <canvas id="barChart"></canvas>
       </div>
     </div>
-    <footer>
+
+<!--END OF CHARTJS MAIN CONTAINER ------------------------------------------------->
+</div>
+
+   
+
+<!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
+ <div 
+   
+    class="searched-expense-display-container">
+    
+    <div class="quick-search-container">
+      
+      <div class="quick-search-image-container">
+         <img class="quick-search" src="../static/images/quick-search.png" alt="magnifying glass with lighting next to it">
+         <p class="quick-search-text">Quick Search</p>
+      </div>
+      <div class="quick-search-results-amount-container">
+        <p class="quick-search-results-amount">Showing 10 of 10 results</p>
+      </div>
+     
+
+     
+    </div>
+   
+    <p
+      
+      style="color: #bb86fc;"
+      class="no-results">No results, want to try again?
+    </p>
+    <div class="search-table-main-container">
+        <table 
+        class="search-table">
+        
+       
+       
+        </table>
+
+    </div>
+     
+     
+</div>
+
+
+<!--END OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
+
+
+
+
+    
+<footer>
       <small
         >© Paul Quintanilla 2025 <br />
         Built with Flask, MySQL, HTML/CSS & JS

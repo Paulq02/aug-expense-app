@@ -24,6 +24,10 @@ const searchTableDiv = document.querySelector(".searched-expense-display-contain
 
 const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon")
 
+const quickSearchTable = document.querySelector(".search-table")
+
+expenseDataContainer = document.querySelector(".expense_data_container")
+
 
 
 /* 
@@ -804,21 +808,28 @@ const editModeActivated = function (index) {
 
 
 async function searchExpenseByName() {
+  expenseDataContainer.style.display = "none"
+
+   quickSearchTable.innerHTML = ""
+
   searchTableDiv.style.display = "flex"
-  searchTableDiv.style.position = "fixed"
+  
+
+ 
+
+  
 
   let userInputValue = userInput.value
   let trimmedUserInputValue = userInputValue.trim()
   
 
-  let dashboardTable = document.querySelector(".dashboard-table")
+  
 
   let noResultsMessage = document.querySelector(".no-results")
 
-  let nextButtonContainer = document.querySelector(".next-button-container")
   
-  const tbodyParentBody = document.getElementById("tbodyParent")
-    tbodyParentBody.innerHTML = "" 
+  
+  
   
   
 
@@ -852,10 +863,8 @@ async function searchExpenseByName() {
       }
 
       else {
-        nextButtonContainer.style.display = "none"
-        /* 
-        dashboardTable.style.display = "none"
-         */
+       
+       
         
         noResultsMessage.style.display = "none"
         let searchTable = document.querySelector(".search-table")
@@ -873,7 +882,7 @@ async function searchExpenseByName() {
 
       
        
-        
+    const tableHeadRow = document.createElement("thead")
 
     const expenseDataHeaderRow = document.createElement("tr")
 
@@ -888,21 +897,28 @@ async function searchExpenseByName() {
     const expenseDateHeader = document.createElement("th")
     expenseDateHeader.textContent = "Date"
 
-  
+     
       
       expenseDataHeaderRow.appendChild(expenseNameHeader)
       expenseDataHeaderRow.appendChild(expenseCostHeader)
       expenseDataHeaderRow.appendChild(expenseDateHeader)
+
+     
+     
 
       
       expenseNameHeader.style.color =  "#000000"
       expenseCostHeader.style.color =  "#000000"
       expenseDateHeader.style.color =  "#000000"
 
-      tbodyParentBody.appendChild(expenseDataHeaderRow)
+      
+
+      tableHeadRow.appendChild(expenseDataHeaderRow)
+
+      quickSearchTable.appendChild(tableHeadRow)
 
 
-        
+      tBody = document.createElement("tbody")
 
       for (let info of data) {
         expense_name = info.expense_name
@@ -937,7 +953,9 @@ async function searchExpenseByName() {
      
 
      
-      tbodyParentBody.appendChild(trDataRow)
+      tBody.appendChild(trDataRow)
+
+    quickSearchTable.appendChild(tBody)
 
       
     }

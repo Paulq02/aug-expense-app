@@ -270,7 +270,7 @@ th {
   position: fixed;
 
   height: 100%;
-  width: 270px;
+  width: 240px;
   background-color: #121212;
   transition: color 0.3s ease;
 
@@ -370,20 +370,10 @@ html.dark .light-mode-et {
   display: none;
   flex-direction: column;
   
-  width: 70%;
-  height: 85%;
-
-  background-color: rgba(30, 30, 30, 0.85); /* 85% opaque */
-  border: 1px solid rgba(181, 127, 255, 0.3);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(181, 127, 255, 0.2);
-  padding: 20px;
+  width: 100%;
+  background-color: #000000;
  
 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 6;
 }
 
 .quick-search-results-amount-container {
@@ -1259,7 +1249,7 @@ input {
 
 .sorting-container {
   display: flex;
-
+  width: 100%;
   height: 100px;
   justify-content: center;
   align-items: center;
@@ -1353,7 +1343,7 @@ input {
 .dashboard-table {
   border-collapse: collapse;
   position: relative;
-  width: 900px;
+  width: 820px;
   align-items: center;
 }
 
@@ -1532,6 +1522,10 @@ tfoot td {
   font-style: normal;
 }
 
+.detail-summary-container {
+  width: 100%;
+}
+
 .dark .showing-results {
   color: #ffffff;
   font-size: 30px;
@@ -1555,7 +1549,9 @@ tfoot td {
 .dark .expense_data_container {
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: auto;
   /*
     background: rgb(18, 23, 29);
@@ -1591,6 +1587,7 @@ tfoot td {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
+  margin-top: 50px;
 }
 .dark .previous-results,
 .dark .next-results,
@@ -2423,6 +2420,7 @@ body.dark .chart-main-container {
 }
 
 .dark .category-summary-container {
+  width: 100%;
   background-color: #121212;
   margin-top: 0;
   margin-bottom: 0;
