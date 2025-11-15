@@ -13,11 +13,8 @@ html {
 
 .dark body {
   margin: 0;
-  display: block;
-  min-height: 100vh;
-  /*
-    background-color: rgb(18, 23, 29);
-    */
+  display: flex;
+  flex-direction: column;
   background-color: #000000;
 }
 
@@ -26,6 +23,12 @@ html {
   min-height: 100vh;
   margin: 0;
   display: block;
+}
+
+#mainContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .light .close.sidebar {
@@ -233,8 +236,6 @@ html {
 
 /* ===TOP Navbar END=== */
 
-
-
 /* ===Search bar inside Sidebar=== */
 
 th {
@@ -249,24 +250,15 @@ th {
 
 .no-results {
   display: none;
-  
-
 }
-
-
 
 /* ===Search bar inside Sidebar END === */
 
-
-
-
-
-
 /* ===Sidebar START=== */
 
-
-
 .close.sidebar {
+  border: solid 4px #bb86fc;
+  margin-top: 60px;
   position: fixed;
 
   height: 100%;
@@ -281,6 +273,8 @@ th {
 }
 
 nav.close {
+  border: solid 4px #bb86fc;
+  margin-top: 60px;
   position: fixed;
 
   height: 100vh;
@@ -295,6 +289,10 @@ nav.close {
   border-top-left-radius: 0px;
   padding: 10px 14px;
   z-index: 10;
+}
+
+.close .image-text {
+  display: flex;
 }
 
 .close .nav-text {
@@ -330,8 +328,6 @@ html.dark .light-mode-et {
   display: flex;
   padding: 5px;
   font-size: 1rem;
-  
-  
 }
 
 .search-input-cancel-icon {
@@ -340,10 +336,6 @@ html.dark .light-mode-et {
   display: none;
   cursor: pointer;
 }
-
-
-
-
 
 /* ===quick-search-image-container START=== */
 
@@ -357,11 +349,6 @@ html.dark .light-mode-et {
   height: 100px;
 }
 
-
-
-
-
-
 /* ===quick-search-image-container END=== */
 
 /* ---NO RESULTS/ quick-search-expense-display-container SETTINGS START -------- */
@@ -369,11 +356,9 @@ html.dark .light-mode-et {
 .searched-expense-display-container {
   display: none;
   flex-direction: column;
-  
+
   width: 100%;
   background-color: #000000;
- 
-
 }
 
 .quick-search-results-amount-container {
@@ -391,9 +376,6 @@ html.dark .light-mode-et {
   font-weight: 700;
   font-style: normal;
 }
-
- 
-
 
 .no-results {
   font-size: 5rem;
@@ -416,16 +398,7 @@ html.dark .light-mode-et {
   width: 900px;
 }
 
-
-
-
-
-
 /* ---NO RESULTS CONTAININER SETTINGS END -------- */
-
-
-
-
 
 .sidebar .image {
   min-width: 60px;
@@ -436,7 +409,6 @@ html.dark .light-mode-et {
 .search-icon {
   color: #ffffff;
   font-size: 35px;
-  
 }
 
 .dark .close.sidebar .search-icon {
@@ -453,7 +425,7 @@ html.dark .light-mode-et {
 .open-search-box input {
   width: 100%;
   height: 80%;
- 
+
   outline: none;
 }
 .name,
@@ -462,10 +434,6 @@ html.dark .light-mode-et {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
-}
-
-.name {
-  margin-right: 40px;
 }
 
 .light .name,
@@ -478,21 +446,46 @@ header .image-text .header-text {
   flex-direction: column;
 }
 
-header .toggle {
+.toggle-container {
+  position: relative;
+}
+
+.close .image-text .toggle-container .toggle {
+  position: absolute;
+  right: -50px;
   background-color: #bb86fc;
   border-radius: 50%;
-  position: absolute;
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25px;
-  width: 25px;
-  right: -30px;
   top: 50%;
   transform: translateY(-50%);
-  cursor: pointer;
 }
-.toggle:hover {
+
+.close .image-text .toggle-container .toggle:hover {
+  height: 35px;
+  width: 35px;
+}
+
+.close.sidebar .image-text .toggle-container .toggle {
+  position: absolute;
+  right: -30px;
+  background-color: #bb86fc;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.close.sidebar .image-text .toggle-container .toggle:hover {
   height: 35px;
   width: 35px;
 }
@@ -506,8 +499,6 @@ header .toggle {
   display: flex;
   justify-content: center;
   align-items: center;
- 
-  
 }
 
 .close.sidebar ul {
@@ -701,8 +692,8 @@ html.dark .sidebar .sidebar-icon {
   font-style: normal;
 }
 
-.dark .bottom-content a:hover .logout-text{
-  color:  #000000 ;
+.dark .bottom-content a:hover .logout-text {
+  color: #000000;
 }
 .light .close.sidebar .logout-text {
   display: flex;
@@ -1304,7 +1295,6 @@ input {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
- 
 }
 
 .light th {
@@ -1323,7 +1313,7 @@ input {
 }
 .arrow-container {
   display: flex;
-  
+
   align-items: center;
 }
 
@@ -1358,12 +1348,12 @@ tbody {
 td {
   padding: 15px 10px;
 
-  text-transform: capitalize; 
+  text-transform: capitalize;
 
   color: rgb(34, 43, 52);
 
   text-align: left;
-  
+
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -1421,17 +1411,13 @@ button img {
   background: none;
 }
 
-
 .dark tbody tr:nth-child(odd) {
-  
   background-color: #000000;
 }
 
 .dark tbody tr:nth-child(even) {
-  
   background-color: rgb(34, 43, 52);
 }
-
 
 .light tbody:nth-child(even) {
   background-color: #f1f1f1;
@@ -1547,7 +1533,6 @@ tfoot td {
 }
 
 .dark .expense_data_container {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1602,7 +1587,7 @@ tfoot td {
 }
 
 .light .previous-results,
-.light .next-results, 
+.light .next-results,
 .light .cost-next-button {
   background-color: #bb86fc;
   color: #ffffff;
@@ -1692,8 +1677,6 @@ tfoot td {
   font-weight: bold;
 }
 
-
-
 .cancel-svg-button img:hover {
   height: 30px;
   width: 30px;
@@ -1723,7 +1706,7 @@ tfoot td {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   display: none;
   width: 500px;
   height: 290px;
@@ -1732,7 +1715,6 @@ tfoot td {
   background-color: #fff;
 
   background-color: rgb(34, 43, 52);
-  
 
   z-index: 9999; /* Make sure it’s on top */
 }
@@ -1883,11 +1865,12 @@ tfoot td {
 }
 
 .close .header-text {
-  opacity: 0;
+  display: none;
 }
 
 .close.sidebar .header-text {
-  opacity: 1;
+  display: flex;
+  align-items: center;
 }
 
 .close.sidebar .image-text {
@@ -1899,7 +1882,7 @@ tfoot td {
 }
 
 .close .search-input {
-  width:190px;
+  width: 190px;
   display: none;
   padding: 5px;
 }
@@ -1929,19 +1912,14 @@ tfoot td {
 
 .light .close .open-search-box.close-search-box:hover .search-icon {
   color: #ffffff;
-  
 }
 
 .dark .close-search-box:hover .search-icon {
-  
-   color: #000000;
+  color: #000000;
 }
 .dark .close-search-box:hover {
   background: #bb86fc;
 }
-
-
-
 
 .close .nav-text {
   display: none;
@@ -1953,6 +1931,7 @@ tfoot td {
 
 .close .menu-links {
   width: 78px;
+  margin-top: 0;
 }
 
 .close .bottom-content {
