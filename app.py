@@ -8,6 +8,8 @@ import json, time
 
 
 
+
+
 app = Flask(__name__)
 db = mysql.connector.connect(user="root", password="95w696fX#", host="localhost", database="expense_data")
 
@@ -113,6 +115,13 @@ SQL queries:
     
 
     my_list.clear()
+
+    get_current_year = datetime.now()
+    converted_year = str(get_current_year)
+    showing_year = converted_year[0:4]
+    showing_month = get_current_year.strftime('%B')
+   
+
    
     user_id = session.get("user_id")
     username = session.get("username")
@@ -186,7 +195,7 @@ SQL queries:
     free_money = calclulate_money_leftover()
 
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year)
 
 
 
@@ -279,6 +288,11 @@ def user_search():
 
 @app.route('/sort_by_year', methods=["POST", "GET"])
 def sort_year():
+    get_current_year = datetime.now()
+    converted_year = str(get_current_year)
+    selected_year = converted_year[0:4]
+
+   
     global running_count
     
    
@@ -293,6 +307,7 @@ def sort_year():
    
     
     user_year_selection = request.args.get("year","none")
+    print(user_year_selection)
 
     offset = request.args.get("offset", 0)
 
@@ -300,7 +315,7 @@ def sort_year():
     
     
     
-    if user_year_selection == "all" :
+    """ if user_year_selection == "all" :
 
         sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
         cursor.execute(sql_complete_results,(user_id,))
@@ -335,15 +350,20 @@ def sort_year():
             
             converted_date = expense_date.strftime("%m-%d-%Y") # type: ignore
             my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
+        """
         
         
+    if user_year_selection == "this year":
+        get_current_year = datetime.now()
+        converted_year = str(get_current_year)
+        selected_year = converted_year[0:4]
         
-    else:
 
 
         sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
-        cursor.execute(sql_year_expenses,(user_id,user_year_selection,offset))
+        cursor.execute(sql_year_expenses,(user_id,selected_year,offset))
         results = cursor.fetchall()
+        
         
         max_10_results_amount = len(results)
         max_10_results_amount = int(max_10_results_amount)
@@ -366,17 +386,64 @@ def sort_year():
             
        
         sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s"
-        cursor.execute(sql_complete_results,(user_id,user_year_selection))
+        cursor.execute(sql_complete_results,(user_id,selected_year))
         fetched_results = cursor.fetchall()
         complete_results_amount = len(fetched_results)
 
 
 
         sql_sum_total_year_query = "SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s and YEAR(expense_date) = %s"
-        cursor.execute(sql_sum_total_year_query,(user_id, user_year_selection))
+        cursor.execute(sql_sum_total_year_query,(user_id, selected_year))
         sql_sum_total_results = cursor.fetchone()
         total_sum_cost = sql_sum_total_results[0] # type: ignore
+    
+    
+    elif user_year_selection == "last year":
+        get_current_year = datetime.now()
+        converted_year_to_string = str(get_current_year)
+        string_year = converted_year_to_string[0:4]
+        selected_year = int(string_year) - 1
+        print(selected_year)
+
         
+
+
+        sql_year_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
+        cursor.execute(sql_year_expenses,(user_id,selected_year,offset))
+        results = cursor.fetchall()
+        
+        
+        max_10_results_amount = len(results)
+        max_10_results_amount = int(max_10_results_amount)
+
+       
+       
+        running_count = offset + max_10_results_amount
+
+
+
+        for data in results:
+            expense_id = data[0] # type: ignore
+            expense_name = data[1] # type: ignore
+            expense_cost = float(data[2]) # type: ignore
+            expense_date = data[3]# type: ignore
+            expense_category = data[4]# type: ignore
+            
+            converted_date = expense_date.strftime("%m-%d-%Y") # type: ignore
+            my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
+            
+       
+        sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s"
+        cursor.execute(sql_complete_results,(user_id,selected_year))
+        fetched_results = cursor.fetchall()
+        complete_results_amount = len(fetched_results)
+
+
+
+        sql_sum_total_year_query = "SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s and YEAR(expense_date) = %s"
+        cursor.execute(sql_sum_total_year_query,(user_id, selected_year))
+        sql_sum_total_results = cursor.fetchone()
+        total_sum_cost = sql_sum_total_results[0] # type: ignore
         
 
 

@@ -1332,15 +1332,22 @@ input {
   }
   */
 
+.main-table-pie-entire-container {
+  width: 100%;
+}
+
 .main-summary-table-container {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-rows: auto;
 }
 .table-summary-container {
   grid-column-start: 1;
   grid-column-end: 1;
   grid-row-start: 1;
+  border: solid #3b3b3b 10px;
+  padding: 20px;
+  border-radius: 20px;
 }
 
 .spending-trend-container {
@@ -1352,6 +1359,9 @@ input {
 
 .pie-child-container {
   grid-column-start: 2;
+  border: solid #3b3b3b 10px;
+  border-radius: 20px;
+  height: auto;
 }
 
 .pie-parent-container {
@@ -1622,6 +1632,40 @@ tfoot td {
   font-style: normal;
   text-transform: capitalize;
   font-size: 2rem;
+  margin-left: 10px;
+}
+
+.timeframe-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeframe-child-container {
+  width: 50%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid #3b3b3b 10px;
+}
+
+.timeframe-display {
+  color: #f1f1f1;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: capitalize;
+  font-size: 2rem;
+  margin-left: 10px;
+}
+
+.calender-icon {
+  height: 45px;
+}
+
+.change-year-arrow {
+  color: #f1f1f1;
   margin-left: 10px;
 }
 
@@ -2476,6 +2520,7 @@ body.dark .chart-main-container {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .bar-chart-child-container {
@@ -2483,10 +2528,8 @@ body.dark .chart-main-container {
   border-radius: 20px;
   display: flex;
   justify-content: center;
-  background-color: #343434;
-  border-top: solid #343434 25px;
-  border-bottom: solid #343434 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+
+  border: solid #3b3b3b 10px;
 }
 
 .bar-chart-canvas-container {
