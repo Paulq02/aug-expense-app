@@ -1,10 +1,10 @@
 const openSidebar = document.querySelector(".close");
 
-const searchBoxUl = document.querySelector(".close-search-box")
+const searchBoxUl = document.querySelector(".close-search-box");
 
 const toggleButton = document.querySelector(".toggle");
 
-const userSearchIcon = document.querySelector(".search-icon")
+const userSearchIcon = document.querySelector(".search-icon");
 
 const toggleSwitch = document.querySelector(".toggle-switch");
 
@@ -18,17 +18,19 @@ const sortCost = document.querySelector(".sort-expense-dropdown");
 
 const jsonStuff = document.querySelector(".json_data");
 
-const userInput = document.querySelector(".search-input")
+const userInput = document.querySelector(".search-input");
 
-const searchTableDiv = document.querySelector(".searched-expense-display-container")
+const searchTableDiv = document.querySelector(
+  ".searched-expense-display-container"
+);
 
-const searchInputCancelIcon = document.querySelector(".search-input-cancel-icon")
+const searchInputCancelIcon = document.querySelector(
+  ".search-input-cancel-icon"
+);
 
-const quickSearchTable = document.querySelector(".search-table")
+const quickSearchTable = document.querySelector(".search-table");
 
-expenseDataContainer = document.querySelector(".expense_data_container")
-
-
+expenseDataContainer = document.querySelector(".expense_data_container");
 
 /* 
 
@@ -48,14 +50,7 @@ if it exists then go into font defaults and set the default font to Roboto
 */
 if (typeof Chart !== "undefined") {
   Chart.defaults.font.family = '"Roboto", "sans-serif"';
-  
 }
-
-
-
-      
-
- 
 
 /* 
 
@@ -68,7 +63,6 @@ It also updates the local storage on the current color scheme.
 */
 
 let htmlColor = document.querySelector("html");
-
 
 if (toggleSwitch) {
   toggleSwitch.addEventListener("click", () => {
@@ -87,22 +81,16 @@ if (toggleSwitch) {
   });
 }
 
-
 /* 
 I've added a click event listener to the logout button, which clears the local storage
 
 */
-
-
 
 if (logoutButton) {
   logoutButton.addEventListener("click", () => {
     window.localStorage.clear();
   });
 }
-
-
-
 
 /* 
 
@@ -125,15 +113,11 @@ Once a user makes their choice of sorting expenses by ascending or descending by
 
 */
 
-
-
 if (mySelectElement) {
   mySelectElement.addEventListener("change", function () {
     this.form.submit();
   });
 }
-
-
 
 /* 
 
@@ -142,15 +126,11 @@ Once a user makes their choice of sorting expenses by ascending or descending by
 
 */
 
-
-
 if (sortCost) {
   sortCost.addEventListener("change", function () {
     this.form.submit();
   });
 }
-
-
 
 /*
 If the user has entered expenses, it has been added the the MySql database.
@@ -170,16 +150,12 @@ As expenses are added, the corresponding category’s amount is incremented, all
 
 */
 
-
 let categoryArray = [];
 
 if (jsonStuff && categoryArray) {
   const my_json_data = document.querySelector(".json_data").textContent;
   converted_to_javascript_object = JSON.parse(my_json_data);
-  
-  
-  
-  
+
   categoryArray = [
     { category: "entertainment", amount: 0 },
     { category: "groceries", amount: 0 },
@@ -189,10 +165,7 @@ if (jsonStuff && categoryArray) {
     { category: "other", amount: 0 },
   ];
 
-
-
-
-/* 
+  /* 
 // Loop through each expense object in the converted JavaScript data.
 // Each expense has an "expense_category" (like groceries, rent, entertainment)
 // and an "amount" representing how much was spent.
@@ -202,7 +175,6 @@ if (jsonStuff && categoryArray) {
 // each category so we can track overall spending by type.
 
 */
-
 
   for (let item of converted_to_javascript_object) {
     if (item.expense_category === "entertainment") {
@@ -232,8 +204,6 @@ if (jsonStuff && categoryArray) {
   }
 }
 
-
-
 /*
 
 Prepare data for Chart.js by separating category names and amounts.
@@ -252,8 +222,6 @@ to display the chart labels (names) and corresponding values (amounts).
 
 */
 
-
-
 let nameArray = [];
 
 let amountArray = [];
@@ -264,8 +232,6 @@ for (let cat of categoryArray) {
   nameArray.push(name);
   amountArray.push(amount);
 }
-
-
 
 /* 
 
@@ -295,18 +261,15 @@ for (let cat of categoryArray) {
 const gapPlugin = {
   id: "gapPlugin",
   beforeInit(chart) {
-   const originalFit = chart.legend.fit;
-  
-  chart.legend.fit = function () {
-  originalFit.call(this);
- 
-  this.height += 25;
-};
+    const originalFit = chart.legend.fit;
+
+    chart.legend.fit = function () {
+      originalFit.call(this);
+
+      this.height += 25;
+    };
   },
 };
-
-
-
 
 /*
   doughnutTextPlugin notes:
@@ -322,7 +285,6 @@ const gapPlugin = {
   text color when the theme changes.
 */
 
-
 const doughnutTextPlugin = {
   id: "text_color_plugin",
   afterDraw(chart) {
@@ -330,15 +292,15 @@ const doughnutTextPlugin = {
 
     if (currentColor === "light") {
       Chart.defaults.color = "#000000";
+
       chart.update();
     } else {
       Chart.defaults.color = "#ffffff";
+
       chart.update();
     }
   },
 };
-
-
 
 /*
   doughnutChart notes:
@@ -357,8 +319,6 @@ const doughnutTextPlugin = {
     display the data visually.
 */
 
-
-
 let doughnutChart;
 
 if (doughnutCanvas) {
@@ -366,6 +326,7 @@ if (doughnutCanvas) {
     type: "doughnut",
     data: {
       labels: nameArray,
+
       datasets: [
         {
           data: amountArray,
@@ -376,9 +337,8 @@ if (doughnutCanvas) {
       plugins: {
         legend: {
           labels: {
-            
             font: {
-              size: 30,
+              size: 20,
             },
           },
         },
@@ -387,10 +347,7 @@ if (doughnutCanvas) {
     plugins: [gapPlugin, doughnutTextPlugin],
   });
 
-
-
-
-/*
+  /*
   doughChartText notes:
 
   - This function changes the legend label font size of the doughnut chart
@@ -404,30 +361,24 @@ if (doughnutCanvas) {
   In short: the chart legend text resizes automatically when the window width changes.
 */
 
-
   function doughChartText(chart) {
     let windowWidth = window.outerWidth;
 
     if (windowWidth >= 1120) {
-      let fontSize = 30;
+      let fontSize = 20;
 
       chart.options.plugins.legend.labels.font.size = fontSize;
-
-     
     }
 
     if (windowWidth <= 1119) {
       let fontSize = 25;
-        chart.options.plugins.legend.labels.font.size = fontSize;
-      
+      chart.options.plugins.legend.labels.font.size = fontSize;
     }
 
     chart.update();
   }
- 
 
-
-/*
+  /*
   resize event notes:
 
   - window.addEventListener("resize", ...) listens for when the browser window is resized.
@@ -437,12 +388,10 @@ if (doughnutCanvas) {
     whenever the window is resized.
 */
 
-
-window.addEventListener("resize", function () {
+  window.addEventListener("resize", function () {
     doughChartText(doughnutChart);
   });
 }
-
 
 /*
   barChartTextPlugin notes:
@@ -459,18 +408,15 @@ window.addEventListener("resize", function () {
     tick label with its own color:
 */
 
-
-
 const colors = [
-  "rgb(54, 162, 235)", // blue
+  "rgb(48, 128, 208)",
+  "rgb(255, 99, 132)", // red
+
   "rgb(255, 159, 64)", // orange
   "rgb(255, 205, 86)", // yellow
   "rgb(75, 192, 192)", // green
   "rgb(153, 102, 255)", // purple
-  "rgb(255, 99, 132)", // red
 ];
-
-
 
 const barChartTextPlugin = {
   id: "barTextColor",
@@ -517,13 +463,10 @@ Bar Chart Setup:
 
 */
 
-
-
-
 let chartBar;
 
 if (chartBarCanvas) {
-   chartBar = new Chart(document.getElementById("barChart"), {
+  chartBar = new Chart(document.getElementById("barChart"), {
     type: "bar",
     data: {
       labels: nameArray,
@@ -571,9 +514,6 @@ if (chartBarCanvas) {
   });
 }
 
-
-
-
 /* 
 
 Function "confirmPassword" used to validate password confirmation when creating an account.
@@ -589,9 +529,6 @@ If both passwords match → remove the alert (if any) and enable the "Create Acc
 This ensures the user confirms their intended password before account creation.
 
 */
-
-
-
 
 const confirmPassword = function () {
   const createAccountButton = document.querySelector(".create-account-button");
@@ -609,8 +546,6 @@ const confirmPassword = function () {
   }
 };
 
-
-
 /*
   showNameBtn notes:
 
@@ -625,18 +560,12 @@ const confirmPassword = function () {
   - This lets the user toggle editing options for an existing expense.
 */
 
-
-
 const showNameBtn = function (index) {
-  
   const EditNameBtn = document.getElementById("edit-name-button-" + index);
-  const yellowEditnameBtn = getComputedStyle(EditNameBtn).display
-  
+  const yellowEditnameBtn = getComputedStyle(EditNameBtn).display;
 
   const cancelEditNameForm = document.getElementById("edit-name-form-" + index);
   let cancelEditNameFormDisplay = getComputedStyle(cancelEditNameForm).display;
-
-  
 
   if (yellowEditnameBtn === "none") {
     EditNameBtn.style.display = "inline-flex";
@@ -646,11 +575,7 @@ const showNameBtn = function (index) {
     EditNameBtn.style.display = "none";
     cancelEditNameForm.style.display = "none";
   }
-
-  
 };
-
-
 
 /*
    showCostBtn notes:
@@ -666,9 +591,7 @@ const showNameBtn = function (index) {
   - This lets the user toggle editing options for an existing expense.
 */
 
-
 const showCostBtn = function (index) {
-  
   const mainEditButton = document.getElementById("main-edit-button-" + index);
   const costBtn = document.getElementById("edit-cost-button-" + index);
   const yellowCostBtn = getComputedStyle(costBtn).display;
@@ -700,11 +623,6 @@ const showCostBtn = function (index) {
   - This lets the user toggle editing options for an existing expense.
 */
 
-
-
-
- 
-
 showDatebutton = function (index) {
   const dateButton = document.getElementById("edit-date-button-" + index);
   const dateBtnCss = getComputedStyle(dateButton).display;
@@ -720,8 +638,6 @@ showDatebutton = function (index) {
     editDateForm.style.display = "none";
   }
 };
-
-
 
 /*
   editModeActivated notes:
@@ -739,10 +655,6 @@ showDatebutton = function (index) {
     and return the row to normal view.
 */
 
-
-
-
-
 const editModeActivated = function (index) {
   const editIcon = document.getElementById("main-edit-button-" + index);
   const editPNG = document.getElementById("edit-icon-" + index);
@@ -759,8 +671,6 @@ const editModeActivated = function (index) {
   }
 };
 
-
-
 /*
   clearErrorMessage notes:
 
@@ -773,23 +683,16 @@ const editModeActivated = function (index) {
     message color back to black, effectively clearing the error state.
 */
 
-
-
-  
-  const clearErrorMessage = function () {
+const clearErrorMessage = function () {
   const errorElement = document.querySelector(".login-error");
-  
-  
-  const myDisplay = getComputedStyle(errorElement).display
- 
 
-  
+  const myDisplay = getComputedStyle(errorElement).display;
+
   if (myDisplay === "block") {
     errorElement.style.color = "#000000";
   }
 };
 
-
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -804,224 +707,151 @@ const editModeActivated = function (index) {
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-
-
 
 async function searchExpenseByName() {
-  expenseDataContainer.style.display = "none"
+  expenseDataContainer.style.display = "none";
 
-   quickSearchTable.innerHTML = ""
+  quickSearchTable.innerHTML = "";
 
-  searchTableDiv.style.display = "flex"
-  
+  searchTableDiv.style.display = "flex";
 
- 
+  let userInputValue = userInput.value;
+  let trimmedUserInputValue = userInputValue.trim();
 
-  
-
-  let userInputValue = userInput.value
-  let trimmedUserInputValue = userInputValue.trim()
-  
-
-  
-
-  let noResultsMessage = document.querySelector(".no-results")
-
-  
-  
-  
-  
-  
+  let noResultsMessage = document.querySelector(".no-results");
 
   if (trimmedUserInputValue === "") {
-    console.log(trimmedUserInputValue)
-    
-   
-    searchTableDiv.style.display = "none"
-  }
+    console.log(trimmedUserInputValue);
 
-  else {
-     
-  
-   try {
-     
-      const response = await fetch(`/user_search?userSearch=${encodeURIComponent(trimmedUserInputValue)}`)
-      const data = await response.json()
-      
-      let resultsAmount = data.length
+    searchTableDiv.style.display = "none";
+  } else {
+    try {
+      const response = await fetch(
+        `/user_search?userSearch=${encodeURIComponent(trimmedUserInputValue)}`
+      );
+      const data = await response.json();
+
+      let resultsAmount = data.length;
 
       if (data.message == "no results") {
-        let searchTable = document.querySelector(".search-table")
-        searchTable.style.display = "none"
-        
-        
-        searchTableDiv.style.display = "flex"
-        searchTableDiv.style.justifyContent = "center"
-        noResultsMessage = document.querySelector(".no-results")
-        noResultsMessage.style.display = "flex"
-        return
+        let searchTable = document.querySelector(".search-table");
+        searchTable.style.display = "none";
+
+        searchTableDiv.style.display = "flex";
+        searchTableDiv.style.justifyContent = "center";
+        noResultsMessage = document.querySelector(".no-results");
+        noResultsMessage.style.display = "flex";
+        return;
+      } else {
+        noResultsMessage.style.display = "none";
+        let searchTable = document.querySelector(".search-table");
+        searchTable.style.display = "table";
       }
 
-      else {
-       
-       
-        
-        noResultsMessage.style.display = "none"
-        let searchTable = document.querySelector(".search-table")
-        searchTable.style.display = "table"
-        
-      }
+      let dashboardResults = document.querySelector(".showing-results");
+      dashboardResults.style.display = "none";
 
-      let dashboardResults = document.querySelector(".showing-results")
-        dashboardResults.style.display = "none"
+      let showQuickSearchResults = document.querySelector(
+        ".quick-search-results"
+      );
+      showQuickSearchResults.innerHTML = `Showing ${resultsAmount} of ${resultsAmount} results`;
 
-     
-      let showQuickSearchResults = document.querySelector(".quick-search-results")
-        showQuickSearchResults.innerHTML = `Showing ${resultsAmount} of ${resultsAmount} results`
+      const tableHeadRow = document.createElement("thead");
 
+      const expenseDataHeaderRow = document.createElement("tr");
 
-      
-       
-    const tableHeadRow = document.createElement("thead")
+      const expenseNameHeader = document.createElement("th");
+      expenseNameHeader.textContent = "Name";
 
-    const expenseDataHeaderRow = document.createElement("tr")
+      const expenseCostHeader = document.createElement("th");
+      expenseCostHeader.textContent = "Cost";
 
-    const expenseNameHeader = document.createElement("th")
-      expenseNameHeader.textContent= "Name"
-   
+      const expenseDateHeader = document.createElement("th");
+      expenseDateHeader.textContent = "Date";
 
-    const expenseCostHeader = document.createElement("th")
-      expenseCostHeader.textContent = "Cost"
-   
+      expenseDataHeaderRow.appendChild(expenseNameHeader);
+      expenseDataHeaderRow.appendChild(expenseCostHeader);
+      expenseDataHeaderRow.appendChild(expenseDateHeader);
 
-    const expenseDateHeader = document.createElement("th")
-    expenseDateHeader.textContent = "Date"
+      expenseNameHeader.style.color = "#000000";
+      expenseCostHeader.style.color = "#000000";
+      expenseDateHeader.style.color = "#000000";
 
-     
-      
-      expenseDataHeaderRow.appendChild(expenseNameHeader)
-      expenseDataHeaderRow.appendChild(expenseCostHeader)
-      expenseDataHeaderRow.appendChild(expenseDateHeader)
+      tableHeadRow.appendChild(expenseDataHeaderRow);
 
-     
-     
+      quickSearchTable.appendChild(tableHeadRow);
 
-      
-      expenseNameHeader.style.color =  "#000000"
-      expenseCostHeader.style.color =  "#000000"
-      expenseDateHeader.style.color =  "#000000"
-
-      
-
-      tableHeadRow.appendChild(expenseDataHeaderRow)
-
-      quickSearchTable.appendChild(tableHeadRow)
-
-
-      tBody = document.createElement("tbody")
+      tBody = document.createElement("tbody");
 
       for (let info of data) {
-        expense_name = info.expense_name
-        expense_cost = info.expense_cost
-        expense_date = info.expense_date
+        expense_name = info.expense_name;
+        expense_cost = info.expense_cost;
+        expense_date = info.expense_date;
 
+        const trDataRow = document.createElement("tr");
 
-        const trDataRow = document.createElement("tr")
+        const tdName = document.createElement("td");
+        tdName.textContent = expense_name;
 
-        const tdName = document.createElement("td")
-          tdName.textContent = expense_name
+        const tdCost = document.createElement("td");
+        tdCost.textContent = expense_cost;
 
-        const tdCost = document.createElement("td")
-          tdCost.textContent = expense_cost
+        const tdDate = document.createElement("td");
+        tdDate.textContent = expense_date;
 
-        const tdDate = document.createElement("td")
-          tdDate.textContent = expense_date
+        trDataRow.appendChild(tdName);
+        trDataRow.appendChild(tdCost);
+        trDataRow.appendChild(tdDate);
 
-      
-      
-      trDataRow.appendChild(tdName)
-      trDataRow.appendChild(tdCost)
-      trDataRow.appendChild(tdDate)
+        tdName.style.color = "#FFFFFF";
+        tdCost.style.color = "#FFFFFF";
+        tdDate.style.color = "#FFFFFF";
 
-      tdName.style.color = "#FFFFFF"
-      tdCost.style.color = "#FFFFFF"
-      tdDate.style.color = "#FFFFFF"
+        tBody.appendChild(trDataRow);
 
-      
-      
-      
-     
-
-     
-      tBody.appendChild(trDataRow)
-
-    quickSearchTable.appendChild(tBody)
-
-      
+        quickSearchTable.appendChild(tBody);
+      }
+    } catch (error) {
+      console.log(error);
     }
-}
-
-catch(error) {
-    console.log(error)
   }
-
 }
-
-}
-
- 
-
 
 function turnOnCancelIcon() {
-  let userInputValue = userInput.value
-  let trimmedValue = userInputValue.trim()
-  
+  let userInputValue = userInput.value;
+  let trimmedValue = userInputValue.trim();
+
   if (trimmedValue.length > 0) {
-    searchInputCancelIcon.style.display = "flex"
+    searchInputCancelIcon.style.display = "flex";
+  } else {
+    searchInputCancelIcon.style.display = "none";
   }
-  else {
-    searchInputCancelIcon.style.display = "none"
-  }
-  
 }
 
+searchInputCancelIcon.addEventListener("click", () => {
+  userInput.value = "";
+  searchInputCancelIcon.style.display = "none";
+  searchTableDiv.style.display = "none";
+  userInput.focus();
+});
 
-searchInputCancelIcon.addEventListener("click", ()=> {
-  userInput.value = ""
-  searchInputCancelIcon.style.display = "none"
-  searchTableDiv.style.display = "none"
-  userInput.focus()
-})
-
-
-
-
-
-
-searchBoxUl.addEventListener("click", ()=> {
-
-
-
+searchBoxUl.addEventListener("click", () => {
   if (searchBoxUl.classList.contains("close-search-box")) {
-    openSidebar.classList.add("sidebar")
-  }
-  
-   if (toggleButton.classList.contains("bx-chevron-right")) {
-        toggleButton.classList.add("bx-chevron-left")
-        toggleButton.classList.remove("bx-chevron-right")
-      }
-     
- 
-  if (searchBoxUl.classList.contains("close-search-box")) {
-    searchBoxUl.classList.remove("close-search-box")
-    searchBoxUl.classList.add("opened-search-box")
+    openSidebar.classList.add("sidebar");
   }
 
-  
- 
+  if (toggleButton.classList.contains("bx-chevron-right")) {
+    toggleButton.classList.add("bx-chevron-left");
+    toggleButton.classList.remove("bx-chevron-right");
+  }
 
-  userInput.focus()
-})
+  if (searchBoxUl.classList.contains("close-search-box")) {
+    searchBoxUl.classList.remove("close-search-box");
+    searchBoxUl.classList.add("opened-search-box");
+  }
+
+  userInput.focus();
+});
 
 /* 
 
@@ -1043,8 +873,7 @@ window.addEventListener("DOMContentLoaded", () => {
     window.localStorage.setItem("color", "light");
     bodyColor.classList.toggle("light");
   }
-}
-);
+});
 
 /* 
 I've added an event listener to a button attached to my sidebar
@@ -1056,50 +885,35 @@ I'm going to be adding a search feature soon
 */
 
 if (toggleButton) {
-    toggleButton.addEventListener("click", () => {
-      let userInputValue = userInput.value
-      let trimmedUserInputValue = userInputValue.trim()
-      
-     
+  toggleButton.addEventListener("click", () => {
+    let userInputValue = userInput.value;
+    let trimmedUserInputValue = userInputValue.trim();
 
+    if (searchBoxUl.classList.contains("close-search-box")) {
+      searchBoxUl.classList.add("opened-search-box");
+      searchBoxUl.classList.remove("close-search-box");
+    } else {
+      searchBoxUl.classList.remove("opened-search-box");
+      searchBoxUl.classList.add("close-search-box");
+    }
 
-      if (searchBoxUl.classList.contains("close-search-box")){
-        searchBoxUl.classList.add("opened-search-box")
-        searchBoxUl.classList.remove("close-search-box")
-       
-        }
+    if (toggleButton.classList.contains("bx-chevron-right")) {
+      toggleButton.classList.add("bx-chevron-left");
+      toggleButton.classList.remove("bx-chevron-right");
+    } else {
+      toggleButton.classList.remove("bx-chevron-left");
+      toggleButton.classList.add("bx-chevron-right");
+    }
 
-      
-      
-      else {
-        searchBoxUl.classList.remove("opened-search-box")
-        searchBoxUl.classList.add("close-search-box")
-      }
+    openSidebar.classList.toggle("sidebar");
 
-      if (toggleButton.classList.contains("bx-chevron-right")) {
-        toggleButton.classList.add("bx-chevron-left")
-        toggleButton.classList.remove("bx-chevron-right")
-      }
-      else {
-        toggleButton.classList.remove("bx-chevron-left")
-        toggleButton.classList.add("bx-chevron-right")
-      }
-
-      openSidebar.classList.toggle("sidebar");
-      
-
-
-      if (openSidebar.classList.contains("sidebar") && trimmedUserInputValue.length > 0 ) {
-        
-       searchInputCancelIcon.style.display = "flex"
-       
-      }
-
-      else {
-       searchInputCancelIcon.style.display = "none"
-
-      
-      }
-})}
-
-
+    if (
+      openSidebar.classList.contains("sidebar") &&
+      trimmedUserInputValue.length > 0
+    ) {
+      searchInputCancelIcon.style.display = "flex";
+    } else {
+      searchInputCancelIcon.style.display = "none";
+    }
+  });
+}
