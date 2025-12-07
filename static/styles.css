@@ -1014,6 +1014,10 @@ input {
   height: 60px;
 }
 
+.monthly {
+  margin-top: 0;
+}
+
 .home_button {
   width: 57px;
   height: 21px;
@@ -1147,6 +1151,44 @@ input {
   background-color: #4bcbeb;
 }
 
+.highest-category-main-container {
+  background-color: #f6a623;
+  border-radius: 10px;
+  display: flex;
+  padding-left: 15px;
+  padding-right: 25px;
+  height: 100px;
+}
+
+.cat-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.highest-cat-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.highest-category-name {
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.3rem;
+}
+
+.highest-category-value {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 .details_container {
   display: flex;
 
@@ -1202,6 +1244,10 @@ input {
 
 .light .receipt-svg {
   color: #ffffff;
+}
+
+#tag-icon {
+  font-size: 30px;
 }
 
 .monthly {

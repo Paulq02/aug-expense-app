@@ -150,22 +150,25 @@ As expenses are added, the corresponding category’s amount is incremented, all
 
 */
 
-let categoryArray = [];
+const barDoughnutChartData = document.querySelector(".complete_json_data");
+let barDoughnutChartDataText = barDoughnutChartData.textContent;
 
-if (jsonStuff && categoryArray) {
-  const my_json_data = document.querySelector(".json_data").textContent;
-  converted_to_javascript_object = JSON.parse(my_json_data);
+let convertedBarDoughnutDataToJsObject = JSON.parse(barDoughnutChartDataText);
 
-  categoryArray = [
-    { category: "entertainment", amount: 0 },
-    { category: "groceries", amount: 0 },
-    { category: "rent", amount: 0 },
-    { category: "non-essentials", amount: 0 },
-    { category: "monthly", amount: 0 },
-    { category: "other", amount: 0 },
-  ];
+let nameArray = [];
+let amountArray = [];
 
-  /* 
+for (let item of convertedBarDoughnutDataToJsObject) {
+  catName = item.name;
+  catAmount = item.amount;
+  nameArray.push(catName);
+  amountArray.push(catAmount);
+}
+
+console.log(nameArray);
+console.log(amountArray);
+
+/* 
 // Loop through each expense object in the converted JavaScript data.
 // Each expense has an "expense_category" (like groceries, rent, entertainment)
 // and an "amount" representing how much was spent.
@@ -175,34 +178,6 @@ if (jsonStuff && categoryArray) {
 // each category so we can track overall spending by type.
 
 */
-
-  for (let item of converted_to_javascript_object) {
-    if (item.expense_category === "entertainment") {
-      let newAmount = item.amount;
-      categoryArray[0].amount += newAmount;
-    }
-    if (item.expense_category === "groceries") {
-      let newAmount = item.amount;
-      categoryArray[1].amount += newAmount;
-    }
-    if (item.expense_category === "rent") {
-      let newAmount = item.amount;
-      categoryArray[2].amount += newAmount;
-    }
-    if (item.expense_category === "non-essentials") {
-      let newAmount = item.amount;
-      categoryArray[3].amount += newAmount;
-    }
-    if (item.expense_category === "monthly") {
-      let newAmount = item.amount;
-      categoryArray[4].amount += newAmount;
-    }
-    if (item.expense_category === "other") {
-      let newAmount = item.amount;
-      categoryArray[5].amount += newAmount;
-    }
-  }
-}
 
 /*
 
@@ -222,16 +197,30 @@ to display the chart labels (names) and corresponding values (amounts).
 
 */
 
-let nameArray = [];
-
-let amountArray = [];
-
-for (let cat of categoryArray) {
-  let name = cat.category;
-  let amount = cat.amount;
-  nameArray.push(name);
-  amountArray.push(amount);
-}
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
 
 /* 
 
