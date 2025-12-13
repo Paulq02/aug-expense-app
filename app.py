@@ -354,43 +354,7 @@ def sort_year():
     
     
     
-    """ if user_year_selection == "all" :
-
-        sql_complete_results = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
-        cursor.execute(sql_complete_results,(user_id,))
-        fetched_results = cursor.fetchall()
-        complete_results_amount = len(fetched_results)
-
-
-
-        sql_all_expenses = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s"
-        cursor.execute(sql_all_expenses,(user_id,offset))
-        results = cursor.fetchall()
-        max_10_results_amount = len(results)
-        max_10_results_amount = int(max_10_results_amount)
-
-       
-        running_count = offset + max_10_results_amount
-
-
-        sql_sum_total_year_query = "SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s"
-        cursor.execute(sql_sum_total_year_query,(user_id,))
-        sql_sum_total_results = cursor.fetchone()
-        total_sum_cost = sql_sum_total_results[0] # type: ignore
-            
-            
-        
-        for data in results:
-            expense_id = data[0] # type: ignore
-            expense_name = data[1] # type: ignore
-            expense_cost = float(data[2]) # type: ignore
-            expense_date = data[3]# type: ignore
-            expense_category = data[4]# type: ignore
-            
-            converted_date = expense_date.strftime("%m-%d-%Y") # type: ignore
-            my_list.append({"expense_id":expense_id,"expense_name":expense_name, "amount":expense_cost, "expense_date":converted_date, "expense_category": expense_category})
-        """
-        
+   
         
     if user_year_selection == "this year":
         get_current_year = datetime.now()
@@ -505,13 +469,20 @@ def sort_year():
 @app.route("/sort_cost", methods=["GET", "POST"])
 def sort_by_cost():
     global running_count
+
+    get_current_date = datetime.now()
+    converted_date = str(get_current_date)
+    current_year = converted_date[0:4]
+    current_month = converted_date[5:7]
+    converted_month = get_current_date.strftime("%B")
+    
+   
+    
     my_list.clear()
 
     view_mode = "sort-cost"
 
-    #add_to_results = request.args.get("add-results", 10)
-
-    #add_to_results = int(add_to_results)
+   
     username = session.get("username").capitalize()
     
     offset = request.args.get("offset", 0)
@@ -523,19 +494,60 @@ def sort_by_cost():
     user_id = session.get("user_id")
     sort_expense_order = request.args.get("sort-expense", None)
 
-    sql_select_all = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
-    cursor.execute(sql_select_all,(user_id,))
+    sql_select_all = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s"
+    cursor.execute(sql_select_all,(user_id,current_year,current_month))
     sql_all_results = cursor.fetchall()
     complete_results_amount = len(sql_all_results)
     complete_results_amount = int(complete_results_amount)
 
 
+    sql_top_category_query = f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category ORDER BY top_category DESC LIMIT 1"
+    cursor.execute(sql_top_category_query,(user_id, current_year, current_month))
+    
+    sql_top_category_results = cursor.fetchone()
+
+    top_category_name = sql_top_category_results[0].title() # type: ignore
+    top_category_amount = sql_top_category_results[1] # type: ignore
+
+    
+
+
+    sql_total_sum_query = f"SELECT SUM(expense_cost) as total_sum FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s"
+    cursor.execute(sql_total_sum_query,(user_id,current_year,current_month))
+    sql_total_sum_results = cursor.fetchall()
+    
+
+    
+    for sum in sql_total_sum_results:
+        total_sum = sum[0]
+   
+
+
+
+
+
+    sql_bar_doughnut_chart_data= f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category"
+    cursor.execute(sql_bar_doughnut_chart_data,(user_id,current_year,current_month))
+   
+    bar_doughnut_chart_results = cursor.fetchall()
+    
+    bar_doughnut_chart_list = []
+
+    for item in bar_doughnut_chart_results:
+        name = item[0]
+        amount = float(item[1])
+        bar_doughnut_chart_name_dictionary = {"name":name, "amount":amount}
+        bar_doughnut_chart_list.append(bar_doughnut_chart_name_dictionary)
+   
+
+
     
     
 
-    sql_sort_cost = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_cost {sort_expense_order.upper()} LIMIT 10 OFFSET %s "
-    cursor.execute(sql_sort_cost, (user_id,offset))
+    sql_sort_cost = f"SELECT expense_id,expense_name,expense_cost,expense_date,expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s order by expense_cost {sort_expense_order} LIMIT 10 OFFSET %s "
+    cursor.execute(sql_sort_cost, (user_id,current_year,current_month,offset))
     results = cursor.fetchall()
+   
 
     max_10_results_amount= len(results)
     max_10_results_amount = int(max_10_results_amount)
@@ -558,6 +570,10 @@ def sort_by_cost():
     
     my_json= json.dumps(my_list)
 
+    chart_bar_doughnut_data = json.dumps(bar_doughnut_chart_list)
+
+   
+
       
     my_expenses = expenses_total()
 
@@ -566,7 +582,7 @@ def sort_by_cost():
 
     
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, time = time)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, time = time,   chart_bar_doughnut_data =  chart_bar_doughnut_data, showing_year = current_year, showing_month = converted_month, total_sum_cost = total_sum, top_category_name = top_category_name, top_category_amount = top_category_amount)
 
   
 
@@ -577,6 +593,14 @@ def sort_by_cost():
      
 @app.route("/new_sort", methods = ['POST', 'GET'])
 def new_sort():
+
+    current_date = datetime.now()
+    
+    current_year = str(current_date)[0:4]
+    current_month = str(current_date)[5:7]
+
+    converted_month = current_date.strftime("%B")
+   
 
     view_mode = "new-sort"
 
@@ -597,22 +621,61 @@ def new_sort():
 
     username = session.get("username")
 
-    sql_complete_query = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s"
-    cursor.execute(sql_complete_query,(user_id,))
+    sql_complete_query = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s"
+    cursor.execute(sql_complete_query,(user_id,current_year, current_month))
     complete_query_results = cursor.fetchall()
     complete_query_results_amount = len(complete_query_results)
     complete_results_amount = int(complete_query_results_amount)
     
+
+    sql_total_sum_query = """SELECT SUM(expense_cost) as total_sum FROM expense_tracker_expense_data 
+    WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s
+    """
+    cursor.execute(sql_total_sum_query,(user_id, current_year, current_month))
+    sql_total_sum_results = cursor.fetchone()
     
-   
+    total_sum_cost = sql_total_sum_results[0] # type: ignore
+
+    sql_top_category_query = "SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) =  %s GROUP BY expense_category ORDER BY top_category DESC LIMIT 1"
+    cursor.execute(sql_top_category_query, (user_id, current_year, current_month))
+    sql_top_category_results = cursor.fetchone()
+
+    top_category_name = sql_top_category_results[0].title() # type: ignore
+    top_category_amount = sql_top_category_results[1] # type: ignore
     
 
     
-    sql_select_all = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s ORDER BY expense_date {sort_new_order.upper()} LIMIT 10 OFFSET %s  "
-    cursor.execute(sql_select_all, (user_id,offset))
-    results = cursor.fetchall()
-    max_10_results_amount= len(results)
+    sql_max_10_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s ORDER BY expense_date {sort_new_order.upper()} LIMIT 10 OFFSET %s"
+    cursor.execute(sql_max_10_query, (user_id,current_year, current_month, offset))
+    max_10_results = cursor.fetchall()
+    max_10_results_amount= len(max_10_results)
     max_10_results_amount = int(max_10_results_amount)
+
+
+    sql_sum_all_category_query = """SELECT expense_category, SUM(expense_cost) AS total_per_category 
+    FROM expense_tracker_expense_data 
+    WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s 
+    GROUP BY expense_category
+    """
+    cursor.execute(sql_sum_all_category_query, (user_id,current_year, current_month))
+    sql_sum_all_category_results = cursor.fetchall()
+    
+    category_sum_list = []
+
+    for item in sql_sum_all_category_results:
+       
+        category = item[0] # type: ignore
+        total = float(item[1]) # type: ignore
+        category_sum_dictionary = {"name":category, "amount": total}
+        category_sum_list.append(category_sum_dictionary)
+        
+        
+    
+       
+
+        
+
+   
 
 
 
@@ -621,7 +684,7 @@ def new_sort():
 
 
 
-    for column in results:
+    for column in max_10_results:
         expense_id = column[0] # type: ignore
         expense_name = column[1]
         expense_cost = float(column[2])
@@ -633,6 +696,8 @@ def new_sort():
 
 
     my_json= json.dumps(my_list)
+    chart_bar_doughnut_data = json.dumps(category_sum_list)
+
 
 
 
@@ -646,7 +711,7 @@ def new_sort():
     
    
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count,  time = time, total_sum_cost = total_sum_cost, top_category_name = top_category_name, top_category_amount = top_category_amount, showing_year = current_year, showing_month = converted_month, chart_bar_doughnut_data = chart_bar_doughnut_data)
 
 
 

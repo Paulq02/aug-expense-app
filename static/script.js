@@ -155,6 +155,8 @@ let barDoughnutChartDataText = barDoughnutChartData.textContent;
 
 let convertedBarDoughnutDataToJsObject = JSON.parse(barDoughnutChartDataText);
 
+console.log(convertedBarDoughnutDataToJsObject);
+
 let nameArray = [];
 let amountArray = [];
 
