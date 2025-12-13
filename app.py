@@ -119,6 +119,10 @@ SQL queries:
     get_current_year = datetime.now()
     converted_year = str(get_current_year)
     showing_year = converted_year[0:4]
+
+    previous_year = int(showing_year)-1
+   
+
     current_month = converted_year[5:7]
 
     showing_month = get_current_year.strftime('%B')
@@ -234,7 +238,7 @@ SQL queries:
     free_money = calclulate_money_leftover()
 
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, previous_year = previous_year)
 
 
 

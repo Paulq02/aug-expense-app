@@ -167,9 +167,6 @@ for (let item of convertedBarDoughnutDataToJsObject) {
   amountArray.push(catAmount);
 }
 
-console.log(nameArray);
-console.log(amountArray);
-
 /* 
 // Loop through each expense object in the converted JavaScript data.
 // Each expense has an "expense_category" (like groceries, rent, entertainment)

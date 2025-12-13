@@ -1705,6 +1705,7 @@ tfoot td {
 
   justify-content: center;
   align-items: center;
+  padding-top: 10px;
 }
 
 .timeframe-display {
@@ -1715,6 +1716,9 @@ tfoot td {
   text-transform: capitalize;
   font-size: 2rem;
   margin-left: 10px;
+  margin-bottom: 0;
+  margin-top: 0;
+  margin-right: 10px;
 }
 
 .calender-icon {
@@ -1737,6 +1741,25 @@ tfoot td {
   font-style: normal;
   text-transform: capitalize;
   font-size: 1.6rem;
+}
+
+.change-view-date-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: red solid 5px;
+}
+
+.change-month-dropdown,
+.change-year-dropdown {
+  height: 30px;
+  font-size: large;
+  margin-right: 5px;
+}
+
+.change-year-dropdown-button {
+  cursor: pointer;
 }
 
 .light .expense_data_container {
