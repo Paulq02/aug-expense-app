@@ -30,7 +30,15 @@ const searchInputCancelIcon = document.querySelector(
 
 const quickSearchTable = document.querySelector(".search-table");
 
-expenseDataContainer = document.querySelector(".expense_data_container");
+const expenseDataContainer = document.querySelector(".expense_data_container");
+
+const quickSearchResultsContainer = document.querySelector(
+  ".quick-search-results-amount-container"
+);
+
+const quickSearchButtonContainer = document.querySelector(
+  ".quick-search-button-container"
+);
 
 /* 
 
@@ -196,27 +204,6 @@ to display the chart labels (names) and corresponding values (amounts).
 
 */
 
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------ */
@@ -707,11 +694,14 @@ async function searchExpenseByName() {
   let trimmedUserInputValue = userInputValue.trim();
 
   let noResultsMessage = document.querySelector(".no-results");
+  let tryAnotherSearch = document.querySelector(".try-again");
+  let backToDashboard = document.querySelector(".back-to-dashboard-button");
 
   if (trimmedUserInputValue === "") {
     console.log(trimmedUserInputValue);
 
     searchTableDiv.style.display = "none";
+    expenseDataContainer.style.display = "flex";
   } else {
     try {
       const response = await fetch(
@@ -729,6 +719,14 @@ async function searchExpenseByName() {
         searchTableDiv.style.justifyContent = "center";
         noResultsMessage = document.querySelector(".no-results");
         noResultsMessage.style.display = "flex";
+        noResultsMessage.style.justifyContent = "center";
+        noResultsMessage.style.fontSize = "3.5rem";
+        tryAnotherSearch.style.display = "flex";
+        tryAnotherSearch.style.justifyContent = "center";
+        backToDashboard.style.display = "flex";
+        backToDashboard.style.justifyContent = "center";
+        quickSearchResultsContainer.style.display = "none";
+        quickSearchButtonContainer.style.display = "none";
         return;
       } else {
         noResultsMessage.style.display = "none";
@@ -819,7 +817,7 @@ function turnOnCancelIcon() {
 searchInputCancelIcon.addEventListener("click", () => {
   userInput.value = "";
   searchInputCancelIcon.style.display = "none";
-  searchTableDiv.style.display = "none";
+
   userInput.focus();
 });
 
@@ -905,3 +903,10 @@ if (toggleButton) {
     }
   });
 }
+
+let backToDashboard = document.querySelector(".back-to-dashboard-button");
+backToDashboard.addEventListener("click", () => {
+  searchTableDiv.style.display = "none";
+  expenseDataContainer.style.display = "flex";
+  userInput.value = "";
+});

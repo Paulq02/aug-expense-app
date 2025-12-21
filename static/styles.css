@@ -244,8 +244,53 @@ th {
 
 .no-results {
   display: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
+.try-again {
+  display: none;
+  color: #bb86fc;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.4rem;
+}
+.back-to-dashboard-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.back-to-dashboard-button {
+  display: none;
+  background-color: #000000;
+  color: #bb86fc;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  border: solid #bb86fc 5px;
+  cursor: pointer;
+  text-decoration: none;
+  width: 250px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}
+.back-to-dashboard-icon {
+  fill: #bb86fc;
+  margin-left: 5px;
+}
+
+.no-entries-parent-container {
+  display: flex;
+  justify-content: center;
+}
+
+.no-entries-child-container {
+  width: 60%;
+  border: solid #3b3b3b 10px;
+  border-radius: 20px;
+}
 /* ===Search bar inside Sidebar END === */
 
 /* ===Sidebar START=== */
@@ -348,9 +393,8 @@ html.dark .light-mode-et {
 /* ---NO RESULTS/ quick-search-expense-display-container SETTINGS START -------- */
 
 .searched-expense-display-container {
-  display: none;
   flex-direction: column;
-
+  display: none;
   width: 100%;
   background-color: #000000;
 }
@@ -1749,6 +1793,12 @@ tfoot td {
   align-items: center;
   border-radius: 10px;
   border: red solid 5px;
+}
+
+.years {
+  font-size: 100px;
+  color: red;
+  background-color: #3b3b3b;
 }
 
 .change-month-dropdown,

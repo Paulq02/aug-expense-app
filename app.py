@@ -138,31 +138,41 @@ SQL queries:
     offset = int(request.args.get("offset", 0))
    
     user_year_selection = request.args.get("year", "none")
-    
-    
-    sql_select_max_category = f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category order by top_category desc LIMIT 1"
-    cursor.execute(sql_select_max_category,(user_id,showing_year,current_month))
-    top_category_results = cursor.fetchall()
-    
-    for item in top_category_results:
-        top_category_name =item[0].title() # type: ignore
-        top_category_amount = item[1] # type: ignore
+
+
+    selected_month = request.args.get("selected-month", None)
+    selected_year = request.args.get("selected-year", None)
+    print(f"THIS IS YOUR SELECTED YEAR NIGGGA -------- {selected_year}")
+    print(f"THIS IS YOUR SELECTED YEAR NIGGGA -------- {selected_month}")
+
+    if selected_year is None and selected_month is None:
+       
+        print(f"IF BLOCK SHOWING YEAR NIGGGGAAAAAAA{showing_year}")
+        print(f"IF BLOCK SHOWING MONTH NIGGGAAAA{current_month}")
+        
+        sql_select_max_category = f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category order by top_category desc LIMIT 1"
+        cursor.execute(sql_select_max_category,(user_id,showing_year,current_month))
+        top_category_results = cursor.fetchall()
+        
+        for item in top_category_results:
+            top_category_name =item[0].title() # type: ignore
+            top_category_amount = item[1] # type: ignore
  
    
    
    
-    sql_bar_doughnut_chart_data= f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category"
-    cursor.execute(sql_bar_doughnut_chart_data,(user_id,showing_year,current_month))
-   
-    bar_doughnut_chart_results = cursor.fetchall()
+        sql_bar_doughnut_chart_data= f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category"
+        cursor.execute(sql_bar_doughnut_chart_data,(user_id,showing_year,current_month))
     
-    bar_doughnut_chart_list = []
+        bar_doughnut_chart_results = cursor.fetchall()
+        
+        bar_doughnut_chart_list = []
 
-    for item in bar_doughnut_chart_results:
-        name = item[0]
-        amount = float(item[1])
-        bar_doughnut_chart_name_dictionary = {"name":name, "amount":amount}
-        bar_doughnut_chart_list.append(bar_doughnut_chart_name_dictionary)
+        for item in bar_doughnut_chart_results:
+            name = item[0]
+            amount = float(item[1])
+            bar_doughnut_chart_name_dictionary = {"name":name, "amount":amount}
+            bar_doughnut_chart_list.append(bar_doughnut_chart_name_dictionary)
 
        
 
@@ -173,72 +183,195 @@ SQL queries:
 
     
     
-    sql_complete_results = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= {showing_year} AND MONTH(expense_date) = {current_month}"
-    cursor.execute(sql_complete_results,(user_id,))
-    complete_results = cursor.fetchall()
-    complete_results_amount = len(complete_results)
-    complete_results_amount = int(complete_results_amount)
+        sql_complete_results = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= {showing_year} AND MONTH(expense_date) = {current_month}"
+        cursor.execute(sql_complete_results,(user_id,))
+        complete_results = cursor.fetchall()
+        complete_results_amount = len(complete_results)
+        complete_results_amount = int(complete_results_amount)
 
-    
-    
-    
-    
-    sql_sum_total_query = f"SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = {showing_year} AND MONTH(expense_date) = {current_month}"
-    cursor.execute(sql_sum_total_query,(user_id,))
-    sql_sum_total_results = cursor.fetchone()
-    total_sum_cost = sql_sum_total_results[0] # type: ignore
+        
+        
+        
+        
+        sql_sum_total_query = f"SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = {showing_year} AND MONTH(expense_date) = {current_month}"
+        cursor.execute(sql_sum_total_query,(user_id,))
+        sql_sum_total_results = cursor.fetchone()
+        total_sum_cost = sql_sum_total_results[0] # type: ignore
   
     
 
 
     
-    sql_max_10_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= {showing_year} AND MONTH(expense_date) = {current_month} ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s "
-    cursor.execute(sql_max_10_query, (user_id,offset))
-    max_10_results = cursor.fetchall()
-    max_10_results_amount = len(max_10_results)
-    max_10_results_amount = int(max_10_results_amount)
-    
-    
-    
-    running_count = offset + max_10_results_amount
+        sql_max_10_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= {showing_year} AND MONTH(expense_date) = {current_month} ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s "
+        cursor.execute(sql_max_10_query, (user_id,offset))
+        max_10_results = cursor.fetchall()
+        max_10_results_amount = len(max_10_results)
+        max_10_results_amount = int(max_10_results_amount)
+        
+        
+        
+        running_count = offset + max_10_results_amount
 
     
 
 
     
-    if not max_10_results:
-        return render_template('first_login.html', username=str(username).capitalize(), time = time)
-    
-    for data in max_10_results:
-        expense_id_row = data[0] # type: ignore
-        expense_row = data[1] # type: ignore
-        amount_row = float(data[2]) # type: ignore
+        if not max_10_results:
+            return render_template('first_login.html', username=str(username).capitalize(), time = time)
         
-        date_from_db = data[3] # type: ignore
+        for data in max_10_results:
+            expense_id_row = data[0] # type: ignore
+            expense_row = data[1] # type: ignore
+            amount_row = float(data[2]) # type: ignore
+            
+            date_from_db = data[3] # type: ignore
 
-        expense_category_row = data[4] # type: ignore
-        
-        formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
-        
-        
-        
-        my_list.append({"expense_id":expense_id_row, "expense_name":expense_row.title(), "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
+            expense_category_row = data[4] # type: ignore
+            
+            formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+            
+            
+            
+            my_list.append({"expense_id":expense_id_row, "expense_name":expense_row.title(), "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
         
    
        
-    my_json= json.dumps(my_list)
+        my_json= json.dumps(my_list)
 
-    chart_bar_doughnut_data = json.dumps(bar_doughnut_chart_list)
+        chart_bar_doughnut_data = json.dumps(bar_doughnut_chart_list)
+
+        
+
+        
+        my_expenses = expenses_total()
+
+        free_money = calclulate_money_leftover()
+
+        years_list = ["2024", "2025"]
+
+        month_list = {"1":"Jan", "2":"Feb", "3":"March", "4":"April", "5":"May", "6":"June", "7":"July", "8":"Aug", "9":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
+        month_list_reversed = dict(reversed(list(month_list.items())))
+        print(f"YOUR LIST MONTH REVERSED NIGGA----------{month_list_reversed}")
+
+    
+        return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, previous_year = previous_year, current_month = current_month, years_list = years_list,  month_list_reversed =  month_list_reversed)
+    else:
+        
+        showing_year = selected_year
+        current_month = selected_month
+
+        print(f"ELSE BLOCK SHOWING YEAR NIGGGGAAAAAAA{showing_year}")
+        print(f"ELSE BLOCK SHOWING MONTH NIGGGAAAA{current_month}")
+       
+       
+    
+        sql_select_max_category = f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category order by top_category desc LIMIT 1"
+        cursor.execute(sql_select_max_category,(user_id,showing_year,current_month))
+        top_category_results = cursor.fetchall()
+        
+        for item in top_category_results:
+            top_category_name =item[0].title() # type: ignore
+            top_category_amount = item[1] # type: ignore
+ 
+   
+   
+   
+        sql_bar_doughnut_chart_data= f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category"
+        cursor.execute(sql_bar_doughnut_chart_data,(user_id,showing_year,current_month))
+    
+        bar_doughnut_chart_results = cursor.fetchall()
+        
+        bar_doughnut_chart_list = []
+
+        for item in bar_doughnut_chart_results:
+            name = item[0]
+            amount = float(item[1])
+            bar_doughnut_chart_name_dictionary = {"name":name, "amount":amount}
+            bar_doughnut_chart_list.append(bar_doughnut_chart_name_dictionary)
+
+       
+
+    
+       
+    
+   
+
+    
+    
+        sql_complete_results = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= {showing_year} AND MONTH(expense_date) = {current_month}"
+        cursor.execute(sql_complete_results,(user_id,))
+        complete_results = cursor.fetchall()
+        complete_results_amount = len(complete_results)
+        complete_results_amount = int(complete_results_amount)
+
+        
+        
+        
+        
+        sql_sum_total_query = f"SELECT SUM(expense_cost) FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = {showing_year} AND MONTH(expense_date) = {current_month}"
+        cursor.execute(sql_sum_total_query,(user_id,))
+        sql_sum_total_results = cursor.fetchone()
+        total_sum_cost = sql_sum_total_results[0] # type: ignore
+  
+    
+
+
+    
+        sql_max_10_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date)= {showing_year} AND MONTH(expense_date) = {current_month} ORDER BY expense_date {asc_or_desc.upper()} LIMIT 10 OFFSET %s "
+        cursor.execute(sql_max_10_query, (user_id,offset))
+        max_10_results = cursor.fetchall()
+        max_10_results_amount = len(max_10_results)
+        max_10_results_amount = int(max_10_results_amount)
+        
+        
+        
+        running_count = offset + max_10_results_amount
 
     
 
-    
-    my_expenses = expenses_total()
-
-    free_money = calclulate_money_leftover()
 
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, previous_year = previous_year)
+        if not max_10_results:
+            return render_template('first_login.html', username=str(username).capitalize(), time = time)
+        
+        for data in max_10_results:
+            expense_id_row = data[0] # type: ignore
+            expense_row = data[1] # type: ignore
+            amount_row = float(data[2]) # type: ignore
+            
+            date_from_db = data[3] # type: ignore
+
+            expense_category_row = data[4] # type: ignore
+            
+            formatted_date = datetime.strftime(date_from_db, "%m-%d-%Y" ) # type: ignore
+            
+            
+            
+            my_list.append({"expense_id":expense_id_row, "expense_name":expense_row.title(), "amount":amount_row, "expense_date":formatted_date,  "expense_category":expense_category_row})
+        
+   
+       
+        my_json= json.dumps(my_list)
+
+        chart_bar_doughnut_data = json.dumps(bar_doughnut_chart_list)
+
+        
+
+        
+        my_expenses = expenses_total()
+
+        free_money = calclulate_money_leftover()
+
+        years_list = ["2024", "2025"]
+        
+        month_list = {"1":"Jan", "2":"Feb", "3":"March", "4":"April", "5":"May", "6":"June", "7":"July", "8":"Aug", "9":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
+        month_list_reversed = dict(reversed(list(month_list.items())))
+        print(f"YOUR LIST MONTH REVERSED NIGGA----------{month_list_reversed}")
+
+        for k, v in month_list.items():
+            print(k, v)
+    
+        return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, previous_year = previous_year,  current_month = current_month, years_list = years_list,  month_list_reversed =  month_list_reversed)
 
 
 
