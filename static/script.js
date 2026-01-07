@@ -1,8 +1,14 @@
-const openSidebar = document.querySelector(".close");
+const openSidebar = document.getElementById("close");
 
-const searchBoxUl = document.querySelector(".close-search-box");
+const dSearchBoxUl = document.getElementById("d-close-searchbox");
 
-const toggleButton = document.querySelector(".toggle");
+const aeSeachbox = document.getElementById("a-e-searchbox");
+
+const dashboardToggleButton = document.getElementById("d-toggle");
+
+const addExpenseToggleButton = document.getElementById(
+  "add-expense-toggle-button"
+);
 
 const userSearchIcon = document.querySelector(".search-icon");
 
@@ -18,7 +24,7 @@ const sortCost = document.querySelector(".sort-expense-dropdown");
 
 const jsonStuff = document.querySelector(".json_data");
 
-const userInput = document.querySelector(".search-input");
+const userInput = document.getElementById("search-input");
 
 const searchTableDiv = document.querySelector(
   ".searched-expense-display-container"
@@ -38,6 +44,14 @@ const quickSearchResultsContainer = document.querySelector(
 
 const quickSearchButtonContainer = document.querySelector(
   ".quick-search-button-container"
+);
+
+const noEntriesParentContainer = document.querySelector(
+  ".no-entries-parent-container"
+);
+
+const noEntriesChildContainer = document.querySelector(
+  ".no-entries-child-container"
 );
 
 /* 
@@ -159,20 +173,19 @@ As expenses are added, the corresponding category’s amount is incremented, all
 */
 
 const barDoughnutChartData = document.querySelector(".complete_json_data");
-let barDoughnutChartDataText = barDoughnutChartData.textContent;
-
-let convertedBarDoughnutDataToJsObject = JSON.parse(barDoughnutChartDataText);
-
-console.log(convertedBarDoughnutDataToJsObject);
-
 let nameArray = [];
 let amountArray = [];
+if (barDoughnutChartData) {
+  let barDoughnutChartDataText = barDoughnutChartData.textContent;
 
-for (let item of convertedBarDoughnutDataToJsObject) {
-  catName = item.name;
-  catAmount = item.amount;
-  nameArray.push(catName);
-  amountArray.push(catAmount);
+  let convertedBarDoughnutDataToJsObject = JSON.parse(barDoughnutChartDataText);
+
+  for (let item of convertedBarDoughnutDataToJsObject) {
+    catName = item.name;
+    catAmount = item.amount;
+    nameArray.push(catName);
+    amountArray.push(catAmount);
+  }
 }
 
 /* 
@@ -671,26 +684,40 @@ const clearErrorMessage = function () {
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+let offset = Number(0);
 
-async function searchExpenseByName() {
-  expenseDataContainer.style.display = "none";
+let qsPreviousResultsButton = document.querySelector(".qs-previous-results");
+let qsNextResultsButton = document.querySelector(".qs-next-results");
+
+let resultsAmount = Number(0);
+
+let sumAmount = Number(0);
+
+async function searchExpenseByName(offset) {
+  sumAmount = Number(0);
+
+  /*  console.log(
+    `function called sum amount should be back to zeroooooo -----${sumAmount}`
+  ); */
+  if (expenseDataContainer) {
+    expenseDataContainer.style.display = "none";
+  }
 
   quickSearchTable.innerHTML = "";
 
   searchTableDiv.style.display = "flex";
+  /* let myOffset = document.getElementById("starting-offset");
+  myOffsetValue = myOffset.value;
+  let convertedOffset = Number(myOffsetValue); */
+
+  /* let qsNextResultsOffset = document.querySelector(".qs-next-results-input");
+   */
+
+  /*  qsNextResultsValue = qsNextResultsOffset.value;
+  convertedNextResultsValue = Number(qsNextResultsValue); */
 
   let userInputValue = userInput.value;
+  console.log(userInputValue);
   let trimmedUserInputValue = userInputValue.trim();
 
   let noResultsMessage = document.querySelector(".no-results");
@@ -704,10 +731,20 @@ async function searchExpenseByName() {
     expenseDataContainer.style.display = "flex";
   } else {
     try {
+      console.log(offset);
       const response = await fetch(
-        `/user_search?userSearch=${encodeURIComponent(trimmedUserInputValue)}`
+        `/user_search?userSearch=${encodeURIComponent(
+          trimmedUserInputValue
+        )}&offset=${offset}`
       );
       const data = await response.json();
+
+      let total_results = data[0].total_results;
+
+      let sumAmount = data[0].running_count;
+      console.log(
+        `this is the sum amount right after getting it from the sum_amount ATTRIBUTE-----${sumAmount}`
+      );
 
       let resultsAmount = data.length;
 
@@ -725,22 +762,46 @@ async function searchExpenseByName() {
         tryAnotherSearch.style.justifyContent = "center";
         backToDashboard.style.display = "flex";
         backToDashboard.style.justifyContent = "center";
-        quickSearchResultsContainer.style.display = "none";
+
         quickSearchButtonContainer.style.display = "none";
+        noEntriesParentContainer.style.display = "flex";
+        noEntriesParentContainer.style.justifyContent = "center";
+        quickSearchResultsContainer.style.display = "none";
+
+        noEntriesChildContainer.style.display = "flex";
         return;
       } else {
+        quickSearchResultsContainer.style.display = "flex";
+        noEntriesChildContainer.style.display = "none";
         noResultsMessage.style.display = "none";
         let searchTable = document.querySelector(".search-table");
         searchTable.style.display = "table";
       }
+      backToDashboard.style.display = "flex";
+      backToDashboard.style.justifyContent = "center";
 
       let dashboardResults = document.querySelector(".showing-results");
-      dashboardResults.style.display = "none";
+      if (dashboardResults) {
+        dashboardResults.style.display = "none";
+      }
 
-      let showQuickSearchResults = document.querySelector(
-        ".quick-search-results"
-      );
-      showQuickSearchResults.innerHTML = `Showing ${resultsAmount} of ${resultsAmount} results`;
+      if (sumAmount < total_results) {
+        qsNextResultsButton.style.display = "flex";
+        qsNextResultsButton.justifyContent = "center";
+      }
+
+      if (sumAmount == total_results) {
+        qsNextResultsButton.style.display = "none";
+        qsPreviousResultsButton.style.display = "flex";
+        qsPreviousResultsButton.justifyContent = "center";
+      }
+      if (offset == 0) {
+        qsPreviousResultsButton.style.display = "none";
+      }
+
+      let quickSearchResultsAmount = document.getElementById("dp");
+
+      quickSearchResultsAmount.textContent = `Showing ${sumAmount} of ${total_results} results`;
 
       const tableHeadRow = document.createElement("thead");
 
@@ -802,6 +863,28 @@ async function searchExpenseByName() {
     }
   }
 }
+if (qsNextResultsButton) {
+  qsNextResultsButton.addEventListener("click", () => {
+    console.log("button clicked");
+
+    console.log(
+      `button is cliocked this is the offset before 10 is added ${offset}`
+    );
+    offset = offset + 10;
+    resultsAmount = console.log(
+      `THIS IS THE NEW OFFSET--------------------------${offset}`
+    );
+    searchExpenseByName(offset);
+  });
+}
+
+if (qsNextResultsButton) {
+  qsPreviousResultsButton.addEventListener("click", () => {
+    console.log("previous button clicked");
+    offset = offset - 10;
+    searchExpenseByName(offset);
+  });
+}
 
 function turnOnCancelIcon() {
   let userInputValue = userInput.value;
@@ -821,23 +904,29 @@ searchInputCancelIcon.addEventListener("click", () => {
   userInput.focus();
 });
 
-searchBoxUl.addEventListener("click", () => {
-  if (searchBoxUl.classList.contains("close-search-box")) {
-    openSidebar.classList.add("sidebar");
-  }
+if (dSearchBoxUl) {
+  dSearchBoxUl.addEventListener("click", () => {
+    if (dSearchBoxUl.classList.contains("close-search-box")) {
+      openSidebar.classList.add("sidebar");
+    }
 
-  if (toggleButton.classList.contains("bx-chevron-right")) {
-    toggleButton.classList.add("bx-chevron-left");
-    toggleButton.classList.remove("bx-chevron-right");
-  }
+    if (dashboardToggleButton.classList.contains("bx-chevron-right")) {
+      dashboardToggleButton.classList.add("bx-chevron-left");
+      dashboardToggleButton.classList.remove("bx-chevron-right");
+    }
 
-  if (searchBoxUl.classList.contains("close-search-box")) {
-    searchBoxUl.classList.remove("close-search-box");
-    searchBoxUl.classList.add("opened-search-box");
-  }
+    if (dSearchBoxUl.classList.contains("close-search-box")) {
+      dSearchBoxUl.classList.remove("close-search-box");
+      dSearchBoxUl.classList.add("opened-search-box");
+    }
 
-  userInput.focus();
-});
+    userInput.focus();
+  });
+}
+
+/* dashboardToggleButton.addEventListener("click", () => {
+  console.log("clicked");
+}); */
 
 /* 
 
@@ -870,25 +959,65 @@ I'm going to be adding a search feature soon
 
 */
 
-if (toggleButton) {
-  toggleButton.addEventListener("click", () => {
+if (dashboardToggleButton) {
+  dashboardToggleButton.addEventListener("click", () => {
+    console.log("clicked ");
     let userInputValue = userInput.value;
     let trimmedUserInputValue = userInputValue.trim();
 
-    if (searchBoxUl.classList.contains("close-search-box")) {
-      searchBoxUl.classList.add("opened-search-box");
-      searchBoxUl.classList.remove("close-search-box");
+    if (dSearchBoxUl.classList.contains("close-search-box")) {
+      dSearchBoxUl.classList.add("opened-search-box");
+      dSearchBoxUl.classList.remove("close-search-box");
     } else {
-      searchBoxUl.classList.remove("opened-search-box");
-      searchBoxUl.classList.add("close-search-box");
+      dSearchBoxUl.classList.remove("opened-search-box");
+      dSearchBoxUl.classList.add("close-search-box");
     }
 
-    if (toggleButton.classList.contains("bx-chevron-right")) {
-      toggleButton.classList.add("bx-chevron-left");
-      toggleButton.classList.remove("bx-chevron-right");
+    if (dashboardToggleButton.classList.contains("bx-chevron-right")) {
+      dashboardToggleButton.classList.add("bx-chevron-left");
+      dashboardToggleButton.classList.remove("bx-chevron-right");
     } else {
-      toggleButton.classList.remove("bx-chevron-left");
-      toggleButton.classList.add("bx-chevron-right");
+      dashboardToggleButton.classList.remove("bx-chevron-left");
+      dashboardToggleButton.classList.add("bx-chevron-right");
+    }
+
+    openSidebar.classList.toggle("sidebar");
+
+    if (
+      openSidebar.classList.contains("sidebar") &&
+      trimmedUserInputValue.length > 0
+    ) {
+      searchInputCancelIcon.style.display = "flex";
+    } else {
+      searchInputCancelIcon.style.display = "none";
+    }
+  });
+}
+
+if (addExpenseToggleButton) {
+  addExpenseToggleButton.addEventListener("click", () => {
+    console.log("clicked nioggggggaaaaa");
+
+    let userInputValue = userInput.value;
+    let trimmedUserInputValue = userInputValue.trim();
+
+    addExpenseSearchBox = addExpenseToggleButton.closest("a-e-searchbox");
+    console.log(`niggga this is what youre looking for ${addExpenseSearchBox}`);
+
+    if (aeSeachbox.classList.contains("close-search-box")) {
+      aeSeachbox.classList.add("opened-search-box");
+      aeSeachbox.classList.remove("close-search-box");
+    } else {
+      aeSeachbox.classList.remove("opened-search-box");
+      aeSeachbox.classList.add("close-search-box");
+    }
+
+    if (addExpenseToggleButton.classList.contains("bx-chevron-right")) {
+      addExpenseToggleButton.classList.add("bx-chevron-left");
+      addExpenseToggleButton.classList.remove("bx-chevron-right");
+    } else {
+      addExpenseToggleButton.classList.remove("bx-chevron-left");
+      addExpenseToggleButton.classList.add("bx-chevron-right");
     }
 
     openSidebar.classList.toggle("sidebar");
@@ -905,8 +1034,14 @@ if (toggleButton) {
 }
 
 let backToDashboard = document.querySelector(".back-to-dashboard-button");
-backToDashboard.addEventListener("click", () => {
-  searchTableDiv.style.display = "none";
-  expenseDataContainer.style.display = "flex";
-  userInput.value = "";
-});
+if (backToDashboard) {
+  backToDashboard.addEventListener("click", () => {
+    console.log(`sum amount before resetting back to zero ---${sumAmount}`);
+    sumAmount = Number(0);
+    console.log(`sum amount AFTER resetting back to zero ---${sumAmount}`);
+    offset = Number(0);
+    searchTableDiv.style.display = "none";
+    expenseDataContainer.style.display = "flex";
+    userInput.value = "";
+  });
+}

@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link rel="stylesheet" href="/static/styles.css" />
+
     <link
       rel="stylesheet"
       href="../static/jquery-ui-1.14.0.custom/jquery-ui.css"
@@ -34,7 +34,20 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+    <script>
+      let currentColor = window.localStorage.getItem("color");
+
+      let html = document.querySelector("html");
+      if (currentColor === "light") {
+        html.classList.remove("dark");
+        html.classList.add("light");
+      } else {
+        html.classList.remove("light");
+        html.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
     <nav class="close">
@@ -54,15 +67,19 @@
         <div class="text header-text" id="header-text">
           <span class="name">Expense Tracker</span>
         </div>
-        <div class="toggle-container">
-          <i style="font-size: 30px" class="bx bx-chevron-right toggle"></i>
+        <div id="a-e-toggle-container" class="toggle-container">
+          <i
+            style="font-size: 30px"
+            id="add-expense-toggle-button"
+            class="bx bx-chevron-right toggle a-e-toggle"
+          ></i>
         </div>
       </div>
 
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li class="close-search-box">
+      <div id="a-e-div-parent-container" class="menu-bar">
+        <div id="a-e-menu-div" class="menu">
+          <ul id="a-e-menu-links" class="menu-links">
+            <li id="a-e-searchbox" class="close-search-box a-e-searchbox">
               <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
@@ -261,6 +278,46 @@
         </div>
       </div>
     </div>
+    <div class="searched-expense-display-container">
+      <div class="quick-search-container">
+        <div class="quick-search-image-container">
+          <img
+            class="quick-search"
+            src="../static/images/quick-search.png"
+            alt="magnifying glass with lighting next to it"
+          />
+          <p class="quick-search-text">Quick Search</p>
+        </div>
+        <div class="quick-search-results-amount-container">
+          <p class="quick-search-results"></p>
+        </div>
+      </div>
+      <div class="no-entries-parent-container">
+        <div class="no-entries-child-container">
+          <p style="color: #bb86fc" class="no-results">No entries found</p>
+          <p class="try-again">Try another search</p>
+        </div>
+      </div>
+
+      <div class="search-table-main-container">
+        <table class="search-table"></table>
+      </div>
+      <div class="quick-search-button-container">
+        <button class="qs-previous-results">
+          <i class="fas fa-angle-double-left"></i> Previous results
+        </button>
+
+        <button class="qs-next-results">
+          Next results which ones is this
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+      </div>
+      <div class="back-to-dashboard-container">
+        <button type="button" class="back-to-dashboard-button">
+          Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i>
+        </button>
+      </div>
+    </div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
       integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -275,9 +332,12 @@
     ></script>
 
     <script>
+      let currentYear = "{{current_year_int_convert}}";
+      let previousYear = "{{previous_year}}";
       // Initialize the Datepicker
       $(function () {
         $("#datepicker").datepicker({
+          yearRange: previousYear + ":" + currentYear,
           changeMonth: true, // Allow changing months
           changeYear: true, // Allow changing years
           dateFormat: "yy-mm-dd", // Format of the date

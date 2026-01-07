@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link rel="stylesheet" href="/static/styles.css" />
+
     <link
       rel="stylesheet"
       href="../static/jquery-ui-1.14.0.custom/jquery-ui.css"
@@ -34,56 +34,85 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script>
+      let currentColor = window.localStorage.getItem("color");
+
+      let html = document.querySelector("html");
+      if (currentColor === "light") {
+        html.classList.remove("dark");
+        html.classList.add("light");
+      } else {
+        html.classList.remove("light");
+        html.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
-  <body class="dark">
-    <nav class="top-navbar-container">
-      <li class="paul"><a href="#">Expense Tracker</a></li>
-     
-      <li class="top-navbar"><a href="{{url_for('dashboard', offset= 0)}}">Home</a></li>
-      <li class="top-navbar"><a href="#">Profile</a></li>
-      <li class="top-navbar">
-        <a href="{{url_for('logout')}}">Logout</a>
-        <li class="welcome">Welcome {{username}}</li>
-      </li>
-    </nav>
-    <nav class="close">
-      <header>
-        <div class="image-text" id="image-text">
-          <span class="image">
-            <img
-              class="light-mode-et"
-              src="../static/images/NEW_ET_logo.png"
-              alt="icon of expense tracker"
-            />
-            <img
-              class="dark-mode-et"
-              src="../static/images/ET_lightmode.png"
-              alt="icon of expense tracker"
-            />
-          </span>
-          <div class="text header-text" id="header-text">
-            <span class="name">Expense Tracker</span>
-          </div>
+  <body>
+    <nav
+     id="close"
+    class="close">
+      <div class="image-text" id="image-text">
+        <span class="image">
+          <img
+            class="light-mode-et"
+            src="../static/images/NEW_ET_logo.png"
+            alt="icon of expense tracker"
+          />
+          <img
+            class="dark-mode-et"
+            src="../static/images/ET_lightmode.png"
+            alt="icon of expense tracker"
+          />
+        </span>
+        <div class="text header-text" id="header-text">
+          <span class="name">Expense Tracker</span>
         </div>
+        <div class="toggle-container">
+          <i
+            style="font-size: 30px"
+            id="d-toggle"
+            class="bx bx-chevron-right toggle d-toggle"
+          ></i>
+        </div>
+      </div>
 
-        <i class="bx bx-chevron-right toggle"></i>
-      </header>
       <div class="menu-bar">
         <div class="menu">
           <ul class="menu-links">
-            <li class="open-search-box close-search-box">
+            <li
+            id="d-close-searchbox"
+            class="close-search-box">
               <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
-                type="search"
-                placeholder="Search expense"
+                type="text"
+                name="user-search"
+                oninput="searchExpenseByName(0), turnOnCancelIcon()"
+                placeholder="Search expense by name"
                 id="search-input"
                 class="search-input"
               />
+              <!--
+              <input
+              style="display: none;"
+              name="offset"
+              id="starting-offset"
+              class="offset"
+              value="0">
+              -->
+              <img
+                class="search-input-cancel-icon"
+                width="20"
+                height="20"
+                src="https://img.icons8.com/fluency-systems-filled/48/multiply.png"
+                alt="multiply"
+              />
             </li>
+
             <li class="nav-link" id="dashboard-link">
-              <a href="#">
+              <a href="{{url_for('dashboard')}}">
                 <i class="bx bxs-home home-icon"></i>
                 <span class="text nav-text"> Dashboard</span>
               </a>
@@ -144,48 +173,11 @@
                 <span class="text nav-text"> Add Expense</span>
               </a>
             </li>
-            <li class="nav-link">
-              <a>
-                <svg
-                  class="sidebar-icon edit-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g>
-                    <g id="style=stroke">
-                      <g id="edit">
-                        <path
-                          id="vector (Stroke)"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M4.3367 16.071L3.94269 19.6888C3.9081 20.0064 4.17624 20.2746 4.49389 20.24L8.11161 19.846C8.45133 19.809 8.76823 19.6571 9.00986 19.4154L20.0011 8.42417C20.5869 7.83838 20.5869 6.88863 20.0011 6.30285L17.8798 4.18153C17.294 3.59574 16.3443 3.59574 15.7585 4.18153L4.76722 15.1728C4.52559 15.4144 4.3737 15.7313 4.3367 16.071ZM18.9405 3.12087L21.0618 5.24219C22.2334 6.41376 22.2334 8.31325 21.0618 9.48483L10.0705 20.4761C9.58725 20.9594 8.95345 21.2631 8.27401 21.3371L4.65629 21.7311C3.38571 21.8695 2.31313 20.7969 2.45151 19.5264L2.84552 15.9086C2.91952 15.2292 3.22329 14.5954 3.70656 14.1121L14.6978 3.12087C15.8694 1.94929 17.7689 1.94929 18.9405 3.12087Z"
-                          fill="#currentColor"
-                        ></path>
-                        <path
-                          id="vector (Stroke)_2"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M20.0011 6.30285L17.8798 4.18153C17.294 3.59574 16.3443 3.59574 15.7585 4.18153L14.4857 5.45432L18.7283 9.69696L20.0011 8.42417C20.5869 7.83838 20.5869 6.88863 20.0011 6.30285ZM18.7283 11.8183L12.3644 5.45432L14.6978 3.12087C15.8694 1.94929 17.7689 1.94929 18.9405 3.12087L21.0618 5.24219C22.2334 6.41376 22.2334 8.31326 21.0618 9.48483L18.7283 11.8183Z"
-                          fill="#currentColor"
-                        ></path>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-                <span class="text nav-text"> Edit Expense</span>
-              </a>
-            </li>
+            {##}
           </ul>
           <div class="bottom-content">
             <li class="bottom-list">
-              <a>
+              <a href="{{url_for('logout')}}">
                 <i class="bx bx-log-out logout-icon"></i>
                 <span class="logout-text">Logout</span>
               </a>
@@ -207,8 +199,88 @@
         </div>
       </div>
     </nav>
+    <header>
+      <nav class="top-navbar-container">
+        <li class="paul"><a href="#">Expense Tracker</a></li>
+        <div class="welcome-container">
+          <li class="welcome">Welcome, {{username}}</li>
+        </div>
+
+        <li class="top-navbar">
+          <a href="{{url_for('dashboard')}}">Home</a>
+        </li>
+        <li class="top-navbar"><a href="#">Profile</a></li>
+        <li class="top-navbar">
+          <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
+        </li>
+      </nav>
+    </header>
+
+    <div class="first_timer_parent_container">
     <div class="first_timer">
-      <p> No expenses found. Start tracking your spending by adding your first expense!</p>
+      <p>
+      
+       No expenses found for {{string_month}}  {{showing_year }} — try a different date
+      </p>
+      <div class="timeframe-main-container">
+              <div class="timeframe-child-container">
+                <img
+                  src="../static/images/calender-icon.png"
+                  alt="icon of a calender"
+                  class="calender-icon"
+                />
+                <p class="timeframe-display">
+                  Try another search &mdash;
+                </p>
+                <form action="{{url_for('dashboard')}}" class="change-month-year-form">
+                 
+              
+               
+                <select 
+               name="selected-month"
+               class="change-month-dropdown">
+
+               {% for k, v in month_list_reversed.items() %}
+               
+              
+                <option value="{{k}}"{% if k == current_month %}selected {% endif %}> {{v}} </option>
+               
+                {%endfor%}
+
+               </select>
+               
+                <select 
+               name="selected-year"
+               class="change-year-dropdown">
+             
+              {% for y in years_list %}
+              <option value="{{y}}"{%if y == showing_year %} selected{%endif%}>{{y}}</option>
+
+                 {%endfor%}
+             
+              
+
+
+
+
+                
+               
+               </select>
+               
+              
+              
+               <button
+               class="change-year-dropdown-button"
+               type="submit">View</button>
+               
+              </form>
+               
+              </div>
+             
+            </div>
+            </div>
+           
+      
     </div>
     <div class="first-expense-container">
       <a href="{{url_for('add_expense')}}">
@@ -266,8 +338,9 @@
         <span class="first-expense"> Add Expense</span>
       </a>
     </div>
-
    
+    
+
     <script>
       /* DELETE FUNCTION START SECTION */
       function deleteFunction(index) {
@@ -483,6 +556,7 @@
         });
       });
     </script>
-    <script src="../static/new_js.js"></script>
+    <script src="../static/script.js"></script>
+    
   </body>
 </html>

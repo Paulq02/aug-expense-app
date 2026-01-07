@@ -262,8 +262,9 @@ th {
   margin-top: 30px;
 }
 
-.back-to-dashboard-button {
+.back-to-dashboard-a-tag {
   display: none;
+  font-family: "Roboto", sans-serif;
   background-color: #000000;
   color: #bb86fc;
   border-radius: 5px;
@@ -275,6 +276,7 @@ th {
   height: 50px;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 .back-to-dashboard-icon {
   fill: #bb86fc;
@@ -282,11 +284,12 @@ th {
 }
 
 .no-entries-parent-container {
-  display: flex;
-  justify-content: center;
+  display: none;
 }
 
 .no-entries-child-container {
+  display: none;
+  flex-direction: column;
   width: 60%;
   border: solid #3b3b3b 10px;
   border-radius: 20px;
@@ -400,12 +403,12 @@ html.dark .light-mode-et {
 }
 
 .quick-search-results-amount-container {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
 
-.quick-search-results-amount {
+.quick-search-results {
   color: white;
   font-size: 2rem;
   margin: 0;
@@ -430,6 +433,7 @@ html.dark .light-mode-et {
 .search-table-main-container {
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
   /* margin-bottom: 25px; */
 }
 
@@ -1679,17 +1683,6 @@ tfoot td {
   font-style: normal;
 }
 
-.dark .quick-search-results {
-  display: none;
-  color: #ffffff;
-  font-size: 30px;
-  text-align: center;
-  margin-bottom: 20px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
 .dark .expense_data_container {
   display: flex;
   flex-direction: column;
@@ -1839,6 +1832,7 @@ tfoot td {
 .dark .cost-next-button,
 .dark .qs-previous-results,
 .dark .qs-next-results {
+  justify-content: center;
   background-color: #000000;
   color: #bb86fc;
   border-radius: 5px;
@@ -2558,11 +2552,18 @@ tfoot td {
 
 /* ========== FIRST TIME LOGIN / NO EXPENSE ENTRIES START ===================*/
 
+.first_timer_parent_container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
 .first_timer {
-  position: relative;
   top: 200px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 50%;
 }
 .first_timer p {
   color: #ffffff;
