@@ -441,6 +441,15 @@ html.dark .light-mode-et {
   width: 900px;
 }
 
+.search-table th {
+  width: 80px;
+}
+
+.search-table .qs-delete-th,
+.search-table .qs-edit-th {
+  width: 60px;
+}
+
 .quick-search-button-container {
   display: flex;
   justify-content: center;

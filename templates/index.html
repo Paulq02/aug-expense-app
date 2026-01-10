@@ -383,12 +383,14 @@
                   action="{{url_for('sort_by_cost', offset = offset )}}"
                 >
                   <input name="offset" style="display: none" value="{{0}}" />
-                    <input 
+                    <input
+                    style="display: none;"
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -407,12 +409,14 @@
                   action="{{url_for('new_sort')}}"
                   method="get"
                 >
-                 <input 
+                 <input
+                 style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -726,12 +730,14 @@
                     name="offset"
                     value="{{offset + 10}}"
                   />
-                  <input 
+                  <input
+                  style="display: none;"
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -792,32 +798,20 @@
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                   <input 
+                   <input
+                   style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
 
 
-                <!--NOT SURE WHY I NEED THE PREVIOUS MAX 10 INPUT KEEEPING IT IN CASE I NEED TO REVIST IT
-                  <input
-                    
-                    name="previous_max_10"
-                    value="{{max_10_results_amount}}"
-                  />
-                  
-                -->
-                <!--NOT SURE WHY I HAVE THIS DASH PREVIOUS BUTTON
-                  <input
-                   
-                    name="dash_prev_button"
-                    value="yes"
-                  />
-                -->
+  
 
                   <button class="previous-results" type="submit">
                     <i class="fas fa-angle-double-left"></i> previous results
@@ -844,12 +838,14 @@
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                    <input 
+                    <input
+                    style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -874,12 +870,14 @@
                     class="sort-cost-input"
                     value="{{offset + 10}}"
                   />
-                    <input 
+                    <input
+                    style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -936,12 +934,14 @@
                     name="sort-expense"
                     value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}"
                   />
-                    <input 
+                    <input
+                    style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -960,12 +960,14 @@
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                    <input 
+                    <input
+                  style="display: none;"
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -1213,12 +1215,14 @@
                     name="sort-by"
                     value="{{sort_new_order}}"
                   />
-                   <input 
+                   <input
+                   style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -1242,11 +1246,13 @@
                     value="{{sort_new_order}}"
                   />
                     <input 
+                    style="display: none;"
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -1274,12 +1280,14 @@
                     name="offset"
                     value="{{offset + 10}}"
                   />
-                   <input 
+                   <input
+                   style="display: none;" 
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -1309,11 +1317,13 @@
                     value="{{offset - 10}}"
                   />
                     <input 
+                    style="display: none;"
                   class="year-input"
                   name="selected-year"
                   value="{{showing_year}}">
 
                   <input
+                  style="display: none;"
                   class="month-input"
                   name="selected-month"
                   value="{{current_month}}">
@@ -1376,7 +1386,8 @@
      
 
         <div class="search-table-main-container">
-          <table class="search-table"></table>
+          <table class="search-table">
+          </table>
         </div>
       <div class="quick-search-button-container">
        

@@ -717,7 +717,7 @@ async function searchExpenseByName(offset) {
   convertedNextResultsValue = Number(qsNextResultsValue); */
 
   let userInputValue = userInput.value;
-  console.log(userInputValue);
+
   let trimmedUserInputValue = userInputValue.trim();
 
   let noResultsMessage = document.querySelector(".no-results");
@@ -731,7 +731,6 @@ async function searchExpenseByName(offset) {
     expenseDataContainer.style.display = "flex";
   } else {
     try {
-      console.log(offset);
       const response = await fetch(
         `/user_search?userSearch=${encodeURIComponent(
           trimmedUserInputValue
@@ -742,9 +741,6 @@ async function searchExpenseByName(offset) {
       let total_results = data[0].total_results;
 
       let sumAmount = data[0].running_count;
-      console.log(
-        `this is the sum amount right after getting it from the sum_amount ATTRIBUTE-----${sumAmount}`
-      );
 
       let resultsAmount = data.length;
 
@@ -816,9 +812,19 @@ async function searchExpenseByName(offset) {
       const expenseDateHeader = document.createElement("th");
       expenseDateHeader.textContent = "Date";
 
+      const deleteExpense = document.createElement("th");
+      deleteExpense.className = "qs-delete-th";
+      deleteExpense.textContent = "Delete";
+
+      const editExpense = document.createElement("th");
+      editExpense.className = "qs-edit-th";
+      editExpense.textContent = "Edit";
+
       expenseDataHeaderRow.appendChild(expenseNameHeader);
       expenseDataHeaderRow.appendChild(expenseCostHeader);
       expenseDataHeaderRow.appendChild(expenseDateHeader);
+      expenseDataHeaderRow.appendChild(deleteExpense);
+      expenseDataHeaderRow.appendChild(editExpense);
 
       expenseNameHeader.style.color = "#000000";
       expenseCostHeader.style.color = "#000000";
@@ -831,24 +837,51 @@ async function searchExpenseByName(offset) {
       tBody = document.createElement("tbody");
 
       for (let info of data) {
-        expense_name = info.expense_name;
-        expense_cost = info.expense_cost;
-        expense_date = info.expense_date;
+        expenseId = info.expense_id;
+
+        expenseName = info.expense_name;
+        expenseCost = info.expense_cost;
+        expenseDate = info.expense_date;
+        expenseId = info.expense_id;
+        /* console.log(expenseId); */
 
         const trDataRow = document.createElement("tr");
 
+        let deleteTd = document.createElement("td");
+        let editTd = document.createElement("td");
+
         const tdName = document.createElement("td");
-        tdName.textContent = expense_name;
+        tdName.textContent = expenseName;
 
         const tdCost = document.createElement("td");
-        tdCost.textContent = expense_cost;
+        tdCost.textContent = expenseCost;
 
         const tdDate = document.createElement("td");
-        tdDate.textContent = expense_date;
+        tdDate.textContent = expenseDate;
+
+        let trashIcon = document.createElement("img");
+        trashIcon.src = "static/images/new_trash_icon.png";
+        trashIcon.style.height = "30px";
+        trashIcon.style.textAlign = "center";
+        trashIcon.id = `trash-icon-id-${expenseId}`;
+
+        trashIcon.addEventListener("click", () => {
+          console.log(`this id had been clicked ${trashIcon.id}`);
+        });
+
+        deleteTd.appendChild(trashIcon);
+
+        let editIcon = document.createElement("img");
+        editIcon.src = "static/images/pencil_345648.png";
+        editIcon.style.height = "30px";
+        editIcon.id = `edit-icon-${expenseId}`;
+        editTd.appendChild(editIcon);
 
         trDataRow.appendChild(tdName);
         trDataRow.appendChild(tdCost);
         trDataRow.appendChild(tdDate);
+        trDataRow.appendChild(deleteTd);
+        trDataRow.appendChild(editTd);
 
         tdName.style.color = "#FFFFFF";
         tdCost.style.color = "#FFFFFF";
@@ -863,6 +896,7 @@ async function searchExpenseByName(offset) {
     }
   }
 }
+
 if (qsNextResultsButton) {
   qsNextResultsButton.addEventListener("click", () => {
     console.log("button clicked");
@@ -961,7 +995,6 @@ I'm going to be adding a search feature soon
 
 if (dashboardToggleButton) {
   dashboardToggleButton.addEventListener("click", () => {
-    console.log("clicked ");
     let userInputValue = userInput.value;
     let trimmedUserInputValue = userInputValue.trim();
 
