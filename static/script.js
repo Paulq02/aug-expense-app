@@ -7,7 +7,11 @@ const aeSeachbox = document.getElementById("a-e-searchbox");
 const dashboardToggleButton = document.getElementById("d-toggle");
 
 const addExpenseToggleButton = document.getElementById(
-  "add-expense-toggle-button"
+  "add-expense-toggle-button",
+);
+
+const searchTableMainContainer = document.querySelector(
+  ".search-table-main-container",
 );
 
 const userSearchIcon = document.querySelector(".search-icon");
@@ -27,32 +31,42 @@ const jsonStuff = document.querySelector(".json_data");
 const userInput = document.getElementById("search-input");
 
 const searchTableDiv = document.querySelector(
-  ".searched-expense-display-container"
+  ".searched-expense-display-container",
 );
 
 const searchInputCancelIcon = document.querySelector(
-  ".search-input-cancel-icon"
+  ".search-input-cancel-icon",
 );
 
-const quickSearchTable = document.querySelector(".search-table");
+/* const quickSearchTable = document.querySelector(".search-table"); */
 
 const expenseDataContainer = document.querySelector(".expense_data_container");
 
 const quickSearchResultsContainer = document.querySelector(
-  ".quick-search-results-amount-container"
+  ".quick-search-results-amount-container",
 );
 
 const quickSearchButtonContainer = document.querySelector(
-  ".quick-search-button-container"
+  ".quick-search-button-container",
 );
 
 const noEntriesParentContainer = document.querySelector(
-  ".no-entries-parent-container"
+  ".no-entries-parent-container",
 );
 
 const noEntriesChildContainer = document.querySelector(
-  ".no-entries-child-container"
+  ".no-entries-child-container",
 );
+
+const firstTimerParentContainer = document.querySelector(
+  ".first_timer_parent_container",
+);
+
+const firstExpenseContainer = document.querySelector(
+  ".first-expense-container",
+);
+
+let searchTable = document.querySelector(".search-table");
 
 /* 
 
@@ -680,6 +694,18 @@ const clearErrorMessage = function () {
     errorElement.style.color = "#000000";
   }
 };
+/* 
+async function quickSearchDelete(expenseId) {
+  try {
+    let response = await fetch(
+      `/quick_search_delete?expenseId=${encodeURIComponent(expenseId)}`
+    );
+    let data = await response.json();
+    console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+} */
 
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -696,25 +722,13 @@ let sumAmount = Number(0);
 async function searchExpenseByName(offset) {
   sumAmount = Number(0);
 
-  /*  console.log(
-    `function called sum amount should be back to zeroooooo -----${sumAmount}`
-  ); */
+  searchTableMainContainer.innerHTML = "";
+
   if (expenseDataContainer) {
     expenseDataContainer.style.display = "none";
   }
 
-  quickSearchTable.innerHTML = "";
-
   searchTableDiv.style.display = "flex";
-  /* let myOffset = document.getElementById("starting-offset");
-  myOffsetValue = myOffset.value;
-  let convertedOffset = Number(myOffsetValue); */
-
-  /* let qsNextResultsOffset = document.querySelector(".qs-next-results-input");
-   */
-
-  /*  qsNextResultsValue = qsNextResultsOffset.value;
-  convertedNextResultsValue = Number(qsNextResultsValue); */
 
   let userInputValue = userInput.value;
 
@@ -726,31 +740,41 @@ async function searchExpenseByName(offset) {
 
   if (trimmedUserInputValue === "") {
     console.log(trimmedUserInputValue);
+    if (firstTimerParentContainer) {
+      firstTimerParentContainer.style.display = "flex";
+    }
 
     searchTableDiv.style.display = "none";
-    expenseDataContainer.style.display = "flex";
+    if (expenseDataContainer) {
+      expenseDataContainer.style.display = "flex";
+    }
   } else {
     try {
       const response = await fetch(
         `/user_search?userSearch=${encodeURIComponent(
-          trimmedUserInputValue
-        )}&offset=${offset}`
+          trimmedUserInputValue,
+        )}&offset=${offset}`,
       );
       const data = await response.json();
-
-      let total_results = data[0].total_results;
-
-      let sumAmount = data[0].running_count;
 
       let resultsAmount = data.length;
 
       if (data.message == "no results") {
-        let searchTable = document.querySelector(".search-table");
-        searchTable.style.display = "none";
+        if (searchTable) {
+          searchTable.style.display = "none";
+        }
+        if (firstExpenseContainer) {
+          firstExpenseContainer.style.display = "none";
+        }
+        if (firstTimerParentContainer) {
+          firstTimerParentContainer.style.display = "none";
+        }
 
         searchTableDiv.style.display = "flex";
         searchTableDiv.style.justifyContent = "center";
         noResultsMessage = document.querySelector(".no-results");
+        noResultsMessage.textContent = "no results";
+
         noResultsMessage.style.display = "flex";
         noResultsMessage.style.justifyContent = "center";
         noResultsMessage.style.fontSize = "3.5rem";
@@ -765,131 +789,189 @@ async function searchExpenseByName(offset) {
         quickSearchResultsContainer.style.display = "none";
 
         noEntriesChildContainer.style.display = "flex";
-        return;
       } else {
+        if (firstExpenseContainer) {
+          firstExpenseContainer.style.display = "none";
+        }
+        if (firstTimerParentContainer) {
+          firstTimerParentContainer.style.display = "none";
+        }
+
         quickSearchResultsContainer.style.display = "flex";
         noEntriesChildContainer.style.display = "none";
         noResultsMessage.style.display = "none";
-        let searchTable = document.querySelector(".search-table");
-        searchTable.style.display = "table";
-      }
-      backToDashboard.style.display = "flex";
-      backToDashboard.style.justifyContent = "center";
 
-      let dashboardResults = document.querySelector(".showing-results");
-      if (dashboardResults) {
-        dashboardResults.style.display = "none";
-      }
+        let total_results = data[0].total_results;
 
-      if (sumAmount < total_results) {
-        qsNextResultsButton.style.display = "flex";
-        qsNextResultsButton.justifyContent = "center";
-      }
+        let sumAmount = data[0].running_count;
+        backToDashboard.style.display = "flex";
+        backToDashboard.style.justifyContent = "center";
 
-      if (sumAmount == total_results) {
-        qsNextResultsButton.style.display = "none";
-        qsPreviousResultsButton.style.display = "flex";
-        qsPreviousResultsButton.justifyContent = "center";
-      }
-      if (offset == 0) {
-        qsPreviousResultsButton.style.display = "none";
-      }
+        let dashboardResults = document.querySelector(".showing-results");
+        if (dashboardResults) {
+          dashboardResults.style.display = "none";
+        }
 
-      let quickSearchResultsAmount = document.getElementById("dp");
+        if (sumAmount < total_results) {
+          qsNextResultsButton.style.display = "flex";
+          qsNextResultsButton.justifyContent = "center";
+        }
 
-      quickSearchResultsAmount.textContent = `Showing ${sumAmount} of ${total_results} results`;
+        if (sumAmount == total_results) {
+          qsNextResultsButton.style.display = "none";
+          qsPreviousResultsButton.style.display = "flex";
+          qsPreviousResultsButton.justifyContent = "center";
+        }
+        if (offset == 0) {
+          qsPreviousResultsButton.style.display = "none";
+        }
+        let quickSearchTable = document.createElement("table");
+        quickSearchTable.className = "search-table";
 
-      const tableHeadRow = document.createElement("thead");
+        let quickSearchResultsAmount = document.getElementById("dp");
 
-      const expenseDataHeaderRow = document.createElement("tr");
+        quickSearchResultsAmount.textContent = `Showing ${sumAmount} of ${total_results} results`;
 
-      const expenseNameHeader = document.createElement("th");
-      expenseNameHeader.textContent = "Name";
+        let tableHeadRow = document.createElement("thead");
 
-      const expenseCostHeader = document.createElement("th");
-      expenseCostHeader.textContent = "Cost";
+        let expenseDataHeaderRow = document.createElement("tr");
 
-      const expenseDateHeader = document.createElement("th");
-      expenseDateHeader.textContent = "Date";
+        let expenseNameHeader = document.createElement("th");
+        expenseNameHeader.textContent = "Name";
 
-      const deleteExpense = document.createElement("th");
-      deleteExpense.className = "qs-delete-th";
-      deleteExpense.textContent = "Delete";
+        let expenseCostHeader = document.createElement("th");
+        expenseCostHeader.textContent = "Cost";
 
-      const editExpense = document.createElement("th");
-      editExpense.className = "qs-edit-th";
-      editExpense.textContent = "Edit";
+        let expenseDateHeader = document.createElement("th");
+        expenseDateHeader.textContent = "Date";
 
-      expenseDataHeaderRow.appendChild(expenseNameHeader);
-      expenseDataHeaderRow.appendChild(expenseCostHeader);
-      expenseDataHeaderRow.appendChild(expenseDateHeader);
-      expenseDataHeaderRow.appendChild(deleteExpense);
-      expenseDataHeaderRow.appendChild(editExpense);
+        let deleteExpense = document.createElement("th");
+        deleteExpense.className = "qs-delete-th";
+        deleteExpense.textContent = "Delete";
+        deleteExpense.style.width = "10%";
 
-      expenseNameHeader.style.color = "#000000";
-      expenseCostHeader.style.color = "#000000";
-      expenseDateHeader.style.color = "#000000";
+        let editExpense = document.createElement("th");
+        editExpense.className = "qs-edit-th";
+        editExpense.textContent = "Edit";
+        editExpense.style.width = "10%";
 
-      tableHeadRow.appendChild(expenseDataHeaderRow);
+        expenseDataHeaderRow.appendChild(expenseNameHeader);
+        expenseDataHeaderRow.appendChild(expenseCostHeader);
+        expenseDataHeaderRow.appendChild(expenseDateHeader);
+        expenseDataHeaderRow.appendChild(deleteExpense);
+        expenseDataHeaderRow.appendChild(editExpense);
 
-      quickSearchTable.appendChild(tableHeadRow);
+        expenseNameHeader.style.color = "#000000";
+        expenseCostHeader.style.color = "#000000";
+        expenseDateHeader.style.color = "#000000";
 
-      tBody = document.createElement("tbody");
+        tableHeadRow.appendChild(expenseDataHeaderRow);
 
-      for (let info of data) {
-        expenseId = info.expense_id;
+        quickSearchTable.appendChild(tableHeadRow);
 
-        expenseName = info.expense_name;
-        expenseCost = info.expense_cost;
-        expenseDate = info.expense_date;
-        expenseId = info.expense_id;
-        /* console.log(expenseId); */
+        tBody = document.createElement("tbody");
 
-        const trDataRow = document.createElement("tr");
+        for (let info of data) {
+          const expenseName = info.expense_name;
+          const expenseCost = info.expense_cost;
+          const expenseDate = info.expense_date;
 
-        let deleteTd = document.createElement("td");
-        let editTd = document.createElement("td");
+          const trDataRow = document.createElement("tr");
 
-        const tdName = document.createElement("td");
-        tdName.textContent = expenseName;
+          let deleteTd = document.createElement("td");
 
-        const tdCost = document.createElement("td");
-        tdCost.textContent = expenseCost;
+          let editTd = document.createElement("td");
 
-        const tdDate = document.createElement("td");
-        tdDate.textContent = expenseDate;
+          const tdName = document.createElement("td");
+          const qsEditName = document.createElement("button");
+          qsEditName.classList.add("edit-name-button");
+          qsEditName.textContent = "Edit name";
+          qsEditName.style.display = "inline";
+          qsEditName.dataset.expenseId = info.expense_id;
+          tdName.textContent = expenseName;
+          tdName.append(qsEditName);
 
-        let trashIcon = document.createElement("img");
-        trashIcon.src = "static/images/new_trash_icon.png";
-        trashIcon.style.height = "30px";
-        trashIcon.style.textAlign = "center";
-        trashIcon.id = `trash-icon-id-${expenseId}`;
+          const tdCost = document.createElement("td");
+          const qsEditCost = document.createElement("button");
+          qsEditCost.textContent = "Edit cost";
+          qsEditCost.classList.add("edit-cost-button");
+          qsEditCost.style.display = "inline";
+          qsEditCost.dataset.expenseId = info.expense_id;
+          tdCost.textContent = expenseCost;
+          tdCost.append(qsEditCost);
 
-        trashIcon.addEventListener("click", () => {
-          console.log(`this id had been clicked ${trashIcon.id}`);
-        });
+          const tdDate = document.createElement("td");
+          let editDateContainer = document.createElement("div");
+          let editDateInputContainer = document.createElement("div");
+          let editDateInputField = document.createElement("input");
+          editDateInputField.style.width = "50%";
+          let expenseDatepElement = document.createElement("p");
+          expenseDatepElement.textContent = expenseDate;
+          expenseDatepElement.style.display = "inline";
 
-        deleteTd.appendChild(trashIcon);
+          const qsEditDate = document.createElement("button");
+          qsEditDate.classList.add("edit-date-button");
+          qsEditDate.dataset.expenseId = info.expense_id;
+          qsEditDate.dataset.userId = info.user_id;
+          qsEditDate.style.display = "inline";
+          qsEditDate.textContent = "Edit date";
 
-        let editIcon = document.createElement("img");
-        editIcon.src = "static/images/pencil_345648.png";
-        editIcon.style.height = "30px";
-        editIcon.id = `edit-icon-${expenseId}`;
-        editTd.appendChild(editIcon);
+          editDateContainer.append(expenseDatepElement, qsEditDate);
+          editDateInputContainer.append(editDateInputField);
+          tdDate.append(editDateContainer, editDateInputContainer);
 
-        trDataRow.appendChild(tdName);
-        trDataRow.appendChild(tdCost);
-        trDataRow.appendChild(tdDate);
-        trDataRow.appendChild(deleteTd);
-        trDataRow.appendChild(editTd);
+          const trashIcon = document.createElement("img");
+          trashIcon.src = "static/images/new_trash_icon.png";
+          trashIcon.style.height = "30px";
+          trashIcon.style.textAlign = "center";
+          trashIcon.style.cursor = "pointer";
+          trashIcon.classList.add("trash-icon");
+          trashIcon.id = `trash-icon-${info.expense_id}`;
+          trashIcon.dataset.trashExpenseId = info.expense_id;
+          trashIcon.dataset.userId = info.user_id;
+          trashIcon.dataset.expenseName = expenseName;
+          trashIcon.dataset.expenseCost = expenseCost;
 
-        tdName.style.color = "#FFFFFF";
-        tdCost.style.color = "#FFFFFF";
-        tdDate.style.color = "#FFFFFF";
+          deleteTd.appendChild(trashIcon);
 
-        tBody.appendChild(trDataRow);
+          let editIcon = document.createElement("img");
+          editIcon.src = "static/images/pencil_345648.png";
+          editIcon.style.height = "30px";
+          editIcon.classList.add("qs-edit-icon");
+          editIcon.id = `edit-icon-${info.expense_id}`;
+          editIcon.style.cursor = "pointer";
+          editIcon.style.display = "inline";
+          editIcon.dataset.expenseId = info.expense_id;
+          editIcon.dataset.userId = info.user_id;
 
-        quickSearchTable.appendChild(tBody);
+          cancelEditMode = document.createElement("img");
+          cancelEditMode.src = "static/images/edit-mode.png";
+          cancelEditMode.className = "edit-mode";
+          cancelEditMode.id = `edit-mode-${info.expense_id}`;
+          cancelEditMode.style.height = "30px";
+          cancelEditMode.style.display = "none";
+          cancelEditMode.dataset.expenseId = info.expense_id;
+
+          editTd.appendChild(editIcon);
+          editTd.appendChild(cancelEditMode);
+
+          trDataRow.appendChild(tdName);
+          trDataRow.appendChild(tdCost);
+          trDataRow.append(tdDate);
+
+          trDataRow.appendChild(deleteTd);
+          trDataRow.appendChild(editTd);
+
+          tdName.style.color = "#FFFFFF";
+          tdCost.style.color = "#FFFFFF";
+          tdDate.style.color = "#FFFFFF";
+
+          tBody.appendChild(trDataRow);
+
+          quickSearchTable.appendChild(tBody);
+
+          searchTableMainContainer.appendChild(quickSearchTable);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -899,14 +981,12 @@ async function searchExpenseByName(offset) {
 
 if (qsNextResultsButton) {
   qsNextResultsButton.addEventListener("click", () => {
-    console.log("button clicked");
-
     console.log(
-      `button is cliocked this is the offset before 10 is added ${offset}`
+      `button is cliocked this is the offset before 10 is added ${offset}`,
     );
     offset = offset + 10;
     resultsAmount = console.log(
-      `THIS IS THE NEW OFFSET--------------------------${offset}`
+      `THIS IS THE NEW OFFSET--------------------------${offset}`,
     );
     searchExpenseByName(offset);
   });
@@ -930,13 +1010,14 @@ function turnOnCancelIcon() {
     searchInputCancelIcon.style.display = "none";
   }
 }
+if (searchInputCancelIcon) {
+  searchInputCancelIcon.addEventListener("click", () => {
+    userInput.value = "";
+    searchInputCancelIcon.style.display = "none";
 
-searchInputCancelIcon.addEventListener("click", () => {
-  userInput.value = "";
-  searchInputCancelIcon.style.display = "none";
-
-  userInput.focus();
-});
+    userInput.focus();
+  });
+}
 
 if (dSearchBoxUl) {
   dSearchBoxUl.addEventListener("click", () => {
@@ -1076,5 +1157,111 @@ if (backToDashboard) {
     searchTableDiv.style.display = "none";
     expenseDataContainer.style.display = "flex";
     userInput.value = "";
+  });
+}
+
+let cancelButton = document.querySelector(".cancel-delete");
+if (cancelButton) {
+  cancelButton.addEventListener("click", () => {
+    console.log("clicked");
+    let confirmDelete = document.querySelector(
+      ".delete-confirmation-main-container",
+    );
+    confirmDelete.style.display = "none";
+  });
+}
+
+let editButton = document.querySelector(".qs-edit-icon");
+if (editButton) {
+  editButton.addEventListener("click", (e) => {
+    console.log(e.target);
+  });
+}
+
+function displayDetails(eName, eCost, uId, eId) {
+  let confirmDeleteButton = document.querySelector(".confirm-delete");
+  confirmDeleteButton.style.display = "flex";
+  confirmDeleteButton.style.alignItems = "center";
+  confirmDeleteButton.dataset.userId = uId;
+  confirmDeleteButton.dataset.expenseId = eId;
+  let confirmDelete = document.querySelector(
+    ".delete-confirmation-main-container",
+  );
+  confirmDelete.style.display = "flex";
+  confirmDelete.style.justifyContent = "space-evenly";
+
+  let eNamep = document.querySelector(".e-name");
+  eNamep.style.display = "flex";
+  eNamep.textContent = `Expense: ${eName}`;
+
+  let eCostp = document.querySelector(".e-cost");
+  eCostp.style.display = "flex";
+  eCostp.textContent = `Expense Cost: ${eCost}`;
+}
+
+async function deleteConfirmation(eId, uId) {
+  try {
+    const response = await fetch(
+      `/quick_search_delete?expenseId=${encodeURIComponent(
+        eId,
+      )}&userId=${encodeURIComponent(uId)}`,
+      { method: "DELETE" },
+    );
+    const data = await response.json();
+    if (data.success === true) {
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+if (searchTableMainContainer) {
+  searchTableMainContainer.addEventListener("click", (e) => {
+    if (e.target.className === "trash-icon") {
+      let expenseName = e.target.dataset.expenseName;
+      let expenseCost = e.target.dataset.expenseCost;
+      let userId = e.target.dataset.userId;
+      let trashExpenseId = e.target.dataset.trashExpenseId;
+      console.log(e);
+
+      displayDetails(expenseName, expenseCost, userId, trashExpenseId);
+    }
+    if (e.target.classList.contains("qs-edit-icon")) {
+      console.log(e.target.dataset);
+      let selectedEditIcon = e.target;
+      let cancelEditMode = document.getElementById(
+        `edit-mode-${e.target.dataset.expenseId}`,
+      );
+      let turnOffEditIcon = document.getElementById(`${selectedEditIcon.id}`);
+      if (turnOffEditIcon.style.display === "inline") {
+        turnOffEditIcon.style.display = "none";
+        cancelEditMode.style.display = "inline";
+      }
+    }
+    if (e.target.classList.contains("edit-mode")) {
+      let cancelEditMode = document.getElementById(`${e.target.id}`);
+      let expenseId = cancelEditMode.dataset.expenseId;
+      let turnOnEditIcon = document.getElementById(`edit-icon-${expenseId}`);
+      cancelEditMode.style.display = "none";
+      turnOnEditIcon.style.display = "inline";
+    }
+  });
+}
+
+let confirmDeleteButton = document.querySelector(".confirm-delete");
+
+if (confirmDeleteButton) {
+  confirmDeleteButton.addEventListener("click", async (e) => {
+    let expenseId = e.target.dataset.expenseId;
+    let userId = e.target.dataset.userId;
+    let confirmation = await deleteConfirmation(expenseId, userId);
+    if (confirmation.success === true) {
+      let confirmDelete = document.querySelector(
+        ".delete-confirmation-main-container",
+      );
+      confirmDelete.style.display = "none";
+    }
+    searchExpenseByName(offset);
   });
 }

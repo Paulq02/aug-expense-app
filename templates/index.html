@@ -725,7 +725,7 @@
                   action="{{url_for('dashboard')}}"
                 >
                   <input
-                   
+                   style="display: none;"
                     class="n-results"
                     name="offset"
                     value="{{offset + 10}}"
@@ -757,6 +757,7 @@
                   action="{{url_for('dashboard')}}"
                 >
                   <input
+                  style="display: none;"
                     class="p-results"
                    
                     name="offset"
@@ -793,6 +794,7 @@
                   action="{{url_for('dashboard')}}"
                 >
                   <input
+                  style="display: none;"
                     class="p-results"
                     
                     name="offset"
@@ -1386,9 +1388,30 @@
      
 
         <div class="search-table-main-container">
-          <table class="search-table">
-          </table>
+         
         </div>
+      <div class="delete-confirmation-main-container">
+      <div class="warning-icon-container">
+      <img 
+      class="warning-icon"
+       src="../static/images/warning_icon.png"
+      alt="warning icon">
+      <p class="warning-message">Are you sure you want to delete?</p>
+      </div>
+      <div class="name-cost-container">
+       <p class="e-name"></p>
+      <p class="e-cost"></p>
+      </div>
+      <div class="qs-delete-expense-container">
+      <button
+      class="cancel-delete">Cancel</button>
+      <button
+      class="confirm-delete">Yes, I want to delete</button>
+
+      </div>
+      
+     
+      </div>
       <div class="quick-search-button-container">
        
       
