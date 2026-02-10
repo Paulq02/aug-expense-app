@@ -884,9 +884,11 @@ async function searchExpenseByName(offset) {
 
           const tdName = document.createElement("td");
           const qsEditName = document.createElement("button");
+          qsEditName.setAttribute("id", "edit-name-button");
           qsEditName.classList.add("edit-name-button");
+          qsEditName.dataset.expenseId = info.expense_id;
           qsEditName.textContent = "Edit name";
-          qsEditName.style.display = "inline";
+          qsEditName.style.display = "none";
           qsEditName.dataset.expenseId = info.expense_id;
           tdName.textContent = expenseName;
           tdName.append(qsEditName);
@@ -895,7 +897,9 @@ async function searchExpenseByName(offset) {
           const qsEditCost = document.createElement("button");
           qsEditCost.textContent = "Edit cost";
           qsEditCost.classList.add("edit-cost-button");
-          qsEditCost.style.display = "inline";
+          qsEditCost.setAttribute("id", "edit-cost-button");
+          qsEditCost.dataset.expenseId = info.expense_id;
+          qsEditCost.style.display = "none";
           qsEditCost.dataset.expenseId = info.expense_id;
           tdCost.textContent = expenseCost;
           tdCost.append(qsEditCost);
@@ -903,21 +907,38 @@ async function searchExpenseByName(offset) {
           const tdDate = document.createElement("td");
           let editDateContainer = document.createElement("div");
           let editDateInputContainer = document.createElement("div");
+          editDateInputContainer.dataset.expenseId = info.expense_id;
+          editDateInputContainer.classList.add("qs-edit-date-input-container");
+          editDateInputContainer.setAttribute(
+            "id",
+            "qs-edit-date-input-container",
+          );
           let editDateInputField = document.createElement("input");
           editDateInputField.style.width = "50%";
+          editDateInputContainer.style.display = "none";
           let expenseDatepElement = document.createElement("p");
           expenseDatepElement.textContent = expenseDate;
           expenseDatepElement.style.display = "inline";
 
           const qsEditDate = document.createElement("button");
           qsEditDate.classList.add("edit-date-button");
+          qsEditDate.setAttribute("id", "edit-date-button");
           qsEditDate.dataset.expenseId = info.expense_id;
           qsEditDate.dataset.userId = info.user_id;
-          qsEditDate.style.display = "inline";
+          qsEditDate.style.display = "none";
           qsEditDate.textContent = "Edit date";
 
+          const qsSaveDateEditButton = document.createElement("button");
+          qsSaveDateEditButton.classList.add("save-date-edit-button");
+          qsSaveDateEditButton.color = "white";
+          qsSaveDateEditButton.textContent = "save";
+          qsSaveDateEditButton.display = "none";
+
           editDateContainer.append(expenseDatepElement, qsEditDate);
-          editDateInputContainer.append(editDateInputField);
+          editDateInputContainer.append(
+            editDateInputField,
+            qsSaveDateEditButton,
+          );
           tdDate.append(editDateContainer, editDateInputContainer);
 
           const trashIcon = document.createElement("img");
@@ -1228,7 +1249,7 @@ if (searchTableMainContainer) {
       displayDetails(expenseName, expenseCost, userId, trashExpenseId);
     }
     if (e.target.classList.contains("qs-edit-icon")) {
-      console.log(e.target.dataset);
+      let targetExpenseId = e.target.dataset.expenseId;
       let selectedEditIcon = e.target;
       let cancelEditMode = document.getElementById(
         `edit-mode-${e.target.dataset.expenseId}`,
@@ -1238,13 +1259,54 @@ if (searchTableMainContainer) {
         turnOffEditIcon.style.display = "none";
         cancelEditMode.style.display = "inline";
       }
+      let qsEditDateButton = document.getElementById("edit-date-button");
+      if (qsEditDateButton.dataset.expenseId === targetExpenseId) {
+        qsEditDateButton.style.display = "inline";
+      }
+      let qsEditNameButton = document.getElementById("edit-name-button");
+      if (qsEditNameButton.dataset.expenseId === targetExpenseId) {
+        qsEditNameButton.style.display = "inline";
+      }
+      let qsEditCostButton = document.getElementById("edit-cost-button");
+      if (qsEditCostButton.dataset.expenseId === targetExpenseId) {
+        qsEditCostButton.style.display = "inline";
+      }
     }
     if (e.target.classList.contains("edit-mode")) {
+      let targetExpenseId = e.target.dataset.expenseId;
       let cancelEditMode = document.getElementById(`${e.target.id}`);
       let expenseId = cancelEditMode.dataset.expenseId;
       let turnOnEditIcon = document.getElementById(`edit-icon-${expenseId}`);
       cancelEditMode.style.display = "none";
       turnOnEditIcon.style.display = "inline";
+      let qsEditDateButton = document.getElementById("edit-date-button");
+      if (qsEditDateButton.dataset.expenseId === targetExpenseId) {
+        qsEditDateButton.style.display = "none";
+      }
+      let qsEditNameButton = document.getElementById("edit-name-button");
+      if (qsEditNameButton.dataset.expenseId === targetExpenseId) {
+        qsEditNameButton.style.display = "none";
+      }
+      let qsEditCostButton = document.getElementById("edit-cost-button");
+      if (qsEditCostButton.dataset.expenseId === targetExpenseId) {
+        qsEditCostButton.style.display = "none";
+      }
+      let editDateInputContainer = document.getElementById(
+        "qs-edit-date-input-container",
+      );
+      if (editDateInputContainer.dataset.expenseId === targetExpenseId) {
+        editDateInputContainer.style.display = "none";
+      }
+    }
+
+    if (e.target.classList.contains("edit-date-button")) {
+      let targetExpenseId = e.target.dataset.expenseId;
+      let editDateInputContainer = document.getElementById(
+        "qs-edit-date-input-container",
+      );
+      if (editDateInputContainer.dataset.expenseId === targetExpenseId) {
+        editDateInputContainer.style.display = "flex";
+      }
     }
   });
 }
