@@ -883,6 +883,24 @@ async function searchExpenseByName(offset) {
           let editTd = document.createElement("td");
 
           const tdName = document.createElement("td");
+          let qsEditNameContainer = document.createElement("div");
+          let qsEditNameInputContainer = document.createElement("div");
+          qsEditNameInputContainer.setAttribute(
+            "id",
+            "qs-edit-name-input-container",
+          );
+          qsEditNameInputContainer.style.display = "none";
+          qsEditNameInputContainer.dataset.expenseId = info.expense_id;
+
+          let qsEditNameInputField = document.createElement("input");
+          qsEditNameInputField.style.width = "50%";
+          let qsEditNameSaveInputButton = document.createElement("button");
+          qsEditNameSaveInputButton.classList.add("save-name-edit-button");
+          qsEditNameSaveInputButton.textContent = "save";
+          qsEditNameSaveInputButton.color = "white";
+          let expenseNamepTag = document.createElement("p");
+          expenseNamepTag.textContent = expenseName;
+          expenseNamepTag.style.display = "inline";
           const qsEditName = document.createElement("button");
           qsEditName.setAttribute("id", "edit-name-button");
           qsEditName.classList.add("edit-name-button");
@@ -890,19 +908,49 @@ async function searchExpenseByName(offset) {
           qsEditName.textContent = "Edit name";
           qsEditName.style.display = "none";
           qsEditName.dataset.expenseId = info.expense_id;
-          tdName.textContent = expenseName;
-          tdName.append(qsEditName);
+
+          qsEditNameContainer.append(expenseNamepTag, qsEditName);
+          qsEditNameInputContainer.append(
+            qsEditNameInputField,
+            qsEditNameSaveInputButton,
+          );
+          tdName.append(qsEditNameContainer, qsEditNameInputContainer);
 
           const tdCost = document.createElement("td");
+          let qsEditCostContainer = document.createElement("div");
+          let qsEditCostInputContainer = document.createElement("div");
+          qsEditCostInputContainer.setAttribute(
+            "id",
+            "qs-edit-cost-input-container",
+          );
+          qsEditCostInputContainer.style.display = "none";
+          qsEditCostInputContainer.dataset.expenseId = info.expense_id;
+          let qsEditCostInputField = document.createElement("input");
+          qsEditCostInputField.style.width = "50%";
+
           const qsEditCost = document.createElement("button");
+          let qsEditCostpTag = document.createElement("p");
+          qsEditCostpTag.textContent = expenseCost;
+          qsEditCostpTag.style.display = "inline";
           qsEditCost.textContent = "Edit cost";
           qsEditCost.classList.add("edit-cost-button");
           qsEditCost.setAttribute("id", "edit-cost-button");
           qsEditCost.dataset.expenseId = info.expense_id;
           qsEditCost.style.display = "none";
           qsEditCost.dataset.expenseId = info.expense_id;
-          tdCost.textContent = expenseCost;
-          tdCost.append(qsEditCost);
+
+          let qsSaveCostEditButton = document.createElement("button");
+          qsSaveCostEditButton.classList.add("save-cost-edit-button");
+          qsSaveCostEditButton.color = "white";
+          qsSaveCostEditButton.textContent = "save";
+
+          qsEditCostContainer.append(qsEditCostpTag, qsEditCost);
+          qsEditCostInputContainer.append(
+            qsEditCostInputField,
+            qsSaveCostEditButton,
+          );
+
+          tdCost.append(qsEditCostContainer, qsEditCostInputContainer);
 
           const tdDate = document.createElement("td");
           let editDateContainer = document.createElement("div");
@@ -1297,6 +1345,18 @@ if (searchTableMainContainer) {
       if (editDateInputContainer.dataset.expenseId === targetExpenseId) {
         editDateInputContainer.style.display = "none";
       }
+      let qsEditNameInputContainer = document.getElementById(
+        "qs-edit-name-input-container",
+      );
+      if (qsEditNameInputContainer.dataset.expenseId === targetExpenseId) {
+        qsEditNameInputContainer.style.display = "none";
+      }
+      let qsEditCostInputContainer = document.getElementById(
+        "qs-edit-cost-input-container",
+      );
+      if (qsEditCostInputContainer.dataset.expenseId === targetId) {
+        qsEditCostInputContainer.style.display = "none";
+      }
     }
 
     if (e.target.classList.contains("edit-date-button")) {
@@ -1306,6 +1366,24 @@ if (searchTableMainContainer) {
       );
       if (editDateInputContainer.dataset.expenseId === targetExpenseId) {
         editDateInputContainer.style.display = "flex";
+      }
+    }
+    if (e.target.classList.contains("edit-name-button")) {
+      let targetId = e.target.dataset.expenseId;
+      let qsEditNameInputContainer = document.getElementById(
+        "qs-edit-name-input-container",
+      );
+      if (qsEditNameInputContainer.dataset.expenseId === targetId) {
+        qsEditNameInputContainer.style.display = "flex";
+      }
+    }
+    if (e.target.classList.contains("edit-cost-button")) {
+      targetId = e.target.dataset.expenseId;
+      let qsEditCostInputContainer = document.getElementById(
+        "qs-edit-cost-input-container",
+      );
+      if (qsEditCostInputContainer.dataset.expenseId === targetId) {
+        qsEditCostInputContainer.style.display = "flex";
       }
     }
   });
