@@ -2038,7 +2038,6 @@ tfoot td {
 .edit-name-button,
 .edit-cost-button,
 .edit-date-button {
-  display: none;
   background-color: #fca311;
   width: 80px;
   height: 25px;
@@ -2206,7 +2205,6 @@ tfoot td {
 .edit-name-form,
 .edit-cost-form,
 .edit-date-form {
-  display: none;
   width: 250px;
   height: 35px;
 

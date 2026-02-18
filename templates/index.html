@@ -36,6 +36,10 @@
       rel="stylesheet"
     />
 
+
+
+
+
     <script>
       let currentColor = window.localStorage.getItem("color");
 
@@ -511,10 +515,11 @@
                         <div class="name-container">
                           {{ item.expense_name }}
                           <button
+                          style="display: none;"
                             type="button"
                             class="edit-name-button"
-                            id="edit-name-button-{{loop.index0}}"
-                            onclick="showEditnameForm({{loop.index0}});showEditnameInput({{loop.index0}});"
+                            id="edit-name-button-{{item.expense_id}}"
+                            onclick="showEditnameForm({{item.expense_id}});showEditnameInput({{item.expense_id}});"
                           >
                             <p>Edit name</p>
                           </button>
@@ -522,21 +527,24 @@
                         <div class="name-input-container">
                           <form
                             class="edit-name-form"
-                            id="edit-name-form-{{loop.index0}}"
-                            action="{{url_for('update_name', index = loop.index0, expense_id = item.expense_id)}}"
+                            style="display: none;"
+                            id="edit-name-form-{{item.expense_id}}"
+                            action="{{url_for('update_name', index = item.expense_id, expense_id = item.expense_id)}}"
                             method="post"
                           >
                             <input
+                            data-expense-id="{{item.expense_id}}"
                               class="edit-name-input"
                               type="text"
-                              id="edit-name-input-{{loop.index0}}"
+                              id="edit-name-input-{{item.expense_id}}"
                               autocomplete="off"
-                              name="new-name-input-{{loop.index0}}"
+                              name="new-name-input-{{item.expense_id}}"
                             />
                             <button
+                            
                               type="submit"
                               class="save-name-edit-button"
-                              id="save-name-edit-button-{{loop.index0}}"
+                              id="save-name-edit-button-{{item.expense_id}}"
                             >
                               Save
                             </button>
@@ -550,9 +558,10 @@
                         <div class="cost-container">
                           {{ "${:.2f}".format(item.amount) }}
                           <button
+                          style="display: none;"
                             class="edit-cost-button"
-                            id="edit-cost-button-{{loop.index0}}"
-                            onclick="showCostForm({{loop.index0}});showCostinput({{loop.index0}})"
+                            id="edit-cost-button-{{item.expense_id}}"
+                            onclick="showCostForm({{item.expense_id}});showCostinput({{item.expense_id}})"
                           >
                             <p>Edit cost</p>
                           </button>
@@ -560,19 +569,21 @@
                         <div class="cost-form-container">
                           <form
                             class="edit-cost-form"
-                            id="edit-cost-form-{{loop.index0}}"
+                            style="display: none;"
+                            id="edit-cost-form-{{item.expense_id}}"
                             method="POST"
-                            action="{{url_for('update_cost', index = loop.index0, expense_id = item.expense_id) }}"
+                            action="{{url_for('update_cost', index = item.expense_id, expense_id = item.expense_id) }}"
                           >
                             <input
+                            data-expense-id="{{item.expense_id}}"
                               class="edit-cost-input"
                               type="number"
-                              id="edit-cost-input-{{loop.index0}}"
-                              name="new-cost-input-{{loop.index0}}"
+                              id="edit-cost-input-{{item.expense_id}}"
+                              name="new-cost-input-{{item.expense_id}}"
                             />
                             <button
                               type="submit"
-                              id="save-cost-edit-button-{{loop.index0}}"
+                              id="save-cost-edit-button-{{item.expense_id}}"
                               class="save-cost-edit-button"
                             >
                               Save
@@ -586,30 +597,33 @@
                         <div class="date-container">
                           {{ item.expense_date}}
                           <button
+                          style="display: none;"
                             class="edit-date-button"
-                            id="edit-date-button-{{loop.index0}}"
-                            onclick="showDateForm({{loop.index0}});showDateInput({{loop.index0}})"
+                            id="edit-date-button-{{item.expense_id}}"
+                            onclick="showDateForm({{item.expense_id}});showDateInput({{item.expense_id}})"
                           >
                             <p>Edit date</p>
                           </button>
                         </div>
                         <div class="date-form-container">
                           <form
+                          style="display: none;"
                             class="edit-date-form"
-                            id="edit-date-form-{{loop.index0}}"
+                            id="edit-date-form-{{item.expense_id}}"
                             method="POST"
-                            action="{{url_for('update_date', index = loop.index0, expense_id = item.expense_id) }}"
+                            action="{{url_for('update_date', index = item.expense_id, expense_id = item.expense_id) }}"
                           >
                             <input
-                              id="datepicker-{{loop.index0}}"
+                            data-expense-id="{{item.expense_id}}"
+                              id="datepicker-{{item.expense_id}}"
                               type="text"
                               autocomplete="off"
-                              name="new-date-input-{{loop.index0}}"
+                              name="new-date-input-{{item.expense_id}}"
                             />
                             <button
                               type="submit"
                               class="save-date-edit-button"
-                              id="save-date-edit-button-{{loop.index0}}"
+                              id="save-date-edit-button-{{item.expense_id}}"
                             >
                               Save
                             </button>
@@ -620,7 +634,7 @@
                     <td class="delete-table-container">
                       <button
                         class="button_icon"
-                        onclick="deleteFunction({{loop.index0}})"
+                        onclick="deleteFunction({{item.expense_id}})"
                       >
                         <img
                           src="/static/images/new_trash_icon.png"
@@ -630,25 +644,27 @@
                     </td>
                     <td class="edit-table-container">
                       <button
+                      data-expense-id="{{item.expense_id}}"
                         class="main-edit-button"
-                        id="main-edit-button-{{loop.index0}}"
+                        id="main-edit-button-{{item.expense_id}}"
                         type="button"
-                        onclick="showCostBtn({{loop.index0}});showDatebutton({{loop.index0}});showNameBtn({{loop.index0}}); editModeActivated({{loop.index0}})"
+                        onclick="showCostBtn({{item.expense_id}});showDatebutton({{item.expense_id}});showNameBtn({{item.expense_id}}); editModeActivated({{item.expense_id}})"
                       >
                         <img
                           class="edit-icon"
-                          id="edit-icon-{{loop.index0}}"
+                          id="edit-icon-{{item.expense_id}}"
                           src="../static/images/pencil_345648.png"
                         />
                         <img
+                        data-expense-id="{{item.expense_id}}"
                           class="edit-mode"
-                          id="edit-mode-{{loop.index0}}"
+                          id="edit-mode-{{item.expense_id}}"
                           src="../static/images/edit-mode.png"
                         />
                       </button>
                     </td>
 
-                    <div class="btn_window" id="delete-{{loop.index0}}">
+                    <div class="btn_window" id="delete-{{item.expense_id}}">
                       <div class="prompt">
                         <img
                           src="../static/images/warning_icon.png"
@@ -668,7 +684,7 @@
                       <div class="btn_container">
                         <button
                           class="cancel"
-                          onclick="cancelDelete({{loop.index0}})"
+                          onclick="cancelDelete({{item.expense_id}})"
                         >
                           Cancel
                         </button>
@@ -1699,8 +1715,8 @@
       }
 
       function showDateInput(index) {
-        document.getElementById("datepicker");
-        document.style.display = "inline";
+        let showInput = document.getElementById(`datepicker-${index}`);
+        showInput.style.display = "inline";
       }
 
       function noDateEdit(index) {
@@ -1753,46 +1769,35 @@
       /* SVG CANCEL BUTTONS END */
     </script>
 
-    <!-- JQUERY CALENDER LINKS BELOW-->
+   
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"
-      integrity="sha512-MlEyuwT6VkRXExjj8CdBKNgd+e2H+aYZOCUaCrt9KRk6MlZDOs91V1yK22rwm8aCIsb5Ec1euL8f0g58RKT/Pg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <!--JQUERY CALENDER FUNCTION BELOW -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"
-      integrity="sha512-MlEyuwT6VkRXExjj8CdBKNgd+e2H+aYZOCUaCrt9KRk6MlZDOs91V1yK22rwm8aCIsb5Ec1euL8f0g58RKT/Pg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-
-    <script>
-      $(function () {
-        $("input[id^='datepicker-']").each(function () {
-          $(this).datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-          });
-        });
-      });
-    </script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+ 
+    <script>
+    let currentYear = "{{showing_year}}-12";
+      let previousYear = "{{previous_year}}-01";
+
+    let dashboardTable = document.querySelector(".dashboard-table")
+    if (dashboardTable) {
+      dashboardTable.addEventListener("click", (e)=> {
+      if (e.target.id.includes("datepicker")) {
+        let selectedInput = e.target
+         flatpickr(selectedInput, {
+        minDate: previousYear,
+        maxDate: currentYear}).open()
+       
+        
+      }
+     
+    })
+    }
+    
+
+
+    </script>
 
     <script src="../static/script.js"></script>
   </body>

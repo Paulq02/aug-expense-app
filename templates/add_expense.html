@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="dark" lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -85,7 +85,7 @@
               <input
                 type="text"
                 name="user-search"
-                oninput="searchExpenseByName(), turnOnCancelIcon()"
+                oninput="(searchExpenseByName(), turnOnCancelIcon())"
                 placeholder="Search expense by name"
                 id="search-input"
                 class="search-input"
@@ -247,7 +247,7 @@
                 <label for="date"> Date of expense</label>
                 <input
                   type="text"
-                  id="datepicker"
+                  id="add-date-input"
                   name="expense_date"
                   autocomplete="off"
                 />
@@ -318,30 +318,20 @@
         </button>
       </div>
     </div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"
-      integrity="sha512-MlEyuwT6VkRXExjj8CdBKNgd+e2H+aYZOCUaCrt9KRk6MlZDOs91V1yK22rwm8aCIsb5Ec1euL8f0g58RKT/Pg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-      let currentYear = "{{current_year_int_convert}}";
-      let previousYear = "{{previous_year}}";
-      // Initialize the Datepicker
-      $(function () {
-        $("#datepicker").datepicker({
-          yearRange: previousYear + ":" + currentYear,
-          changeMonth: true, // Allow changing months
-          changeYear: true, // Allow changing years
-          dateFormat: "yy-mm-dd", // Format of the date
-        });
+      let dateInput = document.getElementById("add-date-input");
+      let currentYear = "{{current_year_int_convert}}-12";
+      let previousYear = "{{previous_year}}-01";
+      console.log(currentYear);
+      flatpickr(dateInput, {
+        minDate: previousYear,
+        maxDate: currentYear,
       });
     </script>
     <script src="../static/script.js"></script>

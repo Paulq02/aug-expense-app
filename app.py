@@ -918,17 +918,24 @@ def submit_expense():
 @app.route('/add_expense/', methods=["GET", "POST"])
 
 def add_expense():
+   
     get_current_year = datetime.now()
    
 
     converted_year = str(get_current_year)
+
+
+    
     showing_year = converted_year[0:4]
+    print(showing_year)
+
+
     current_year_int_convert = int(showing_year)
     previous_year = current_year_int_convert - 1
-    print(f"this is your previous year noooobbbb{previous_year}")
-    #amounts_list.clear()
+    print(previous_year)
+   
     username = session.get("username")
-    return render_template('add_expense.html', username=username, time = time, current_year_int_convert = current_year_int_convert, previous_year = previous_year)
+    return render_template('add_expense.html', username=username, time = time, current_year_int_convert = current_year_int_convert, previous_year = previous_year, showing_year = showing_year)
 
 
 
