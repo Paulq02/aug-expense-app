@@ -313,9 +313,10 @@
               <div class="highest-category-main-container">
                 <div class="cat-icon-container">
                   <svg
+                  class="cat-icon"
                     height="35px"
                     width="35px"
-                    fill="#000000"
+                   
                     viewBox="-2 0 45.996 45.996"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -346,7 +347,8 @@
 
               <div class="receipt_container">
                 <div class="receipt_image_container">
-                  <i class="bx bx-receipt receipt-svg"></i>
+                  <i 
+                  class="bx bx-receipt receipt-svg"></i>
                 </div>
                 <div class="details_container receipt">
                   <p class="monthly">Entries</p>
@@ -358,6 +360,7 @@
         </div>
         <div class="chart-main-container">
           <div class="bar-chart-child-container">
+          <p class="bar-chart-legend-label">Monthly Expenses by Category</p>
             <div class="bar-chart-canvas-container">
               <canvas id="barChart"></canvas>
             </div>
@@ -760,7 +763,8 @@
 
                   <button class="next-results" type="submit">
                     next results
-                    <i class="fas fa-angle-double-right"></i>
+                    <i 
+                    class="fas fa-angle-double-right"></i>
                   </button>
                 </form>
                 {% endif %} {% if asc_or_desc == "desc" and view_mode ==

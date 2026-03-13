@@ -479,9 +479,8 @@ if (chartBarCanvas) {
 
       datasets: [
         {
-          label: "Expenses by Category",
           data: amountArray,
-          backgroundColor: "#bb86fc",
+          backgroundColor: colors,
         },
       ],
     },
@@ -507,6 +506,7 @@ if (chartBarCanvas) {
 
       plugins: {
         legend: {
+          display: false,
           labels: {
             // This more specific font property overrides the global property
             font: {
@@ -700,18 +700,6 @@ const clearErrorMessage = function () {
     errorElement.style.color = "#000000";
   }
 };
-/* 
-async function quickSearchDelete(expenseId) {
-  try {
-    let response = await fetch(
-      `/quick_search_delete?expenseId=${encodeURIComponent(expenseId)}`
-    );
-    let data = await response.json();
-    console.log(data);
-  } catch (e) {
-    console.log(e);
-  }
-} */
 
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* STOP SCOLLLING HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -878,6 +866,7 @@ async function searchExpenseByName(offset) {
         tBody = document.createElement("tbody");
 
         for (let info of data) {
+          const userId = info.user_id;
           const expenseName = info.expense_name;
           const expenseCost = info.expense_cost;
           const expenseDate = info.expense_date;
@@ -911,6 +900,8 @@ async function searchExpenseByName(offset) {
           let qsEditNameSaveInputButton = document.createElement("button");
           qsEditNameSaveInputButton.classList.add("save-name-edit-button");
           qsEditNameSaveInputButton.dataset.expenseId = info.expense_id;
+          qsEditNameSaveInputButton.dataset.userId = info.user_id;
+
           qsEditNameSaveInputButton.setAttribute(
             "id",
             `qs-save-name-edit-button-${info.expense_id}`,
@@ -920,10 +911,14 @@ async function searchExpenseByName(offset) {
           qsEditNameSaveInputButton.color = "white";
           let expenseNamepTag = document.createElement("p");
           expenseNamepTag.textContent = expenseName;
+          expenseNamepTag.setAttribute("class", "expense-name-p-tag");
           expenseNamepTag.style.display = "inline";
           const qsEditName = document.createElement("button");
-          qsEditName.setAttribute("id", `edit-name-button-${info.expense_id}`);
-          qsEditName.classList.add("edit-name-button");
+          qsEditName.setAttribute(
+            "id",
+            `qs-edit-name-button-${info.expense_id}`,
+          );
+          qsEditName.classList.add("qs-edit-name-button");
           qsEditName.dataset.expenseId = info.expense_id;
           qsEditName.textContent = "Edit name";
           qsEditName.style.display = "none";
@@ -942,7 +937,7 @@ async function searchExpenseByName(offset) {
           qsEditCostInputContainer.style.alignItems = "center";
           qsEditCostInputContainer.setAttribute(
             "id",
-            `qs-edit-cost-input-container${info.expense_id}`,
+            `qs-edit-cost-input-container-${info.expense_id}`,
           );
           qsEditCostInputContainer.style.display = "none";
           qsEditCostInputContainer.dataset.expenseId = info.expense_id;
@@ -967,13 +962,17 @@ async function searchExpenseByName(offset) {
           qsEditCostInputField.dataset.expenseId = info.expense_id;
           qsEditCostInputField.name = "qs-edit-input-field";
 
-          const qsEditCost = document.createElement("button");
+          let qsEditCost = document.createElement("button");
           let qsEditCostpTag = document.createElement("p");
           qsEditCostpTag.textContent = expenseCost;
+          qsEditCostpTag.setAttribute("class", "qs-edit-cost-p-tag");
           qsEditCostpTag.style.display = "inline";
           qsEditCost.textContent = "Edit cost";
-          qsEditCost.classList.add("edit-cost-button");
-          qsEditCost.setAttribute("id", `edit-cost-button-${info.expense_id}`);
+          qsEditCost.classList.add("qs-edit-cost-button");
+          qsEditCost.setAttribute(
+            "id",
+            `qs-edit-cost-button-${info.expense_id}`,
+          );
           qsEditCost.dataset.expenseId = info.expense_id;
           qsEditCost.style.display = "none";
           qsEditCost.dataset.expenseId = info.expense_id;
@@ -981,6 +980,7 @@ async function searchExpenseByName(offset) {
           let qsSaveCostEditButton = document.createElement("button");
           qsSaveCostEditButton.classList.add("save-cost-edit-button");
           qsSaveCostEditButton.dataset.expenseId = info.expense_id;
+          qsSaveCostEditButton.dataset.userId = info.user_id;
 
           qsSaveCostEditButton.color = "white";
           qsSaveCostEditButton.textContent = "save";
@@ -1000,7 +1000,7 @@ async function searchExpenseByName(offset) {
           editDateInputContainer.classList.add("qs-edit-date-input-container");
           editDateInputContainer.setAttribute(
             "id",
-            `qs-edit-date-input-container${info.expense_id}`,
+            `qs-edit-date-input-container-${info.expense_id}`,
           );
           let editDateInputField = document.createElement("input");
           editDateInputField.classList.add("qs-edit-date-input-field");
@@ -1016,11 +1016,15 @@ async function searchExpenseByName(offset) {
           editDateInputContainer.style.display = "none";
           let expenseDatepElement = document.createElement("p");
           expenseDatepElement.textContent = expenseDate;
+          expenseDatepElement.setAttribute("class", "qs-edit-date-p-tag");
           expenseDatepElement.style.display = "inline";
 
           const qsEditDate = document.createElement("button");
-          qsEditDate.classList.add("edit-date-button");
-          qsEditDate.setAttribute("id", `edit-date-button-${info.expense_id}`);
+          qsEditDate.classList.add("qs-edit-date-button");
+          qsEditDate.setAttribute(
+            "id",
+            `qs-edit-date-button-${info.expense_id}`,
+          );
           qsEditDate.dataset.expenseId = info.expense_id;
           qsEditDate.dataset.userId = info.user_id;
           qsEditDate.style.display = "none";
@@ -1028,6 +1032,8 @@ async function searchExpenseByName(offset) {
 
           const qsSaveDateEditButton = document.createElement("button");
           qsSaveDateEditButton.classList.add("save-date-edit-button");
+          qsSaveDateEditButton.dataset.expenseId = info.expense_id;
+          qsSaveDateEditButton.dataset.userId = info.user_id;
           qsSaveDateEditButton.color = "white";
           qsSaveDateEditButton.textContent = "save";
           qsSaveDateEditButton.display = "none";
@@ -1041,7 +1047,7 @@ async function searchExpenseByName(offset) {
 
           const trashIcon = document.createElement("img");
           trashIcon.src = "static/images/new_trash_icon.png";
-          trashIcon.style.height = "30px";
+
           trashIcon.style.textAlign = "center";
           trashIcon.style.cursor = "pointer";
           trashIcon.classList.add("trash-icon");
@@ -1055,9 +1061,9 @@ async function searchExpenseByName(offset) {
 
           let editIcon = document.createElement("img");
           editIcon.src = "static/images/pencil_345648.png";
-          editIcon.style.height = "30px";
+
           editIcon.classList.add("qs-edit-icon");
-          editIcon.id = `edit-icon-${info.expense_id}`;
+          editIcon.id = `qs-edit-icon-${info.expense_id}`;
           editIcon.style.cursor = "pointer";
           editIcon.style.display = "inline";
           editIcon.dataset.expenseId = info.expense_id;
@@ -1065,9 +1071,9 @@ async function searchExpenseByName(offset) {
 
           cancelEditMode = document.createElement("img");
           cancelEditMode.src = "static/images/edit-mode.png";
-          cancelEditMode.className = "edit-mode";
-          cancelEditMode.id = `edit-mode-${info.expense_id}`;
-          cancelEditMode.style.height = "30px";
+          cancelEditMode.className = "qs-edit-mode";
+          cancelEditMode.id = `qs-edit-mode-${info.expense_id}`;
+
           cancelEditMode.style.display = "none";
           cancelEditMode.dataset.expenseId = info.expense_id;
 
@@ -1289,12 +1295,12 @@ if (cancelButton) {
   });
 }
 
-let editButton = document.querySelector(".qs-edit-icon");
+/* let editButton = document.querySelector(".qs-edit-icon");
 if (editButton) {
   editButton.addEventListener("click", (e) => {
     console.log(e.target);
   });
-}
+} */
 
 function displayDetails(eName, eCost, uId, eId) {
   let confirmDeleteButton = document.querySelector(".confirm-delete");
@@ -1342,6 +1348,131 @@ if (mainTableDashboardContainer) {
   });
 }
 
+let confirmDeleteButton = document.querySelector(".confirm-delete");
+
+if (confirmDeleteButton) {
+  confirmDeleteButton.addEventListener("click", async (e) => {
+    let expenseId = e.target.dataset.expenseId;
+    let userId = e.target.dataset.userId;
+    let confirmation = await deleteConfirmation(expenseId, userId);
+    if (confirmation.success === true) {
+      let confirmDelete = document.querySelector(
+        ".delete-confirmation-main-container",
+      );
+      confirmDelete.style.display = "none";
+    }
+    searchExpenseByName(offset);
+  });
+}
+
+async function updateName(tId, uId) {
+  let updateNameInputField = document.getElementById(
+    `qs-edit-name-input-field-${tId}`,
+  );
+  let userInput = updateNameInputField.value.trim();
+  try {
+    let response = await fetch(
+      `update_name_quick_search?updateName=${encodeURIComponent(userInput)}&userId=${uId}&expenseId=${encodeURIComponent(tId)}`,
+      {
+        method: "POST",
+      },
+    );
+    let data = await response.json();
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function updateCost(eId, uId) {
+  let qsEditCostInputField = document.getElementById(
+    `qs-edit-cost-input-field-${eId}`,
+  );
+  let userInput = qsEditCostInputField.value.trim();
+
+  try {
+    let request = await fetch(
+      `/quick_search_update_cost?userInput=${encodeURIComponent(userInput)}&expenseId=${encodeURIComponent(eId)}&userId=${encodeURIComponent(uId)}`,
+      { method: "POST" },
+    );
+
+    let response = await request.json();
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function updateDate(eId, uId) {
+  let userInput = document.getElementById(`edit-date-input-${eId}`);
+
+  try {
+    let request = await fetch(
+      `/quick_search_update_date?userInput=${encodeURIComponent(userInput.value.trim())}&userId=${encodeURIComponent(uId)}&expenseId=${encodeURIComponent(eId)}`,
+      { method: "post" },
+    );
+
+    let response = await request.json();
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+let qsSearchTable = document.getElementById("search-table-main-container");
+
+if (qsSearchTable) {
+  qsSearchTable.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("save-name-edit-button")) {
+      userId = e.target.dataset.userId;
+      expenseId = e.target.dataset.expenseId;
+      try {
+        let result = await updateName(expenseId, userId);
+        if (result.success === true) {
+          searchExpenseByName(offset);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (e.target.classList.contains("save-cost-edit-button")) {
+      expenseId = e.target.dataset.expenseId;
+      userId = e.target.dataset.userId;
+      result = await updateCost(expenseId, userId);
+      console.log(result);
+      if (result.success === true) {
+        searchExpenseByName(offset);
+      }
+    }
+    if (e.target.classList.contains("save-date-edit-button")) {
+      expenseId = e.target.dataset.expenseId;
+      userId = e.target.dataset.userId;
+
+      result = await updateDate(expenseId, userId);
+      if (result.success === true) {
+        searchExpenseByName(offset);
+      }
+    }
+  });
+}
+
+let searchTableQs = document.getElementById("search-table-main-container");
+if (searchTableQs) {
+  searchTableQs.addEventListener("click", (e) => {
+    if (e.target.classList.contains("qs-edit-date-input-field")) {
+      let targetId = e.target.dataset.expenseId;
+      let editDateInputField = document.getElementById(
+        `edit-date-input-${targetId}`,
+      );
+
+      flatpickr(editDateInputField, {
+        minDate: "2025-01",
+        maxDate: "2026-12-31",
+      }).open();
+    }
+  });
+}
+/* 
 if (searchTableMainContainer) {
   searchTableMainContainer.addEventListener("click", (e) => {
     if (e.target.className === "trash-icon") {
@@ -1355,15 +1486,18 @@ if (searchTableMainContainer) {
     if (e.target.classList.contains("qs-edit-icon")) {
       let targetExpenseId = e.target.dataset.expenseId;
 
-      let selectedEditIcon = e.target;
       let cancelEditMode = document.getElementById(
-        `edit-mode-${e.target.dataset.expenseId}`,
+        `edit-mode-${targetExpenseId}`,
       );
-      let turnOffEditIcon = document.getElementById(`${selectedEditIcon.id}`);
+
+      let turnOffEditIcon = document.getElementById(
+        `qs-edit-icon-${targetExpenseId}`,
+      );
       if (turnOffEditIcon.style.display === "inline") {
         turnOffEditIcon.style.display = "none";
         cancelEditMode.style.display = "inline";
       }
+
       let qsEditDateButton = document.getElementById(
         `edit-date-button-${targetExpenseId}`,
       );
@@ -1472,65 +1606,104 @@ if (searchTableMainContainer) {
       }
     }
   });
-}
+} */
 
-let confirmDeleteButton = document.querySelector(".confirm-delete");
-
-if (confirmDeleteButton) {
-  confirmDeleteButton.addEventListener("click", async (e) => {
-    let expenseId = e.target.dataset.expenseId;
-    let userId = e.target.dataset.userId;
-    let confirmation = await deleteConfirmation(expenseId, userId);
-    if (confirmation.success === true) {
-      let confirmDelete = document.querySelector(
-        ".delete-confirmation-main-container",
+if (searchTableMainContainer) {
+  searchTableMainContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("qs-edit-icon")) {
+      let targetExpenseId = e.target.dataset.expenseId;
+      let turnOffEditIcon = document.getElementById(
+        `qs-edit-icon-${targetExpenseId}`,
       );
-      confirmDelete.style.display = "none";
-    }
-    searchExpenseByName(offset);
-  });
-}
-
-let qsSearchTable = document.querySelector(".search-table-main-container");
-
-if (qsSearchTable) {
-  qsSearchTable.addEventListener("click", (e) => {
-    if (e.target.classList.contains("save-name-edit-button")) {
-      targetId = e.target.dataset.expenseId;
-      updateName(targetId);
-    }
-    if (e.target.classList.contains("save-cost-edit-button")) {
-      targetId = e.target.dataset.expenseId;
-      updateCost(targetId);
-    }
-  });
-}
-
-let searchTableQs = document.querySelector(".search-table-main-container");
-if (searchTableQs) {
-  searchTableQs.addEventListener("click", (e) => {
-    if (e.target.classList.contains("qs-edit-date-input-field")) {
-      let targetId = e.target.dataset.expenseId;
-      let editDateInputField = document.getElementById(
-        `edit-date-input-${targetId}`,
+      let cancelEditMode = document.getElementById(
+        `qs-edit-mode-${targetExpenseId}`,
+      );
+      let qsEditNameButton = document.getElementById(
+        `qs-edit-name-button-${targetExpenseId}`,
       );
 
-      flatpickr(editDateInputField, {
-        minDate: "2025-01",
-        maxDate: "2026-12",
-      }).open();
+      let qsEditCostButton = document.getElementById(
+        `qs-edit-cost-button-${targetExpenseId}`,
+      );
+      let qsEditDateButton = document.getElementById(
+        `qs-edit-date-button-${targetExpenseId}`,
+      );
+
+      turnOffEditIcon.style.display = "none";
+      cancelEditMode.style.display = "inline";
+      qsEditNameButton.style.display = "inline";
+      qsEditCostButton.style.display = "inline";
+      qsEditDateButton.style.display = "inline";
+    }
+    if (e.target.classList.contains("qs-edit-mode")) {
+      let targetExpenseId = e.target.dataset.expenseId;
+      let turnOffEditIcon = document.getElementById(
+        `qs-edit-icon-${targetExpenseId}`,
+      );
+      let cancelEditMode = document.getElementById(
+        `qs-edit-mode-${targetExpenseId}`,
+      );
+      let qsEditNameButton = document.getElementById(
+        `qs-edit-name-button-${targetExpenseId}`,
+      );
+      let qsEditNameInputContainer = document.getElementById(
+        `qs-edit-name-input-container-${targetExpenseId}`,
+      );
+      let qsEditCostButton = document.getElementById(
+        `qs-edit-cost-button-${targetExpenseId}`,
+      );
+      let qsEditCostInputContainer = document.getElementById(
+        `qs-edit-cost-input-container-${targetExpenseId}`,
+      );
+      let qsEditDateButton = document.getElementById(
+        `qs-edit-date-button-${targetExpenseId}`,
+      );
+      let qsEditDateInputContainer = document.getElementById(
+        `qs-edit-date-input-container-${targetExpenseId}`,
+      );
+      turnOffEditIcon.style.display = "inline";
+      cancelEditMode.style.display = "none";
+      qsEditNameButton.style.display = "none";
+      qsEditCostButton.style.display = "none";
+      qsEditDateButton.style.display = "none";
+      qsEditNameInputContainer.style.display = "none";
+      qsEditCostInputContainer.style.display = "none";
+      qsEditDateInputContainer.style.display = "none";
+    }
+    if (e.target.classList.contains("qs-edit-name-button")) {
+      targetExpenseId = e.target.dataset.expenseId;
+
+      let qsEditNameInputContainer = document.getElementById(
+        `qs-edit-name-input-container-${targetExpenseId}`,
+      );
+      qsEditNameInputContainer.style.display = "flex";
+      qsEditNameInputContainer.style.marginTop = "12px";
+    }
+    if (e.target.classList.contains("qs-edit-cost-button")) {
+      targetExpenseId = e.target.dataset.expenseId;
+
+      let qsEditCostInputContainer = document.getElementById(
+        `qs-edit-cost-input-container-${targetExpenseId}`,
+      );
+
+      qsEditCostInputContainer.style.display = "flex";
+      qsEditCostInputContainer.style.marginTop = "12px";
+    }
+    if (e.target.classList.contains("qs-edit-date-button")) {
+      targetExpenseId = e.target.dataset.expenseId;
+
+      let qsEditDateInputContainer = document.getElementById(
+        `qs-edit-date-input-container-${targetExpenseId}`,
+      );
+      qsEditDateInputContainer.style.display = "flex";
+      qsEditDateInputContainer.style.marginTop = "12px";
+    }
+    if (e.target.classList.contains("trash-icon")) {
+      let userId = e.target.dataset.userId;
+      let expenseId = e.target.dataset.trashExpenseId;
+      let expenseName = e.target.dataset.expenseName;
+      let expenseCost = e.target.dataset.expenseCost;
+      displayDetails(expenseName, expenseCost, userId, expenseId);
     }
   });
-}
-
-function updateName(id) {
-  let userInput = document.getElementById(`qs-edit-name-input-field-${id}`);
-  console.log(userInput.value);
-}
-
-function updateCost(id) {
-  let qsEditCostInputField = document.getElementById(
-    `qs-edit-cost-input-field-${id}`,
-  );
-  console.log(qsEditCostInputField.value);
 }

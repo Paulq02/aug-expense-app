@@ -229,7 +229,7 @@
        No expenses found for {{string_month}}  {{showing_year }} — try a different date
       </p>
       <div class="timeframe-main-container">
-              <div class="timeframe-child-container">
+              <div class="first-login-timeframe-child-container">
                 <img
                   src="../static/images/calender-icon.png"
                   alt="icon of a calender"
@@ -238,7 +238,7 @@
                 <p class="timeframe-display">
                   Try another search &mdash;
                 </p>
-                <form action="{{url_for('dashboard')}}" class="change-month-year-form">
+                <form action="{{url_for('dashboard')}}" class="first-login-month-year-form">
                  
               
                
@@ -288,6 +288,7 @@
            
       
     </div>
+   
     <div class="first-expense-container">
       <a href="{{url_for('add_expense')}}">
         <svg
@@ -355,17 +356,25 @@
             />
             <p class="quick-search-text">Quick Search</p>
             
-          </div>
+          
+          
+          
          
-          <div class="quick-search-results-amount-container">
+          <p class="offset-amount"></p>
+        </div>
+        <div class="quick-search-results-amount-container">
           <p id="offset-amount"></p>
           
             <p 
             id="dp"
             class="quick-search-results"></p>
           </div>
-          <p class="offset-amount"></p>
+          <div class="quick-search-rounded-main-outer-container">
+            <div class="search-table-main-container">
+         
         </div>
+          </div>
+       
         <div class="no-entries-parent-container">
         <div class="no-entries-child-container">
          <p style="color: #bb86fc" class="no-results">
@@ -379,9 +388,7 @@
         
      
 
-        <div class="search-table-main-container">
-         
-        </div>
+       
       <div class="delete-confirmation-main-container">
       <div class="warning-icon-container">
       <img 

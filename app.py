@@ -16,6 +16,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
+
 db = mysql.connector.connect(user="root", 
 password=os.environ.get("DB_PASSWORD"), 
 host="localhost", 
@@ -23,8 +24,10 @@ database="expense_data")
 
 
 
+app.secret_key = os.environ.get("FLASK_PASSWORD")
 
-app.secret_key = "padthai123Z$meme"
+
+
 cursor = db.cursor()
 
 
@@ -167,7 +170,7 @@ SQL queries:
    
 
    
-    user_id = session.get("user_id")
+    user_id = session.get("user_id", None)
     username = session.get("username")
     
 
@@ -195,7 +198,7 @@ SQL queries:
             
             top_cat_result_amount = len(top_category_results)
 
-            print("this is line 182")
+           
         
             if top_cat_result_amount == 0:
                 
@@ -408,6 +411,7 @@ def user_search():
     sql_search_expense_name = ("SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s LIMIT 10 OFFSET %s")
     cursor.execute(sql_search_expense_name,(user_id, user_input + "%", offset))
     results = cursor.fetchall()
+   
 
     amount_results = len(results)
 
@@ -459,6 +463,7 @@ def user_search():
         return jsonify(no_results)
        
     else:
+       
         cursor.close()
         db.close()
         return jsonify(user_search_list)
@@ -639,8 +644,7 @@ def sort_by_cost():
     selected_year = request.args.get("selected-year", None)
     selected_month = request.args.get("selected-month", None)
 
-    print(f"{selected_year}")
-    print(f"{selected_month}")
+    
 
     if selected_year and selected_month != None:
         current_year = selected_year
@@ -782,8 +786,7 @@ def new_sort():
         current_year = selected_year
         current_month = selected_month
     
-    print(f"THIS IS YOUR CURRENT MONTH NEW SORT{current_month}")
-    print(f"THIS IS YOUR CURRENT YEAR NEW SORT{current_year}")
+  
 
 
 
@@ -806,7 +809,7 @@ def new_sort():
     cursor.execute(sql_top_category_query, (user_id, current_year, current_month))
     sql_top_category_results = cursor.fetchone()
 
-    print(f"THIS IS YOUR SQL TOP CAT RESULTS NEW SORT ---{sql_top_category_results}")
+ 
 
     top_category_name = sql_top_category_results[0].title() # type: ignore
     top_category_amount = sql_top_category_results[1] # type: ignore
@@ -927,12 +930,12 @@ def add_expense():
 
     
     showing_year = converted_year[0:4]
-    print(showing_year)
+   
 
 
     current_year_int_convert = int(showing_year)
     previous_year = current_year_int_convert - 1
-    print(previous_year)
+   
    
     username = session.get("username")
     return render_template('add_expense.html', username=username, time = time, current_year_int_convert = current_year_int_convert, previous_year = previous_year, showing_year = showing_year)
@@ -966,7 +969,7 @@ def quick_search_delete_expense():
         cursor = db.cursor()
 
         user_id = request.args.get("userId", None)
-        print(user_id)
+      
 
         expense_id = request.args.get("expenseId", None)
     
@@ -1179,6 +1182,102 @@ def logout():
 
 
 
+@app.route('/update_name_quick_search', methods = ["get", "post"])
+def qs_update_name():
+    db = get_db()
+    cursor = db.cursor()
+    user_id = session.get("user_id", None)
+   
+
+    expense_id = request.args.get("expenseId", None)
+    user_input = request.args.get("updateName", None)
+    user_id = request.args.get("userId", None)
+   
+    sql_update_name_query = """
+    UPDATE expense_tracker_expense_data
+    SET expense_name = %s
+    WHERE user_id = %s
+    AND expense_id = %s
+    """
+
+    cursor.execute(sql_update_name_query, (user_input, user_id, expense_id))
+    db.commit()
+
+    
+    
+
+
+
+    return jsonify({"success":True})
+
+
+
+
+@app.route("/quick_search_update_cost", methods = ["GET", "POST"])
+def quick_search_update_cost():
+    db = get_db()
+    cursor = db.cursor()
+    
+    user_id = request.args.get("userId", None)
+    expense_id = request.args.get("expenseId", None)
+    user_input = request.args.get("userInput", None)
+    print(type(user_input))
+
+    quick_search_update_cost_sql_query = """
+    UPDATE expense_tracker_expense_data
+    SET expense_cost = %s
+    WHERE user_id = %s AND expense_id = %s"""
+
+    cursor.execute(quick_search_update_cost_sql_query, (user_input, user_id, expense_id))
+    db.commit()
+    
+
+    return jsonify({"success":True})
+
+
+
+
+
+@app.route("/quick_search_update_date", methods = ["get", "post"])
+def quick_search_update_date():
+    db = get_db()
+    cursor = db.cursor()
+
+    user_id = request.args.get("userId", None)
+    expense_id = request.args.get("expenseId",None)
+    user_input = request.args.get("userInput", None)
+
+    quick_search_update_date_sql_query = """
+    
+    UPDATE expense_tracker_expense_data
+    SET expense_date = %s
+    WHERE expense_id = %s
+    AND user_id = %s
+    """
+
+    cursor.execute(quick_search_update_date_sql_query, (user_input, expense_id, user_id))
+    db.commit()
+
+    return jsonify({"success":True})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1187,7 +1286,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=True)
 
 
 
