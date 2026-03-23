@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <nav class="close">
+    <nav id="close" class="close">
       <div class="image-text" id="image-text">
         <span class="image">
           <img
@@ -67,29 +67,37 @@
         <div class="text header-text" id="header-text">
           <span class="name">Expense Tracker</span>
         </div>
-        <div id="a-e-toggle-container" class="toggle-container">
+        <div class="toggle-container">
           <i
             style="font-size: 30px"
-            id="add-expense-toggle-button"
-            class="bx bx-chevron-right toggle a-e-toggle"
+            id="d-toggle"
+            class="bx bx-chevron-right toggle d-toggle"
           ></i>
         </div>
       </div>
 
-      <div id="a-e-div-parent-container" class="menu-bar">
-        <div id="a-e-menu-div" class="menu">
-          <ul id="a-e-menu-links" class="menu-links">
-            <li id="a-e-searchbox" class="close-search-box a-e-searchbox">
+      <div class="menu-bar">
+        <div class="menu">
+          <ul class="menu-links">
+            <li id="d-close-searchbox" class="close-search-box">
               <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
                 type="text"
                 name="user-search"
-                oninput="(searchExpenseByName(), turnOnCancelIcon())"
+                oninput="(searchExpenseByName(0), turnOnCancelIcon())"
                 placeholder="Search expense by name"
                 id="search-input"
                 class="search-input"
               />
+              <!--
+              <input
+              style="display: none;"
+              name="offset"
+              id="starting-offset"
+              class="offset"
+              value="0">
+              -->
               <img
                 class="search-input-cancel-icon"
                 width="20"
@@ -203,121 +211,145 @@
         </li>
       </nav>
     </header>
+    <main id="mainContent">
+      <div id="ae-main-container">
+        <div class="second_main_container">
+          <div class="header_container">
+            <img
+              src="../static/images/NEW-MONEY-ICON.png"
+              alt="icon with money"
+            />
+            <h1>Add Expense</h1>
 
-    <div class="main_container">
-      <div class="second_main_container">
-        <div class="header_container">
-          <img
-            src="../static/images/NEW-MONEY-ICON.png"
-            alt="icon with money"
-          />
-          <h1>Add Expense</h1>
-
-          <div class="form-container">
-            <form
-              method="POST"
-              action="{{ url_for('submit_expense') }}"
-              class="add-expense-form"
-            >
-              <div class="add-amount-container">
-                <label for="amount" name="amount">Amount </label>
-                <div class="main-money-symbol-input-container">
-                  <div class="money-symbol-icon-div">
-                    <input
-                      type="number"
-                      name="amount"
-                      id="amount"
-                      step="0.01"
-                      required
-                    />
+            <div class="form-container">
+              <form
+                method="POST"
+                action="{{ url_for('submit_expense') }}"
+                class="add-expense-form"
+              >
+                <div class="add-amount-container">
+                  <label for="amount" name="amount">Amount </label>
+                  <div class="main-money-symbol-input-container">
+                    <div class="money-symbol-icon-div">
+                      <input
+                        type="number"
+                        name="amount"
+                        id="amount"
+                        step="0.01"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="add-name-container">
-                <label for="expense" id="expense">Expense name</label>
-                <input
-                  type="text"
-                  name="expense_name"
-                  id="expense_name"
-                  autocomplete="off"
-                  required
-                />
-              </div>
-              <div class="add-date-container">
-                <label for="date"> Date of expense</label>
-                <input
-                  type="text"
-                  id="add-date-input"
-                  name="expense_date"
-                  autocomplete="off"
-                />
-              </div>
-              <div class="add-category-container">
-                <label for="select-category">Expense category</label>
-                <select name="category" id="select-category" required>
-                  <option value="">--Please choose expense category--</option>
-                  <option value="entertainment">Entertainment</option>
-                  <option value="groceries">Groceries</option>
-                  <option value="rent">Rent</option>
-                  <option value="non-essentials">
-                    Non-essentials (Youtube Premium, Google Storage, etc..)
-                  </option>
-                  <option value="monthly">Monthly Bills</option>
+                <div class="add-name-container">
+                  <label for="expense" id="expense">Expense name</label>
+                  <input
+                    type="text"
+                    name="expense_name"
+                    id="expense_name"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+                <div class="add-date-container">
+                  <label for="date"> Date of expense</label>
+                  <input
+                    type="text"
+                    id="add-date-input"
+                    name="expense_date"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="add-category-container">
+                  <label for="select-category">Expense category</label>
+                  <select name="category" id="select-category" required>
+                    <option value="">--Please choose expense category--</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="groceries">Groceries</option>
+                    <option value="rent">Rent</option>
+                    <option value="non-essentials">
+                      Non-essentials (Youtube Premium, Google Storage, etc..)
+                    </option>
+                    <option value="monthly">Monthly Bills</option>
 
-                  <option value="other">Other</option>
-                </select>
-              </div>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
 
-              <div class="submit_button_container">
-                <button type="submit" class="submit_expense_button">
-                  Submit
-                </button>
-              </div>
-            </form>
+                <div class="submit_button_container">
+                  <button type="submit" class="submit_expense_button">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="searched-expense-display-container">
-      <div class="quick-search-container">
-        <div class="quick-search-image-container">
-          <img
-            class="quick-search"
-            src="../static/images/quick-search.png"
-            alt="magnifying glass with lighting next to it"
-          />
-          <p class="quick-search-text">Quick Search</p>
-        </div>
-        <div class="quick-search-results-amount-container">
-          <p class="quick-search-results"></p>
-        </div>
-      </div>
-      <div class="no-entries-parent-container">
-        <div class="no-entries-child-container">
-          <p style="color: #bb86fc" class="no-results">No entries found</p>
-          <p class="try-again">Try another search</p>
-        </div>
-      </div>
+      <div class="searched-expense-display-container">
+        <div class="quick-search-container">
+          <div class="quick-search-image-container">
+            <img
+              class="quick-search"
+              src="../static/images/quick-search.png"
+              alt="magnifying glass with lighting next to it"
+            />
+            <p class="quick-search-text">Quick Search</p>
+          </div>
 
+          <div class="quick-search-results-amount-container">
+            <p id="offset-amount"></p>
+
+            <p id="dp" class="quick-search-results"></p>
+          </div>
+          <p class="offset-amount"></p>
+        </div>
+        <div class="no-entries-parent-container">
+          <div class="no-entries-child-container">
+            <p style="color: #bb86fc" class="no-results">No entries found</p>
+            <p class="try-again">Try another search</p>
+          </div>
+        </div>
+
+        <div
+          id="ae-search-table-main-container"
+          class="search-table-main-container"
+        ></div>
+      </div>
+      <!--
       <div class="search-table-main-container">
         <table class="search-table"></table>
       </div>
+      -->
       <div class="quick-search-button-container">
         <button class="qs-previous-results">
-          <i class="fas fa-angle-double-left"></i> Previous results
+          <i class="fas fa-angle-double-left"></i>Previous Results
         </button>
 
-        <button class="qs-next-results">
-          Next results which ones is this
-          <i class="fas fa-angle-double-right"></i>
+        <button type="button" class="qs-next-results">
+          Next results <i class="fas fa-angle-double-right"></i>
         </button>
       </div>
+
       <div class="back-to-dashboard-container">
-        <button type="button" class="back-to-dashboard-button">
-          Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i>
-        </button>
+        <!--
+        <button
+      
+       
+      
+       
+      
+       class="back-to-dashboard-button">Back to Dashboard  <i class="bx bxs-home  back-to-dashboard-icon"></i>
+        <a href="{{url_for('dashboard')}}"></a></button>
+        -->
+
+        <a
+          class="back-to-dashboard-a-tag back-to-dashboard-button"
+          href="{{url_for('dashboard')}}"
+          >Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i
+        ></a>
       </div>
-    </div>
+    </main>
 
     <link
       rel="stylesheet"
@@ -328,7 +360,7 @@
       let dateInput = document.getElementById("add-date-input");
       let currentYear = "{{current_year_int_convert}}-12";
       let previousYear = "{{previous_year}}-01";
-      console.log(currentYear);
+
       flatpickr(dateInput, {
         minDate: previousYear,
         maxDate: currentYear,

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -34,11 +34,6 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-  
-
-
-
-
 
     <script>
       let currentColor = window.localStorage.getItem("color");
@@ -56,9 +51,7 @@
   </head>
 
   <body>
-    <nav
-     id="close"
-    class="close">
+    <nav id="close" class="close">
       <div class="image-text" id="image-text">
         <span class="image">
           <img
@@ -87,15 +80,13 @@
       <div class="menu-bar">
         <div class="menu">
           <ul class="menu-links">
-            <li
-            id="d-close-searchbox"
-            class="close-search-box">
+            <li id="d-close-searchbox" class="close-search-box">
               <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
                 type="text"
                 name="user-search"
-                oninput="searchExpenseByName(0), turnOnCancelIcon()"
+                oninput="(searchExpenseByName(0), turnOnCancelIcon())"
                 placeholder="Search expense by name"
                 id="search-input"
                 class="search-input"
@@ -223,74 +214,77 @@
     </header>
 
     <div class="first_timer_parent_container">
-    <div class="first_timer">
-      <p>
-      
-       No expenses found for {{string_month}}  {{showing_year }} — try a different date
-      </p>
-      <div class="timeframe-main-container">
-              <div class="first-login-timeframe-child-container">
-                <img
-                  src="../static/images/calender-icon.png"
-                  alt="icon of a calender"
-                  class="calender-icon"
-                />
-                <p class="timeframe-display">
-                  Try another search &mdash;
-                </p>
-                <form action="{{url_for('dashboard')}}" class="first-login-month-year-form">
-                 
-              
-               
-                <select 
-               name="selected-month"
-               class="change-month-dropdown">
+      <div class="first_timer">
+        <p>
+          No expenses found for {{string_month}} {{showing_year }} — try a
+          different date
+        </p>
+        <div class="timeframe-main-container">
+          <div class="first-login-timeframe-child-container">
+            <img
+              src="../static/images/calender-icon.png"
+              alt="icon of a calender"
+              class="calender-icon"
+            />
+            <p class="timeframe-display">Try another search &mdash;</p>
+            <form
+              action="{{url_for('dashboard')}}"
+              class="first-login-month-year-form"
+            >
+              <select name="selected-month" class="change-month-dropdown">
+                {% for k, v in month_list_reversed.items() %}
 
-               {% for k, v in month_list_reversed.items() %}
-               
-              
-                <option value="{{k}}"{% if k == current_month %}selected {% endif %}> {{v}} </option>
-               
+                <option value="{{k}}" {% if k == current_month %} selected{% endif %} > {{v}} </option>
+
                 {%endfor%}
+              </select>
 
-               </select>
-               
-                <select 
-               name="selected-year"
-               class="change-year-dropdown">
-             
-              {% for y in years_list %}
-              <option value="{{y}}"{%if y == showing_year %} selected{%endif%}>{{y}}</option>
-
-                 {%endfor%}
-             
-              
-
-
-
-
+              <select name="selected-year" class="change-year-dropdown">
+                {% for y in years_list %}
+                <option value="{{y}}" {%if y== showing_year %}selected {%endif%}> {{y}} </option> 
                 
-               
-               </select>
-               
-              
-              
-               <button
-               class="change-year-dropdown-button"
-               type="submit">View</button>
-               
-              </form>
-               
-              </div>
-             
-            </div>
-            </div>
-           
-      
+                {%endfor%} </select>
+
+              <button class="change-year-dropdown-button" type="submit">
+                View
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-   
+    <div class="searched-expense-display-container">
+      <div class="quick-search-container">
+        <div class="quick-search-image-container">
+          <img
+            class="quick-search"
+            src="../static/images/quick-search.png"
+            alt="magnifying glass with lighting next to it"
+          />
+          <p class="quick-search-text">Quick Search</p>
+        </div>
+
+        <div class="quick-search-results-amount-container">
+          <p id="offset-amount"></p>
+
+          <p id="dp" class="quick-search-results"></p>
+        </div>
+        <p class="offset-amount"></p>
+      </div>
+      <div class="no-entries-parent-container">
+        <div class="no-entries-child-container">
+          <p style="color: #bb86fc" class="no-results">No entries found</p>
+          <p class="try-again">Try another search</p>
+        </div>
+      </div>
+
+      <div class="search-table-main-container"></div>
+    </div>
+
     <div class="first-expense-container">
-      <a href="{{url_for('add_expense')}}">
+      <a 
+      class="no-results-add-expense-button"
+      href="{{url_for('add_expense')}}">
         <svg
           class="sidebar-icon"
           viewBox="0 0 24 24"
@@ -344,96 +338,43 @@
         </svg>
         <span class="first-expense"> Add Expense</span>
       </a>
+      <a
+        class="no-results-dashboard-button"
+        href="{{url_for('dashboard')}}"
+        >Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i
+      ></a>
     </div>
-     <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
-      <div class="searched-expense-display-container">
-        <div class="quick-search-container">
-          <div class="quick-search-image-container">
-            <img
-              class="quick-search"
-              src="../static/images/quick-search.png"
-              alt="magnifying glass with lighting next to it"
-            />
-            <p class="quick-search-text">Quick Search</p>
-            
-          
-          
-          
-         
-          <p class="offset-amount"></p>
-        </div>
-        <div class="quick-search-results-amount-container">
-          <p id="offset-amount"></p>
-          
-            <p 
-            id="dp"
-            class="quick-search-results"></p>
-          </div>
-          <div class="quick-search-rounded-main-outer-container">
-            <div class="search-table-main-container">
-         
-        </div>
-          </div>
-       
-        <div class="no-entries-parent-container">
-        <div class="no-entries-child-container">
-         <p style="color: #bb86fc" class="no-results">
-          No entries found
-        </p>
-       <p class="try-again">Try another search</p>
-        </div>
-       
-        </div>
+    <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
 
-        
-     
-
-       
-      <div class="delete-confirmation-main-container">
+    <div class="delete-confirmation-main-container">
       <div class="warning-icon-container">
-      <img 
-      class="warning-icon"
-       src="../static/images/warning_icon.png"
-      alt="warning icon">
-      <p class="warning-message">Are you sure you want to delete?</p>
+        <img
+          class="warning-icon"
+          src="../static/images/warning_icon.png"
+          alt="warning icon"
+        />
+        <p class="warning-message">Are you sure you want to delete?</p>
       </div>
       <div class="name-cost-container">
-       <p class="e-name"></p>
-      <p class="e-cost"></p>
+        <p class="e-name"></p>
+        <p class="e-cost"></p>
       </div>
       <div class="qs-delete-expense-container">
-      <button
-      class="cancel-delete">Cancel</button>
-      <button
-      class="confirm-delete">Yes, I want to delete</button>
-
+        <button class="cancel-delete">Cancel</button>
+        <button class="confirm-delete">Yes, I want to delete</button>
       </div>
-      
-     
-      </div>
-      <div class="quick-search-button-container">
-       
-      
-     
-     
-        <button class="qs-previous-results"
-        
-        >
+    </div>
+    <div class="quick-search-button-container">
+      <button class="qs-previous-results">
         <i class="fas fa-angle-double-left"></i>Previous Results
-        </button>
-      
-        
-        <button
-        
-        type="button"
-        
-        class="qs-next-results">Next results <i class="fas fa-angle-double-right"></i>
-        </button>
-        
-       
-       </div>
-        <div class="back-to-dashboard-container">
-        <!--
+      </button>
+
+      <button type="button" class="qs-next-results">
+        Next results <i class="fas fa-angle-double-right"></i>
+      </button>
+    </div>
+    <div class="back-to-dashboard-container">
+      <!--
         <button
       
        
@@ -443,22 +384,15 @@
        class="back-to-dashboard-button">Back to Dashboard  <i class="bx bxs-home  back-to-dashboard-icon"></i>
         <a href="{{url_for('dashboard')}}"></a></button>
         -->
-      
-       
-      
-       
-      
-       
-        <a 
-        class="back-to-dashboard-a-tag back-to-dashboard-button"
-        href="{{url_for('dashboard')}}">Back to Dashboard <i class="bx bxs-home  back-to-dashboard-icon"></i></a>
 
-      </div>
-    
+      <a
+        class="back-to-dashboard-a-tag back-to-dashboard-button"
+        href="{{url_for('dashboard')}}"
+        >Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i
+      ></a>
+    </div>
 
     <!--END OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
-   
-    
 
     <script>
       /* DELETE FUNCTION START SECTION */
@@ -493,18 +427,18 @@
 
       function showEditnameInput(index) {
         const newNameInput = document.getElementById(
-          "edit-name-input-" + index
+          "edit-name-input-" + index,
         );
         newNameInput.style.display = "flex";
       }
 
       function noNameEdit(index) {
         const hideNameEditButton = document.getElementById(
-          "edit-name-button-" + index
+          "edit-name-button-" + index,
         );
         hideNameEditButton.style.display = "none";
         const hideNameCancelButton = document.getElementById(
-          "cancel-svg-name-button-" + index
+          "cancel-svg-name-button-" + index,
         );
         hideNameCancelButton.style.display = "none";
       }
@@ -513,7 +447,7 @@
         const hideNameForm = document.getElementById("edit-name-form-" + index);
         hideNameForm.style.display = "none";
         const clearNameInput = document.getElementById(
-          "edit-name-input-" + index
+          "edit-name-input-" + index,
         );
         clearNameInput.value = "";
       }
@@ -535,7 +469,7 @@
 
       function showCostForm(index) {
         const showCostinput = document.getElementById(
-          "edit-cost-form-" + index
+          "edit-cost-form-" + index,
         );
         showCostinput.style.display = "flex";
       }
@@ -547,11 +481,11 @@
 
       function noCostEdit(index) {
         const hideCostButton = document.getElementById(
-          "edit-cost-button-" + index
+          "edit-cost-button-" + index,
         );
         hideCostButton.style.display = "none";
         const hideCostCancelButton = document.getElementById(
-          "cancel-svg-cost-button-" + index
+          "cancel-svg-cost-button-" + index,
         );
         hideCostCancelButton.style.display = "none";
       }
@@ -560,7 +494,7 @@
         const hideCostForm = document.getElementById("edit-cost-form-" + index);
         hideCostForm.style.display = "none";
         const clearCostInput = document.getElementById(
-          "edit-cost-input-" + index
+          "edit-cost-input-" + index,
         );
         clearCostInput.value = "";
       }
@@ -592,11 +526,11 @@
 
       function noDateEdit(index) {
         const hideDateCancelicon = document.getElementById(
-          "cancel-svg-date-button-" + index
+          "cancel-svg-date-button-" + index,
         );
         hideDateCancelicon.style.display = "none";
         const hideDateEditButton = document.getElementById(
-          "edit-date-button-" + index
+          "edit-date-button-" + index,
         );
         hideDateEditButton.style.display = "none";
       }
@@ -614,19 +548,19 @@
 
       function showCancelIcons(index) {
         const showNameCancel = document.getElementById(
-          "cancel-svg-name-button-" + index
+          "cancel-svg-name-button-" + index,
         );
         showNameCancel.style.display = "flex";
         showNameCancel.style.justifyContent = "center";
         showNameCancel.style.alignItems = "center";
         const showCostCancel = document.getElementById(
-          "cancel-svg-cost-button-" + index
+          "cancel-svg-cost-button-" + index,
         );
         showCostCancel.style.display = "flex";
         showCostCancel.style.justifyContent = "center";
         showCostCancel.style.alignItems = "center";
         const showDateCancel = document.getElementById(
-          "cancel-svg-date-button-" + index
+          "cancel-svg-date-button-" + index,
         );
         showDateCancel.style.display = "flex";
         showDateCancel.style.justifyContent = "center";
@@ -675,9 +609,11 @@
         });
       });
     </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../static/script.js"></script>
-    
   </body>
 </html>

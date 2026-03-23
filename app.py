@@ -222,15 +222,21 @@ SQL queries:
         
         
             selected_month = request.args.get("selected-month", None)
+           
             
     
 
             selected_year = request.args.get("selected-year", None)
             
-    
+            
+            
         
             showing_year = selected_year
             current_month = selected_month
+          
+            print(f"this is your current month-----{current_month}")
+
+            
 
 
         
@@ -241,16 +247,26 @@ SQL queries:
         complete_results = cursor.fetchall()
         complete_results_amount = len(complete_results)
         complete_results_amount = int(complete_results_amount)
+        
 
         if complete_results_amount == 0 :
+           
             years_list = ["2025", "2026"]
 
             month_list = {"01":"Jan", "02":"Feb", "03":"March", "04":"April", "05":"May", "06":"June", "07":"July", "08":"Aug", "09":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
             month_list_reversed = dict(reversed(list(month_list.items())))
             
             for key, value in month_list_reversed.items():
+                print(key, value)
+                
                 if key == current_month:
+                    print("we have a match")
+                    print(key, current_month)
+                    
                     string_month = value
+                    print(current_month)
+                    print(showing_year)
+                   
                 
                     return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month)
             
@@ -616,11 +632,7 @@ def sort_year():
 def sort_by_cost():
     global running_count
 
-    get_current_date = datetime.now()
-    converted_date = str(get_current_date)
-    current_year = converted_date[0:4]
-    current_month = converted_date[5:7]
-    converted_month = get_current_date.strftime("%B")
+   
     
    
     
@@ -639,26 +651,28 @@ def sort_by_cost():
     
     user_id = session.get("user_id")
     sort_expense_order = request.args.get("sort-expense", None)
+   
 
 
     selected_year = request.args.get("selected-year", None)
     selected_month = request.args.get("selected-month", None)
+   
 
     
 
-    if selected_year and selected_month != None:
+    """if selected_year and selected_month != None:
         current_year = selected_year
-        current_month = selected_month
+        current_month = selected_month"""
 
     sql_select_all = f"SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s"
-    cursor.execute(sql_select_all,(user_id,current_year,current_month))
+    cursor.execute(sql_select_all,(user_id,selected_year,selected_month))
     sql_all_results = cursor.fetchall()
     complete_results_amount = len(sql_all_results)
     complete_results_amount = int(complete_results_amount)
 
 
     sql_top_category_query = f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category ORDER BY top_category DESC LIMIT 1"
-    cursor.execute(sql_top_category_query,(user_id, current_year, current_month))
+    cursor.execute(sql_top_category_query,(user_id, selected_year, selected_month))
     
     sql_top_category_results = cursor.fetchone()
 
@@ -669,8 +683,9 @@ def sort_by_cost():
 
 
     sql_total_sum_query = f"SELECT SUM(expense_cost) as total_sum FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s"
-    cursor.execute(sql_total_sum_query,(user_id,current_year,current_month))
+    cursor.execute(sql_total_sum_query,(user_id,selected_year,selected_month))
     sql_total_sum_results = cursor.fetchall()
+   
     
 
     
@@ -683,9 +698,10 @@ def sort_by_cost():
 
 
     sql_bar_doughnut_chart_data= f"SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s GROUP BY expense_category"
-    cursor.execute(sql_bar_doughnut_chart_data,(user_id,current_year,current_month))
+    cursor.execute(sql_bar_doughnut_chart_data,(user_id,selected_year,selected_month))
    
     bar_doughnut_chart_results = cursor.fetchall()
+    
     
     bar_doughnut_chart_list = []
 
@@ -701,8 +717,9 @@ def sort_by_cost():
     
 
     sql_sort_cost = f"SELECT expense_id,expense_name,expense_cost,expense_date,expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s and MONTH(expense_date) = %s order by expense_cost {sort_expense_order} LIMIT 10 OFFSET %s "
-    cursor.execute(sql_sort_cost, (user_id,current_year,current_month,offset))
+    cursor.execute(sql_sort_cost, (user_id,selected_year,selected_month,offset))
     results = cursor.fetchall()
+    print(len(results))
    
 
     max_10_results_amount= len(results)
@@ -710,6 +727,7 @@ def sort_by_cost():
 
 
     running_count = offset + max_10_results_amount
+   
 
             
 
@@ -740,7 +758,7 @@ def sort_by_cost():
     
     years_list = ["2025", "2026"]
     
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, time = time,   chart_bar_doughnut_data =  chart_bar_doughnut_data, showing_year = current_year, showing_month = converted_month, total_sum_cost = total_sum, top_category_name = top_category_name, top_category_amount = top_category_amount, month_list_reversed = month_list_reversed, years_list = years_list, current_month = current_month)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, sort_expense_order = sort_expense_order, view_mode = view_mode, running_count = running_count, time = time,   chart_bar_doughnut_data =  chart_bar_doughnut_data, total_sum_cost = total_sum, top_category_name = top_category_name, top_category_amount = top_category_amount, month_list_reversed = month_list_reversed, years_list = years_list, current_month = selected_month,showing_year = selected_year)
 
   
 
@@ -752,12 +770,7 @@ def sort_by_cost():
 @app.route("/new_sort", methods = ['POST', 'GET'])
 def new_sort():
 
-    current_date = datetime.now()
-    
-    current_year = str(current_date)[0:4]
-    current_month = str(current_date)[5:7]
-
-    converted_month = current_date.strftime("%B")
+   
    
 
     view_mode = "new-sort"
@@ -782,16 +795,14 @@ def new_sort():
     selected_year = request.args.get("selected-year", None)
     selected_month = request.args.get("selected-month", None)
 
-    if selected_year and selected_month != None:
-        current_year = selected_year
-        current_month = selected_month
+    
     
   
 
 
 
     sql_complete_query = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s"
-    cursor.execute(sql_complete_query,(user_id,current_year, current_month))
+    cursor.execute(sql_complete_query,(user_id,selected_year, selected_month))
     complete_query_results = cursor.fetchall()
     complete_query_results_amount = len(complete_query_results)
     complete_results_amount = int(complete_query_results_amount)
@@ -800,13 +811,13 @@ def new_sort():
     sql_total_sum_query = """SELECT SUM(expense_cost) as total_sum FROM expense_tracker_expense_data 
     WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s
     """
-    cursor.execute(sql_total_sum_query,(user_id, current_year, current_month))
+    cursor.execute(sql_total_sum_query,(user_id, selected_year, selected_month))
     sql_total_sum_results = cursor.fetchone()
     
     total_sum_cost = sql_total_sum_results[0] # type: ignore
 
     sql_top_category_query = "SELECT expense_category, SUM(expense_cost) as top_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) =  %s GROUP BY expense_category ORDER BY top_category DESC LIMIT 1"
-    cursor.execute(sql_top_category_query, (user_id, current_year, current_month))
+    cursor.execute(sql_top_category_query, (user_id, selected_year, selected_month))
     sql_top_category_results = cursor.fetchone()
 
  
@@ -817,7 +828,7 @@ def new_sort():
 
     
     sql_max_10_query = f"SELECT expense_id, expense_name, expense_cost, expense_date, expense_category FROM expense_tracker_expense_data WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s ORDER BY expense_date {sort_new_order.upper()} LIMIT 10 OFFSET %s"
-    cursor.execute(sql_max_10_query, (user_id,current_year, current_month, offset))
+    cursor.execute(sql_max_10_query, (user_id,selected_year, selected_month, offset))
     max_10_results = cursor.fetchall()
     max_10_results_amount= len(max_10_results)
     max_10_results_amount = int(max_10_results_amount)
@@ -828,7 +839,7 @@ def new_sort():
     WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s 
     GROUP BY expense_category
     """
-    cursor.execute(sql_sum_all_category_query, (user_id,current_year, current_month))
+    cursor.execute(sql_sum_all_category_query, (user_id,selected_year, selected_month))
     sql_sum_all_category_results = cursor.fetchall()
     
     category_sum_list = []
@@ -888,7 +899,7 @@ def new_sort():
 
     years_list = ["2025", "2026"]
 
-    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count,  time = time, total_sum_cost = total_sum_cost, top_category_name = top_category_name, top_category_amount = top_category_amount, showing_year = current_year, showing_month = converted_month, chart_bar_doughnut_data = chart_bar_doughnut_data, month_list_reversed = month_list_reversed, years_list = years_list, current_year = current_year, current_month = current_month)
+    return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(),  sort_new_order=sort_new_order, my_json=my_json, offset = offset, max_10_results_amount = max_10_results_amount, complete_results_amount = complete_results_amount, view_mode = view_mode, running_count = running_count,  time = time, total_sum_cost = total_sum_cost, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, month_list_reversed = month_list_reversed, years_list = years_list,showing_year = selected_year,current_month = selected_month )
 
 
 
@@ -1184,14 +1195,17 @@ def logout():
 
 @app.route('/update_name_quick_search', methods = ["get", "post"])
 def qs_update_name():
+   
     db = get_db()
     cursor = db.cursor()
     user_id = session.get("user_id", None)
+    
    
 
     expense_id = request.args.get("expenseId", None)
     user_input = request.args.get("updateName", None)
     user_id = request.args.get("userId", None)
+   
    
     sql_update_name_query = """
     UPDATE expense_tracker_expense_data
@@ -1216,6 +1230,7 @@ def qs_update_name():
 @app.route("/quick_search_update_cost", methods = ["GET", "POST"])
 def quick_search_update_cost():
     db = get_db()
+    print(db)
     cursor = db.cursor()
     
     user_id = request.args.get("userId", None)

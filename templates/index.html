@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -36,10 +36,6 @@
       rel="stylesheet"
     />
 
-
-
-
-
     <script>
       let currentColor = window.localStorage.getItem("color");
 
@@ -56,9 +52,7 @@
   </head>
 
   <body>
-    <nav
-    id="close"
-    class="close">
+    <nav id="close" class="close">
       <div class="image-text" id="image-text">
         <span class="image">
           <img
@@ -76,25 +70,24 @@
           <span class="name">Expense Tracker</span>
         </div>
         <div class="toggle-container">
-          <i style="font-size: 30px"
-          id="d-toggle"
-          
-          class="bx bx-chevron-right toggle d-toggle"></i>
+          <i
+            style="font-size: 30px"
+            id="d-toggle"
+            class="bx bx-chevron-right toggle d-toggle"
+          ></i>
         </div>
       </div>
 
       <div class="menu-bar">
         <div class="menu">
           <ul class="menu-links">
-            <li
-            id="d-close-searchbox"
-            class="close-search-box">
+            <li id="d-close-searchbox" class="close-search-box">
               <i class="bx bx-search-alt-2 search-icon"></i>
 
               <input
                 type="text"
                 name="user-search"
-                oninput="searchExpenseByName(0), turnOnCancelIcon()"
+                oninput="(searchExpenseByName(0), turnOnCancelIcon())"
                 placeholder="Search expense by name"
                 id="search-input"
                 class="search-input"
@@ -178,10 +171,7 @@
                 <span class="text nav-text"> Add Expense</span>
               </a>
             </li>
-          {##}
-
-
-            
+            {##}
           </ul>
           <div class="bottom-content">
             <li class="bottom-list">
@@ -236,7 +226,6 @@
         </div>
 
         <div class="summary_container">
-          
           <div class="summary_child_container">
             <div class="timeframe-main-container">
               <div class="timeframe-child-container">
@@ -245,58 +234,47 @@
                   alt="icon of a calender"
                   class="calender-icon"
                 />
-                <p class="timeframe-display">
-                  Showing &mdash;
-                </p>
-                <form action="{{url_for('dashboard')}}" class="change-month-year-form">
-                 
-              
-               
-                <select 
-               name="selected-month"
-               class="change-month-dropdown">
+                <p class="timeframe-display">Showing &mdash;</p>
+                <form
+                  action="{{url_for('dashboard')}}"
+                  class="change-month-year-form"
+                >
+                  <select name="selected-month" class="change-month-dropdown">
+                    {% for k, v in month_list_reversed.items() %}
 
-               {% for k, v in month_list_reversed.items() %}
-              
-                <option value="{{k}}"{% if k == current_month %}selected {% endif %}> {{v}} </option>
-               
-                {%endfor%}
+                    <option
+                      value="{{k}}"
+                      {%if k == current_month %}selected {%endif%} >
+                   
+                      {{v}}
+                      
+                    </option>
 
-               </select>
-               
-                <select 
-               name="selected-year"
-               class="change-year-dropdown">
-              <!--
+                    {%endfor%}
+                  </select>
+
+                  <select name="selected-year" class="change-year-dropdown">
+                    <!--
                 <option  value="2025" {%if showing_year == "2025" %} selected {%endif%}> 2025 </option>
                 <option  value="2024" {%if showing_year == "2024" %} selected {%endif%}> 2024 </option>
               -->
-              {% for y in years_list %}
-              <option value="{{y}}"{%if y == showing_year %} selected{%endif%}>{{y}}</option>
-              {%endfor%}
-             
-              
+                    {% for y in years_list %}
+                    <option
+                      value="{{y}}"
+                      {%if y == showing_year %}selected {%endif%}
+                    >
+                      {{y}}
+                    </option>
+                    {%endfor%}
+                  </select>
 
-
-
-
-                
-               
-               </select>
-               
-              
-              
-               <button
-               class="change-year-dropdown-button"
-               type="submit">View</button>
-               
-              </form>
-               
+                  <button class="change-year-dropdown-button" type="submit">
+                    View
+                  </button>
+                </form>
               </div>
-             
             </div>
-          
-           
+
             <div class="monthly-glance-container">
               <p class="monthly-glance-text">Spending Summary</p>
             </div>
@@ -313,10 +291,9 @@
               <div class="highest-category-main-container">
                 <div class="cat-icon-container">
                   <svg
-                  class="cat-icon"
+                    class="cat-icon"
                     height="35px"
                     width="35px"
-                   
                     viewBox="-2 0 45.996 45.996"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -347,8 +324,7 @@
 
               <div class="receipt_container">
                 <div class="receipt_image_container">
-                  <i 
-                  class="bx bx-receipt receipt-svg"></i>
+                  <i class="bx bx-receipt receipt-svg"></i>
                 </div>
                 <div class="details_container receipt">
                   <p class="monthly">Entries</p>
@@ -360,7 +336,7 @@
         </div>
         <div class="chart-main-container">
           <div class="bar-chart-child-container">
-          <p class="bar-chart-legend-label">Monthly Expenses by Category</p>
+            <p class="bar-chart-legend-label">Monthly Expenses by Category</p>
             <div class="bar-chart-canvas-container">
               <canvas id="barChart"></canvas>
             </div>
@@ -390,17 +366,19 @@
                   action="{{url_for('sort_by_cost', offset = offset )}}"
                 >
                   <input name="offset" style="display: none" value="{{0}}" />
-                    <input
-                    style="display: none;"
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <select name="sort-expense" class="sort-expense-dropdown">
                     <option value="none">--Sort by Cost--</option>
@@ -409,24 +387,24 @@
                   </select>
                 </form>
 
-                
-                
                 <form
                   class="sort-desc-asc"
                   action="{{url_for('new_sort')}}"
                   method="get"
                 >
-                 <input
-                 style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
                   <select name="sort-by" class="asc-desc">
                     <option value="none">--Sort by (newest/oldest)--</option>
                     <option value="desc">Newest first</option>
@@ -518,7 +496,7 @@
                         <div class="name-container">
                           {{ item.expense_name }}
                           <button
-                          style="display: none;"
+                            style="display: none"
                             type="button"
                             class="edit-name-button"
                             id="edit-name-button-{{item.expense_id}}"
@@ -530,21 +508,21 @@
                         <div class="name-input-container">
                           <form
                             class="edit-name-form"
-                            style="display: none;"
+                            style="display: none"
                             id="edit-name-form-{{item.expense_id}}"
                             action="{{url_for('update_name', index = item.expense_id, expense_id = item.expense_id)}}"
                             method="post"
                           >
                             <input
-                            data-expense-id="{{item.expense_id}}"
+                              data-expense-id="{{item.expense_id}}"
                               class="edit-name-input"
                               type="text"
                               id="edit-name-input-{{item.expense_id}}"
                               autocomplete="off"
                               name="new-name-input-{{item.expense_id}}"
+                              required
                             />
                             <button
-                            
                               type="submit"
                               class="save-name-edit-button"
                               id="save-name-edit-button-{{item.expense_id}}"
@@ -561,7 +539,7 @@
                         <div class="cost-container">
                           {{ "${:.2f}".format(item.amount) }}
                           <button
-                          style="display: none;"
+                            style="display: none"
                             class="edit-cost-button"
                             id="edit-cost-button-{{item.expense_id}}"
                             onclick="showCostForm({{item.expense_id}});showCostinput({{item.expense_id}})"
@@ -572,17 +550,18 @@
                         <div class="cost-form-container">
                           <form
                             class="edit-cost-form"
-                            style="display: none;"
+                            style="display: none"
                             id="edit-cost-form-{{item.expense_id}}"
                             method="POST"
                             action="{{url_for('update_cost', index = item.expense_id, expense_id = item.expense_id) }}"
                           >
                             <input
-                            data-expense-id="{{item.expense_id}}"
+                              data-expense-id="{{item.expense_id}}"
                               class="edit-cost-input"
                               type="number"
                               id="edit-cost-input-{{item.expense_id}}"
                               name="new-cost-input-{{item.expense_id}}"
+                              required
                             />
                             <button
                               type="submit"
@@ -600,7 +579,7 @@
                         <div class="date-container">
                           {{ item.expense_date}}
                           <button
-                          style="display: none;"
+                            style="display: none"
                             class="edit-date-button"
                             id="edit-date-button-{{item.expense_id}}"
                             onclick="showDateForm({{item.expense_id}});showDateInput({{item.expense_id}})"
@@ -610,18 +589,21 @@
                         </div>
                         <div class="date-form-container">
                           <form
-                          style="display: none;"
+                            style="display: none"
                             class="edit-date-form"
                             id="edit-date-form-{{item.expense_id}}"
                             method="POST"
                             action="{{url_for('update_date', index = item.expense_id, expense_id = item.expense_id) }}"
                           >
                             <input
-                            data-expense-id="{{item.expense_id}}"
+                          
+                            class="edit-date-input"
+                              data-expense-id="{{item.expense_id}}"
                               id="datepicker-{{item.expense_id}}"
                               type="text"
                               autocomplete="off"
                               name="new-date-input-{{item.expense_id}}"
+                              required
                             />
                             <button
                               type="submit"
@@ -647,7 +629,7 @@
                     </td>
                     <td class="edit-table-container">
                       <button
-                      data-expense-id="{{item.expense_id}}"
+                        data-expense-id="{{item.expense_id}}"
                         class="main-edit-button"
                         id="main-edit-button-{{item.expense_id}}"
                         type="button"
@@ -659,7 +641,7 @@
                           src="../static/images/pencil_345648.png"
                         />
                         <img
-                        data-expense-id="{{item.expense_id}}"
+                          data-expense-id="{{item.expense_id}}"
                           class="edit-mode"
                           id="edit-mode-{{item.expense_id}}"
                           src="../static/images/edit-mode.png"
@@ -710,13 +692,17 @@
                   Showing {{running_count}} of {{complete_results_amount}}
                   results
                 </p>
+                <div
+                class="next-button-child-container"
+                >
                 <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
                 <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
 
                 {% if view_mode == "dashboard" and asc_or_desc == "desc" and
                 offset == 0 and running_count < complete_results_amount %}
 
-                <form
+               
+                 <form
                   style="display: none"
                   class="form-previous-results"
                   method="get"
@@ -744,29 +730,33 @@
                   action="{{url_for('dashboard')}}"
                 >
                   <input
-                   style="display: none;"
+                    style="display: none"
                     class="n-results"
                     name="offset"
                     value="{{offset + 10}}"
                   />
                   <input
-                  style="display: none;"
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <button class="next-results" type="submit">
                     next results
-                    <i 
-                    class="fas fa-angle-double-right"></i>
+                    <i class="fas fa-angle-double-right"></i>
                   </button>
                 </form>
+              
+
+               
                 {% endif %} {% if asc_or_desc == "desc" and view_mode ==
                 "dashboard" and offset > 0 and running_count <
                 complete_results_amount %}
@@ -777,9 +767,8 @@
                   action="{{url_for('dashboard')}}"
                 >
                   <input
-                  style="display: none;"
+                    style="display: none"
                     class="p-results"
-                   
                     name="offset"
                     value="{{offset - 10}}"
                   />
@@ -814,26 +803,24 @@
                   action="{{url_for('dashboard')}}"
                 >
                   <input
-                  style="display: none;"
+                    style="display: none"
                     class="p-results"
-                    
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                   <input
-                   style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
-
-
-  
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <button class="previous-results" type="submit">
                     <i class="fas fa-angle-double-left"></i> previous results
@@ -846,8 +833,9 @@
                 <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
 
                 <!--START OF SORT_COST BUTTONS ------------------------------------------------->
-                {% if sort_expense_order == "desc" or sort_expense_order ==
-                "asc" and view_mode == "sort-cost" %} {% if offset == 0 %}
+                {% if view_mode == "sort-cost"%}
+                {% if sort_expense_order == "desc" or sort_expense_order == "asc" %} 
+                {% if offset == 0 %}
 
                 <form
                   method="get"
@@ -860,17 +848,19 @@
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                    <input
-                    style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <button
                     style="display: none"
@@ -888,36 +878,46 @@
                 >
                   <input
                     name="offset"
-                    style="display: none"
+                   style="display: none;"
                     class="sort-cost-input"
                     value="{{offset + 10}}"
                   />
-                    <input
-                    style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none;"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none;"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <input
-                    style="display: none"
+                    style="display: none;"
                     name="sort-expense"
                     value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
                     class="sort-order-input"
                   />
 
-                  <button class="cost-next-button" type="submit">
-                    next results
+                  <button
+                  class="next-results"
+                  style="{% if running_count == complete_results_amount%} display:none" {% endif %}
+                   type="submit">Next results
                     <i class="fas fa-angle-double-right"></i>
                   </button>
                 </form>
 
-                {% endif %} {% endif %} {% if view_mode == "sort-cost" and
+                {% endif %} 
+                {% endif %}
+                {% endif %} 
+                
+                
+                
+                {% if view_mode == "sort-cost" and
                 sort_expense_order == "desc" or sort_expense_order == "asc" %}
                 {%if offset > 0 and running_count < complete_results_amount %}
                 <form
@@ -938,6 +938,15 @@
                     name="offset"
                     value="{{offset - 10}}"
                   />
+                  <input
+                  style="display: none;"
+                  name="selected-year"
+                  value="{{showing_year}}">
+                  
+                  <input
+                  style="display: none;"
+                  name="selected-month"
+                  value="{{current_month}}">
 
                   <button class="previous-results" type="submit">
                     <i class="fas fa-angle-double-left"></i> previous results
@@ -956,64 +965,71 @@
                     name="sort-expense"
                     value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}"
                   />
-                    <input
-                    style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <button class="cost-next-button" type="submit">
-                    next results
+                    next results 
                     <i class="fas fa-angle-double-right"></i>
                   </button>
                 </form>
-                {% endif %} {% endif %} {%if view_mode == "sort-cost" and offset
-                > 0 and running_count == complete_results_amount%}
+                {% endif %} 
+                {% endif %} 
+                
+                
+                {%if view_mode == "sort-cost" and offset > 0 and running_count == complete_results_amount%}
 
                 <form action="{{url_for('sort_by_cost')}}" method="get">
                   <input
-                    style="display: none"
+                     style="display: none;"
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                    <input
-                  style="display: none;"
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none;"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none;"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <input
-                    style="display: none"
+                    style="display: none;"
                     name="sort-expense"
                     value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}"
                   />
 
                   <input
-                    style="display: none"
+                     style="display: none;"
                     name="prev_cost_button"
                     value="yes"
                   />
 
                   <input
-                    style="display: none"
+                     style="display: none;"
                     name="cost_max_10"
                     value="{{max_10_results_amount}}"
                   />
 
                   <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
+                    <i class="fas fa-angle-double-left"></i>previous results
                   </button>
                 </form>
 
@@ -1043,8 +1059,6 @@
                     style="display: none"
                     value="{{offset + 10}}"
                   />
-
-                 
 
                   <button
                     type="submit"
@@ -1093,7 +1107,7 @@
                     type="submit"
                     class="year-next-button dark next-results"
                   >
-                    next results <i class="fas fa-angle-double-right"></i>
+                    next results cuck <i class="fas fa-angle-double-right"></i>
                   </button>
                 </form>
 
@@ -1223,6 +1237,7 @@
                 <!--START OF NEW SORT BUTTONS ------------------------------------------------->
 
                 {% if view_mode == "new-sort" and offset == 0 %}
+                
 
                 <form method="get" action="{{url_for('new_sort')}}">
                   <input
@@ -1230,27 +1245,31 @@
                     name="offset"
                     value="{{offset + 10}}"
                   />
-                  
 
                   <input
                     style="display: none"
                     name="sort-by"
                     value="{{sort_new_order}}"
                   />
-                   <input
-                   style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <button
-                    class="year-next-button dark next-results"
+                   class="year-next-button dark next-results"
+                  style="display: {% if running_count == complete_results_amount %} none;" 
+                  {% endif %}
+                   
                     type="submit"
                   >
                     next results
@@ -1258,7 +1277,9 @@
                   </button>
                 </form>
 
-                {% endif %} {% if view_mode == "new-sort" and offset != 0 and
+                {% endif %} 
+                
+                {% if view_mode == "new-sort" and offset != 0 and
                 running_count != complete_results_amount %}
 
                 <form method="get" action="{{url_for('new_sort')}}">
@@ -1267,17 +1288,19 @@
                     name="sort-by"
                     value="{{sort_new_order}}"
                   />
-                    <input 
-                    style="display: none;"
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <input
                     style="display: none"
@@ -1302,17 +1325,19 @@
                     name="offset"
                     value="{{offset + 10}}"
                   />
-                   <input
-                   style="display: none;" 
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
                   <button
                     class="year-next-button dark next-results"
@@ -1323,7 +1348,9 @@
                   </button>
                 </form>
 
-                {% endif %} {% if view_mode == "new-sort" and running_count ==
+                {% endif %} 
+                
+                {% if view_mode == "new-sort" and running_count ==
                 complete_results_amount %}
 
                 <form method="get" action="{{url_for('new_sort')}}">
@@ -1338,41 +1365,47 @@
                     name="offset"
                     value="{{offset - 10}}"
                   />
-                    <input 
-                    style="display: none;"
-                  class="year-input"
-                  name="selected-year"
-                  value="{{showing_year}}">
+                  <input
+                    style="display: none"
+                    class="year-input"
+                    name="selected-year"
+                    value="{{showing_year}}"
+                  />
 
                   <input
-                  style="display: none;"
-                  class="month-input"
-                  name="selected-month"
-                  value="{{current_month}}">
+                    style="display: none"
+                    class="month-input"
+                    name="selected-month"
+                    value="{{current_month}}"
+                  />
 
-                  <button class="previous-results" type="submit">
+                  <button 
+                   class="previous-results"
+                  style="display: {% if offset == 0 %} none;" {% endif %}
+                  type="submit">
                     <i class="fas fa-angle-double-left"></i> previous results
                   </button>
                 </form>
 
                 {% endif %}
+                </div>
               </div>
+           
+            
             </div>
           </div>
         </div>
 
         <p style="display: none" class="json_data">{{my_json}}</p>
-         <p style="display: none" class="complete_json_data">{{chart_bar_doughnut_data}}</p>
+        <p style="display: none" class="complete_json_data">
+          {{chart_bar_doughnut_data}}
+        </p>
 
         <!--END OF NEW SORT  BUTTONS ------------------------------------------------->
         <!--END OF NEW SORT BUTTONS ------------------------------------------------->
         <!--START OF CHARTJS MAIN CONTAINER ------------------------------------------------->
-
-      
-
-     
       </div>
-       <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
+      <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
       <div class="searched-expense-display-container">
         <div class="quick-search-container">
           <div class="quick-search-image-container">
@@ -1382,78 +1415,53 @@
               alt="magnifying glass with lighting next to it"
             />
             <p class="quick-search-text">Quick Search</p>
-            
           </div>
-         
+
           <div class="quick-search-results-amount-container">
-          <p id="offset-amount"></p>
-          
-            <p 
-            id="dp"
-            class="quick-search-results"></p>
+            <p id="offset-amount"></p>
+
+            <p id="dp" class="quick-search-results"></p>
           </div>
           <p class="offset-amount"></p>
         </div>
         <div class="no-entries-parent-container">
-        <div class="no-entries-child-container">
-         <p style="color: #bb86fc" class="no-results">
-          No entries found
-        </p>
-       <p class="try-again">Try another search</p>
-        </div>
-       
+          <div class="no-entries-child-container">
+            <p style="color: #bb86fc" class="no-results">No entries found</p>
+            <p class="try-again">Try another search</p>
+          </div>
         </div>
 
-        
-     
-
-        <div class="search-table-main-container">
-         
-        </div>
+        <div id="db-search-table-main-container"></div>
+      </div>
       <div class="delete-confirmation-main-container">
-      <div class="warning-icon-container">
-      <img 
-      class="warning-icon"
-       src="../static/images/warning_icon.png"
-      alt="warning icon">
-      <p class="warning-message">Are you sure you want to delete?</p>
-      </div>
-      <div class="name-cost-container">
-       <p class="e-name"></p>
-      <p class="e-cost"></p>
-      </div>
-      <div class="qs-delete-expense-container">
-      <button
-      class="cancel-delete">Cancel</button>
-      <button
-      class="confirm-delete">Yes, I want to delete</button>
-
-      </div>
-      
-     
+        <div class="warning-icon-container">
+          <img
+            class="warning-icon"
+            src="../static/images/warning_icon.png"
+            alt="warning icon"
+          />
+          <p class="warning-message">Are you sure you want to delete?</p>
+        </div>
+        <div class="name-cost-container">
+          <p class="e-name"></p>
+          <p class="e-cost"></p>
+        </div>
+        <div class="qs-delete-expense-container">
+          <button class="cancel-delete">Cancel</button>
+          <button class="confirm-delete">Yes, I want to delete</button>
+        </div>
       </div>
       <div class="quick-search-button-container">
-       
-      
-     
-     
-        <button class="qs-previous-results"
-        
-        >
-        <i class="fas fa-angle-double-left"></i>Previous Results
+        <button class="qs-previous-results">
+          <i class="fas fa-angle-double-left"></i>Previous Results
         </button>
-      
-        
-        <button
-        
-        type="button"
-        
-        class="qs-next-results">Next results <i class="fas fa-angle-double-right"></i>
+
+        <button type="button" class="qs-next-results">
+          Next results <i class="fas fa-angle-double-right"></i>
         </button>
-        
-       
+      </div>
        </div>
-        <div class="back-to-dashboard-container">
+      <div class="back-to-dashboard-container">
         <!--
         <button
       
@@ -1464,16 +1472,12 @@
        class="back-to-dashboard-button">Back to Dashboard  <i class="bx bxs-home  back-to-dashboard-icon"></i>
         <a href="{{url_for('dashboard')}}"></a></button>
         -->
-      
-       
-      
-       
-      
-       
-        <a 
-        class="back-to-dashboard-a-tag back-to-dashboard-button"
-        href="{{url_for('dashboard')}}">Back to Dashboard <i class="bx bxs-home  back-to-dashboard-icon"></i></a>
 
+        <a
+          class="back-to-dashboard-a-tag back-to-dashboard-button"
+          href="{{url_for('dashboard')}}"
+          >Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i
+        ></a>
       </div>
     </main>
 
@@ -1623,18 +1627,18 @@
 
       function showEditnameInput(index) {
         const newNameInput = document.getElementById(
-          "edit-name-input-" + index
+          "edit-name-input-" + index,
         );
         newNameInput.style.display = "flex";
       }
 
       function noNameEdit(index) {
         const hideNameEditButton = document.getElementById(
-          "edit-name-button-" + index
+          "edit-name-button-" + index,
         );
         hideNameEditButton.style.display = "none";
         const hideNameCancelButton = document.getElementById(
-          "cancel-svg-name-button-" + index
+          "cancel-svg-name-button-" + index,
         );
         hideNameCancelButton.style.display = "none";
       }
@@ -1643,7 +1647,7 @@
         const hideNameForm = document.getElementById("edit-name-form-" + index);
         hideNameForm.style.display = "none";
         const clearNameInput = document.getElementById(
-          "edit-name-input-" + index
+          "edit-name-input-" + index,
         );
         clearNameInput.value = "";
       }
@@ -1665,7 +1669,7 @@
 
       function showCostForm(index) {
         const showCostinput = document.getElementById(
-          "edit-cost-form-" + index
+          "edit-cost-form-" + index,
         );
         showCostinput.style.display = "flex";
       }
@@ -1677,11 +1681,11 @@
 
       function noCostEdit(index) {
         const hideCostButton = document.getElementById(
-          "edit-cost-button-" + index
+          "edit-cost-button-" + index,
         );
         hideCostButton.style.display = "none";
         const hideCostCancelButton = document.getElementById(
-          "cancel-svg-cost-button-" + index
+          "cancel-svg-cost-button-" + index,
         );
         hideCostCancelButton.style.display = "none";
       }
@@ -1690,7 +1694,7 @@
         const hideCostForm = document.getElementById("edit-cost-form-" + index);
         hideCostForm.style.display = "none";
         const clearCostInput = document.getElementById(
-          "edit-cost-input-" + index
+          "edit-cost-input-" + index,
         );
         clearCostInput.value = "";
       }
@@ -1725,11 +1729,11 @@
 
       function noDateEdit(index) {
         const hideDateCancelicon = document.getElementById(
-          "cancel-svg-date-button-" + index
+          "cancel-svg-date-button-" + index,
         );
         hideDateCancelicon.style.display = "none";
         const hideDateEditButton = document.getElementById(
-          "edit-date-button-" + index
+          "edit-date-button-" + index,
         );
         hideDateEditButton.style.display = "none";
       }
@@ -1773,34 +1777,29 @@
       /* SVG CANCEL BUTTONS END */
     </script>
 
-   
-
-   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
- 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
-    let currentYear = "{{showing_year}}-12";
+      let currentYear = "{{showing_year}}-12";
       let previousYear = "{{previous_year}}-01";
 
-    let dashboardTable = document.querySelector(".dashboard-table")
-    if (dashboardTable) {
-      dashboardTable.addEventListener("click", (e)=> {
-      if (e.target.id.includes("datepicker")) {
-        let selectedInput = e.target
-         flatpickr(selectedInput, {
-        minDate: previousYear,
-        maxDate: currentYear}).open()
-       
-        
+      let dashboardTable = document.querySelector(".dashboard-table");
+      if (dashboardTable) {
+        dashboardTable.addEventListener("click", (e) => {
+          if (e.target.id.includes("datepicker")) {
+            let selectedInput = e.target;
+            flatpickr(selectedInput, {
+              minDate: previousYear,
+              maxDate: currentYear,
+            }).open();
+          }
+        });
       }
-     
-    })
-    }
-    
-
-
     </script>
 
     <script src="../static/script.js"></script>
