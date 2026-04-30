@@ -1,96 +1,63 @@
 <!doctype html>
 <html class="dark" lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
 
-    <link
-      rel="stylesheet"
-      href="../static/jquery-ui-1.14.0.custom/jquery-ui.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-    <link
-      rel="stylesheet"
-      href="../static/jquery-ui-1.14.0.custom/jquery-ui.structure.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../static/jquery-ui-1.14.0.custom/jquery-ui.theme.css"
-    />
+  <link rel="stylesheet" href="../static/jquery-ui-1.14.0.custom/jquery-ui.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+  <link rel="stylesheet" href="../static/jquery-ui-1.14.0.custom/jquery-ui.structure.css" />
+  <link rel="stylesheet" href="../static/jquery-ui-1.14.0.custom/jquery-ui.theme.css" />
 
-    <script>
-      let currentColor = window.localStorage.getItem("color");
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-      let html = document.querySelector("html");
-      if (currentColor === "light") {
-        html.classList.remove("dark");
-        html.classList.add("light");
-      } else {
-        html.classList.remove("light");
-        html.classList.add("dark");
-      }
-    </script>
-    <link rel="stylesheet" href="/static/styles.css" />
-  </head>
-  <body>
-    <nav id="close" class="close">
-      <div class="image-text" id="image-text">
-        <span class="image">
-          <img
-            class="light-mode-et"
-            src="../static/images/NEW_ET_logo.png"
-            alt="icon of expense tracker"
-          />
-          <img
-            class="dark-mode-et"
-            src="../static/images/ET_lightmode.png"
-            alt="icon of expense tracker"
-          />
-        </span>
-        <div class="text header-text" id="header-text">
-          <span class="name">Expense Tracker</span>
-        </div>
-        <div class="toggle-container">
-          <i
-            style="font-size: 30px"
-            id="d-toggle"
-            class="bx bx-chevron-right toggle d-toggle"
-          ></i>
-        </div>
+  <script>
+    let currentColor = window.localStorage.getItem("color");
+
+    let html = document.querySelector("html");
+    if (currentColor === "light") {
+      html.classList.remove("dark");
+      html.classList.add("light");
+    } else {
+      html.classList.remove("light");
+      html.classList.add("dark");
+    }
+  </script>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+
+<body>
+  <nav id="close" class="close">
+    <div class="image-text" id="image-text">
+      <span class="image">
+        <img class="light-mode-et" src="../static/images/NEW_ET_logo.png" alt="icon of expense tracker" />
+        <img class="dark-mode-et" src="../static/images/ET_lightmode.png" alt="icon of expense tracker" />
+      </span>
+      <div class="text header-text" id="header-text">
+        <span class="name">Expense Tracker</span>
       </div>
+      <div class="toggle-container">
+        <i style="font-size: 30px" id="d-toggle" class="bx bx-chevron-right toggle d-toggle"></i>
+      </div>
+    </div>
 
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li id="d-close-searchbox" class="close-search-box">
-              <i class="bx bx-search-alt-2 search-icon"></i>
+    <div class="menu-bar">
+      <div class="menu">
+        <ul class="menu-links">
+          <li id="d-close-searchbox" class="close-search-box">
+            <i class="bx bx-search-alt-2 search-icon"></i>
 
-              <input
-                type="text"
-                name="user-search"
-                oninput="(searchExpenseByName(0), turnOnCancelIcon())"
-                placeholder="Search expense by name"
-                id="search-input"
-                class="search-input"
-              />
-              <!--
+            <input type="text" name="user-search" oninput="(searchExpenseByName(0), turnOnCancelIcon())"
+              placeholder="Search expense by name" id="search-input" class="search-input" />
+            <!--
               <input
               style="display: none;"
               name="offset"
@@ -98,241 +65,176 @@
               class="offset"
               value="0">
               -->
-              <img
-                class="search-input-cancel-icon"
-                width="20"
-                height="20"
-                src="https://img.icons8.com/fluency-systems-filled/48/multiply.png"
-                alt="multiply"
-              />
-            </li>
+            <img class="search-input-cancel-icon" width="20" height="20"
+              src="https://img.icons8.com/fluency-systems-filled/48/multiply.png" alt="multiply" />
+          </li>
 
-            <li class="nav-link" id="dashboard-link">
-              <a href="{{url_for('dashboard')}}">
-                <i class="bx bxs-home home-icon"></i>
-                <span class="text nav-text"> Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-link">
-              <a href="{{url_for('add_expense')}}">
-                <svg
-                  class="sidebar-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14.2617 15.4385H9.26172"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M11.7617 12.998V17.998"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M12.66 2.51814L12.63 2.58814L9.72996 9.31814H6.87996C6.19996 9.31814 5.54996 9.45814 4.95996 9.70814L6.70996 5.52814L6.74996 5.42814L6.81996 5.26814C6.83996 5.20814 6.85996 5.14814 6.88996 5.09814C8.19996 2.06814 9.67996 1.37814 12.66 2.51814Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M18.05 9.51807C17.6 9.37807 17.12 9.31807 16.64 9.31807H9.72998L12.63 2.58807L12.66 2.51807C12.81 2.56807 12.95 2.63807 13.1 2.69807L15.31 3.62807C16.54 4.13807 17.4 4.66807 17.92 5.30807C18.02 5.42807 18.1 5.53807 18.17 5.66807C18.26 5.80807 18.33 5.94807 18.37 6.09807C18.41 6.18807 18.44 6.27807 18.46 6.35807C18.73 7.19807 18.57 8.22807 18.05 9.51807Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M21.5217 14.1984V16.1484C21.5217 16.3484 21.5117 16.5484 21.5017 16.7484C21.3117 20.2384 19.3617 21.9984 15.6617 21.9984H7.86172C7.62172 21.9984 7.38172 21.9784 7.15172 21.9484C3.97172 21.7384 2.27172 20.0384 2.06172 16.8584C2.03172 16.6284 2.01172 16.3884 2.01172 16.1484V14.1984C2.01172 12.1884 3.23172 10.4584 4.97172 9.70836C5.57172 9.45836 6.21172 9.31836 6.89172 9.31836H16.6517C17.1417 9.31836 17.6217 9.38836 18.0617 9.51836C20.0517 10.1284 21.5217 11.9884 21.5217 14.1984Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M6.71 5.52808L4.96 9.70808C3.22 10.4581 2 12.1881 2 14.1981V11.2681C2 8.42808 4.02 6.05808 6.71 5.52808Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M21.5186 11.2677V14.1977C21.5186 11.9977 20.0586 10.1277 18.0586 9.52766C18.5786 8.22766 18.7286 7.20766 18.4786 6.35766C18.4586 6.26766 18.4286 6.17766 18.3886 6.09766C20.2486 7.05766 21.5186 9.02766 21.5186 11.2677Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-                <span class="text nav-text"> Add Expense</span>
-              </a>
-            </li>
-            {##}
-          </ul>
-          <div class="bottom-content">
-            <li class="bottom-list">
-              <a href="{{url_for('logout')}}">
-                <i class="bx bx-log-out logout-icon"></i>
-                <span class="logout-text">Logout</span>
-              </a>
-            </li>
+          <li class="nav-link" id="dashboard-link">
+            <a href="{{url_for('dashboard')}}">
+              <i class="bx bxs-home home-icon"></i>
+              <span class="text nav-text"> Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-link">
+            <a href="{{url_for('add_expense')}}">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.2617 15.4385H9.26172" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path d="M11.7617 12.998V17.998" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M12.66 2.51814L12.63 2.58814L9.72996 9.31814H6.87996C6.19996 9.31814 5.54996 9.45814 4.95996 9.70814L6.70996 5.52814L6.74996 5.42814L6.81996 5.26814C6.83996 5.20814 6.85996 5.14814 6.88996 5.09814C8.19996 2.06814 9.67996 1.37814 12.66 2.51814Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M18.05 9.51807C17.6 9.37807 17.12 9.31807 16.64 9.31807H9.72998L12.63 2.58807L12.66 2.51807C12.81 2.56807 12.95 2.63807 13.1 2.69807L15.31 3.62807C16.54 4.13807 17.4 4.66807 17.92 5.30807C18.02 5.42807 18.1 5.53807 18.17 5.66807C18.26 5.80807 18.33 5.94807 18.37 6.09807C18.41 6.18807 18.44 6.27807 18.46 6.35807C18.73 7.19807 18.57 8.22807 18.05 9.51807Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M21.5217 14.1984V16.1484C21.5217 16.3484 21.5117 16.5484 21.5017 16.7484C21.3117 20.2384 19.3617 21.9984 15.6617 21.9984H7.86172C7.62172 21.9984 7.38172 21.9784 7.15172 21.9484C3.97172 21.7384 2.27172 20.0384 2.06172 16.8584C2.03172 16.6284 2.01172 16.3884 2.01172 16.1484V14.1984C2.01172 12.1884 3.23172 10.4584 4.97172 9.70836C5.57172 9.45836 6.21172 9.31836 6.89172 9.31836H16.6517C17.1417 9.31836 17.6217 9.38836 18.0617 9.51836C20.0517 10.1284 21.5217 11.9884 21.5217 14.1984Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M6.71 5.52808L4.96 9.70808C3.22 10.4581 2 12.1881 2 14.1981V11.2681C2 8.42808 4.02 6.05808 6.71 5.52808Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M21.5186 11.2677V14.1977C21.5186 11.9977 20.0586 10.1277 18.0586 9.52766C18.5786 8.22766 18.7286 7.20766 18.4786 6.35766C18.4586 6.26766 18.4286 6.17766 18.3886 6.09766C20.2486 7.05766 21.5186 9.02766 21.5186 11.2677Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span class="text nav-text"> Add Expense</span>
+            </a>
+          </li>
+          {##}
+        </ul>
+        <div class="bottom-content">
+          <li class="bottom-list">
+            <a href="{{url_for('logout')}}">
+              <i class="bx bx-log-out logout-icon"></i>
+              <span class="logout-text">Logout</span>
+            </a>
+          </li>
 
-            <li class="mode">
-              <div class="moon-sun">
-                <i class="bx bxs-sun sun-icon sun"></i>
-                <i class="bx bx-moon moon-icon moon"></i>
-              </div>
-              <span class="mode-text text dark-span">Dark Mode</span>
-              <span class="mode-text text light-span">Light Mode</span>
+          <li class="mode">
+            <div class="moon-sun">
+              <i class="bx bxs-sun sun-icon sun"></i>
+              <i class="bx bx-moon moon-icon moon"></i>
+            </div>
+            <span class="mode-text text dark-span">Dark Mode</span>
+            <span class="mode-text text light-span">Light Mode</span>
 
-              <div class="toggle-switch">
-                <span class="switch"></span>
-              </div>
-            </li>
-          </div>
+            <div class="toggle-switch">
+              <span class="switch"></span>
+            </div>
+          </li>
         </div>
       </div>
+    </div>
+  </nav>
+  <header>
+    <nav class="top-navbar-container">
+      <li class="paul"><a href="#">Expense Tracker</a></li>
+      <div class="welcome-container">
+        <li class="welcome">Welcome, {{username}}</li>
+      </div>
+
+      <li class="top-navbar">
+        <a href="{{url_for('dashboard')}}">Home</a>
+      </li>
+      <li class="top-navbar"><a href="#">Profile</a></li>
+      <li class="top-navbar">
+        <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
+      </li>
     </nav>
-    <header>
-      <nav class="top-navbar-container">
-        <li class="paul"><a href="#">Expense Tracker</a></li>
-        <div class="welcome-container">
-          <li class="welcome">Welcome, {{username}}</li>
-        </div>
+  </header>
+  <main id="mainContent">
+    <div id="ae-main-container">
+      <div class="second_main_container">
+        <div class="header_container">
+          <img src="../static/images/NEW-MONEY-ICON.png" alt="icon with money" />
+          <h1>Add Expense</h1>
 
-        <li class="top-navbar">
-          <a href="{{url_for('dashboard')}}">Home</a>
-        </li>
-        <li class="top-navbar"><a href="#">Profile</a></li>
-        <li class="top-navbar">
-          <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
-        </li>
-      </nav>
-    </header>
-    <main id="mainContent">
-      <div id="ae-main-container">
-        <div class="second_main_container">
-          <div class="header_container">
-            <img
-              src="../static/images/NEW-MONEY-ICON.png"
-              alt="icon with money"
-            />
-            <h1>Add Expense</h1>
-
-            <div class="form-container">
-              <form
-                method="POST"
-                action="{{ url_for('submit_expense') }}"
-                class="add-expense-form"
-              >
-                <div class="add-amount-container">
-                  <label for="amount" name="amount">Amount </label>
-                  <div class="main-money-symbol-input-container">
-                    <div class="money-symbol-icon-div">
-                      <input
-                        type="number"
-                        name="amount"
-                        id="amount"
-                        step="0.01"
-                        required
-                      />
-                    </div>
+          <div class="form-container">
+            <form method="POST" action="{{ url_for('submit_expense') }}" class="add-expense-form">
+              <div class="add-amount-container">
+                <label for="amount" name="amount">Amount </label>
+                <div class="main-money-symbol-input-container">
+                  <div class="money-symbol-icon-div">
+                    <input type="number" name="amount" id="amount" step="0.01" required />
                   </div>
                 </div>
-                <div class="add-name-container">
-                  <label for="expense" id="expense">Expense name</label>
-                  <input
-                    type="text"
-                    name="expense_name"
-                    id="expense_name"
-                    autocomplete="off"
-                    required
-                  />
-                </div>
-                <div class="add-date-container">
-                  <label for="date"> Date of expense</label>
-                  <input
-                    type="text"
-                    id="add-date-input"
-                    name="expense_date"
-                    autocomplete="off"
-                  />
-                </div>
-                <div class="add-category-container">
-                  <label for="select-category">Expense category</label>
-                  <select name="category" id="select-category" required>
-                    <option value="">--Please choose expense category--</option>
-                    <option value="entertainment">Entertainment</option>
-                    <option value="groceries">Groceries</option>
-                    <option value="rent">Rent</option>
-                    <option value="non-essentials">
-                      Non-essentials (Youtube Premium, Google Storage, etc..)
-                    </option>
-                    <option value="monthly">Monthly Bills</option>
+              </div>
+              <div class="add-name-container">
+                <label for="expense" id="expense">Expense name</label>
+                <input type="text" name="expense_name" id="expense_name" autocomplete="off" required />
+              </div>
+              <div class="add-date-container">
+                <label for="add-date-input"> Date of expense</label>
+                <input type="text" id="add-date-input" name="expense_date" autocomplete="off" />
+              </div>
+              <div class="add-category-container">
+                <label for="select-category">Expense category</label>
+                <select name="category" id="select-category" required>
+                  <option value="">--Please choose expense category--</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="groceries">Groceries</option>
+                  <option value="rent">Rent</option>
+                  <option value="non-essentials">
+                    Non-essentials (Youtube Premium, Google Storage, etc..)
+                  </option>
+                  <option value="monthly">Monthly Bills</option>
 
-                    <option value="other">Other</option>
-                  </select>
-                </div>
+                  <option value="other">Other</option>
+                </select>
+              </div>
 
-                <div class="submit_button_container">
-                  <button type="submit" class="submit_expense_button">
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
+              <div class="submit_button_container">
+                <button type="submit" class="submit_expense_button">
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-      <div class="searched-expense-display-container">
-        <div class="quick-search-container">
-          <div class="quick-search-image-container">
-            <img
-              class="quick-search"
-              src="../static/images/quick-search.png"
-              alt="magnifying glass with lighting next to it"
-            />
-            <p class="quick-search-text">Quick Search</p>
-          </div>
-
-          <div class="quick-search-results-amount-container">
-            <p id="offset-amount"></p>
-
-            <p id="dp" class="quick-search-results"></p>
-          </div>
-          <p class="offset-amount"></p>
-        </div>
-        <div class="no-entries-parent-container">
-          <div class="no-entries-child-container">
-            <p style="color: #bb86fc" class="no-results">No entries found</p>
-            <p class="try-again">Try another search</p>
-          </div>
+    </div>
+    <div class="searched-expense-display-container">
+      <div class="quick-search-container">
+        <div class="quick-search-image-container">
+          <img class="quick-search" src="../static/images/quick-search.png"
+            alt="magnifying glass with lighting next to it" />
+          <p class="quick-search-text">Quick Search</p>
         </div>
 
-        <div
-          id="ae-search-table-main-container"
-          class="search-table-main-container"
-        ></div>
+        <div class="quick-search-results-amount-container">
+          <p id="offset-amount"></p>
+
+          <p id="dp" class="quick-search-results"></p>
+        </div>
+        <p class="offset-amount"></p>
       </div>
-      <!--
+      <div class="no-entries-parent-container">
+        <div class="no-entries-child-container">
+          <p style="color: #bb86fc" class="no-results">No entries found</p>
+          <p class="try-again">Try another search</p>
+        </div>
+      </div>
+
+      <div id="ae-search-table-main-container" class="search-table-main-container"></div>
+    </div>
+    <!--
       <div class="search-table-main-container">
         <table class="search-table"></table>
       </div>
       -->
-      <div class="quick-search-button-container">
-        <button class="qs-previous-results">
-          <i class="fas fa-angle-double-left"></i>Previous Results
-        </button>
+    <div class="quick-search-button-container">
+      <button class="qs-previous-results">
+        <i class="fas fa-angle-double-left"></i>Previous Results
+      </button>
 
-        <button type="button" class="qs-next-results">
-          Next results <i class="fas fa-angle-double-right"></i>
-        </button>
-      </div>
+      <button type="button" class="qs-next-results">
+        Next results <i class="fas fa-angle-double-right"></i>
+      </button>
+    </div>
 
-      <div class="back-to-dashboard-container">
-        <!--
+    <div class="back-to-dashboard-container">
+      <!--
         <button
       
        
@@ -343,29 +245,46 @@
         <a href="{{url_for('dashboard')}}"></a></button>
         -->
 
-        <a
-          class="back-to-dashboard-a-tag back-to-dashboard-button"
-          href="{{url_for('dashboard')}}"
-          >Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i
-        ></a>
-      </div>
-    </main>
+      <a class="back-to-dashboard-a-tag back-to-dashboard-button" href="{{url_for('dashboard')}}">Back to Dashboard <i
+          class="bx bxs-home back-to-dashboard-icon"></i></a>
+    </div>
+  </main>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-      let dateInput = document.getElementById("add-date-input");
-      let currentYear = "{{current_year_int_convert}}-12";
-      let previousYear = "{{previous_year}}-01";
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
 
-      flatpickr(dateInput, {
-        minDate: previousYear,
-        maxDate: currentYear,
-      });
-    </script>
-    <script src="../static/script.js"></script>
-  </body>
+    let dateInput = document.getElementById("add-date-input");
+    let currentDate = "{{ current_month }}-{{ showing_day }}-{{ showing_year }}";
+    console.log(currentDate)
+
+
+    let previousYear = "01-01-{{previous_year}}";
+    console.log(previousYear)
+
+
+
+
+    let formContainer = document.querySelector(".form-container")
+    if (formContainer) {
+      formContainer.addEventListener("click", (e) => {
+        if (e.target.id === "add-date-input") {
+          let dateInput = document.getElementById("add-date-input");
+          console.log(dateInput)
+          flatpickr(dateInput, {
+            dateFormat: "m-d-Y",
+            defaultDate: currentDate,
+            minDate: previousYear,
+            maxDate: currentDate
+          }).open()
+        }
+      })
+
+
+    }
+
+  </script>
+  <script src="../static/script.js"></script>
+</body>
+
 </html>

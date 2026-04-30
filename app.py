@@ -148,17 +148,21 @@ SQL queries:
     my_list.clear()
 
     get_current_year = datetime.now()
+    
+    current_date = get_current_year.strftime("%m-%d-%Y")
+    print(f" this is your current date noob -----------{current_date}")
    
 
     converted_year = str(get_current_year)
     showing_year = converted_year[0:4]
     
-   
+    showing_day = converted_year[8:]
 
     previous_year = int(showing_year)-1
    
 
     current_month = converted_year[5:7]
+    print(current_month)
 
    
     
@@ -381,7 +385,8 @@ SQL queries:
 
         
         
-        return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, previous_year = previous_year,  current_month = current_month, years_list = years_list,  month_list_reversed =  month_list_reversed)
+    
+        return render_template('index.html', income=income, my_list=my_list, my_expenses=my_expenses, free_money=free_money, username=str(username).capitalize(), user_year_selection=user_year_selection, my_json=my_json, offset=offset, max_10_results_amount=max_10_results_amount, complete_results_amount= complete_results_amount, asc_or_desc = asc_or_desc, view_mode = view_mode, running_count = running_count, total_sum_cost = total_sum_cost, time = time, showing_month = showing_month, showing_year = showing_year, top_category_name = top_category_name, top_category_amount = top_category_amount, chart_bar_doughnut_data = chart_bar_doughnut_data, previous_year = previous_year,  current_month = current_month, years_list = years_list,  month_list_reversed =  month_list_reversed, showing_day = showing_day,current_date = current_date )
 
     finally:
         cursor.close()
@@ -913,6 +918,11 @@ def submit_expense():
     
     amount = float(request.form.get("amount", 0))
     date = request.form.get("expense_date")
+    date_to_object = datetime.strptime(date,"%m-%d-%Y")
+
+
+    converted_date = datetime.strftime(date_to_object, "%Y-%m-%d")
+    print(f"this is thje converted date{converted_date}")
     expense_category = request.form.get("category", None)
     
     
@@ -921,7 +931,7 @@ def submit_expense():
     username = session.get("username")
     
    
-    cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date, expense_category) VALUES (%s, %s, %s, %s, %s)", (user_id, expense, amount, date, expense_category))
+    cursor.execute("INSERT INTO expense_tracker_expense_data (user_id, expense_name, expense_cost, expense_date, expense_category) VALUES (%s, %s, %s, %s, %s)", (user_id, expense, amount, converted_date, expense_category))
     db.commit()
    
     cursor.close()
@@ -938,18 +948,23 @@ def add_expense():
 
     converted_year = str(get_current_year)
 
+    current_month = converted_year[5:7]
+   
+
 
     
     showing_year = converted_year[0:4]
    
+    showing_day = converted_year[8:10]
 
 
     current_year_int_convert = int(showing_year)
     previous_year = current_year_int_convert - 1
+    
    
    
     username = session.get("username")
-    return render_template('add_expense.html', username=username, time = time, current_year_int_convert = current_year_int_convert, previous_year = previous_year, showing_year = showing_year)
+    return render_template('add_expense.html', username=username, time = time, current_year_int_convert = current_year_int_convert, previous_year = previous_year, showing_year = showing_year, current_month = current_month, showing_day = showing_day)
 
 
 
@@ -1043,8 +1058,21 @@ def update_name(index, expense_id):
     
     user_id = session.get("user_id")
     new_name = request.form.get(f"new-name-input-{index}")
-    sql_update_name = "UPDATE expense_tracker_expense_data SET expense_name  = %s WHERE expense_id = %s AND user_id = %s "
-    cursor.execute(sql_update_name, (new_name,expense_id, user_id ))
+
+    new_cost = request.form.get(f"new-cost-input-{index}")
+
+    new_date = request.form.get(f"new-date-input-{index}")
+    stripped_date = new_date.strip()
+
+    datetime_object = datetime.strptime(stripped_date, "%m-%d-%Y")
+    new_date_time_object = datetime_object.strftime("%Y-%m-%d")
+
+
+    print(f"THIS IS THE NEW DATE {new_date_time_object}")
+
+
+    sql_update_name = "UPDATE expense_tracker_expense_data SET expense_name  = %s, expense_cost = %s, expense_date = %s WHERE expense_id = %s AND user_id = %s "
+    cursor.execute(sql_update_name, (new_name,new_cost, new_date_time_object, expense_id, user_id ))
     db.commit()
     return redirect(url_for('dashboard'))
 

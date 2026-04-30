@@ -1,98 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
 
-    <link
-      rel="stylesheet"
-      href="../static/jquery-ui-1.14.0.custom/jquery-ui.css"
-    />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-    <link
-      rel="stylesheet"
-      href="../static/jquery-ui-1.14.0.custom/jquery-ui.structure.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../static/jquery-ui-1.14.0.custom/jquery-ui.theme.css"
-    />
+  <link rel="stylesheet" href="../static/jquery-ui-1.14.0.custom/jquery-ui.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+  <link rel="stylesheet" href="../static/jquery-ui-1.14.0.custom/jquery-ui.structure.css" />
+  <link rel="stylesheet" href="../static/jquery-ui-1.14.0.custom/jquery-ui.theme.css" />
 
-    <script>
-      let currentColor = window.localStorage.getItem("color");
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-      let html = document.querySelector("html");
-      if (currentColor === "light") {
-        html.classList.remove("dark");
-        html.classList.add("light");
-      } else {
-        html.classList.remove("light");
-        html.classList.add("dark");
-      }
-    </script>
-    <link rel="stylesheet" href="/static/styles.css" />
-  </head>
+  <script>
+    let currentColor = window.localStorage.getItem("color");
 
-  <body>
-    <nav id="close" class="close">
-      <div class="image-text" id="image-text">
-        <span class="image">
-          <img
-            class="light-mode-et"
-            src="../static/images/NEW_ET_logo.png"
-            alt="icon of expense tracker"
-          />
-          <img
-            class="dark-mode-et"
-            src="../static/images/ET_lightmode.png"
-            alt="icon of expense tracker"
-          />
-        </span>
-        <div class="text header-text" id="header-text">
-          <span class="name">Expense Tracker</span>
-        </div>
-        <div class="toggle-container">
-          <i
-            style="font-size: 30px"
-            id="d-toggle"
-            class="bx bx-chevron-right toggle d-toggle"
-          ></i>
-        </div>
+    let html = document.querySelector("html");
+    if (currentColor === "light") {
+      html.classList.remove("dark");
+      html.classList.add("light");
+    } else {
+      html.classList.remove("light");
+      html.classList.add("dark");
+    }
+  </script>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+
+<body>
+  <nav id="close" class="close">
+    <div class="image-text" id="image-text">
+      <span class="image">
+        <img class="light-mode-et" src="../static/images/NEW_ET_logo.png" alt="icon of expense tracker" />
+        <img class="dark-mode-et" src="../static/images/ET_lightmode.png" alt="icon of expense tracker" />
+      </span>
+      <div class="text header-text" id="header-text">
+        <span class="name">Expense Tracker</span>
       </div>
+      <div class="toggle-container">
+        <i style="font-size: 30px" id="d-toggle" class="bx bx-chevron-right toggle d-toggle"></i>
+      </div>
+    </div>
 
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li id="d-close-searchbox" class="close-search-box">
-              <i class="bx bx-search-alt-2 search-icon"></i>
+    <div class="menu-bar">
+      <div class="menu">
+        <ul class="menu-links">
+          <li id="d-close-searchbox" class="close-search-box">
+            <i class="bx bx-search-alt-2 search-icon"></i>
 
-              <input
-                type="text"
-                name="user-search"
-                oninput="(searchExpenseByName(0), turnOnCancelIcon())"
-                placeholder="Search expense by name"
-                id="search-input"
-                class="search-input"
-              />
-              <!--
+            <input type="text" name="user-search" oninput="(searchExpenseByName(0), turnOnCancelIcon())"
+              placeholder="Search expense by name" id="search-input" class="search-input" />
+            <!--
               <input
               style="display: none;"
               name="offset"
@@ -100,200 +66,152 @@
               class="offset"
               value="0">
               -->
-              <img
-                class="search-input-cancel-icon"
-                width="20"
-                height="20"
-                src="https://img.icons8.com/fluency-systems-filled/48/multiply.png"
-                alt="multiply"
-              />
-            </li>
+            <img class="search-input-cancel-icon" width="20" height="20"
+              src="https://img.icons8.com/fluency-systems-filled/48/multiply.png" alt="multiply" />
+          </li>
 
-            <li class="nav-link" id="dashboard-link">
-              <a href="{{url_for('dashboard')}}">
-                <i class="bx bxs-home home-icon"></i>
-                <span class="text nav-text"> Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-link">
-              <a href="{{url_for('add_expense')}}">
-                <svg
-                  class="sidebar-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14.2617 15.4385H9.26172"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M11.7617 12.998V17.998"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M12.66 2.51814L12.63 2.58814L9.72996 9.31814H6.87996C6.19996 9.31814 5.54996 9.45814 4.95996 9.70814L6.70996 5.52814L6.74996 5.42814L6.81996 5.26814C6.83996 5.20814 6.85996 5.14814 6.88996 5.09814C8.19996 2.06814 9.67996 1.37814 12.66 2.51814Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M18.05 9.51807C17.6 9.37807 17.12 9.31807 16.64 9.31807H9.72998L12.63 2.58807L12.66 2.51807C12.81 2.56807 12.95 2.63807 13.1 2.69807L15.31 3.62807C16.54 4.13807 17.4 4.66807 17.92 5.30807C18.02 5.42807 18.1 5.53807 18.17 5.66807C18.26 5.80807 18.33 5.94807 18.37 6.09807C18.41 6.18807 18.44 6.27807 18.46 6.35807C18.73 7.19807 18.57 8.22807 18.05 9.51807Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M21.5217 14.1984V16.1484C21.5217 16.3484 21.5117 16.5484 21.5017 16.7484C21.3117 20.2384 19.3617 21.9984 15.6617 21.9984H7.86172C7.62172 21.9984 7.38172 21.9784 7.15172 21.9484C3.97172 21.7384 2.27172 20.0384 2.06172 16.8584C2.03172 16.6284 2.01172 16.3884 2.01172 16.1484V14.1984C2.01172 12.1884 3.23172 10.4584 4.97172 9.70836C5.57172 9.45836 6.21172 9.31836 6.89172 9.31836H16.6517C17.1417 9.31836 17.6217 9.38836 18.0617 9.51836C20.0517 10.1284 21.5217 11.9884 21.5217 14.1984Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M6.71 5.52808L4.96 9.70808C3.22 10.4581 2 12.1881 2 14.1981V11.2681C2 8.42808 4.02 6.05808 6.71 5.52808Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                  <path
-                    d="M21.5186 11.2677V14.1977C21.5186 11.9977 20.0586 10.1277 18.0586 9.52766C18.5786 8.22766 18.7286 7.20766 18.4786 6.35766C18.4586 6.26766 18.4286 6.17766 18.3886 6.09766C20.2486 7.05766 21.5186 9.02766 21.5186 11.2677Z"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-                <span class="text nav-text"> Add Expense</span>
-              </a>
-            </li>
-            {##}
-          </ul>
-          <div class="bottom-content">
-            <li class="bottom-list">
-              <a href="{{url_for('logout')}}">
-                <i class="bx bx-log-out logout-icon"></i>
-                <span class="logout-text">Logout</span>
-              </a>
-            </li>
+          <li class="nav-link" id="dashboard-link">
+            <a href="{{url_for('dashboard')}}">
+              <i class="bx bxs-home home-icon"></i>
+              <span class="text nav-text"> Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-link">
+            <a href="{{url_for('add_expense')}}">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.2617 15.4385H9.26172" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path d="M11.7617 12.998V17.998" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M12.66 2.51814L12.63 2.58814L9.72996 9.31814H6.87996C6.19996 9.31814 5.54996 9.45814 4.95996 9.70814L6.70996 5.52814L6.74996 5.42814L6.81996 5.26814C6.83996 5.20814 6.85996 5.14814 6.88996 5.09814C8.19996 2.06814 9.67996 1.37814 12.66 2.51814Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M18.05 9.51807C17.6 9.37807 17.12 9.31807 16.64 9.31807H9.72998L12.63 2.58807L12.66 2.51807C12.81 2.56807 12.95 2.63807 13.1 2.69807L15.31 3.62807C16.54 4.13807 17.4 4.66807 17.92 5.30807C18.02 5.42807 18.1 5.53807 18.17 5.66807C18.26 5.80807 18.33 5.94807 18.37 6.09807C18.41 6.18807 18.44 6.27807 18.46 6.35807C18.73 7.19807 18.57 8.22807 18.05 9.51807Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M21.5217 14.1984V16.1484C21.5217 16.3484 21.5117 16.5484 21.5017 16.7484C21.3117 20.2384 19.3617 21.9984 15.6617 21.9984H7.86172C7.62172 21.9984 7.38172 21.9784 7.15172 21.9484C3.97172 21.7384 2.27172 20.0384 2.06172 16.8584C2.03172 16.6284 2.01172 16.3884 2.01172 16.1484V14.1984C2.01172 12.1884 3.23172 10.4584 4.97172 9.70836C5.57172 9.45836 6.21172 9.31836 6.89172 9.31836H16.6517C17.1417 9.31836 17.6217 9.38836 18.0617 9.51836C20.0517 10.1284 21.5217 11.9884 21.5217 14.1984Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M6.71 5.52808L4.96 9.70808C3.22 10.4581 2 12.1881 2 14.1981V11.2681C2 8.42808 4.02 6.05808 6.71 5.52808Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M21.5186 11.2677V14.1977C21.5186 11.9977 20.0586 10.1277 18.0586 9.52766C18.5786 8.22766 18.7286 7.20766 18.4786 6.35766C18.4586 6.26766 18.4286 6.17766 18.3886 6.09766C20.2486 7.05766 21.5186 9.02766 21.5186 11.2677Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span class="text nav-text"> Add Expense</span>
+            </a>
+          </li>
+          {##}
+        </ul>
+        <div class="bottom-content">
+          <li class="bottom-list">
+            <a href="{{url_for('logout')}}">
+              <i class="bx bx-log-out logout-icon"></i>
+              <span class="logout-text">Logout</span>
+            </a>
+          </li>
 
-            <li class="mode">
-              <div class="moon-sun">
-                <i class="bx bxs-sun sun-icon sun"></i>
-                <i class="bx bx-moon moon-icon moon"></i>
-              </div>
-              <span class="mode-text text dark-span">Dark Mode</span>
-              <span class="mode-text text light-span">Light Mode</span>
+          <li class="mode">
+            <div class="moon-sun">
+              <i class="bx bxs-sun sun-icon sun"></i>
+              <i class="bx bx-moon moon-icon moon"></i>
+            </div>
+            <span class="mode-text text dark-span">Dark Mode</span>
+            <span class="mode-text text light-span">Light Mode</span>
 
-              <div class="toggle-switch">
-                <span class="switch"></span>
-              </div>
-            </li>
-          </div>
+            <div class="toggle-switch">
+              <span class="switch"></span>
+            </div>
+          </li>
         </div>
       </div>
+    </div>
+  </nav>
+  <header>
+    <nav class="top-navbar-container">
+      <li class="paul"><a href="#">Expense Tracker</a></li>
+      <div class="welcome-container">
+        <li class="welcome">Welcome, {{username}}</li>
+      </div>
+
+      <li class="top-navbar">
+        <a href="{{url_for('dashboard')}}">Home</a>
+      </li>
+      <li class="top-navbar"><a href="#">Profile</a></li>
+      <li class="top-navbar">
+        <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
+      </li>
     </nav>
-    <header>
-      <nav class="top-navbar-container">
-        <li class="paul"><a href="#">Expense Tracker</a></li>
-        <div class="welcome-container">
-          <li class="welcome">Welcome, {{username}}</li>
-        </div>
+  </header>
 
-        <li class="top-navbar">
-          <a href="{{url_for('dashboard')}}">Home</a>
-        </li>
-        <li class="top-navbar"><a href="#">Profile</a></li>
-        <li class="top-navbar">
-          <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
-        </li>
-      </nav>
-    </header>
+  <main id="mainContent">
+    <div class="expense_data_container">
+      <div class="dashboard-icon-container">
+        <img src="../static/images/dashboard.png" alt="icon image of a dashboard displayed on a computer"
+          class="dashboard-icon" />
+        <p class="dashboard-text">Dashboard</p>
+      </div>
 
-    <main id="mainContent">
-      <div class="expense_data_container">
-        <div class="dashboard-icon-container">
-          <img
-            src="../static/images/dashboard.png"
-            alt="icon image of a dashboard displayed on a computer"
-            class="dashboard-icon"
-          />
-          <p class="dashboard-text">Dashboard</p>
-        </div>
+      <div class="summary_container">
+        <div class="summary_child_container">
+          <div class="timeframe-main-container">
+            <div class="timeframe-child-container">
+              <img src="../static/images/calender-icon.png" alt="icon of a calender" class="calender-icon" />
+              <p class="timeframe-display">Showing</p>
+              <form action="{{url_for('dashboard')}}" class="change-month-year-form">
+                <select name="selected-month" class="change-month-dropdown">
+                  {% for k, v in month_list_reversed.items() %}
 
-        <div class="summary_container">
-          <div class="summary_child_container">
-            <div class="timeframe-main-container">
-              <div class="timeframe-child-container">
-                <img
-                  src="../static/images/calender-icon.png"
-                  alt="icon of a calender"
-                  class="calender-icon"
-                />
-                <p class="timeframe-display">Showing &mdash;</p>
-                <form
-                  action="{{url_for('dashboard')}}"
-                  class="change-month-year-form"
-                >
-                  <select name="selected-month" class="change-month-dropdown">
-                    {% for k, v in month_list_reversed.items() %}
+                  <option value="{{k}}" {%if k==current_month %}selected {%endif%}>
+                    {{v}}
+                  </option>
 
-                    <option
-                      value="{{k}}"
-                      {%if k == current_month %}selected {%endif%} >
-                   
-                      {{v}}
-                      
-                    </option>
+                  {%endfor%}
+                </select>
 
-                    {%endfor%}
-                  </select>
-
-                  <select name="selected-year" class="change-year-dropdown">
-                    <!--
+                <select name="selected-year" class="change-year-dropdown">
+                  <!--
                 <option  value="2025" {%if showing_year == "2025" %} selected {%endif%}> 2025 </option>
                 <option  value="2024" {%if showing_year == "2024" %} selected {%endif%}> 2024 </option>
               -->
-                    {% for y in years_list %}
-                    <option
-                      value="{{y}}"
-                      {%if y == showing_year %}selected {%endif%}
-                    >
-                      {{y}}
-                    </option>
-                    {%endfor%}
-                  </select>
+                  {% for y in years_list %}
+                  <option value="{{y}}" {%if y==showing_year %}selected {%endif%}>
+                    {{y}}
+                  </option>
+                  {%endfor%}
+                </select>
 
-                  <button class="change-year-dropdown-button" type="submit">
-                    View
-                  </button>
-                </form>
+                <button class="change-year-dropdown-button" type="submit">
+                  View
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="monthly-glance-container">
+            <p class="monthly-glance-text">Spending Summary</p>
+          </div>
+          <div class="money_container">
+            <div class="money_out_container">
+              <div class="details_container money_out">
+                <!--
+                 <div class="money_out_image_container">
+                  <i 
+                 
+                  class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
+                </div>
+                -->
+                <p class="monthly">Total Spent</p>
+                <p class="monthly_details">${{total_sum_cost}}</p>
               </div>
             </div>
-
-            <div class="monthly-glance-container">
-              <p class="monthly-glance-text">Spending Summary</p>
-            </div>
-            <div class="money_container">
-              <div class="money_out_container">
-                <div class="money_out_image_container">
-                  <i class="fa-solid fa-dollar-sign fa-2xl red_money_icon"></i>
-                </div>
-                <div class="details_container money_out">
-                  <p class="monthly">Total Spent</p>
-                  <p class="monthly_details">${{total_sum_cost}}</p>
-                </div>
-              </div>
-              <div class="highest-category-main-container">
+            <div class="highest-category-main-container">
+              <!--
                 <div class="cat-icon-container">
                   <svg
                     class="cat-icon"
-                    height="35px"
-                    width="35px"
+                   
                     viewBox="-2 0 45.996 45.996"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -314,33 +232,37 @@
                     </g>
                   </svg>
                 </div>
+                -->
 
-                <div class="highest-cat-text-container">
-                  <p class="monthly highest-category-text">Top Category</p>
-                  <p class="highest-category-name">{{top_category_name}}</p>
-                  <p class="highest-category-value">${{top_category_amount}}</p>
-                </div>
+              <div class="highest-cat-text-container">
+                <p class="monthly highest-category-text">Top Category</p>
+                <p class="highest-category-name">{{top_category_name}}</p>
+                <p class="highest-category-value">${{top_category_amount}}</p>
               </div>
+            </div>
 
-              <div class="receipt_container">
+            <div class="receipt_container">
+              <!--
                 <div class="receipt_image_container">
                   <i class="bx bx-receipt receipt-svg"></i>
                 </div>
-                <div class="details_container receipt">
-                  <p class="monthly">Entries</p>
-                  <p class="monthly_details">{{ complete_results_amount }}</p>
-                </div>
+                -->
+              <div class="details_container receipt">
+                <p class="monthly">Entries</p>
+                <p class="monthly_details">{{ complete_results_amount }}</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="chart-main-container">
-          <div class="bar-chart-child-container">
-            <p class="bar-chart-legend-label">Monthly Expenses by Category</p>
-            <div class="bar-chart-canvas-container">
-              <canvas id="barChart"></canvas>
-            </div>
+      </div>
+      <div class="chart-main-container">
+        <div class="bar-chart-child-container">
+          <p class="bar-chart-legend-label">Monthly Expenses by Category</p>
+          <div class="bar-chart-canvas-container">
+            <canvas id="barChart"></canvas>
           </div>
+        </div>
+        <!--
           <div class="pie-parent-container">
             <div class="pie-child-container">
               <div class="spending-trend-container">
@@ -349,1120 +271,676 @@
               <canvas style="width: 100%" id="myCanvas"> </canvas>
             </div>
           </div>
-        </div>
-        <div class="main-table-pie-entire-container">
-          <div class="table-summary-container">
-            <div class="detail-summary-container">
-              <p class="summary-detail">Expense Details</p>
+          -->
+      </div>
+      <div class="main-table-pie-entire-container">
+        <div class="table-summary-container">
+          <div class="detail-summary-container">
+            <p class="summary-detail">Expense Details</p>
 
-              <p class="quick-search-results"></p>
-              <p class="offset-amount">{{offset}}</p>
+            <p class="quick-search-results"></p>
+            <p class="offset-amount">{{offset}}</p>
+          </div>
+          <div class="sorting-container">
+            <div class="sort-options">
+              <form class="sort-expense-form" method="get" action="{{url_for('sort_by_cost', offset = offset )}}">
+                <input name="offset" style="display: none" value="{{0}}" />
+                <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                <select name="sort-expense" class="sort-expense-dropdown">
+                  <option value="none">--Sort by Cost--</option>
+                  <option value="desc">High to Low</option>
+                  <option value="asc">Low to High</option>
+                </select>
+              </form>
+
+              <form class="sort-desc-asc" action="{{url_for('new_sort')}}" method="get">
+                <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+                <select name="sort-by" class="asc-desc">
+                  <option value="none">--Sort by (newest/oldest)--</option>
+                  <option value="desc">Newest first</option>
+                  <option value="asc">Oldest first</option>
+                </select>
+              </form>
             </div>
-            <div class="sorting-container">
-              <div class="sort-options">
-                <form
-                  class="sort-expense-form"
-                  method="get"
-                  action="{{url_for('sort_by_cost', offset = offset )}}"
-                >
-                  <input name="offset" style="display: none" value="{{0}}" />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
+          </div>
+          <div class="dashboard-rounded-table-container">
+            <table class="dashboard-table">
+              <thead class="table-head">
+                <tr>
+                  <th>name</th>
+                  <th>
+                    <div class="arrow-container">
+                      cost {% if sort_expense_order == 'desc' %}
+                      <i class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                        style="display: flex"></i>
 
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
+                      {% elif sort_expense_order == 'asc' %}
+                      <i class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                        style="display: none"></i>
+                      <i class="bx bx-up-arrow-alt up-arrow oldest-first sort-button" style="display: flex"></i>
+                      {% else %}
 
-                  <select name="sort-expense" class="sort-expense-dropdown">
-                    <option value="none">--Sort by Cost--</option>
-                    <option value="desc">High to Low</option>
-                    <option value="asc">Low to High</option>
-                  </select>
-                </form>
+                      <i class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                        style="display: none"></i>
+                      <i class="bx bx-up-arrow-alt up-arrow oldest-first sort-button" style="display: none"></i>
+                    </div>
+                    {% endif %}
+                  </th>
+                  <th>
+                    <div class="arrow-container">
+                      Date {% if asc_or_desc or sort_new_order == "desc" %}
+                      <i class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                        style="display: flex"></i>
 
-                <form
-                  class="sort-desc-asc"
-                  action="{{url_for('new_sort')}}"
-                  method="get"
-                >
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
+                      <i class="bx bx-up-arrow-alt up-arrow oldest-first sort-button" style="display: none"></i>
+                      {% elif asc_or_desc or sort_new_order == 'asc' %}
+                      <i class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                        style="display: none"></i>
 
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-                  <select name="sort-by" class="asc-desc">
-                    <option value="none">--Sort by (newest/oldest)--</option>
-                    <option value="desc">Newest first</option>
-                    <option value="asc">Oldest first</option>
-                  </select>
-                </form>
-              </div>
-            </div>
-            <div class="dashboard-rounded-table-container">
-              <table class="dashboard-table">
-                <thead class="table-head">
-                  <tr>
-                    <th>name</th>
-                    <th>
-                      <div class="arrow-container">
-                        cost {% if sort_expense_order == 'desc' %}
-                        <i
-                          class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                          style="display: flex"
-                        ></i>
+                      <i class="bx bx-up-arrow-alt up-arrow oldest-first sort-button" style="display: flex"></i>
+                      {% elif sort_expense_order == 'asc' or
+                      sort_expense_order == 'asc' %}
+                      <i class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
+                        style="display: none"></i>
 
-                        {% elif sort_expense_order == 'asc' %}
-                        <i
-                          class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                          style="display: none"
-                        ></i>
-                        <i
-                          class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                          style="display: flex"
-                        ></i>
-                        {% else %}
-
-                        <i
-                          class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                          style="display: none"
-                        ></i>
-                        <i
-                          class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                          style="display: none"
-                        ></i>
-                      </div>
+                      <i class="bx bx-up-arrow-alt up-arrow oldest-first sort-button" style="display: none"></i>
                       {% endif %}
-                    </th>
-                    <th>
-                      <div class="arrow-container">
-                        Date {% if asc_or_desc or sort_new_order == "desc" %}
-                        <i
-                          class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                          style="display: flex"
-                        ></i>
-
-                        <i
-                          class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                          style="display: none"
-                        ></i>
-                        {% elif asc_or_desc or sort_new_order == 'asc' %}
-                        <i
-                          class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                          style="display: none"
-                        ></i>
-
-                        <i
-                          class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                          style="display: flex"
-                        ></i>
-                        {% elif sort_expense_order == 'asc' or
-                        sort_expense_order == 'asc' %}
-                        <i
-                          class="bx bx-up-arrow-alt bx-rotate-180 down-arrow newest-first sort-button"
-                          style="display: none"
-                        ></i>
-
-                        <i
-                          class="bx bx-up-arrow-alt up-arrow oldest-first sort-button"
-                          style="display: none"
-                        ></i>
-                        {% endif %}
-                      </div>
-                    </th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for item in my_list %}
-                  <tr>
-                    <td>
-                      <div class="name_flex_container">
-                        <div class="name-container">
-                          {{ item.expense_name }}
-                          <button
-                            style="display: none"
-                            type="button"
-                            class="edit-name-button"
-                            id="edit-name-button-{{item.expense_id}}"
-                            onclick="showEditnameForm({{item.expense_id}});showEditnameInput({{item.expense_id}});"
-                          >
-                            <p>Edit name</p>
-                          </button>
-                        </div>
-                        <div class="name-input-container">
-                          <form
-                            class="edit-name-form"
-                            style="display: none"
-                            id="edit-name-form-{{item.expense_id}}"
-                            action="{{url_for('update_name', index = item.expense_id, expense_id = item.expense_id)}}"
-                            method="post"
-                          >
-                            <input
-                              data-expense-id="{{item.expense_id}}"
-                              class="edit-name-input"
-                              type="text"
-                              id="edit-name-input-{{item.expense_id}}"
-                              autocomplete="off"
-                              name="new-name-input-{{item.expense_id}}"
-                              required
-                            />
-                            <button
-                              type="submit"
-                              class="save-name-edit-button"
-                              id="save-name-edit-button-{{item.expense_id}}"
-                            >
-                              Save
+                    </div>
+                  </th>
+                  <th>Delete</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in my_list %}
+                <tr>
+                  <form class="edit-name-form" style="display: none" id="edit-name-form-{{item.expense_id}}"
+                    action="{{url_for('update_name', index = item.expense_id, expense_id = item.expense_id)}}"
+                    method="post">
+                    <td class="name-td" id="name-td-{{item.expense_id}}">
+                      <div class="name-cost-date-container" id="name-cost-date-container-{{item.expense_id}}">
+                        <div id="name_flex_container-{{item.expense_id}}" class="name_flex_container">
+                          <div id="name-container-{{item.expense_id}}" class="name-container">
+                            <p id="name-description-{{item.expense_id}}" class="name-description">Name</p>
+                            <p id="name-p-tag-{{item.expense_id}}" class="name-p-tag">{{ item.expense_name }}</p>
+                            <button style="display: none" type="button" class="edit-name-button"
+                              id="edit-name-button-{{item.expense_id}}"
+                              onclick="showEditnameForm({{item.expense_id}});showEditnameInput({{item.expense_id}});">
+                              <p>Edit name</p>
                             </button>
-                          </form>
+                            <div class="name-input-container">
+
+                              <input style="display: none;" data-expense-id="{{item.expense_id}}"
+                                class="edit-name-input" type="text" id="edit-name-input-{{item.expense_id}}"
+                                autocomplete="off" name="new-name-input-{{item.expense_id}}" required />
+
+
+                            </div>
+                          </div>
                         </div>
+                        <div id="name_cost_flex_container-{{item.expense_id}}" class="name_cost_flex_container">
+                          <p id="cost-description-{{item.expense_id}}" class="cost-description">Cost</p>
+                          <p id="cost-p-tag-{{item.expense_id}}" class="cost-p-tag"> {{ "${:.2f}".format(item.amount) }}
+                          </p>
+                          <button style="display: none" class="edit-cost-button"
+                            id="edit-cost-button-{{item.expense_id}}"
+                            onclick="showCostForm({{item.expense_id}});showCostinput({{item.expense_id}})">
+                            <p>Edit cost</p>
+                          </button>
+                          <div class="cost-container">
+
+
+                            <div class="cost-form-container">
+                              <span class="money-span">$</span>
+
+
+
+                              <input step=".01" data-expense-id="{{item.expense_id}}" class="edit-cost-input"
+                                type="number" id="edit-cost-input-{{item.expense_id}}"
+                                name="new-cost-input-{{item.expense_id}}" required />
+
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="name_date_flex_container" id="date_name_flex_container-{{item.expense_id}}">
+                          <p id="date-description-{{item.expense_id}}" class="date-description">Date</p>
+                          <p id="date-p-tag-{{item.expense_id}}" class="date-p-tag"> {{ item.expense_date}}</p>
+                          <div class="date-container">
+
+                            <button style="display: none" class="edit-date-button"
+                              id="edit-date-button-{{item.expense_id}}"
+                              onclick="showDateForm({{item.expense_id}});showDateInput({{item.expense_id}})">
+                              <p>Edit date</p>
+                            </button>
+                          </div>
+                          <div id="date-form-container-{{item.expense_id}}" class="date-form-container">
+
+                            <input class="edit-date-input" data-expense-id="{{item.expense_id}}"
+                              id="datepicker-{{item.expense_id}}" type="text" autocomplete="off"
+                              name="new-date-input-{{item.expense_id}}" required />
+
+
+                          </div>
+                        </div>
+                        <div class="save-cancel-button-container">
+                          <button type="button" data-expense-id="{{item.expense_id}}" class="cancel-edit-button"
+                            id="cancel-edit-button-{{item.expense_id}}">Cancel</button>
+                          <button type="submit" data-save-new-changes-="{{item.expense_id}}"
+                            id="save-new-changes-{{item.expense_id}}" class="save-new-changes-button">Save
+                            changes</button>
+                        </div>
+
                       </div>
                     </td>
 
-                    <td>
+                    <td class="cost-td" id="cost-td-{{item.expense_id}}">
                       <div class="cost_flex_container">
                         <div class="cost-container">
                           {{ "${:.2f}".format(item.amount) }}
-                          <button
-                            style="display: none"
-                            class="edit-cost-button"
+                          <button style="display: none" class="edit-cost-button"
                             id="edit-cost-button-{{item.expense_id}}"
-                            onclick="showCostForm({{item.expense_id}});showCostinput({{item.expense_id}})"
-                          >
+                            onclick="showCostForm({{item.expense_id}});showCostinput({{item.expense_id}})">
                             <p>Edit cost</p>
                           </button>
                         </div>
                         <div class="cost-form-container">
-                          <form
-                            class="edit-cost-form"
-                            style="display: none"
-                            id="edit-cost-form-{{item.expense_id}}"
-                            method="POST"
-                            action="{{url_for('update_cost', index = item.expense_id, expense_id = item.expense_id) }}"
-                          >
-                            <input
-                              data-expense-id="{{item.expense_id}}"
-                              class="edit-cost-input"
-                              type="number"
-                              id="edit-cost-input-{{item.expense_id}}"
-                              name="new-cost-input-{{item.expense_id}}"
-                              required
-                            />
-                            <button
-                              type="submit"
-                              id="save-cost-edit-button-{{item.expense_id}}"
-                              class="save-cost-edit-button"
-                            >
-                              Save
-                            </button>
-                          </form>
+
+
+
+
                         </div>
                       </div>
                     </td>
-                    <td>
-                      <div class="date_flex_container" id="date_flex_container">
+                    <td class="date-td" id="date-td-{{item.expense_id}}">
+                      <div class="date_flex_container" id="date_name_flex_container-{{item.expense_id}}">
                         <div class="date-container">
                           {{ item.expense_date}}
-                          <button
-                            style="display: none"
-                            class="edit-date-button"
+                          <button style="display: none" class="edit-date-button"
                             id="edit-date-button-{{item.expense_id}}"
-                            onclick="showDateForm({{item.expense_id}});showDateInput({{item.expense_id}})"
-                          >
+                            onclick="showDateForm({{item.expense_id}});showDateInput({{item.expense_id}})">
                             <p>Edit date</p>
                           </button>
                         </div>
                         <div class="date-form-container">
-                          <form
-                            style="display: none"
-                            class="edit-date-form"
-                            id="edit-date-form-{{item.expense_id}}"
-                            method="POST"
-                            action="{{url_for('update_date', index = item.expense_id, expense_id = item.expense_id) }}"
-                          >
-                            <input
-                          
-                            class="edit-date-input"
-                              data-expense-id="{{item.expense_id}}"
-                              id="datepicker-{{item.expense_id}}"
-                              type="text"
-                              autocomplete="off"
-                              name="new-date-input-{{item.expense_id}}"
-                              required
-                            />
-                            <button
-                              type="submit"
-                              class="save-date-edit-button"
-                              id="save-date-edit-button-{{item.expense_id}}"
-                            >
-                              Save
-                            </button>
-                          </form>
+
+
+
+
                         </div>
                       </div>
                     </td>
-                    <td class="delete-table-container">
-                      <button
-                        class="button_icon"
-                        onclick="deleteFunction({{item.expense_id}})"
-                      >
-                        <img
-                          src="/static/images/new_trash_icon.png"
-                          alt="icon of a trash can"
-                        />
+                    <td id="delete-td-{{item.expense_id}}" class="delete-table-container">
+                      <button class="button_icon" onclick="deleteFunction({{item.expense_id}})">
+                        <img src="/static/images/new_trash_icon.png" alt="icon of a trash can" />
                       </button>
                     </td>
-                    <td class="edit-table-container">
-                      <button
-                        data-expense-id="{{item.expense_id}}"
-                        class="main-edit-button"
-                        id="main-edit-button-{{item.expense_id}}"
-                        type="button"
-                        onclick="showCostBtn({{item.expense_id}});showDatebutton({{item.expense_id}});showNameBtn({{item.expense_id}}); editModeActivated({{item.expense_id}})"
-                      >
-                        <img
-                          class="edit-icon"
-                          id="edit-icon-{{item.expense_id}}"
-                          src="../static/images/pencil_345648.png"
-                        />
-                        <img
-                          data-expense-id="{{item.expense_id}}"
-                          class="edit-mode"
-                          id="edit-mode-{{item.expense_id}}"
-                          src="../static/images/edit-mode.png"
-                        />
+                    <td id="edit-td-{{item.expense_id}}" class="edit-table-container">
+                      <button data-expense-id="{{item.expense_id}}" class="main-edit-button"
+                        id="main-edit-button-{{item.expense_id}}" type="button">
+                        <img onclick="showNameBtn({{item.expense_id}})" data-expense-id="{{item.expense_id}}"
+                          class="edit-icon" id="edit-icon-{{item.expense_id}}"
+                          src="../static/images/pencil_345648.png" />
+                        <img data-expense-id="{{item.expense_id}}" class="edit-mode" id="edit-mode-{{item.expense_id}}"
+                          src="../static/images/edit-mode.png" />
                       </button>
                     </td>
 
                     <div class="btn_window" id="delete-{{item.expense_id}}">
                       <div class="prompt">
-                        <img
-                          src="../static/images/warning_icon.png"
-                          alt="picture of a warning symbol"
-                        />
+                        <img src="../static/images/warning_icon.png" alt="picture of a warning symbol" />
                         <p>Are you sure you want to delete?</p>
                       </div>
                       <div class="expense_details">
                         <p>Expense: <span>{{ item.expense_name}} </span></p>
                         <p>
-                          Expense Cost: $<span
-                            >{{ "{:.2f}".format(item.amount) }}
+                          Expense Cost: $<span>{{ "{:.2f}".format(item.amount) }}
                           </span>
                         </p>
                       </div>
 
                       <div class="btn_container">
-                        <button
-                          class="cancel"
-                          onclick="cancelDelete({{item.expense_id}})"
-                        >
+                        <button class="cancel" onclick="cancelDelete({{item.expense_id}})">
                           Cancel
                         </button>
-                        <form
-                          action="{{url_for('delete_expense', expense_id=item.expense_id)}}"
-                          method="post"
-                        >
+                        <form action="{{url_for('delete_expense', expense_id=item.expense_id)}}" method="post">
                           <button class="confirm_delete" type="submit">
                             Yes, I want to delete
                           </button>
                         </form>
                       </div>
                     </div>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-              <div class="next-button-container">
-                <p class="showing-results">
-                  Showing {{running_count}} of {{complete_results_amount}}
-                  results
-                </p>
-                <div
-                class="next-button-child-container"
-                >
+                  </form>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="next-button-container">
+              <p class="showing-results">
+                Showing {{running_count}} of {{complete_results_amount}}
+                results
+              </p>
+              <div class="next-button-child-container">
                 <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
                 <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
 
                 {% if view_mode == "dashboard" and asc_or_desc == "desc" and
-                offset == 0 and running_count < complete_results_amount %}
+                offset == 0 and running_count < complete_results_amount %} <form style="display: none"
+                  class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
+                  <input class="p-results" style="display: none" name="offset" value="{{offset - 10}}" />
 
-               
-                 <form
-                  style="display: none"
-                  class="form-previous-results"
-                  method="get"
-                  action="{{url_for('dashboard')}}"
-                >
-                  <input
-                    class="p-results"
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <button
-                    style="display: none"
-                    class="previous-results"
-                    type="submit"
-                  >
+                  <button style="display: none" class="previous-results" type="submit">
                     previous results
                   </button>
-                </form>
-
-                <form
-                  method="get"
-                  class="form-next-results"
-                  action="{{url_for('dashboard')}}"
-                >
-                  <input
-                    style="display: none"
-                    class="n-results"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button class="next-results" type="submit">
-                    next results
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-              
-
-               
-                {% endif %} {% if asc_or_desc == "desc" and view_mode ==
-                "dashboard" and offset > 0 and running_count <
-                complete_results_amount %}
-
-                <form
-                  class="form-previous-results"
-                  method="get"
-                  action="{{url_for('dashboard')}}"
-                >
-                  <input
-                    style="display: none"
-                    class="p-results"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-                <form
-                  method="get"
-                  class="form-next-results"
-                  action="{{url_for('dashboard')}}"
-                >
-                  <input
-                    style="display: none"
-                    class="n-results"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-
-                  <button class="next-results" type="submit">
-                    next results <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-                {% endif %} {% if view_mode == "dashboard" and asc_or_desc ==
-                "desc" and running_count == complete_results_amount and offset >
-                0 %}
-
-                <form
-                  class="form-previous-results"
-                  method="get"
-                  action="{{url_for('dashboard')}}"
-                >
-                  <input
-                    style="display: none"
-                    class="p-results"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                {% endif %}
-
-                <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
-                <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
-
-                <!--START OF SORT_COST BUTTONS ------------------------------------------------->
-                {% if view_mode == "sort-cost"%}
-                {% if sort_expense_order == "desc" or sort_expense_order == "asc" %} 
-                {% if offset == 0 %}
-
-                <form
-                  method="get"
-                  action="{{url_for('sort_by_cost')}}"
-                  class="sort-cost-form"
-                >
-                  <input
-                    style="display: none"
-                    class="sort-cost-input"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button
-                    style="display: none"
-                    class="previous-results"
-                    type="submit"
-                  >
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                <form
-                  method="get"
-                  action="{{url_for('sort_by_cost')}}"
-                  class="sort-cost-form"
-                >
-                  <input
-                    name="offset"
-                   style="display: none;"
-                    class="sort-cost-input"
-                    value="{{offset + 10}}"
-                  />
-                  <input
-                    style="display: none;"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none;"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <input
-                    style="display: none;"
-                    name="sort-expense"
-                    value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
-                    class="sort-order-input"
-                  />
-
-                  <button
-                  class="next-results"
-                  style="{% if running_count == complete_results_amount%} display:none" {% endif %}
-                   type="submit">Next results
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} 
-                {% endif %}
-                {% endif %} 
-                
-                
-                
-                {% if view_mode == "sort-cost" and
-                sort_expense_order == "desc" or sort_expense_order == "asc" %}
-                {%if offset > 0 and running_count < complete_results_amount %}
-                <form
-                  method="get"
-                  action="{{url_for('sort_by_cost')}}"
-                  class="sort-cost-form"
-                >
-                  <input
-                    style="display: none"
-                    name="sort-expense"
-                    value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
-                    class="sort-order-input"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="sort-cost-input"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-                  <input
-                  style="display: none;"
-                  name="selected-year"
-                  value="{{showing_year}}">
-                  
-                  <input
-                  style="display: none;"
-                  name="selected-month"
-                  value="{{current_month}}">
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                <form action="{{url_for('sort_by_cost')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="sort-expense"
-                    value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button class="cost-next-button" type="submit">
-                    next results 
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-                {% endif %} 
-                {% endif %} 
-                
-                
-                {%if view_mode == "sort-cost" and offset > 0 and running_count == complete_results_amount%}
-
-                <form action="{{url_for('sort_by_cost')}}" method="get">
-                  <input
-                     style="display: none;"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-                  <input
-                    style="display: none;"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none;"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <input
-                    style="display: none;"
-                    name="sort-expense"
-                    value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}"
-                  />
-
-                  <input
-                     style="display: none;"
-                    name="prev_cost_button"
-                    value="yes"
-                  />
-
-                  <input
-                     style="display: none;"
-                    name="cost_max_10"
-                    value="{{max_10_results_amount}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i>previous results
-                  </button>
-                </form>
-
-                <button
-                  style="display: none"
-                  class="cost-next-button"
-                  type="submit"
-                >
-                  next results
-                  <i class="fas fa-angle-double-right"></i>
-                </button>
-
-                {% endif %}
-
-                <!--END OF SORT_COST BUTTONS ------------------------------------------------->
-                <!--END OF SORT_COST BUTTONS ------------------------------------------------->
-
-                <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
-                <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
-
-                {% if view_mode == "sort-year" and user_year_selection == "all"
-                and offset == 0 %}
-
-                <form method="get" action="{{url_for('sort_year')}}">
-                  <input
-                    name="offset"
-                    style="display: none"
-                    value="{{offset + 10}}"
-                  />
-
-                  <button
-                    type="submit"
-                    class="year-next-button dark next-results"
-                  >
-                    next results <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} {% if view_mode == "sort-year" and
-                user_year_selection == "all" and offset > 0 and running_count <
-                complete_results_amount %}
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="year"
-                    value="{{user_year_selection}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="year"
-                    value="{{user_year_selection}}"
-                  />
-
-                  <button
-                    type="submit"
-                    class="year-next-button dark next-results"
-                  >
-                    next results cuck <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} {% if view_mode == "sort-year" and
-                user_year_selection == "all" and offset > 0 and running_count ==
-                complete_results_amount %}
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <input name="year" value="{{user_year_selection}}" />
-
-                  <input name="prev_max_10" value="{{max_10_results_amount}}" />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                {% endif %} {% if user_year_selection != "all" and offset == 0
-                and view_mode == "sort-year" %}
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="sort-expense"
-                    value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}"
-                    class="sort-order-input"
-                  />
-
-                  <input
-                    name="offset"
-                    style="display: none"
-                    class="sort-cost-input"
-                    value="{{offset + 10}}"
-                  />
-
-                  <input
-                    name="year"
-                    value="{{user_year_selection}}"
-                    style="display: none"
-                  />
-
-                  <button
-                    style="display: {{'none' if running_count == complete_results_amount else 'block'}};"
-                    class="year-next-button dark next-results"
-                    type="submit"
-                  >
-                    next results
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} {% if view_mode == "sort-year" and offset > 0 and
-                user_year_selection != "all" and running_count <
-                complete_results_amount %}
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="year"
-                    value="{{user_year_selection}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="year"
-                    value="{{user_year_selection}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-
-                  <button
-                    class="year-next-button dark next-results"
-                    type="submit"
-                  >
-                    next results
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} {% if view_mode == "sort-year" and offset > 0 and
-                user_year_selection != "all" and running_count ==
-                complete_results_amount %}
-
-                <form action="{{url_for('sort_year')}}" method="get">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="year"
-                    value="{{user_year_selection}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                {% endif %}
-
-                <!--START OF NEW SORT  BUTTONS ------------------------------------------------->
-                <!--START OF NEW SORT BUTTONS ------------------------------------------------->
-
-                {% if view_mode == "new-sort" and offset == 0 %}
-                
-
-                <form method="get" action="{{url_for('new_sort')}}">
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="sort-by"
-                    value="{{sort_new_order}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button
-                   class="year-next-button dark next-results"
-                  style="display: {% if running_count == complete_results_amount %} none;" 
-                  {% endif %}
-                   
-                    type="submit"
-                  >
-                    next results
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} 
-                
-                {% if view_mode == "new-sort" and offset != 0 and
-                running_count != complete_results_amount %}
-
-                <form method="get" action="{{url_for('new_sort')}}">
-                  <input
-                    style="display: none"
-                    name="sort-by"
-                    value="{{sort_new_order}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-
-                  <button class="previous-results" type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                <form method="get" action="{{url_for('new_sort')}}">
-                  <input
-                    style="display: none"
-                    name="sort-by"
-                    value="{{sort_new_order}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset + 10}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button
-                    class="year-next-button dark next-results"
-                    type="submit"
-                  >
-                    next results
-                    <i class="fas fa-angle-double-right"></i>
-                  </button>
-                </form>
-
-                {% endif %} 
-                
-                {% if view_mode == "new-sort" and running_count ==
-                complete_results_amount %}
-
-                <form method="get" action="{{url_for('new_sort')}}">
-                  <input
-                    style="display: none"
-                    name="sort-by"
-                    value="{{sort_new_order}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    name="offset"
-                    value="{{offset - 10}}"
-                  />
-                  <input
-                    style="display: none"
-                    class="year-input"
-                    name="selected-year"
-                    value="{{showing_year}}"
-                  />
-
-                  <input
-                    style="display: none"
-                    class="month-input"
-                    name="selected-month"
-                    value="{{current_month}}"
-                  />
-
-                  <button 
-                   class="previous-results"
-                  style="display: {% if offset == 0 %} none;" {% endif %}
-                  type="submit">
-                    <i class="fas fa-angle-double-left"></i> previous results
-                  </button>
-                </form>
-
-                {% endif %}
-                </div>
+                  </form>
+
+                  <form method="get" class="form-next-results" action="{{url_for('dashboard')}}">
+                    <input style="display: none" class="n-results" name="offset" value="{{offset + 10}}" />
+                    <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                    <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                    <button class="next-results" type="submit">
+                      next results
+                      <i class="fas fa-angle-double-right"></i>
+                    </button>
+                  </form>
+
+                  {% endif %} {% if asc_or_desc == "desc" and view_mode ==
+                  "dashboard" and offset > 0 and running_count < complete_results_amount %} <form
+                    class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
+                    <input style="display: none" class="p-results" name="offset" value="{{offset - 10}}" />
+
+                    <button class="previous-results" type="submit">
+                      <i class="fas fa-angle-double-left"></i> previous results
+                    </button>
+                    </form>
+                    <form method="get" class="form-next-results" action="{{url_for('dashboard')}}">
+                      <input style="display: none" class="n-results" name="offset" value="{{offset + 10}}" />
+
+                      <button class="next-results" type="submit">
+                        next results <i class="fas fa-angle-double-right"></i>
+                      </button>
+                    </form>
+                    {% endif %} {% if view_mode == "dashboard" and asc_or_desc ==
+                    "desc" and running_count == complete_results_amount and offset
+                    > 0 %}
+
+                    <form class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
+                      <input style="display: none" class="p-results" name="offset" value="{{offset - 10}}" />
+                      <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                      <input style="display: none" class="month-input" name="selected-month"
+                        value="{{current_month}}" />
+
+                      <button class="previous-results" type="submit">
+                        <i class="fas fa-angle-double-left"></i> previous results
+                      </button>
+                    </form>
+
+                    {% endif %}
+
+                    <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+                    <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+
+                    <!--START OF SORT_COST BUTTONS ------------------------------------------------->
+                    {% if view_mode == "sort-cost"%} {% if sort_expense_order ==
+                    "desc" or sort_expense_order == "asc" %} {% if offset == 0 %}
+
+                    <form method="get" action="{{url_for('sort_by_cost')}}" class="sort-cost-form">
+                      <input style="display: none" class="sort-cost-input" name="offset" value="{{offset - 10}}" />
+                      <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                      <input style="display: none" class="month-input" name="selected-month"
+                        value="{{current_month}}" />
+
+                      <button style="display: none" class="previous-results" type="submit">
+                        <i class="fas fa-angle-double-left"></i> previous results
+                      </button>
+                    </form>
+
+                    <form method="get" action="{{url_for('sort_by_cost')}}" class="sort-cost-form">
+                      <input name="offset" style="display: none" class="sort-cost-input" value="{{offset + 10}}" />
+                      <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                      <input style="display: none" class="month-input" name="selected-month"
+                        value="{{current_month}}" />
+
+                      <input style="display: none" name="sort-expense"
+                        value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+
+                      <button class="next-results" style="{% if running_count == complete_results_amount%} display:none"
+                        {% endif %} type="submit">
+                        Next results
+                        <i class="fas fa-angle-double-right"></i>
+                      </button>
+                    </form>
+
+                    {% endif %} {% endif %} {% endif %} {% if view_mode ==
+                    "sort-cost" and sort_expense_order == "desc" or
+                    sort_expense_order == "asc" %} {%if offset > 0 and
+                    running_count < complete_results_amount %} <form method="get" action="{{url_for('sort_by_cost')}}"
+                      class="sort-cost-form">
+                      <input style="display: none" name="sort-expense"
+                        value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+
+                      <input style="display: none" class="sort-cost-input" name="offset" value="{{offset - 10}}" />
+                      <input style="display: none" name="selected-year" value="{{showing_year}}" />
+
+                      <input style="display: none" name="selected-month" value="{{current_month}}" />
+
+                      <button class="previous-results" type="submit">
+                        <i class="fas fa-angle-double-left"></i> previous results
+                      </button>
+                      </form>
+
+                      <form action="{{url_for('sort_by_cost')}}" method="get">
+                        <input style="display: none" name="offset" value="{{offset + 10}}" />
+
+                        <input style="display: none" name="sort-expense"
+                          value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}" />
+                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                        <input style="display: none" class="month-input" name="selected-month"
+                          value="{{current_month}}" />
+
+                        <button class="cost-next-button" type="submit">
+                          next results
+                          <i class="fas fa-angle-double-right"></i>
+                        </button>
+                      </form>
+                      {% endif %} {% endif %} {%if view_mode == "sort-cost" and
+                      offset > 0 and running_count == complete_results_amount%}
+
+                      <form action="{{url_for('sort_by_cost')}}" method="get">
+                        <input style="display: none" name="offset" value="{{offset - 10}}" />
+                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                        <input style="display: none" class="month-input" name="selected-month"
+                          value="{{current_month}}" />
+
+                        <input style="display: none" name="sort-expense"
+                          value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}" />
+
+                        <input style="display: none" name="prev_cost_button" value="yes" />
+
+                        <input style="display: none" name="cost_max_10" value="{{max_10_results_amount}}" />
+
+                        <button class="previous-results" type="submit">
+                          <i class="fas fa-angle-double-left"></i>previous results
+                        </button>
+                      </form>
+
+                      <button style="display: none" class="cost-next-button" type="submit">
+                        next results
+                        <i class="fas fa-angle-double-right"></i>
+                      </button>
+
+                      {% endif %}
+
+                      <!--END OF SORT_COST BUTTONS ------------------------------------------------->
+                      <!--END OF SORT_COST BUTTONS ------------------------------------------------->
+
+                      <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
+                      <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
+
+                      {% if view_mode == "sort-year" and user_year_selection ==
+                      "all" and offset == 0 %}
+
+                      <form method="get" action="{{url_for('sort_year')}}">
+                        <input name="offset" style="display: none" value="{{offset + 10}}" />
+
+                        <button type="submit" class="year-next-button dark next-results">
+                          next results <i class="fas fa-angle-double-right"></i>
+                        </button>
+                      </form>
+
+                      {% endif %} {% if view_mode == "sort-year" and
+                      user_year_selection == "all" and offset > 0 and running_count
+                      < complete_results_amount %} <form action="{{url_for('sort_year')}}" method="get">
+                        <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                        <input style="display: none" name="year" value="{{user_year_selection}}" />
+
+                        <button class="previous-results" type="submit">
+                          <i class="fas fa-angle-double-left"></i> previous results
+                        </button>
+                        </form>
+
+                        <form action="{{url_for('sort_year')}}" method="get">
+                          <input style="display: none" name="offset" value="{{offset + 10}}" />
+
+                          <input style="display: none" name="year" value="{{user_year_selection}}" />
+
+                          <button type="submit" class="year-next-button dark next-results">
+                            next results cuck
+                            <i class="fas fa-angle-double-right"></i>
+                          </button>
+                        </form>
+
+                        {% endif %} {% if view_mode == "sort-year" and
+                        user_year_selection == "all" and offset > 0 and running_count
+                        == complete_results_amount %}
+
+                        <form action="{{url_for('sort_year')}}" method="get">
+                          <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                          <input name="year" value="{{user_year_selection}}" />
+
+                          <input name="prev_max_10" value="{{max_10_results_amount}}" />
+
+                          <button class="previous-results" type="submit">
+                            <i class="fas fa-angle-double-left"></i> previous results
+                          </button>
+                        </form>
+
+                        {% endif %} {% if user_year_selection != "all" and offset == 0
+                        and view_mode == "sort-year" %}
+
+                        <form action="{{url_for('sort_year')}}" method="get">
+                          <input style="display: none" name="sort-expense"
+                            value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+
+                          <input name="offset" style="display: none" class="sort-cost-input" value="{{offset + 10}}" />
+
+                          <input name="year" value="{{user_year_selection}}" style="display: none" />
+
+                          <button style="display: {{'none' if running_count == complete_results_amount else 'block'}};"
+                            class="year-next-button dark next-results" type="submit">
+                            next results
+                            <i class="fas fa-angle-double-right"></i>
+                          </button>
+                        </form>
+
+                        {% endif %} {% if view_mode == "sort-year" and offset > 0 and
+                        user_year_selection != "all" and running_count < complete_results_amount %} <form
+                          action="{{url_for('sort_year')}}" method="get">
+                          <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                          <input style="display: none" name="year" value="{{user_year_selection}}" />
+
+                          <button class="previous-results" type="submit">
+                            <i class="fas fa-angle-double-left"></i> previous results
+                          </button>
+                          </form>
+
+                          <form action="{{url_for('sort_year')}}" method="get">
+                            <input style="display: none" name="year" value="{{user_year_selection}}" />
+
+                            <input style="display: none" name="offset" value="{{offset + 10}}" />
+
+                            <button class="year-next-button dark next-results" type="submit">
+                              next results
+                              <i class="fas fa-angle-double-right"></i>
+                            </button>
+                          </form>
+
+                          {% endif %} {% if view_mode == "sort-year" and offset > 0 and
+                          user_year_selection != "all" and running_count ==
+                          complete_results_amount %}
+
+                          <form action="{{url_for('sort_year')}}" method="get">
+                            <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                            <input style="display: none" name="year" value="{{user_year_selection}}" />
+
+                            <button class="previous-results" type="submit">
+                              <i class="fas fa-angle-double-left"></i> previous results
+                            </button>
+                          </form>
+
+                          {% endif %}
+
+                          <!--START OF NEW SORT  BUTTONS ------------------------------------------------->
+                          <!--START OF NEW SORT BUTTONS ------------------------------------------------->
+
+                          {% if view_mode == "new-sort" and offset == 0 %}
+
+                          <form method="get" action="{{url_for('new_sort')}}">
+                            <input style="display: none" name="offset" value="{{offset + 10}}" />
+
+                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
+                            <input style="display: none" class="year-input" name="selected-year"
+                              value="{{showing_year}}" />
+
+                            <input style="display: none" class="month-input" name="selected-month"
+                              value="{{current_month}}" />
+
+                            <button class="year-next-button dark next-results"
+                              style="display: {% if running_count == complete_results_amount %} none;" {% endif %}
+                              type="submit">
+                              next results
+                              <i class="fas fa-angle-double-right"></i>
+                            </button>
+                          </form>
+
+                          {% endif %} {% if view_mode == "new-sort" and offset != 0 and
+                          running_count != complete_results_amount %}
+
+                          <form method="get" action="{{url_for('new_sort')}}">
+                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
+                            <input style="display: none" class="year-input" name="selected-year"
+                              value="{{showing_year}}" />
+
+                            <input style="display: none" class="month-input" name="selected-month"
+                              value="{{current_month}}" />
+
+                            <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                            <button class="previous-results" type="submit">
+                              <i class="fas fa-angle-double-left"></i> previous results
+                            </button>
+                          </form>
+
+                          <form method="get" action="{{url_for('new_sort')}}">
+                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
+
+                            <input style="display: none" name="offset" value="{{offset + 10}}" />
+                            <input style="display: none" class="year-input" name="selected-year"
+                              value="{{showing_year}}" />
+
+                            <input style="display: none" class="month-input" name="selected-month"
+                              value="{{current_month}}" />
+
+                            <button class="year-next-button dark next-results" type="submit">
+                              next results
+                              <i class="fas fa-angle-double-right"></i>
+                            </button>
+                          </form>
+
+                          {% endif %} {% if view_mode == "new-sort" and running_count ==
+                          complete_results_amount %}
+
+                          <form method="get" action="{{url_for('new_sort')}}">
+                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
+
+                            <input style="display: none" name="offset" value="{{offset - 10}}" />
+                            <input style="display: none" class="year-input" name="selected-year"
+                              value="{{showing_year}}" />
+
+                            <input style="display: none" class="month-input" name="selected-month"
+                              value="{{current_month}}" />
+
+                            <button class="previous-results" style="display: {% if offset == 0 %} none;" {% endif %}
+                              type="submit">
+                              <i class="fas fa-angle-double-left"></i> previous results
+                            </button>
+                          </form>
+
+                          {% endif %}
               </div>
-           
-            
             </div>
           </div>
         </div>
-
-        <p style="display: none" class="json_data">{{my_json}}</p>
-        <p style="display: none" class="complete_json_data">
-          {{chart_bar_doughnut_data}}
-        </p>
-
-        <!--END OF NEW SORT  BUTTONS ------------------------------------------------->
-        <!--END OF NEW SORT BUTTONS ------------------------------------------------->
-        <!--START OF CHARTJS MAIN CONTAINER ------------------------------------------------->
       </div>
-      <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
-      <div class="searched-expense-display-container">
-        <div class="quick-search-container">
-          <div class="quick-search-image-container">
-            <img
-              class="quick-search"
-              src="../static/images/quick-search.png"
-              alt="magnifying glass with lighting next to it"
-            />
-            <p class="quick-search-text">Quick Search</p>
-          </div>
 
-          <div class="quick-search-results-amount-container">
-            <p id="offset-amount"></p>
+      <p style="display: none" class="json_data">{{my_json}}</p>
+      <p style="display: none" class="complete_json_data">
+        {{chart_bar_doughnut_data}}
+      </p>
 
-            <p id="dp" class="quick-search-results"></p>
-          </div>
-          <p class="offset-amount"></p>
-        </div>
-        <div class="no-entries-parent-container">
-          <div class="no-entries-child-container">
-            <p style="color: #bb86fc" class="no-results">No entries found</p>
-            <p class="try-again">Try another search</p>
-          </div>
+      <!--END OF NEW SORT  BUTTONS ------------------------------------------------->
+      <!--END OF NEW SORT BUTTONS ------------------------------------------------->
+      <!--START OF CHARTJS MAIN CONTAINER ------------------------------------------------->
+    </div>
+    <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
+    <div class="searched-expense-display-container">
+      <div class="quick-search-container">
+        <div class="quick-search-image-container">
+          <img class="quick-search" src="../static/images/quick-search.png"
+            alt="magnifying glass with lighting next to it" />
+          <p class="quick-search-text">Quick Search</p>
         </div>
 
-        <div id="db-search-table-main-container"></div>
+        <div class="quick-search-results-amount-container">
+          <p id="offset-amount"></p>
+
+          <p id="dp" class="quick-search-results"></p>
+        </div>
+        <p class="offset-amount"></p>
       </div>
-      <div class="delete-confirmation-main-container">
-        <div class="warning-icon-container">
-          <img
-            class="warning-icon"
-            src="../static/images/warning_icon.png"
-            alt="warning icon"
-          />
-          <p class="warning-message">Are you sure you want to delete?</p>
-        </div>
-        <div class="name-cost-container">
-          <p class="e-name"></p>
-          <p class="e-cost"></p>
-        </div>
-        <div class="qs-delete-expense-container">
-          <button class="cancel-delete">Cancel</button>
-          <button class="confirm-delete">Yes, I want to delete</button>
+      <div class="no-entries-parent-container">
+        <div class="no-entries-child-container">
+          <p style="color: #bb86fc" class="no-results">No entries found</p>
+          <p class="try-again">Try another search</p>
         </div>
       </div>
-      <div class="quick-search-button-container">
-        <button class="qs-previous-results">
-          <i class="fas fa-angle-double-left"></i>Previous Results
-        </button>
 
-        <button type="button" class="qs-next-results">
-          Next results <i class="fas fa-angle-double-right"></i>
-        </button>
+      <div id="db-search-table-main-container"></div>
+    </div>
+    <div class="delete-confirmation-main-container">
+      <div class="warning-icon-container">
+        <img class="warning-icon" src="../static/images/warning_icon.png" alt="warning icon" />
+        <p class="warning-message">Are you sure you want to delete?</p>
       </div>
-       </div>
-      <div class="back-to-dashboard-container">
-        <!--
+      <div class="name-cost-container">
+        <p class="e-name"></p>
+        <p class="e-cost"></p>
+      </div>
+      <div class="qs-delete-expense-container">
+        <button class="cancel-delete">Cancel</button>
+        <button class="confirm-delete">Yes, I want to delete</button>
+      </div>
+    </div>
+    <div class="quick-search-button-container">
+      <button class="qs-previous-results">
+        <i class="fas fa-angle-double-left"></i>Previous Results
+      </button>
+
+      <button type="button" class="qs-next-results">
+        Next results <i class="fas fa-angle-double-right"></i>
+      </button>
+    </div>
+
+    <div class="back-to-dashboard-container">
+      <!--
         <button
       
        
@@ -1473,335 +951,380 @@
         <a href="{{url_for('dashboard')}}"></a></button>
         -->
 
-        <a
-          class="back-to-dashboard-a-tag back-to-dashboard-button"
-          href="{{url_for('dashboard')}}"
-          >Back to Dashboard <i class="bx bxs-home back-to-dashboard-icon"></i
-        ></a>
-      </div>
-    </main>
+      <a class="back-to-dashboard-a-tag back-to-dashboard-button" href="{{url_for('dashboard')}}">Back to Dashboard <i
+          class="bx bxs-home back-to-dashboard-icon"></i></a>
+    </div>
+  </main>
 
-    <!--END OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
+  <!--END OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
 
-    <footer>
-      <small
-        >© Paul Quintanilla 2025 <br />
-        Built with Flask, MySQL, HTML/CSS & JS
-      </small>
+  <footer>
+    <small>© Paul Quintanilla 2025 <br />
+      Built with Flask, MySQL, HTML/CSS & JS
+    </small>
 
-      <div class="icon-container">
-        <a href="https://github.com/Paulq02">
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              width="50"
-              height="50"
-              viewBox="0,0,256,256"
-            >
-              <g
-                fill="#bb86fc"
-                fill-rule="nonzero"
-                stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
-                style="mix-blend-mode: normal"
-              >
-                <g transform="scale(4,4)">
-                  <path
-                    d="M32,10c-12.15,0 -22,9.85 -22,22c0,12.15 9.85,22 22,22c12.15,0 22,-9.85 22,-22c0,-12.15 -9.85,-22 -22,-22zM32,14c9.941,0 18,8.059 18,18c0,8.23871 -5.54128,15.16934 -13.0957,17.30664c-0.0928,-0.19124 -0.15645,-0.40072 -0.15039,-0.63867c0.031,-1.209 0,-4.03041 0,-5.06641c0,-1.778 -1.125,-3.03906 -1.125,-3.03906c0,0 8.82422,0.09959 8.82422,-9.31641c0,-3.633 -1.89844,-5.52539 -1.89844,-5.52539c0,0 0.9973,-3.87844 -0.3457,-5.52344c-1.505,-0.163 -4.20056,1.43755 -5.35156,2.18555c0,0 -1.82342,-0.74805 -4.85742,-0.74805c-3.034,0 -4.85742,0.74805 -4.85742,0.74805c-1.151,-0.748 -3.84656,-2.34755 -5.35156,-2.18555c-1.342,1.645 -0.3457,5.52344 -0.3457,5.52344c0,0 -1.89844,1.89044 -1.89844,5.52344c0,9.416 8.82422,9.31836 8.82422,9.31836c0,0 -1.00476,1.14381 -1.10547,2.7832c-0.58969,0.20793 -1.39349,0.45313 -2.16016,0.45313c-1.85,0 -3.25548,-1.79691 -3.77148,-2.62891c-0.508,-0.821 -1.54948,-1.50977 -2.52148,-1.50977c-0.64,0 -0.95312,0.3215 -0.95312,0.6875c0,0.366 0.89823,0.62083 1.49023,1.29883c1.248,1.43 1.22488,4.64648 5.67188,4.64648c0.5258,0 1.47056,-0.1211 2.22461,-0.22461c-0.00417,1.00955 -0.0159,1.97778 0,2.59766c0.00586,0.23869 -0.05897,0.44894 -0.15234,0.64063c-7.55349,-2.1379 -13.09375,-9.0686 -13.09375,-17.30664c0,-9.941 8.059,-18 18,-18z"
-                  ></path>
-                </g>
+    <div class="icon-container">
+      <a href="https://github.com/Paulq02">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0,0,256,256">
+            <g fill="#bb86fc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <g transform="scale(4,4)">
+                <path
+                  d="M32,10c-12.15,0 -22,9.85 -22,22c0,12.15 9.85,22 22,22c12.15,0 22,-9.85 22,-22c0,-12.15 -9.85,-22 -22,-22zM32,14c9.941,0 18,8.059 18,18c0,8.23871 -5.54128,15.16934 -13.0957,17.30664c-0.0928,-0.19124 -0.15645,-0.40072 -0.15039,-0.63867c0.031,-1.209 0,-4.03041 0,-5.06641c0,-1.778 -1.125,-3.03906 -1.125,-3.03906c0,0 8.82422,0.09959 8.82422,-9.31641c0,-3.633 -1.89844,-5.52539 -1.89844,-5.52539c0,0 0.9973,-3.87844 -0.3457,-5.52344c-1.505,-0.163 -4.20056,1.43755 -5.35156,2.18555c0,0 -1.82342,-0.74805 -4.85742,-0.74805c-3.034,0 -4.85742,0.74805 -4.85742,0.74805c-1.151,-0.748 -3.84656,-2.34755 -5.35156,-2.18555c-1.342,1.645 -0.3457,5.52344 -0.3457,5.52344c0,0 -1.89844,1.89044 -1.89844,5.52344c0,9.416 8.82422,9.31836 8.82422,9.31836c0,0 -1.00476,1.14381 -1.10547,2.7832c-0.58969,0.20793 -1.39349,0.45313 -2.16016,0.45313c-1.85,0 -3.25548,-1.79691 -3.77148,-2.62891c-0.508,-0.821 -1.54948,-1.50977 -2.52148,-1.50977c-0.64,0 -0.95312,0.3215 -0.95312,0.6875c0,0.366 0.89823,0.62083 1.49023,1.29883c1.248,1.43 1.22488,4.64648 5.67188,4.64648c0.5258,0 1.47056,-0.1211 2.22461,-0.22461c-0.00417,1.00955 -0.0159,1.97778 0,2.59766c0.00586,0.23869 -0.05897,0.44894 -0.15234,0.64063c-7.55349,-2.1379 -13.09375,-9.0686 -13.09375,-17.30664c0,-9.941 8.059,-18 18,-18z">
+                </path>
               </g>
-            </svg>
-          </li>
-        </a>
-        <a href="https://www.linkedin.com/in/paulquintanilla/">
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              width="40"
-              height="40"
-              viewBox="0,0,256,256"
-            >
-              <g
-                fill="#bb86fc"
-                fill-rule="nonzero"
-                stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
-                style="mix-blend-mode: normal"
-              >
-                <g transform="scale(5.12,5.12)">
-                  <path
-                    d="M41,4h-32c-2.76,0 -5,2.24 -5,5v32c0,2.76 2.24,5 5,5h32c2.76,0 5,-2.24 5,-5v-32c0,-2.76 -2.24,-5 -5,-5zM17,20v19h-6v-19zM11,14.47c0,-1.4 1.2,-2.47 3,-2.47c1.8,0 2.93,1.07 3,2.47c0,1.4 -1.12,2.53 -3,2.53c-1.8,0 -3,-1.13 -3,-2.53zM39,39h-6c0,0 0,-9.26 0,-10c0,-2 -1,-4 -3.5,-4.04h-0.08c-2.42,0 -3.42,2.06 -3.42,4.04c0,0.91 0,10 0,10h-6v-19h6v2.56c0,0 1.93,-2.56 5.81,-2.56c3.97,0 7.19,2.73 7.19,8.26z"
-                  ></path>
-                </g>
+            </g>
+          </svg>
+        </li>
+      </a>
+      <a href="https://www.linkedin.com/in/paulquintanilla/">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0,0,256,256">
+            <g fill="#bb86fc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <g transform="scale(5.12,5.12)">
+                <path
+                  d="M41,4h-32c-2.76,0 -5,2.24 -5,5v32c0,2.76 2.24,5 5,5h32c2.76,0 5,-2.24 5,-5v-32c0,-2.76 -2.24,-5 -5,-5zM17,20v19h-6v-19zM11,14.47c0,-1.4 1.2,-2.47 3,-2.47c1.8,0 2.93,1.07 3,2.47c0,1.4 -1.12,2.53 -3,2.53c-1.8,0 -3,-1.13 -3,-2.53zM39,39h-6c0,0 0,-9.26 0,-10c0,-2 -1,-4 -3.5,-4.04h-0.08c-2.42,0 -3.42,2.06 -3.42,4.04c0,0.91 0,10 0,10h-6v-19h6v2.56c0,0 1.93,-2.56 5.81,-2.56c3.97,0 7.19,2.73 7.19,8.26z">
+                </path>
               </g>
-            </svg>
-          </li>
-        </a>
-        <a href="https://www.instagram.com/paulq02/">
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              width="40"
-              height="40"
-              viewBox="0,0,256,256"
-            >
-              <g
-                fill="#bb86fc"
-                fill-rule="nonzero"
-                stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
-                style="mix-blend-mode: normal"
-              >
-                <g transform="scale(10.66667,10.66667)">
-                  <path
-                    d="M8,3c-2.757,0 -5,2.243 -5,5v8c0,2.757 2.243,5 5,5h8c2.757,0 5,-2.243 5,-5v-8c0,-2.757 -2.243,-5 -5,-5zM8,5h8c1.654,0 3,1.346 3,3v8c0,1.654 -1.346,3 -3,3h-8c-1.654,0 -3,-1.346 -3,-3v-8c0,-1.654 1.346,-3 3,-3zM17,6c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1zM12,7c-2.757,0 -5,2.243 -5,5c0,2.757 2.243,5 5,5c2.757,0 5,-2.243 5,-5c0,-2.757 -2.243,-5 -5,-5zM12,9c1.654,0 3,1.346 3,3c0,1.654 -1.346,3 -3,3c-1.654,0 -3,-1.346 -3,-3c0,-1.654 1.346,-3 3,-3z"
-                  ></path>
-                </g>
+            </g>
+          </svg>
+        </li>
+      </a>
+      <a href="https://www.instagram.com/paulq02/">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0,0,256,256">
+            <g fill="#bb86fc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <g transform="scale(10.66667,10.66667)">
+                <path
+                  d="M8,3c-2.757,0 -5,2.243 -5,5v8c0,2.757 2.243,5 5,5h8c2.757,0 5,-2.243 5,-5v-8c0,-2.757 -2.243,-5 -5,-5zM8,5h8c1.654,0 3,1.346 3,3v8c0,1.654 -1.346,3 -3,3h-8c-1.654,0 -3,-1.346 -3,-3v-8c0,-1.654 1.346,-3 3,-3zM17,6c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1zM12,7c-2.757,0 -5,2.243 -5,5c0,2.757 2.243,5 5,5c2.757,0 5,-2.243 5,-5c0,-2.757 -2.243,-5 -5,-5zM12,9c1.654,0 3,1.346 3,3c0,1.654 -1.346,3 -3,3c-1.654,0 -3,-1.346 -3,-3c0,-1.654 1.346,-3 3,-3z">
+                </path>
               </g>
-            </svg>
-          </li>
-        </a>
-      </div>
-    </footer>
+            </g>
+          </svg>
+        </li>
+      </a>
+    </div>
+  </footer>
 
-    <script>
-      /* DELETE FUNCTION START SECTION */
-      function deleteFunction(index) {
-        document.getElementById("delete-" + index).style.display = "flex";
-        document.getElementById("delete-" + index).style.flexDirection =
-          "column";
-      }
+  <script>
+    /* DELETE FUNCTION START SECTION */
+    function deleteFunction(index) {
+      document.getElementById("delete-" + index).style.display = "flex";
+      document.getElementById("delete-" + index).style.flexDirection =
+        "column";
+    }
 
-      function cancelDelete(index) {
-        document.getElementById("delete-" + index).style.display = "none";
-      }
+    function cancelDelete(index) {
+      document.getElementById("delete-" + index).style.display = "none";
+    }
 
-      /* DELETE FUNCTION END SECTION */
+    /* DELETE FUNCTION END SECTION */
 
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
 
-      /* NAME EDIT START SECTION */
+    /* NAME EDIT START SECTION */
 
-      function showEditnameForm(index) {
-        const formInput = document.getElementById("edit-name-form-" + index);
-        formInput.style.display = "flex";
-        formInput.style.justifyContent = "space-between";
-      }
+    function showEditnameForm(index) {
+      let formInput = document.getElementById(`edit-name-form-${index}`);
 
-      function showEditnameInput(index) {
-        const newNameInput = document.getElementById(
-          "edit-name-input-" + index,
-        );
-        newNameInput.style.display = "flex";
-      }
+      let nameFlexContainer = document.getElementById(
+        `name_flex_container-${index}`,
+      );
+      nameFlexContainer.style.display = "flex";
+      nameFlexContainer.style.maxHeight = "100%";
+      nameFlexContainer.style.maxWidth = "100%";
+      nameFlexContainer.colSpan = 5;
+      nameFlexContainer.style.alignContent = "center";
 
-      function noNameEdit(index) {
-        const hideNameEditButton = document.getElementById(
-          "edit-name-button-" + index,
-        );
-        hideNameEditButton.style.display = "none";
-        const hideNameCancelButton = document.getElementById(
-          "cancel-svg-name-button-" + index,
-        );
-        hideNameCancelButton.style.display = "none";
-      }
+      formInput.style.display = "flex";
+      formInput.style.justifyContent = "space-between";
+    }
 
-      function noNameForm(index) {
-        const hideNameForm = document.getElementById("edit-name-form-" + index);
-        hideNameForm.style.display = "none";
-        const clearNameInput = document.getElementById(
-          "edit-name-input-" + index,
-        );
-        clearNameInput.value = "";
-      }
+    function showEditnameInput(index) {
+      let newNameInput = document.getElementById(`edit-name-input-${index}`);
+      newNameInput.style.display = "flex";
+    }
 
-      /* NAME EDIT END SECTION */
+    function noNameEdit(index) {
+      const hideNameEditButton = document.getElementById(
+        "edit-name-button-" + index,
+      );
+      hideNameEditButton.style.display = "none";
+      const hideNameCancelButton = document.getElementById(
+        "cancel-svg-name-button-" + index,
+      );
+      hideNameCancelButton.style.display = "none";
+    }
 
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
+    function noNameForm(index) {
+      const hideNameForm = document.getElementById("edit-name-form-" + index);
+      hideNameForm.style.display = "none";
+      const clearNameInput = document.getElementById(
+        "edit-name-input-" + index,
+      );
+      clearNameInput.value = "";
+    }
 
-      /* COST EDIT START SECTION */
-      function showCostbutton(index) {
-        const costButton = document.getElementById("edit-cost-button-" + index);
-        costButton.style.display = "inline-flex";
-        costButton.style.justifyContent = "center";
-        costButton.style.alignItems = "center";
-      }
+    /* NAME EDIT END SECTION */
 
-      function showCostForm(index) {
-        const showCostinput = document.getElementById(
-          "edit-cost-form-" + index,
-        );
-        showCostinput.style.display = "flex";
-      }
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
 
-      function showCostinput(index) {
-        const showInput = document.getElementById("edit-cost-input-" + index);
-        showInput.style.display = "inline";
-      }
+    /* COST EDIT START SECTION */
+    function showCostbutton(index) {
+      const costButton = document.getElementById("edit-cost-button-" + index);
+      costButton.style.display = "inline-flex";
+      costButton.style.justifyContent = "center";
+      costButton.style.alignItems = "center";
+    }
 
-      function noCostEdit(index) {
-        const hideCostButton = document.getElementById(
-          "edit-cost-button-" + index,
-        );
-        hideCostButton.style.display = "none";
-        const hideCostCancelButton = document.getElementById(
-          "cancel-svg-cost-button-" + index,
-        );
-        hideCostCancelButton.style.display = "none";
-      }
+    function showCostForm(index) {
+      const showCostinput = document.getElementById(
+        "edit-cost-form-" + index,
+      );
+      showCostinput.style.display = "flex";
+    }
 
-      function noCostForm(index) {
-        const hideCostForm = document.getElementById("edit-cost-form-" + index);
-        hideCostForm.style.display = "none";
-        const clearCostInput = document.getElementById(
-          "edit-cost-input-" + index,
-        );
-        clearCostInput.value = "";
-      }
-      /* COST EDIT END SECTION */
+    function showCostinput(index) {
+      const showInput = document.getElementById("edit-cost-input-" + index);
+      showInput.style.display = "inline";
+    }
 
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
+    function noCostEdit(index) {
+      const hideCostButton = document.getElementById(
+        "edit-cost-button-" + index,
+      );
+      hideCostButton.style.display = "none";
+      const hideCostCancelButton = document.getElementById(
+        "cancel-svg-cost-button-" + index,
+      );
+      hideCostCancelButton.style.display = "none";
+    }
 
-      /* DATE EDIT START SECTION */
+    function noCostForm(index) {
+      const hideCostForm = document.getElementById("edit-cost-form-" + index);
+      hideCostForm.style.display = "none";
+      const clearCostInput = document.getElementById(
+        "edit-cost-input-" + index,
+      );
+      clearCostInput.value = "";
+    }
+    /* COST EDIT END SECTION */
 
-      /*
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
 
-      function showDatebutton(index) {
-        const dateButton = document.getElementById("edit-date-button-" + index);
-        const dateBtnCss = getComputedStyle(dateButton).style;
-        console.log(dateBtnCss);
-      }
+    /* DATE EDIT START SECTION */
 
-      */
+    /*
 
-      function showDateForm(index) {
-        const showDate = document.getElementById("edit-date-form-" + index);
-        showDate.style.display = "flex";
-      }
+    function showDatebutton(index) {
+      const dateButton = document.getElementById("edit-date-button-" + index);
+      const dateBtnCss = getComputedStyle(dateButton).style;
+      console.log(dateBtnCss);
+    }
 
-      function showDateInput(index) {
-        let showInput = document.getElementById(`datepicker-${index}`);
-        showInput.style.display = "inline";
-      }
+    */
 
-      function noDateEdit(index) {
-        const hideDateCancelicon = document.getElementById(
-          "cancel-svg-date-button-" + index,
-        );
-        hideDateCancelicon.style.display = "none";
-        const hideDateEditButton = document.getElementById(
-          "edit-date-button-" + index,
-        );
-        hideDateEditButton.style.display = "none";
-      }
+    function showDateForm(index) {
+      const showDate = document.getElementById("edit-date-form-" + index);
+      showDate.style.display = "flex";
+    }
 
-      function noDateForm(index) {
-        const hideDateForm = document.getElementById("edit-date-form-" + index);
-        hideDateForm.style.display = "none";
-      }
-      /* DATE EDIT END SECTION */
+    function showDateInput(index) {
+      let showInput = document.getElementById(`datepicker-${index}`);
+      showInput.style.display = "inline";
+    }
 
-      /* =============================================================================================================== */
-      /* =============================================================================================================== */
+    function noDateEdit(index) {
+      const hideDateCancelicon = document.getElementById(
+        "cancel-svg-date-button-" + index,
+      );
+      hideDateCancelicon.style.display = "none";
+      const hideDateEditButton = document.getElementById(
+        "edit-date-button-" + index,
+      );
+      hideDateEditButton.style.display = "none";
+    }
 
-      /* SVG CANCEL BUTTONS START */
+    function noDateForm(index) {
+      const hideDateForm = document.getElementById("edit-date-form-" + index);
+      hideDateForm.style.display = "none";
+    }
+    /* DATE EDIT END SECTION */
 
-      /*
+    /* =============================================================================================================== */
+    /* =============================================================================================================== */
 
-      function showCancelIcons(index) {
-        const showNameCancel = document.getElementById(
-          "cancel-svg-name-button-" + index
-        );
-        showNameCancel.style.display = "flex";
-        showNameCancel.style.justifyContent = "center";
-        showNameCancel.style.alignItems = "center";
-        const showCostCancel = document.getElementById(
-          "cancel-svg-cost-button-" + index
-        );
-        showCostCancel.style.display = "flex";
-        showCostCancel.style.justifyContent = "center";
-        showCostCancel.style.alignItems = "center";
-        const showDateCancel = document.getElementById(
-          "cancel-svg-date-button-" + index
-        );
-        showDateCancel.style.display = "flex";
-        showDateCancel.style.justifyContent = "center";
-        showDateCancel.style.alignItems = "center";
-      }
+    /* SVG CANCEL BUTTONS START */
 
-      */
+    /*
 
-      /* SVG CANCEL BUTTONS END */
-    </script>
+    function showCancelIcons(index) {
+      const showNameCancel = document.getElementById(
+        "cancel-svg-name-button-" + index
+      );
+      showNameCancel.style.display = "flex";
+      showNameCancel.style.justifyContent = "center";
+      showNameCancel.style.alignItems = "center";
+      const showCostCancel = document.getElementById(
+        "cancel-svg-cost-button-" + index
+      );
+      showCostCancel.style.display = "flex";
+      showCostCancel.style.justifyContent = "center";
+      showCostCancel.style.alignItems = "center";
+      const showDateCancel = document.getElementById(
+        "cancel-svg-date-button-" + index
+      );
+      showDateCancel.style.display = "flex";
+      showDateCancel.style.justifyContent = "center";
+      showDateCancel.style.alignItems = "center";
+    }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    */
 
-    <script>
-      let currentYear = "{{showing_year}}-12";
-      let previousYear = "{{previous_year}}-01";
+    /* SVG CANCEL BUTTONS END */
+  </script>
 
-      let dashboardTable = document.querySelector(".dashboard-table");
-      if (dashboardTable) {
-        dashboardTable.addEventListener("click", (e) => {
-          if (e.target.id.includes("datepicker")) {
-            let selectedInput = e.target;
-            flatpickr(selectedInput, {
-              minDate: previousYear,
-              maxDate: currentYear,
-            }).open();
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    const mainTableDashboardContainer = document.querySelector(
+      ".main-table-pie-entire-container",
+    );
+
+
+
+
+    let previousYear = "1-01-{{previous_year}}";
+
+    if (mainTableDashboardContainer) {
+      let currentDate = "{{current_date}}";
+      mainTableDashboardContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("cancel-edit-button")) {
+          let eId = e.target.dataset.expenseId;
+          let nameCostDateMainContainer = document.getElementById(
+            `name-cost-date-container-${eId}`,
+          );
+
+          let cancelEditButton = document.getElementById(
+            `cancel-edit-button-${eId}`,
+          );
+
+          let saveChangesButton = document.getElementById(
+            `save-new-changes-${eId}`,
+          );
+          let costFlexContainer = document.getElementById(
+            `name_cost_flex_container-${eId}`,
+          );
+
+          let dateFlexContainer = document.getElementById(
+            `date_name_flex_container-${eId}`,
+          );
+
+          let nameDescriptionTag = document.getElementById(
+            `name-description-${eId}`,
+          );
+
+          let editNameInput = document.getElementById(`edit-name-input-${eId}`);
+
+          let expenseNameDescription = document.getElementById(`name-p-tag-${eId}`);
+
+          let editNameBtn = document.getElementById(`edit-name-button-${eId}`);
+
+          let costTd = document.getElementById(`cost-td-${eId}`);
+          let nameTd = document.getElementById(`name-td-${eId}`);
+          let dateTd = document.getElementById(`date-td-${eId}`);
+          let deleteTd = document.getElementById(`delete-td-${eId}`);
+          let editTd = document.getElementById(`edit-td-${eId}`);
+          let editNameForm = document.getElementById(`edit-name-form-${eId}`);
+
+          editNameBtn.style.display = "none";
+          nameDescriptionTag.style.display = "none";
+          dateFlexContainer.style.display = "none";
+          costFlexContainer.style.display = "none";
+          editNameForm.style.display = "none";
+          saveChangesButton.style.display = "none";
+          cancelEditButton.style.display = "none";
+          editNameInput.style.display = "none";
+
+          nameCostDateMainContainer.style.flexDirection = "row";
+          costTd.style.display = "table-cell";
+          dateTd.style.display = "table-cell";
+          deleteTd.style.display = "table-cell";
+          editTd.style.display = "table-cell";
+
+          costTd.colSpan = 1;
+          nameTd.colSpan = 1;
+
+          expenseNameDescription.style.display = "flex";
+        }
+        if (e.target.classList.contains("save-new-changes-button")) {
+        }
+
+        if (e.target.classList.contains("edit-date-input")) {
+          let expenseId = e.target.dataset.expenseId;
+          let datePickerInput = document.getElementById(`datepicker-${expenseId}`);
+          console.log(datePickerInput.value);
+          let currentDate = "{{current_date}}";
+
+          flatpickr(datePickerInput, {
+
+            dateFormat: "m-d-Y",
+            defaultDate: datePickerInput.value,
+            maxDate: currentDate,
+            minDate: new Date().fp_incr(-365)
+
+          }).open();
+        }
+      });
+    }
+
+
+    /*
+    let dashboardTable = document.querySelector(".dashboard-table");
+    if (dashboardTable) {
+      dashboardTable.addEventListener("click", (e) => {
+        if (e.target.id.includes("datepicker")) {
+          let expenseId = e.target.dataset.expenseId
+          let dateInput = document.getElementById(`datepicker-${expenseId}`)
+
+          let currentValue = dateInput.value
+          flatpickr(dateInput, {
+            dateFormat: "m-d-Y",
+            defaultDate: currentValue,
+            minDate: previousYear,
+            maxDate: currentYear
           }
-        });
-      }
-    </script>
+          ).open()
 
-    <script src="../static/script.js"></script>
-  </body>
+
+
+
+
+
+        }
+      });
+    }
+    */
+  </script>
+
+  <script src="../static/script.js"></script>
+</body>
+
 </html>
