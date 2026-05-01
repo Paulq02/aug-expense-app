@@ -1079,8 +1079,6 @@ async function searchExpenseByName(offset) {
           qsEditCostpTag.setAttribute("class", "qs-edit-cost-p-tag");
           qsEditCostpTag.style.display = "inline";
 
-          console.log(qsEditCostpTag.textContent);
-
           let convertedCost = Number(
             qsEditCostpTag.textContent.replace("$", ""),
           );
@@ -1112,6 +1110,7 @@ async function searchExpenseByName(offset) {
           tdCost.append(qsEditCostContainer, qsEditCostInputContainer);
 
           const tdDate = document.createElement("td");
+
           let editDateContainer = document.createElement("div");
           let editDateInputContainer = document.createElement("div");
           editDateInputContainer.dataset.expenseId = info.expense_id;
@@ -1137,20 +1136,25 @@ async function searchExpenseByName(offset) {
           expenseDatepElement.setAttribute("class", "qs-edit-date-p-tag");
           expenseDatepElement.style.display = "inline";
 
-          const qsSaveDateEditButton = document.createElement("button");
-          qsSaveDateEditButton.classList.add("save-date-edit-button");
-          qsSaveDateEditButton.dataset.expenseId = info.expense_id;
-          qsSaveDateEditButton.dataset.userId = info.user_id;
-          qsSaveDateEditButton.color = "white";
-          qsSaveDateEditButton.textContent = "save";
-          qsSaveDateEditButton.display = "none";
-
           editDateContainer.append(expenseDatepElement);
-          editDateInputContainer.append(
-            editDateInputField,
-            qsSaveDateEditButton,
-          );
+          editDateInputContainer.append(editDateInputField);
           tdDate.append(editDateContainer, editDateInputContainer);
+
+          let qsDateContainer = document.createElement("div");
+          qsDateContainer.setAttribute(
+            "id",
+            `qs-date-container-${info.expense_id}`,
+          );
+
+          let dateLabel = document.createElement("p");
+          dateLabel.setAttribute("class", "date-label");
+          dateLabel.textContent = "Date";
+
+          editDateInputField.value = expenseDatepElement.textContent;
+
+          qsDateContainer.append(dateLabel, editDateInputField);
+
+          qsTdNameCostDateMainContainer.append(qsDateContainer);
 
           const trashIcon = document.createElement("img");
           trashIcon.src = "/static/images/new_trash_icon.png";
@@ -1593,25 +1597,6 @@ if (searchTableMainContainer) {
       if (result.success === true) {
         searchExpenseByName(offset);
       }
-    }
-  });
-}
-
-if (searchTableMainContainer) {
-  searchTableMainContainer.addEventListener("click", (e) => {
-    console.log(e);
-    if (e.target.classList.contains("qs-edit-date-input-field")) {
-      let targetId = e.target.dataset.expenseId;
-      let editDateInputField = document.getElementById(
-        `edit-date-input-${targetId}`,
-      );
-
-      /*
-      flatpickr(editDateInputField, {
-        minDate: "2025-01",
-        maxDate: "2026-12-31",
-      }).open();
-      */
     }
   });
 }

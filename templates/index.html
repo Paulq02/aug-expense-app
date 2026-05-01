@@ -1277,6 +1277,14 @@
         if (e.target.classList.contains("save-new-changes-button")) {
         }
 
+
+
+
+
+
+
+
+
         if (e.target.classList.contains("edit-date-input")) {
           let expenseId = e.target.dataset.expenseId;
           let datePickerInput = document.getElementById(`datepicker-${expenseId}`);
@@ -1296,33 +1304,40 @@
     }
 
 
-    /*
-    let dashboardTable = document.querySelector(".dashboard-table");
-    if (dashboardTable) {
-      dashboardTable.addEventListener("click", (e) => {
-        if (e.target.id.includes("datepicker")) {
-          let expenseId = e.target.dataset.expenseId
-          let dateInput = document.getElementById(`datepicker-${expenseId}`)
 
-          let currentValue = dateInput.value
-          flatpickr(dateInput, {
-            dateFormat: "m-d-Y",
-            defaultDate: currentValue,
-            minDate: previousYear,
-            maxDate: currentYear
-          }
-          ).open()
-
-
-
-
-
-
-        }
-      });
-    }
-    */
   </script>
+
+  <script>
+
+    let dbContainer = document.getElementById("db-search-table-main-container")
+    let currentDate = "{{current_date}}";
+
+    if (dbContainer) {
+      dbContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("qs-edit-date-input-field")) {
+          console.log(e.target)
+          let targetId = e.target.dataset.expenseId;
+          let editDateInputField = document.getElementById(
+            `edit-date-input-${targetId}`,
+          );
+          console.log(editDateInputField.value);
+
+          flatpickr(editDateInputField, {
+            dateFormat: "m-d-Y",
+            defaultDate: editDateInputField.value,
+            maxDate: currentDate,
+            minDate: new Date().fp_incr(-365),
+          }).open();
+        }
+        ;
+      })
+    }
+
+
+
+
+  </script>
+
 
   <script src="../static/script.js"></script>
 </body>

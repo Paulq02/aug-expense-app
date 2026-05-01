@@ -566,7 +566,8 @@ html.dark .light-mode-et {
 }
 
 .name-label,
-.cost-label {
+.cost-label,
+.date-label {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   margin: 0;
