@@ -584,6 +584,10 @@ html.dark .light-mode-et {
   /* margin-bottom: 25px; */
 }
 
+.qs-name-cost-date-child-container {
+  display: inline-block;
+}
+
 .delete-confirmation-main-container {
   display: none;
   z-index: 3000;
@@ -2808,6 +2812,13 @@ tfoot td {
 .light .qs-edit-cost-input-field,
 .light .qs-edit-name-input-field {
   border: solid black 3px;
+  margin-top: 5px;
+}
+
+.dark .qs-edit-date-input-field,
+.dark .qs-edit-cost-input-field,
+.dark .qs-edit-name-input-field {
+  margin-top: 5px;
 }
 
 .save-name-edit-button,

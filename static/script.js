@@ -964,16 +964,28 @@ async function searchExpenseByName(offset) {
           const trDataRow = document.createElement("tr");
 
           let deleteTd = document.createElement("td");
+          deleteTd.setAttribute("id", `delete-td-${info.expense_id}`);
 
           let editTd = document.createElement("td");
+          editTd.setAttribute("id", `edit-td-${info.expense_id}`);
 
-          const tdName = document.createElement("td");
+          let tdName = document.createElement("td");
           tdName.setAttribute("id", `td-name-${info.expense_id}`);
 
           let qsTdNameCostDateMainContainer = document.createElement("div");
           qsTdNameCostDateMainContainer.setAttribute(
             "id",
             `qs-name-cost-date-main-container-${info.expense_id}`,
+          );
+
+          let qsTdNameCostDateChildContainer = document.createElement("div");
+          qsTdNameCostDateChildContainer.setAttribute(
+            "class",
+            "qs-name-cost-date-child-container",
+          );
+          qsTdNameCostDateChildContainer.setAttribute(
+            "id",
+            `qs-name-cost-date-child-container-${info.expense_id}`,
           );
 
           let qsEditNameContainer = document.createElement("div");
@@ -998,7 +1010,7 @@ async function searchExpenseByName(offset) {
             "class",
             "qs-edit-name-input-field",
           );
-          qsEditNameInputField.style.width = "70%";
+          qsEditNameInputField.style.paddingRight = "12px";
 
           let expenseNamepTag = document.createElement("p");
           expenseNamepTag.textContent = expenseName;
@@ -1034,6 +1046,7 @@ async function searchExpenseByName(offset) {
           tdNameCostContainer.append(costLabel);
 
           let tdCost = document.createElement("td");
+          tdCost.setAttribute("id", `td-cost-${info.expense_id}`);
 
           let qsEditCostContainer = document.createElement("div");
 
@@ -1062,7 +1075,6 @@ async function searchExpenseByName(offset) {
 
           qsEditCostInputContainer.append(moneySymbol);
 
-          qsEditCostInputField.style.width = "50%";
           qsEditCostInputField.setAttribute(
             "id",
             `qs-edit-cost-input-field-${info.expense_id}`,
@@ -1089,17 +1101,12 @@ async function searchExpenseByName(offset) {
 
           qsEditCostInputContainer.append(qsEditCostInputField);
 
-          qsTdNameCostDateMainContainer.append(
-            qsEditNameContainer,
-            qsEditNameInputContainer,
-          );
+          qsTdNameCostDateMainContainer.append(qsEditNameContainer);
 
           tdNameCostContainer.append(
             qsEditCostContainer,
             qsEditCostInputContainer,
           );
-
-          qsTdNameCostDateMainContainer.append(tdNameCostContainer);
 
           tdNameCostContainer.append(qsEditCostInputField);
 
@@ -1109,7 +1116,8 @@ async function searchExpenseByName(offset) {
 
           tdCost.append(qsEditCostContainer, qsEditCostInputContainer);
 
-          const tdDate = document.createElement("td");
+          let tdDate = document.createElement("td");
+          tdDate.setAttribute("id", `td-date-${info.expense_id}`);
 
           let editDateContainer = document.createElement("div");
           let editDateInputContainer = document.createElement("div");
@@ -1123,7 +1131,7 @@ async function searchExpenseByName(offset) {
           editDateInputField.classList.add("qs-edit-date-input-field");
           editDateInputField.dataset.expenseId = info.expense_id;
 
-          editDateInputField.style.width = "50%";
+          editDateInputField.style.paddingRight = "12px";
           editDateInputField.setAttribute(
             "id",
             `edit-date-input-${info.expense_id}`,
@@ -1145,16 +1153,24 @@ async function searchExpenseByName(offset) {
             "id",
             `qs-date-container-${info.expense_id}`,
           );
+          qsDateContainer.style.display = "none";
 
           let dateLabel = document.createElement("p");
           dateLabel.setAttribute("class", "date-label");
+          dateLabel.setAttribute("id", `date-label-${info.expense_id}`);
           dateLabel.textContent = "Date";
+          dateLabel.style.display = "none";
 
           editDateInputField.value = expenseDatepElement.textContent;
 
           qsDateContainer.append(dateLabel, editDateInputField);
 
-          qsTdNameCostDateMainContainer.append(qsDateContainer);
+          qsTdNameCostDateChildContainer.append(
+            qsEditNameInputContainer,
+            tdNameCostContainer,
+            qsDateContainer,
+          );
+          qsTdNameCostDateMainContainer.append(qsTdNameCostDateChildContainer);
 
           const trashIcon = document.createElement("img");
           trashIcon.src = "/static/images/new_trash_icon.png";
@@ -1605,6 +1621,13 @@ if (searchTableMainContainer) {
   searchTableMainContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("qs-edit-icon")) {
       let targetExpenseId = e.target.dataset.expenseId;
+
+      let qsTdNameCostDateMainContainer = document.getElementById(
+        `qs-name-cost-date-main-container-${targetExpenseId}`,
+      );
+      qsTdNameCostDateMainContainer.style.display = "flex";
+      qsTdNameCostDateMainContainer.style.justifyContent = "center";
+
       let turnOffEditIcon = document.getElementById(
         `qs-edit-icon-${targetExpenseId}`,
       );
@@ -1612,14 +1635,40 @@ if (searchTableMainContainer) {
         `qs-edit-mode-${targetExpenseId}`,
       );
 
+      let tdDate = document.getElementById(`td-date-${targetExpenseId}`);
+      tdDate.style.display = "none";
+
+      let deleteTd = document.getElementById(`delete-td-${targetExpenseId}`);
+      deleteTd.style.display = "none";
+
+      let editTd = document.getElementById(`edit-td-${targetExpenseId}`);
+      editTd.style.display = "none";
+
+      let tdName = document.getElementById(`td-name-${targetExpenseId}`);
+      tdName.colSpan = 5;
+
       let qsEditDateButton = document.getElementById(
         `qs-edit-date-button-${targetExpenseId}`,
       );
 
+      let tdCost = document.getElementById(`td-cost-${targetExpenseId}`);
+      tdCost.style.display = "none";
+
       let tdNameCostContainer = document.getElementById(
         `td-name-cost-container-${targetExpenseId}`,
       );
-      tdNameCostContainer.style.display = "block";
+      tdNameCostContainer.style.display = "flex";
+      tdNameCostContainer.style.flexDirection = "column";
+
+      let qsDateContainer = document.getElementById(
+        `qs-date-container-${targetExpenseId}`,
+      );
+
+      let costLabel = document.getElementById(`cost-label-${targetExpenseId}`);
+      costLabel.style.display = "flex";
+      costLabel.style.justifyContent = "center";
+
+      qsDateContainer.style.display = "block";
 
       turnOffEditIcon.style.display = "none";
       cancelEditMode.style.display = "inline";
@@ -1630,6 +1679,10 @@ if (searchTableMainContainer) {
       qsExpenseNamepTag.style.display = "none";
 
       let nameLabel = document.getElementById(`name-label-${targetExpenseId}`);
+
+      let dateLabel = document.getElementById(`date-label-${targetExpenseId}`);
+      dateLabel.style.display = "flex";
+      dateLabel.style.justifyContent = "center";
 
       let qsEditNameInputContainer = document.getElementById(
         `qs-edit-name-input-container-${targetExpenseId}`,
@@ -1644,6 +1697,7 @@ if (searchTableMainContainer) {
       qsEditNameInputContainer.style.flexDirection = "column-reverse";
       nameLabel.style.display = "flex";
       nameLabel.style.marginTop = "0";
+      nameLabel.style.justifyContent = "center";
     }
     if (e.target.classList.contains("qs-edit-mode")) {
       let targetExpenseId = e.target.dataset.expenseId;
@@ -1667,11 +1721,55 @@ if (searchTableMainContainer) {
       let qsEditDateInputContainer = document.getElementById(
         `qs-edit-date-input-container-${targetExpenseId}`,
       );
+
+      let qsEditNameInputContainer = document.getElementById(
+        `qs-edit-name-input-container-${targetExpenseId}`,
+      );
+
+      let qsCostContainer = document.getElementById(
+        `td-name-cost-container-${targetExpenseId}`,
+      );
+      qsCostContainer.style.display = "none";
+
+      let costLabel = document.getElementById(`cost-label-${targetExpenseId}`);
+      costLabel.style.display = "none";
+
+      qsEditNameInputContainer.style.display = "none";
+
+      let qsExpenseNamepTag = document.getElementById(
+        `expense-name-p-tag-${targetExpenseId}`,
+      );
+
+      let qsDateContainer = document.getElementById(
+        `qs-date-container-${targetExpenseId}`,
+      );
+
+      qsDateContainer.style.display = "none";
+
+      qsExpenseNamepTag.style.display = "inline";
+      let nameLabel = document.getElementById(`name-label-${targetExpenseId}`);
+
+      qsEditDateInputContainer.style.display = "none";
+      nameLabel.style.display = "none";
+
+      let tdName = document.getElementById(`td-name-${targetExpenseId}`);
+      tdName.colSpan = 1;
+
+      let deleteTd = document.getElementById(`delete-td-${targetExpenseId}`);
+      deleteTd.style.display = "table-cell";
+
+      let tdDate = document.getElementById(`td-date-${targetExpenseId}`);
+      tdDate.style.display = "table-cell";
+
+      let editTd = document.getElementById(`edit-td-${targetExpenseId}`);
+      editTd.style.display = "table-cell";
+
+      let tdCost = document.getElementById(`td-cost-${targetExpenseId}`);
+      tdCost.style.display = "table-cell";
+
       turnOffEditIcon.style.display = "inline";
       cancelEditMode.style.display = "none";
-      qsEditNameButton.style.display = "none";
-      qsEditCostButton.style.display = "none";
-      qsEditDateButton.style.display = "none";
+
       qsEditNameInputContainer.style.display = "none";
       qsEditCostInputContainer.style.display = "none";
       qsEditDateInputContainer.style.display = "none";
