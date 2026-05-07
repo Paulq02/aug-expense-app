@@ -626,6 +626,11 @@ const showNameBtn = function (index) {
   let cancelButton = document.getElementById(`cancel-edit-button-${index}`);
   let saveChangesButton = document.getElementById(`save-new-changes-${index}`);
 
+  let saveCancelButtonContainer = document.getElementById(
+    `save-cancel-button-container-${index}`,
+  );
+  saveCancelButtonContainer.style.display = "flex";
+
   nameDescriptionTag.style.display = "flex";
   costDescriptionTag.style.display = "flex";
   dateDescriptionTag.style.display = "flex";
@@ -977,6 +982,7 @@ async function searchExpenseByName(offset) {
             "id",
             `qs-name-cost-date-main-container-${info.expense_id}`,
           );
+          qsTdNameCostDateMainContainer.style.display = "flex";
 
           let qsTdNameCostDateChildContainer = document.createElement("div");
           qsTdNameCostDateChildContainer.setAttribute(
@@ -1069,11 +1075,9 @@ async function searchExpenseByName(offset) {
           qsEditCostInputField.style.paddingLeft = "12px";
           let moneySymbol = document.createElement("p");
           moneySymbol.textContent = "$";
-          moneySymbol.style.color = "black";
+          moneySymbol.style.color = "red";
           moneySymbol.style.position = "absolute";
           moneySymbol.style.margin = "0";
-
-          qsEditCostInputContainer.append(moneySymbol);
 
           qsEditCostInputField.setAttribute(
             "id",
@@ -1099,8 +1103,10 @@ async function searchExpenseByName(offset) {
 
           qsEditCostContainer.append(qsEditCostpTag);
 
+          qsEditCostInputContainer.append(moneySymbol, qsEditCostInputField);
+          /*
           qsEditCostInputContainer.append(qsEditCostInputField);
-
+          */
           qsTdNameCostDateMainContainer.append(qsEditNameContainer);
 
           tdNameCostContainer.append(
@@ -1108,7 +1114,12 @@ async function searchExpenseByName(offset) {
             qsEditCostInputContainer,
           );
 
-          tdNameCostContainer.append(qsEditCostInputField);
+          let qsMoneySymbol = document.createElement("p");
+          qsMoneySymbol.textContent = "$";
+
+          qsMoneySymbol.setAttribute("class", "qs-money-symbol");
+
+          tdNameCostContainer.append(qsEditCostInputField, qsMoneySymbol);
 
           qsTdNameCostDateMainContainer.append(qsEditCostInputContainer);
 
@@ -1170,6 +1181,38 @@ async function searchExpenseByName(offset) {
             tdNameCostContainer,
             qsDateContainer,
           );
+
+          let qsSaveCancelButtonContainer = document.createElement("div");
+          qsSaveCancelButtonContainer.setAttribute(
+            "id",
+            `qs-save-cancel-button-container-${info.expense_id}`,
+          );
+          qsSaveCancelButtonContainer.setAttribute(
+            "class",
+            "qs-save-cancel-button-container",
+          );
+
+          qsSaveCancelButtonContainer.style.display = "none";
+
+          let qsCancelButton = document.createElement("button");
+          qsCancelButton.setAttribute(
+            "id",
+            `qs-cancel-button-${info.expense_id}`,
+          );
+          qsCancelButton.setAttribute("class", "qs-cancel-button");
+          qsCancelButton.textContent = "Cancel";
+
+          let qsSaveButton = document.createElement("button");
+          qsSaveButton.setAttribute(
+            "id",
+            `qs-save-new-changes-button-${info.expense_id}`,
+          );
+          qsSaveButton.setAttribute("class", "qs-save-new-changes-button");
+          qsSaveButton.textContent = "Save";
+
+          qsSaveCancelButtonContainer.append(qsCancelButton, qsSaveButton);
+
+          qsTdNameCostDateChildContainer.append(qsSaveCancelButtonContainer);
           qsTdNameCostDateMainContainer.append(qsTdNameCostDateChildContainer);
 
           const trashIcon = document.createElement("img");
@@ -1659,6 +1702,7 @@ if (searchTableMainContainer) {
       );
       tdNameCostContainer.style.display = "flex";
       tdNameCostContainer.style.flexDirection = "column";
+      tdNameCostContainer.style.position = "relative";
 
       let qsDateContainer = document.getElementById(
         `qs-date-container-${targetExpenseId}`,
@@ -1698,6 +1742,11 @@ if (searchTableMainContainer) {
       nameLabel.style.display = "flex";
       nameLabel.style.marginTop = "0";
       nameLabel.style.justifyContent = "center";
+
+      let qsSaveCancelButtonContainer = document.getElementById(
+        `qs-save-cancel-button-container-${targetExpenseId}`,
+      );
+      qsSaveCancelButtonContainer.style.display = "flex";
     }
     if (e.target.classList.contains("qs-edit-mode")) {
       let targetExpenseId = e.target.dataset.expenseId;
@@ -1814,7 +1863,9 @@ if (searchTableMainContainer) {
       let cancelEditButton = document.getElementById(
         `cancel-edit-button-${expenseId}`,
       );
-      console.log(cancelEditButton);
+    }
+    if (e.target.classList.contains("qs-cancel-button")) {
+      console.log(e.target);
     }
   });
 }

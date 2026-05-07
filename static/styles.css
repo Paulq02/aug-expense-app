@@ -1961,15 +1961,15 @@ td .main-edit-button {
 }
 
 .save-cancel-button-container {
-  display: flex;
+  display: none;
   justify-content: space-around;
   width: 15%;
   margin-left: auto;
   margin-right: auto;
 }
 
-.cancel-edit-button {
-  display: none;
+.cancel-edit-button,
+.qs-cancel-button {
   border-radius: 10px;
   width: 100px;
   height: 60px;
@@ -1977,8 +1977,14 @@ td .main-edit-button {
   cursor: pointer;
 }
 
-.save-new-changes-button {
-  display: none;
+.qs-save-cancel-button-container {
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+}
+
+.save-new-changes-button,
+.qs-save-new-changes-button {
   color: #ffffff;
   background-color: #049704;
   border-radius: 10px;
@@ -2791,6 +2797,17 @@ tfoot td {
   padding-left: 15px;
 }
 
+.dark .qs-edit-name-input-field,
+.dark .qs-edit-cost-input-field,
+.dark .qs-edit-date-input-field {
+  width: 200px;
+  height: 35px;
+  margin-bottom: 15px;
+  margin-left: 0px;
+  padding: 5px;
+  padding-left: 15px;
+}
+
 .dark .edit-name-input,
 .light .edit-name-input {
   margin-top: 15px;
@@ -2813,6 +2830,20 @@ tfoot td {
 .light .qs-edit-name-input-field {
   border: solid black 3px;
   margin-top: 5px;
+  width: 200px;
+  height: 35px;
+  margin-bottom: 15px;
+  margin-left: 0px;
+  padding: 5px;
+  padding-left: 15px;
+}
+
+.qs-money-symbol {
+  position: absolute;
+  color: #000000;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 2px;
 }
 
 .dark .qs-edit-date-input-field,
