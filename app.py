@@ -150,7 +150,7 @@ SQL queries:
     get_current_year = datetime.now()
     
     current_date = get_current_year.strftime("%m-%d-%Y")
-    print(f" this is your current date noob -----------{current_date}")
+   
    
 
     converted_year = str(get_current_year)
@@ -181,6 +181,7 @@ SQL queries:
     asc_or_desc = request.args.get("sortOrder", "desc")
     
     offset = int(request.args.get("offset", 0))
+    print(f"THE OFFSET IS-------------{offset}")
     
    
     user_year_selection = request.args.get("year", "none")
@@ -215,7 +216,7 @@ SQL queries:
                     if key == current_month:
                         string_month = value
                 
-                return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month)
+                return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month, current_date = current_date)
         
         
         
@@ -272,7 +273,7 @@ SQL queries:
                     print(showing_year)
                    
                 
-                    return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month)
+                    return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month,current_date = current_date)
             
         
 
@@ -343,7 +344,7 @@ SQL queries:
             
                 
                 
-                    return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month)
+                    return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month, current_date = current_date)
         
         for data in max_10_results:
             expense_id_row = data[0] # type: ignore
@@ -362,22 +363,24 @@ SQL queries:
             
     
         
-            my_json= json.dumps(my_list)
+        my_json= json.dumps(my_list)
 
-            chart_bar_doughnut_data = json.dumps(bar_doughnut_chart_list)
-
-            
+        chart_bar_doughnut_data = json.dumps(bar_doughnut_chart_list)
 
             
-            my_expenses = expenses_total()
 
-            free_money = calclulate_money_leftover()
+            
+        my_expenses = expenses_total()
 
-            years_list = ["2025", "2026"]
+        free_money = calclulate_money_leftover()
 
-            month_list = {"01":"Jan", "02":"Feb", "03":"March", "04":"April", "05":"May", "06":"June", "07":"July", "08":"Aug", "09":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
+        years_list = ["2025", "2026"]
 
-            month_list_reversed = dict(reversed(list(month_list.items())))
+        month_list = {"01":"Jan", "02":"Feb", "03":"March", "04":"April", "05":"May", "06":"June", "07":"July", "08":"Aug", "09":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
+
+        month_list_reversed = dict(reversed(list(month_list.items())))
+
+        print(f"this is line 382 noob --------------{my_expenses}")
 
             
    
@@ -1057,18 +1060,23 @@ def update_name(index, expense_id):
     """
     
     user_id = session.get("user_id")
+    print(f"THIS IS YOUR USER ID NOOOOB -------------------{user_id}")
     new_name = request.form.get(f"new-name-input-{index}")
+    print(f"THIS IS YOUR new name NOOOOB -------------------{new_name}")
 
     new_cost = request.form.get(f"new-cost-input-{index}")
+    print(f"THIS IS YOUR new cost NOOOOB -------------------{new_cost}")
 
     new_date = request.form.get(f"new-date-input-{index}")
+    print(f"im trying to figure out what this is -------------------{new_date}")
     stripped_date = new_date.strip()
 
     datetime_object = datetime.strptime(stripped_date, "%m-%d-%Y")
     new_date_time_object = datetime_object.strftime("%Y-%m-%d")
+    print(f"THIS IS YOUR new date time object NOOOOB -------------------{new_date_time_object}")
 
 
-    print(f"THIS IS THE NEW DATE {new_date_time_object}")
+   
 
 
     sql_update_name = "UPDATE expense_tracker_expense_data SET expense_name  = %s, expense_cost = %s, expense_date = %s WHERE expense_id = %s AND user_id = %s "
@@ -1308,10 +1316,41 @@ def quick_search_update_date():
 
 
 
+@app.route("/quick-search-update", methods = ["get", "post"])
+def quick_search_update():
+    try:
+        print("function triggered")
+        db = get_db()
+        cursor = db.cursor()
+        user_id = session.get("user_id")
+        expense_id = request.args.get("expenseId", None)
+        expense_name = request.args.get("expenseName", None)
+        expense_cost = float(request.args.get("expenseCost", None))
+        expense_date = request.args.get("expenseDate", None)
+        converted_date_to_object = datetime.strptime(expense_date, "%m-%d-%Y")
+        converted_date_for_database = datetime.strftime(converted_date_to_object,"%Y-%m-%d")
 
-
-
-
+        sql_quick_search_edit_query = """ UPDATE expense_tracker_expense_data
+        SET expense_name = %s, 
+        expense_cost = %s,
+        expense_date = %s
+        WHERE user_id = %s AND expense_id = %s
+        """
+        cursor.execute(sql_quick_search_edit_query, (expense_name, expense_cost, converted_date_for_database,user_id, expense_id  ))
+        db.commit()
+        return jsonify({"success":True})
+    except Exception as e:
+        print(e)
+        return jsonify({"success": False})
+    finally:
+        
+        if db:
+            db.close()
+        if cursor:
+            cursor.close
+       
+            
+        
 
 
 

@@ -26,6 +26,11 @@ html {
   margin-left: 118px;
 }
 
+.dark-hamburger-icon,
+.light-hamburger-icon {
+  display: none;
+}
+
 .light .close.sidebar {
   background-color: #ffffff;
   transition: color 0.3s ease;
@@ -123,6 +128,7 @@ html {
   justify-content: flex-end;
 
   align-items: center;
+  width: 100%;
 }
 
 .top-navbar,
@@ -576,7 +582,8 @@ html.dark .light-mode-et {
 }
 
 #db-search-table-main-container,
-#ae-search-table-main-container {
+#ae-search-table-main-container,
+#fl-search-table-main-container {
   width: 93%;
   display: flex;
   justify-content: center;
@@ -2065,9 +2072,13 @@ tfoot td {
 }
 
 .summary_container {
+  /*
   width: 100%;
+  */
   display: flex;
+  /*
   flex: 1;
+  */
   justify-content: center;
   /*  margin-top: 50px; */
 
@@ -3498,7 +3509,8 @@ a li {
   align-items: center;
   flex-direction: column;
   height: 99%;
-  min-width: 600px;
+  max-width: 700px;
+  min-width: 500px;
 
   border: solid #3b3b3b 10px;
 }
@@ -3613,6 +3625,21 @@ a li {
 /*======= MAIN MEDIA QUERIES START =========================*/
 
 @media (max-width: 800px) {
+  #close {
+    display: none;
+  }
+  #mainContent {
+    width: 100%;
+    margin: 0;
+  }
+
+  footer {
+    margin: 0;
+  }
+  .dark .expense_data_container,
+  .light .expense_data_container {
+    padding: 0;
+  }
   .dark .timeframe-child-container,
   .light .timeframe-child-container {
     height: 150px;
@@ -3627,7 +3654,9 @@ a li {
   }
   .dark .summary_child_container,
   .light .summary_child_container {
-    width: 20%;
+    min-width: 300px;
+
+    width: 30%;
     height: auto;
   }
   .highest-category-main-container,
@@ -3638,6 +3667,29 @@ a li {
   .chart-main-container {
     flex-direction: column;
     align-items: center;
+  }
+  .dark .bar-chart-canvas-container,
+  .light .bar-chart-canvas-container {
+    max-width: 400px;
+    min-width: 250px;
+    width: 90%;
+  }
+  .dark .bar-chart-child-container .light .bar-chart-child-container {
+    max-width: 600px;
+    min-width: 400px;
+    width: 30%;
+  }
+  .dashboard-icon {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 799px) {
+  .dark .bar-chart-child-container,
+  .light .bar-chart-child-container {
+    max-width: 500px;
+    min-width: 400px;
+    width: 50%;
   }
 }
 

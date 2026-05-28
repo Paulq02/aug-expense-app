@@ -31,6 +31,38 @@
       html.classList.remove("light");
       html.classList.add("dark");
     }
+   
+     
+  </script>
+  <script>
+
+   window.addEventListener("DOMContentLoaded", ()=> {
+     let currentColor = window.localStorage.getItem("color");
+       
+      if (window.outerWidth > 800) {
+      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+      darkHamburgerIcon.style.display = "none";
+      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+      lightHamburgerIcon.style.display = "none";
+    }
+   
+    if (currentColor === "dark" && window.outerWidth < 800) {
+      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+      darkHamburgerIcon.style.display = "block";
+      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+      lightHamburgerIcon.style.display = "none";
+    }
+    if (currentColor === "light" && window.outerWidth < 800) {
+      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+      darkHamburgerIcon.style.display = "none";
+      lightHamburgerIcon.style.display = "block";
+    }
+
+   }) 
+      
+
+    
   </script>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
@@ -130,6 +162,8 @@
   </nav>
   <header>
     <nav class="top-navbar-container">
+    <img class="hamburger-icon dark-hamburger-icon" src="../static/images/hamburger-button-50.png" alt="hamburger menu icon">
+    <img class="hamburger-icon light-hamburger-icon" src="../static/images/light-hambuger-menu-squared-50.png" alt="hamburger menu icon">
       <li class="paul"><a href="#">Expense Tracker</a></li>
       <div class="welcome-container">
         <li class="welcome">Welcome, {{username}}</li>
@@ -377,7 +411,7 @@
 
                               <input style="display: none;" data-expense-id="{{item.expense_id}}"
                                 class="edit-name-input" type="text" id="edit-name-input-{{item.expense_id}}"
-                                autocomplete="off" name="new-name-input-{{item.expense_id}}" required />
+                                autocomplete="off" name="new-name-input-{{item.expense_id}}" disabled />
 
 
                             </div>
@@ -402,7 +436,7 @@
 
                               <input step=".01" data-expense-id="{{item.expense_id}}" class="edit-cost-input"
                                 type="number" id="edit-cost-input-{{item.expense_id}}"
-                                name="new-cost-input-{{item.expense_id}}" required />
+                                name="new-cost-input-{{item.expense_id}}" disabled />
 
 
                             </div>
@@ -425,7 +459,7 @@
 
                             <input class="edit-date-input" data-expense-id="{{item.expense_id}}"
                               id="datepicker-{{item.expense_id}}" type="text" autocomplete="off"
-                              name="new-date-input-{{item.expense_id}}" required />
+                              name="new-date-input-{{item.expense_id}}" disabled />
 
 
                           </div>
@@ -433,7 +467,7 @@
                         <div id="save-cancel-button-container-{{item.expense_id}}" class="save-cancel-button-container">
                           <button type="button" data-expense-id="{{item.expense_id}}" class="cancel-edit-button"
                             id="cancel-edit-button-{{item.expense_id}}">Cancel</button>
-                          <button type="submit" data-save-new-changes-="{{item.expense_id}}"
+                          <button type="submit" data-save-new-changes="{{item.expense_id}}"
                             id="save-new-changes-{{item.expense_id}}" class="save-new-changes-button">Save
                             changes</button>
                         </div>
@@ -478,7 +512,8 @@
                       </div>
                     </td>
                     <td id="delete-td-{{item.expense_id}}" class="delete-table-container">
-                      <button class="button_icon" onclick="deleteFunction({{item.expense_id}})">
+                      <button type="button" class="button_icon" onclick="deleteFunction({{item.expense_id}})">
+
                         <img src="/static/images/new_trash_icon.png" alt="icon of a trash can" />
                       </button>
                     </td>
@@ -507,204 +542,289 @@
                       </div>
 
                       <div class="btn_container">
-                        <button class="cancel" onclick="cancelDelete({{item.expense_id}})">
+                        <button type="button" class="cancel" onclick="cancelDelete({{item.expense_id}})">
                           Cancel
                         </button>
-                        <form action="{{url_for('delete_expense', expense_id=item.expense_id)}}" method="post">
-                          <button class="confirm_delete" type="submit">
-                            Yes, I want to delete
-                          </button>
-                        </form>
-                      </div>
-                    </div>
                   </form>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            <div class="next-button-container">
-              <p class="showing-results">
-                Showing {{running_count}} of {{complete_results_amount}}
-                results
-              </p>
-              <div class="next-button-child-container">
-                <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
-                <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+                  <form action="{{url_for('delete_expense', expense_id=item.expense_id)}}" method="post">
+                    <button class="confirm_delete" type="submit">
+                      Yes, I want to delete
+                    </button>
+                  </form>
+          </div>
+        </div>
 
-                {% if view_mode == "dashboard" and asc_or_desc == "desc" and
-                offset == 0 and running_count < complete_results_amount %} <form style="display: none"
-                  class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
-                  <input class="p-results" style="display: none" name="offset" value="{{offset - 10}}" />
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <div class="next-button-container">
+          <p class="showing-results">
+            Showing {{running_count}} of {{complete_results_amount}}
+            results
+          </p>
+          <div class="next-button-child-container">
+            <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+            <!-- START OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+
+            {% if view_mode == "dashboard" and asc_or_desc == "desc" and
+            offset == 0 and running_count < complete_results_amount %} <form style="display: none"
+              class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
+              <input class="p-results" style="display: none" name="offset" value="{{offset - 10}}" />
+              
+
+              <button style="display: none" class="previous-results" type="submit">
+                previous results
+              </button>
+              </form>
+
+              <form method="get" class="form-next-results" action="{{url_for('dashboard')}}">
+                <input style="display: none" class="n-results" name="offset" value="{{offset + 10}}" />
+                <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                <button class="next-results" type="submit">
+                  next results
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </form>
+
+              {% endif %} {% if asc_or_desc == "desc" and view_mode ==
+              "dashboard" and offset > 0 and running_count < complete_results_amount %} <form
+                class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
+                <input style="display: none" class="p-results" name="offset" value="{{offset - 10}}" />
+                 <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                  <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                <button class="previous-results" type="submit">
+                  <i class="fas fa-angle-double-left"></i> previous results
+                </button>
+                </form>
+                <form method="get" class="form-next-results" action="{{url_for('dashboard')}}">
+                  <input style="display: none" class="n-results" name="offset" value="{{offset + 10}}" />
+                   <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                  <button class="next-results" type="submit">
+                    next results <i class="fas fa-angle-double-right"></i>
+                  </button>
+                </form>
+                {% endif %} {% if view_mode == "dashboard" and asc_or_desc ==
+                "desc" and running_count == complete_results_amount and offset
+                > 0 %}
+
+                <form class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
+                  <input style="display: none" class="p-results" name="offset" value="{{offset - 10}}" />
+                  <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                  <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                  <button class="previous-results" type="submit">
+                    <i class="fas fa-angle-double-left"></i> previous results
+                  </button>
+                </form>
+
+                {% endif %}
+
+                <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+                <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
+
+                <!--START OF SORT_COST BUTTONS ------------------------------------------------->
+                {% if view_mode == "sort-cost"%} {% if sort_expense_order ==
+                "desc" or sort_expense_order == "asc" %} {% if offset == 0 %}
+
+                <form method="get" action="{{url_for('sort_by_cost')}}" class="sort-cost-form">
+                  <input style="display: none" class="sort-cost-input" name="offset" value="{{offset - 10}}" />
+                  <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                  <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
 
                   <button style="display: none" class="previous-results" type="submit">
-                    previous results
+                    <i class="fas fa-angle-double-left"></i> previous results
+                  </button>
+                </form>
+
+                <form method="get" action="{{url_for('sort_by_cost')}}" class="sort-cost-form">
+                  <input name="offset" style="display: none" class="sort-cost-input" value="{{offset + 10}}" />
+                  <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                  <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                  <input style="display: none" name="sort-expense"
+                    value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+
+                  <button class="next-results" style="{% if running_count == complete_results_amount%} display:none" {%
+                    endif %} type="submit">
+                    Next results
+                    <i class="fas fa-angle-double-right"></i>
+                  </button>
+                </form>
+
+                {% endif %} {% endif %} {% endif %} {% if view_mode ==
+                "sort-cost" and sort_expense_order == "desc" or
+                sort_expense_order == "asc" %} {%if offset > 0 and
+                running_count < complete_results_amount %} <form method="get" action="{{url_for('sort_by_cost')}}"
+                  class="sort-cost-form">
+                  <input style="display: none" name="sort-expense"
+                    value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+
+                  <input style="display: none" class="sort-cost-input" name="offset" value="{{offset - 10}}" />
+                  <input style="display: none" name="selected-year" value="{{showing_year}}" />
+
+                  <input style="display: none" name="selected-month" value="{{current_month}}" />
+
+                  <button class="previous-results" type="submit">
+                    <i class="fas fa-angle-double-left"></i> previous results
                   </button>
                   </form>
 
-                  <form method="get" class="form-next-results" action="{{url_for('dashboard')}}">
-                    <input style="display: none" class="n-results" name="offset" value="{{offset + 10}}" />
+                  <form action="{{url_for('sort_by_cost')}}" method="get">
+                    <input style="display: none" name="offset" value="{{offset + 10}}" />
+
+                    <input style="display: none" name="sort-expense"
+                      value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}" />
                     <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
 
                     <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
 
-                    <button class="next-results" type="submit">
+                    <button class="cost-next-button" type="submit">
                       next results
                       <i class="fas fa-angle-double-right"></i>
                     </button>
                   </form>
+                  {% endif %} {% endif %} {%if view_mode == "sort-cost" and
+                  offset > 0 and running_count == complete_results_amount%}
 
-                  {% endif %} {% if asc_or_desc == "desc" and view_mode ==
-                  "dashboard" and offset > 0 and running_count < complete_results_amount %} <form
-                    class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
-                    <input style="display: none" class="p-results" name="offset" value="{{offset - 10}}" />
+                  <form action="{{url_for('sort_by_cost')}}" method="get">
+                    <input style="display: none" name="offset" value="{{offset - 10}}" />
+                    <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+
+                    <input style="display: none" class="month-input" name="selected-month" value="{{current_month}}" />
+
+                    <input style="display: none" name="sort-expense"
+                      value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}" />
+
+                    <input style="display: none" name="prev_cost_button" value="yes" />
+
+                    <input style="display: none" name="cost_max_10" value="{{max_10_results_amount}}" />
+
+                    <button class="previous-results" type="submit">
+                      <i class="fas fa-angle-double-left"></i>previous results
+                    </button>
+                  </form>
+
+                  <button style="display: none" class="cost-next-button" type="submit">
+                    next results
+                    <i class="fas fa-angle-double-right"></i>
+                  </button>
+
+                  {% endif %}
+
+                  <!--END OF SORT_COST BUTTONS ------------------------------------------------->
+                  <!--END OF SORT_COST BUTTONS ------------------------------------------------->
+
+                  <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
+                  <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
+
+                  {% if view_mode == "sort-year" and user_year_selection ==
+                  "all" and offset == 0 %}
+
+                  <form method="get" action="{{url_for('sort_year')}}">
+                    <input name="offset" style="display: none" value="{{offset + 10}}" />
+
+                    <button type="submit" class="year-next-button dark next-results">
+                      next results <i class="fas fa-angle-double-right"></i>
+                    </button>
+                  </form>
+
+                  {% endif %} {% if view_mode == "sort-year" and
+                  user_year_selection == "all" and offset > 0 and running_count
+                  < complete_results_amount %} <form action="{{url_for('sort_year')}}" method="get">
+                    <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                    <input style="display: none" name="year" value="{{user_year_selection}}" />
 
                     <button class="previous-results" type="submit">
                       <i class="fas fa-angle-double-left"></i> previous results
                     </button>
                     </form>
-                    <form method="get" class="form-next-results" action="{{url_for('dashboard')}}">
-                      <input style="display: none" class="n-results" name="offset" value="{{offset + 10}}" />
 
-                      <button class="next-results" type="submit">
-                        next results <i class="fas fa-angle-double-right"></i>
+                    <form action="{{url_for('sort_year')}}" method="get">
+                      <input style="display: none" name="offset" value="{{offset + 10}}" />
+
+                      <input style="display: none" name="year" value="{{user_year_selection}}" />
+
+                      <button type="submit" class="year-next-button dark next-results">
+                        next results cuck
+                        <i class="fas fa-angle-double-right"></i>
                       </button>
                     </form>
-                    {% endif %} {% if view_mode == "dashboard" and asc_or_desc ==
-                    "desc" and running_count == complete_results_amount and offset
-                    > 0 %}
 
-                    <form class="form-previous-results" method="get" action="{{url_for('dashboard')}}">
-                      <input style="display: none" class="p-results" name="offset" value="{{offset - 10}}" />
-                      <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+                    {% endif %} {% if view_mode == "sort-year" and
+                    user_year_selection == "all" and offset > 0 and running_count
+                    == complete_results_amount %}
 
-                      <input style="display: none" class="month-input" name="selected-month"
-                        value="{{current_month}}" />
+                    <form action="{{url_for('sort_year')}}" method="get">
+                      <input style="display: none" name="offset" value="{{offset - 10}}" />
+
+                      <input name="year" value="{{user_year_selection}}" />
+
+                      <input name="prev_max_10" value="{{max_10_results_amount}}" />
 
                       <button class="previous-results" type="submit">
                         <i class="fas fa-angle-double-left"></i> previous results
                       </button>
                     </form>
 
-                    {% endif %}
+                    {% endif %} {% if user_year_selection != "all" and offset == 0
+                    and view_mode == "sort-year" %}
 
-                    <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
-                    <!-- END OF DASHBOARD BUTONS ----------------------------------------------------------------------------->
-
-                    <!--START OF SORT_COST BUTTONS ------------------------------------------------->
-                    {% if view_mode == "sort-cost"%} {% if sort_expense_order ==
-                    "desc" or sort_expense_order == "asc" %} {% if offset == 0 %}
-
-                    <form method="get" action="{{url_for('sort_by_cost')}}" class="sort-cost-form">
-                      <input style="display: none" class="sort-cost-input" name="offset" value="{{offset - 10}}" />
-                      <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
-
-                      <input style="display: none" class="month-input" name="selected-month"
-                        value="{{current_month}}" />
-
-                      <button style="display: none" class="previous-results" type="submit">
-                        <i class="fas fa-angle-double-left"></i> previous results
-                      </button>
-                    </form>
-
-                    <form method="get" action="{{url_for('sort_by_cost')}}" class="sort-cost-form">
-                      <input name="offset" style="display: none" class="sort-cost-input" value="{{offset + 10}}" />
-                      <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
-
-                      <input style="display: none" class="month-input" name="selected-month"
-                        value="{{current_month}}" />
-
+                    <form action="{{url_for('sort_year')}}" method="get">
                       <input style="display: none" name="sort-expense"
                         value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
 
-                      <button class="next-results" style="{% if running_count == complete_results_amount%} display:none"
-                        {% endif %} type="submit">
-                        Next results
+                      <input name="offset" style="display: none" class="sort-cost-input" value="{{offset + 10}}" />
+
+                      <input name="year" value="{{user_year_selection}}" style="display: none" />
+
+                      <button style="display: {{'none' if running_count == complete_results_amount else 'block'}};"
+                        class="year-next-button dark next-results" type="submit">
+                        next results
                         <i class="fas fa-angle-double-right"></i>
                       </button>
                     </form>
 
-                    {% endif %} {% endif %} {% endif %} {% if view_mode ==
-                    "sort-cost" and sort_expense_order == "desc" or
-                    sort_expense_order == "asc" %} {%if offset > 0 and
-                    running_count < complete_results_amount %} <form method="get" action="{{url_for('sort_by_cost')}}"
-                      class="sort-cost-form">
-                      <input style="display: none" name="sort-expense"
-                        value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+                    {% endif %} {% if view_mode == "sort-year" and offset > 0 and
+                    user_year_selection != "all" and running_count < complete_results_amount %} <form
+                      action="{{url_for('sort_year')}}" method="get">
+                      <input style="display: none" name="offset" value="{{offset - 10}}" />
 
-                      <input style="display: none" class="sort-cost-input" name="offset" value="{{offset - 10}}" />
-                      <input style="display: none" name="selected-year" value="{{showing_year}}" />
-
-                      <input style="display: none" name="selected-month" value="{{current_month}}" />
+                      <input style="display: none" name="year" value="{{user_year_selection}}" />
 
                       <button class="previous-results" type="submit">
                         <i class="fas fa-angle-double-left"></i> previous results
                       </button>
                       </form>
 
-                      <form action="{{url_for('sort_by_cost')}}" method="get">
+                      <form action="{{url_for('sort_year')}}" method="get">
+                        <input style="display: none" name="year" value="{{user_year_selection}}" />
+
                         <input style="display: none" name="offset" value="{{offset + 10}}" />
 
-                        <input style="display: none" name="sort-expense"
-                          value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}" />
-                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
-
-                        <input style="display: none" class="month-input" name="selected-month"
-                          value="{{current_month}}" />
-
-                        <button class="cost-next-button" type="submit">
+                        <button class="year-next-button dark next-results" type="submit">
                           next results
                           <i class="fas fa-angle-double-right"></i>
                         </button>
                       </form>
-                      {% endif %} {% endif %} {%if view_mode == "sort-cost" and
-                      offset > 0 and running_count == complete_results_amount%}
 
-                      <form action="{{url_for('sort_by_cost')}}" method="get">
-                        <input style="display: none" name="offset" value="{{offset - 10}}" />
-                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
+                      {% endif %} {% if view_mode == "sort-year" and offset > 0 and
+                      user_year_selection != "all" and running_count ==
+                      complete_results_amount %}
 
-                        <input style="display: none" class="month-input" name="selected-month"
-                          value="{{current_month}}" />
-
-                        <input style="display: none" name="sort-expense"
-                          value="{{'desc' if  sort_expense_order == 'desc' else 'asc'}}" />
-
-                        <input style="display: none" name="prev_cost_button" value="yes" />
-
-                        <input style="display: none" name="cost_max_10" value="{{max_10_results_amount}}" />
-
-                        <button class="previous-results" type="submit">
-                          <i class="fas fa-angle-double-left"></i>previous results
-                        </button>
-                      </form>
-
-                      <button style="display: none" class="cost-next-button" type="submit">
-                        next results
-                        <i class="fas fa-angle-double-right"></i>
-                      </button>
-
-                      {% endif %}
-
-                      <!--END OF SORT_COST BUTTONS ------------------------------------------------->
-                      <!--END OF SORT_COST BUTTONS ------------------------------------------------->
-
-                      <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
-                      <!--START OF SORT_YEAR BUTTONS ------------------------------------------------->
-
-                      {% if view_mode == "sort-year" and user_year_selection ==
-                      "all" and offset == 0 %}
-
-                      <form method="get" action="{{url_for('sort_year')}}">
-                        <input name="offset" style="display: none" value="{{offset + 10}}" />
-
-                        <button type="submit" class="year-next-button dark next-results">
-                          next results <i class="fas fa-angle-double-right"></i>
-                        </button>
-                      </form>
-
-                      {% endif %} {% if view_mode == "sort-year" and
-                      user_year_selection == "all" and offset > 0 and running_count
-                      < complete_results_amount %} <form action="{{url_for('sort_year')}}" method="get">
+                      <form action="{{url_for('sort_year')}}" method="get">
                         <input style="display: none" name="offset" value="{{offset - 10}}" />
 
                         <input style="display: none" name="year" value="{{user_year_selection}}" />
@@ -712,183 +832,97 @@
                         <button class="previous-results" type="submit">
                           <i class="fas fa-angle-double-left"></i> previous results
                         </button>
-                        </form>
+                      </form>
 
-                        <form action="{{url_for('sort_year')}}" method="get">
-                          <input style="display: none" name="offset" value="{{offset + 10}}" />
+                      {% endif %}
 
-                          <input style="display: none" name="year" value="{{user_year_selection}}" />
+                      <!--START OF NEW SORT  BUTTONS ------------------------------------------------->
+                      <!--START OF NEW SORT BUTTONS ------------------------------------------------->
 
-                          <button type="submit" class="year-next-button dark next-results">
-                            next results cuck
-                            <i class="fas fa-angle-double-right"></i>
-                          </button>
-                        </form>
+                      {% if view_mode == "new-sort" and offset == 0 %}
 
-                        {% endif %} {% if view_mode == "sort-year" and
-                        user_year_selection == "all" and offset > 0 and running_count
-                        == complete_results_amount %}
+                      <form method="get" action="{{url_for('new_sort')}}">
+                        <input style="display: none" name="offset" value="{{offset + 10}}" />
 
-                        <form action="{{url_for('sort_year')}}" method="get">
-                          <input style="display: none" name="offset" value="{{offset - 10}}" />
+                        <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
+                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
 
-                          <input name="year" value="{{user_year_selection}}" />
+                        <input style="display: none" class="month-input" name="selected-month"
+                          value="{{current_month}}" />
 
-                          <input name="prev_max_10" value="{{max_10_results_amount}}" />
+                        <button class="year-next-button dark next-results"
+                          style="display: {% if running_count == complete_results_amount %} none;" {% endif %}
+                          type="submit">
+                          next results
+                          <i class="fas fa-angle-double-right"></i>
+                        </button>
+                      </form>
 
-                          <button class="previous-results" type="submit">
-                            <i class="fas fa-angle-double-left"></i> previous results
-                          </button>
-                        </form>
+                      {% endif %} {% if view_mode == "new-sort" and offset != 0 and
+                      running_count != complete_results_amount %}
 
-                        {% endif %} {% if user_year_selection != "all" and offset == 0
-                        and view_mode == "sort-year" %}
+                      <form method="get" action="{{url_for('new_sort')}}">
+                        <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
+                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
 
-                        <form action="{{url_for('sort_year')}}" method="get">
-                          <input style="display: none" name="sort-expense"
-                            value="{{ 'desc' if sort_expense_order == 'desc' else 'asc'}}" class="sort-order-input" />
+                        <input style="display: none" class="month-input" name="selected-month"
+                          value="{{current_month}}" />
 
-                          <input name="offset" style="display: none" class="sort-cost-input" value="{{offset + 10}}" />
+                        <input style="display: none" name="offset" value="{{offset - 10}}" />
 
-                          <input name="year" value="{{user_year_selection}}" style="display: none" />
+                        <button class="previous-results" type="submit">
+                          <i class="fas fa-angle-double-left"></i> previous results
+                        </button>
+                      </form>
 
-                          <button style="display: {{'none' if running_count == complete_results_amount else 'block'}};"
-                            class="year-next-button dark next-results" type="submit">
-                            next results
-                            <i class="fas fa-angle-double-right"></i>
-                          </button>
-                        </form>
+                      <form method="get" action="{{url_for('new_sort')}}">
+                        <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
 
-                        {% endif %} {% if view_mode == "sort-year" and offset > 0 and
-                        user_year_selection != "all" and running_count < complete_results_amount %} <form
-                          action="{{url_for('sort_year')}}" method="get">
-                          <input style="display: none" name="offset" value="{{offset - 10}}" />
+                        <input style="display: none" name="offset" value="{{offset + 10}}" />
+                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
 
-                          <input style="display: none" name="year" value="{{user_year_selection}}" />
+                        <input style="display: none" class="month-input" name="selected-month"
+                          value="{{current_month}}" />
 
-                          <button class="previous-results" type="submit">
-                            <i class="fas fa-angle-double-left"></i> previous results
-                          </button>
-                          </form>
+                        <button class="year-next-button dark next-results" type="submit">
+                          next results
+                          <i class="fas fa-angle-double-right"></i>
+                        </button>
+                      </form>
 
-                          <form action="{{url_for('sort_year')}}" method="get">
-                            <input style="display: none" name="year" value="{{user_year_selection}}" />
+                      {% endif %} {% if view_mode == "new-sort" and running_count ==
+                      complete_results_amount %}
 
-                            <input style="display: none" name="offset" value="{{offset + 10}}" />
+                      <form method="get" action="{{url_for('new_sort')}}">
+                        <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
 
-                            <button class="year-next-button dark next-results" type="submit">
-                              next results
-                              <i class="fas fa-angle-double-right"></i>
-                            </button>
-                          </form>
+                        <input style="display: none" name="offset" value="{{offset - 10}}" />
+                        <input style="display: none" class="year-input" name="selected-year" value="{{showing_year}}" />
 
-                          {% endif %} {% if view_mode == "sort-year" and offset > 0 and
-                          user_year_selection != "all" and running_count ==
-                          complete_results_amount %}
+                        <input style="display: none" class="month-input" name="selected-month"
+                          value="{{current_month}}" />
 
-                          <form action="{{url_for('sort_year')}}" method="get">
-                            <input style="display: none" name="offset" value="{{offset - 10}}" />
+                        <button class="previous-results" style="display: {% if offset == 0 %} none;" {% endif %}
+                          type="submit">
+                          <i class="fas fa-angle-double-left"></i> previous results
+                        </button>
+                      </form>
 
-                            <input style="display: none" name="year" value="{{user_year_selection}}" />
-
-                            <button class="previous-results" type="submit">
-                              <i class="fas fa-angle-double-left"></i> previous results
-                            </button>
-                          </form>
-
-                          {% endif %}
-
-                          <!--START OF NEW SORT  BUTTONS ------------------------------------------------->
-                          <!--START OF NEW SORT BUTTONS ------------------------------------------------->
-
-                          {% if view_mode == "new-sort" and offset == 0 %}
-
-                          <form method="get" action="{{url_for('new_sort')}}">
-                            <input style="display: none" name="offset" value="{{offset + 10}}" />
-
-                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
-                            <input style="display: none" class="year-input" name="selected-year"
-                              value="{{showing_year}}" />
-
-                            <input style="display: none" class="month-input" name="selected-month"
-                              value="{{current_month}}" />
-
-                            <button class="year-next-button dark next-results"
-                              style="display: {% if running_count == complete_results_amount %} none;" {% endif %}
-                              type="submit">
-                              next results
-                              <i class="fas fa-angle-double-right"></i>
-                            </button>
-                          </form>
-
-                          {% endif %} {% if view_mode == "new-sort" and offset != 0 and
-                          running_count != complete_results_amount %}
-
-                          <form method="get" action="{{url_for('new_sort')}}">
-                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
-                            <input style="display: none" class="year-input" name="selected-year"
-                              value="{{showing_year}}" />
-
-                            <input style="display: none" class="month-input" name="selected-month"
-                              value="{{current_month}}" />
-
-                            <input style="display: none" name="offset" value="{{offset - 10}}" />
-
-                            <button class="previous-results" type="submit">
-                              <i class="fas fa-angle-double-left"></i> previous results
-                            </button>
-                          </form>
-
-                          <form method="get" action="{{url_for('new_sort')}}">
-                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
-
-                            <input style="display: none" name="offset" value="{{offset + 10}}" />
-                            <input style="display: none" class="year-input" name="selected-year"
-                              value="{{showing_year}}" />
-
-                            <input style="display: none" class="month-input" name="selected-month"
-                              value="{{current_month}}" />
-
-                            <button class="year-next-button dark next-results" type="submit">
-                              next results
-                              <i class="fas fa-angle-double-right"></i>
-                            </button>
-                          </form>
-
-                          {% endif %} {% if view_mode == "new-sort" and running_count ==
-                          complete_results_amount %}
-
-                          <form method="get" action="{{url_for('new_sort')}}">
-                            <input style="display: none" name="sort-by" value="{{sort_new_order}}" />
-
-                            <input style="display: none" name="offset" value="{{offset - 10}}" />
-                            <input style="display: none" class="year-input" name="selected-year"
-                              value="{{showing_year}}" />
-
-                            <input style="display: none" class="month-input" name="selected-month"
-                              value="{{current_month}}" />
-
-                            <button class="previous-results" style="display: {% if offset == 0 %} none;" {% endif %}
-                              type="submit">
-                              <i class="fas fa-angle-double-left"></i> previous results
-                            </button>
-                          </form>
-
-                          {% endif %}
-              </div>
-            </div>
+                      {% endif %}
           </div>
         </div>
       </div>
+    </div>
+    </div>
 
-      <p style="display: none" class="json_data">{{my_json}}</p>
-      <p style="display: none" class="complete_json_data">
-        {{chart_bar_doughnut_data}}
-      </p>
+    <p style="display: none" class="json_data">{{my_json}}</p>
+    <p style="display: none" class="complete_json_data">
+      {{chart_bar_doughnut_data}}
+    </p>
 
-      <!--END OF NEW SORT  BUTTONS ------------------------------------------------->
-      <!--END OF NEW SORT BUTTONS ------------------------------------------------->
-      <!--START OF CHARTJS MAIN CONTAINER ------------------------------------------------->
+    <!--END OF NEW SORT  BUTTONS ------------------------------------------------->
+    <!--END OF NEW SORT BUTTONS ------------------------------------------------->
+    <!--START OF CHARTJS MAIN CONTAINER ------------------------------------------------->
     </div>
     <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
     <div class="searched-expense-display-container">
@@ -1315,12 +1349,11 @@
     if (dbContainer) {
       dbContainer.addEventListener("click", (e) => {
         if (e.target.classList.contains("qs-edit-date-input-field")) {
-          console.log(e.target)
+
           let targetId = e.target.dataset.expenseId;
           let editDateInputField = document.getElementById(
             `edit-date-input-${targetId}`,
           );
-          console.log(editDateInputField.value);
 
           flatpickr(editDateInputField, {
             dateFormat: "m-d-Y",
