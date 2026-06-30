@@ -206,6 +206,7 @@ SQL queries:
            
         
             if top_cat_result_amount == 0:
+               
                 
                 years_list = ["2025", "2026"]
 
@@ -256,6 +257,7 @@ SQL queries:
 
         if complete_results_amount == 0 :
            
+           
             years_list = ["2025", "2026"]
 
             month_list = {"01":"Jan", "02":"Feb", "03":"March", "04":"April", "05":"May", "06":"June", "07":"July", "08":"Aug", "09":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
@@ -273,7 +275,7 @@ SQL queries:
                     print(showing_year)
                    
                 
-                    return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month,current_date = current_date)
+                    return render_template('first_login.html', username=str(username).capitalize(), years_list = years_list,  month_list_reversed =  month_list_reversed, showing_year = showing_year, current_month = current_month, string_month = string_month,current_date = current_date, complete_results_amount = complete_results_amount)
             
         
 

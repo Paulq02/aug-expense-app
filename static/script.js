@@ -834,12 +834,18 @@ async function searchExpenseByName(offset) {
   let noResultsMessage = document.querySelector(".no-results");
   let tryAnotherSearch = document.querySelector(".try-again");
   let backToDashboard = document.querySelector(".back-to-dashboard-button");
+  let backToDashboardContainer = document.querySelectorAll(
+    ".back-to-dashboard-container",
+  );
 
   if (trimmedUserInputValue === "") {
-    console.log(trimmedUserInputValue);
     if (firstTimerParentContainer) {
       firstTimerParentContainer.style.display = "flex";
     }
+    let quickSearchButtonContainer = document.querySelector(
+      ".quick-search-button-container",
+    );
+    quickSearchButtonContainer.style.display = "none";
 
     searchTableDiv.style.display = "none";
     if (expenseDataContainer) {
@@ -857,6 +863,7 @@ async function searchExpenseByName(offset) {
       let resultsAmount = data.length;
 
       if (data.message == "no results") {
+        console.log("no results");
         if (searchTable) {
           searchTable.style.display = "none";
         }
@@ -880,7 +887,8 @@ async function searchExpenseByName(offset) {
         noResultsMessage.style.fontSize = "3.5rem";
         tryAnotherSearch.style.display = "flex";
         tryAnotherSearch.style.justifyContent = "center";
-        backToDashboard.style.display = "flex";
+        console.log("check this line");
+        backToDashboard.style.display = "none";
         backToDashboard.style.justifyContent = "center";
 
         quickSearchButtonContainer.style.display = "none";
@@ -890,6 +898,9 @@ async function searchExpenseByName(offset) {
 
         noEntriesChildContainer.style.display = "flex";
       } else {
+        let backToDashboard = document.querySelector(
+          ".back-to-dashboard-button",
+        );
         if (aeSearchTableMainContainer) {
           aeSearchTableMainContainer.textContent = "";
         }
@@ -910,6 +921,7 @@ async function searchExpenseByName(offset) {
         let total_results = data[0].total_results;
 
         let sumAmount = data[0].running_count;
+
         backToDashboard.style.display = "flex";
         backToDashboard.style.justifyContent = "center";
 
@@ -1234,12 +1246,32 @@ async function searchExpenseByName(offset) {
           qsTdNameCostDateChildContainer.append(qsSaveCancelButtonContainer);
           qsTdNameCostDateMainContainer.append(qsTdNameCostDateChildContainer);
 
-          const trashIcon = document.createElement("img");
-          trashIcon.src = "/static/images/new_trash_icon.png";
+          const trashIcon = document.createElement("button");
+          trashIcon.innerHTML = `<svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+             
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-trash2-icon lucide-trash-2"
+            >
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+              <path d="M3 6h18" />
+              <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>`;
 
           trashIcon.style.textAlign = "center";
           trashIcon.style.cursor = "pointer";
           trashIcon.classList.add("trash-icon");
+          trashIcon.style.border = "none";
+          trashIcon.style.background = "transparent";
+
           trashIcon.id = `trash-icon-${info.expense_id}`;
           trashIcon.dataset.trashExpenseId = info.expense_id;
           trashIcon.dataset.userId = info.user_id;
@@ -1248,10 +1280,12 @@ async function searchExpenseByName(offset) {
 
           deleteTd.appendChild(trashIcon);
 
-          let editIcon = document.createElement("img");
-          editIcon.src = "/static/images/pencil_345648.png";
+          let editIcon = document.createElement("button");
+          editIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>`;
 
           editIcon.classList.add("qs-edit-icon");
+          editIcon.style.background = "transparent";
+          editIcon.style.border = "none";
           editIcon.id = `qs-edit-icon-${info.expense_id}`;
           editIcon.style.cursor = "pointer";
           editIcon.style.display = "inline";
@@ -1493,8 +1527,11 @@ function displayDetails(eName, eCost, uId, eId) {
   confirmDelete.style.justifyContent = "space-evenly";
 
   let eNamep = document.querySelector(".e-name");
+  let nameSpanValue = document.querySelector(".span-name-value");
   eNamep.style.display = "flex";
-  eNamep.textContent = `Expense: ${eName}`;
+
+  eNamep.innerHTML = `Expense:`;
+  nameSpanValue.textContent = `${eName}`;
 
   let eCostp = document.querySelector(".e-cost");
   eCostp.style.display = "flex";
@@ -1806,8 +1843,9 @@ if (searchTableMainContainer) {
     if (e.target.classList.contains("qs-edit-date-input-field")) {
       let expenseId = e.target.dataset.expenseId;
     }
-    if (e.target.classList.contains("qs-edit-icon")) {
-      let targetExpenseId = e.target.dataset.expenseId;
+    let editButton = e.target.closest(".qs-edit-icon");
+    if (editButton) {
+      let targetExpenseId = editButton.dataset.expenseId;
 
       let qsChildContainer = document.getElementById(
         `qs-name-cost-date-child-container-${targetExpenseId}`,
@@ -1895,14 +1933,15 @@ if (searchTableMainContainer) {
 
       tdName.colSpan = 5;
     }
-
-    if (e.target.classList.contains("trash-icon")) {
-      let userId = e.target.dataset.userId;
-      let expenseId = e.target.dataset.trashExpenseId;
-      let expenseName = e.target.dataset.expenseName;
-      let expenseCost = e.target.dataset.expenseCost;
+    let trashButton = e.target.closest(".trash-icon");
+    if (trashButton) {
+      let userId = trashButton.dataset.userId;
+      let expenseId = trashButton.dataset.trashExpenseId;
+      let expenseName = trashButton.dataset.expenseName;
+      let expenseCost = trashButton.dataset.expenseCost;
       displayDetails(expenseName, expenseCost, userId, expenseId);
     }
+
     if (e.target.classList.contains("cancel-edit-button")) {
       let expenseId = e.target.dataset.cancelEditButton;
       let cancelEditButton = document.getElementById(
@@ -2046,7 +2085,32 @@ async function updateEntries(eId, eName, eCost, eDate) {
 
 let topNavbars = document.querySelectorAll(".top-navbar-container");
 topNavbars.forEach((topNavbar) => {
-  topNavbar.addEventListener("resize", (e) => {
+  window.addEventListener("resize", (e) => {
+    if (window.outerWidth > 800) {
+      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+      darkHamburgerIcon.style.display = "none";
+      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+      lightHamburgerIcon.style.display = "none";
+    }
+    let currentColor = window.localStorage.getItem("color");
+    if (currentColor === "dark" && window.outerWidth < 800) {
+      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+      darkHamburgerIcon.style.display = "block";
+      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+      lightHamburgerIcon.style.display = "none";
+    }
+    if (currentColor === "light" && window.outerWidth < 800) {
+      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+      darkHamburgerIcon.style.display = "none";
+      lightHamburgerIcon.style.display = "block";
+    }
+  });
+});
+
+let aeTopNavbar = document.querySelectorAll(".ae-top-navbar-container");
+aeTopNavbar.forEach((topNavbar) => {
+  window.addEventListener("resize", (e) => {
     if (window.outerWidth > 800) {
       let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
       darkHamburgerIcon.style.display = "none";
@@ -2069,4 +2133,152 @@ topNavbars.forEach((topNavbar) => {
 
     console.log(currentColor);
   });
+});
+
+let dbHamburgerExpenseTrackerContainer = document.getElementById(
+  "db-hamburger-expense-tracker-container",
+);
+
+if (dbHamburgerExpenseTrackerContainer) {
+  dbHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("hamburger-icon")) {
+      let dbMobileMenu = document.getElementById("db-mobile-menu");
+      dbMobileMenu.style.display = "block";
+    }
+  });
+}
+
+let flHamburgerExpenseTrackerContainer = document.getElementById(
+  "fl-hamburger-expense-tracker-container",
+);
+if (flHamburgerExpenseTrackerContainer) {
+  flHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("hamburger-icon")) {
+      let flMobileMenu = document.getElementById("fl-mobile-menu");
+      flMobileMenu.style.display = "block";
+    }
+  });
+}
+
+let flCancelIconContainer = document.getElementById(
+  "fl-hamburger-cancel-icon-container",
+);
+if (flCancelIconContainer) {
+  flCancelIconContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("fl-cancel-icon")) {
+      let flMobileMenu = document.getElementById("fl-mobile-menu");
+      flMobileMenu.style.display = "none";
+    }
+  });
+}
+
+let flMobileMenu = document.getElementById("fl-mobile-menu");
+if (flMobileMenu) {
+  let currentColor = localStorage.getItem("color");
+  flMobileMenu.addEventListener("click", (e) => {
+    if (e.target.classList.contains("light-mode")) {
+      localStorage.setItem("color", "light");
+
+      let lightSpan = document.querySelector(".light-mode");
+      lightSpan.style.display = "none";
+      let darkSpan = document.querySelector(".dark-mode");
+      darkSpan.style.display = "flex";
+
+      let html = document.querySelector("html");
+      html.classList.remove("dark");
+      html.classList.add("light");
+      if (window.outerWidth < 800) {
+        let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+        darkHamburgerIcon.style.display = "none";
+        let lightHamburgerIcon = document.querySelector(
+          ".light-hamburger-icon",
+        );
+        lightHamburgerIcon.style.display = "block";
+      }
+    }
+    if (e.target.classList.contains("dark-mode")) {
+      localStorage.setItem("color", "dark");
+
+      let lightSpan = document.querySelector(".light-mode");
+      lightSpan.style.display = "flex";
+      let darkSpan = document.querySelector(".dark-mode");
+      darkSpan.style.display = "none";
+
+      let html = document.querySelector("html");
+      html.classList.remove("light");
+      html.classList.add("dark");
+      if (window.outerWidth < 800) {
+        let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+        darkHamburgerIcon.style.display = "block";
+        let lightHamburgerIcon = document.querySelector(
+          ".light-hamburger-icon",
+        );
+        lightHamburgerIcon.style.display = "none";
+      }
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  let currentColor = localStorage.getItem("color");
+  if (window.outerWidth < 800 && currentColor === "dark") {
+    let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+    darkHamburgerIcon.style.display = "block";
+    let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+    lightHamburgerIcon.style.display = "none";
+
+    let lightSpan = document.querySelector(".light-mode");
+    if (lightSpan) {
+      lightSpan.style.display = "flex";
+    }
+
+    let darkSpan = document.querySelector(".dark-mode");
+    if (darkSpan) {
+      darkSpan.style.display = "none";
+    }
+  }
+  if (window.outerWidth < 800 && currentColor === "light") {
+    let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
+    darkHamburgerIcon.style.display = "none";
+    let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
+    lightHamburgerIcon.style.display = "block";
+
+    let lightSpan = document.querySelector(".light-mode");
+    if (lightSpan) {
+      lightSpan.style.display = "none";
+    }
+
+    let darkSpan = document.querySelector(".dark-mode");
+    if (darkSpan) {
+      darkSpan.style.display = "flex";
+    }
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  let currentColor = localStorage.getItem("color");
+  const isDark = currentColor === "dark";
+
+  document.querySelectorAll(".dark-icon").forEach((icon) => {
+    icon.style.display = isDark ? "flex" : "none";
+  });
+
+  document.querySelectorAll(".light-icon").forEach((icon) => {
+    icon.style.display = isDark ? "none" : "flex";
+  });
+});
+
+let sideBarBottomContent = document.querySelector(".bottom-content");
+sideBarBottomContent.addEventListener("click", (e) => {
+  if (e.target.classList.contains("switch")) {
+    let currentColor = localStorage.getItem("color");
+    const isDark = currentColor === "dark";
+
+    document.querySelectorAll(".dark-icon").forEach((icon) => {
+      icon.style.display = isDark ? "flex" : "none";
+    });
+    document.querySelectorAll(".light-icon").forEach((icon) => {
+      icon.style.display = isDark ? "none" : "flex";
+    });
+  }
 });

@@ -197,31 +197,34 @@
       </div>
     </nav>
     <header>
-      <nav class="top-navbar-container">
-        <img
-          class="dark-hambuger-icon"
-          src="../static/images/hamburger-button-50.png"
-          alt="hamburger menu icon"
-        />
-        <img
-          class="light-hambuger-icon"
-          src="../static/images/light-hambuger-menu-squared-50.png"
-          alt="hamburger menu icon"
-        />
-        <li class="paul"><a href="#">Expense Tracker</a></li>
-        <div class="welcome-container">
-          <li class="welcome">Welcome, {{username}}</li>
+      <nav class="top-navbar-container ae-top-navbar-container">
+        <div class="hamburger-expense-tracker-container">
+          <img
+            class="hamburger-icon dark-hamburger-icon"
+            src="../static/images/hamburger-button-50.png"
+            alt="hamburger menu icon"
+          />
+          <img
+            class="hamburger-icon light-hamburger-icon"
+            src="../static/images/light-hambuger-menu-squared-50.png"
+            alt="hamburger menu icon"
+          />
+          <li class="paul"><a href="#">Expense Tracker</a></li>
         </div>
 
-        <li class="top-navbar">
-          <a href="{{url_for('dashboard')}}">Home</a>
-        </li>
-        <li class="top-navbar"><a href="#">Profile</a></li>
-        <li class="top-navbar">
-          <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
-        </li>
+        <div class="welcome-container">
+          <li class="welcome">Welcome, {{username}}</li>
+          <li class="top-navbar">
+            <a href="{{url_for('dashboard')}}">Home</a>
+          </li>
+          <li class="top-navbar"><a href="#">Profile</a></li>
+          <li class="top-navbar">
+            <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
+          </li>
+        </div>
       </nav>
     </header>
+
     <main id="mainContent">
       <div id="ae-main-container">
         <div class="second_main_container">
