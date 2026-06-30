@@ -1534,8 +1534,12 @@ function displayDetails(eName, eCost, uId, eId) {
   nameSpanValue.textContent = `${eName}`;
 
   let eCostp = document.querySelector(".e-cost");
+  let eCostValue = document.querySelector(".e-cost-value");
   eCostp.style.display = "flex";
-  eCostp.textContent = `Expense Cost: ${eCost}`;
+
+  eCostp.textContent = `Amount:`;
+  eCostValue.style.display = "flex";
+  eCostValue.textContent = `${eCost}`;
 }
 
 async function deleteConfirmation(eId, uId) {
