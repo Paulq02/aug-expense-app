@@ -1268,7 +1268,7 @@ async function searchExpenseByName(offset) {
 
           trashIcon.style.textAlign = "center";
           trashIcon.style.cursor = "pointer";
-          trashIcon.classList.add("trash-icon");
+          trashIcon.setAttribute("class", "trash-icon");
           trashIcon.style.border = "none";
           trashIcon.style.background = "transparent";
 
@@ -1516,15 +1516,34 @@ if (cancelButton) {
 
 function displayDetails(eName, eCost, uId, eId) {
   let confirmDeleteButton = document.querySelector(".confirm-delete");
-  confirmDeleteButton.style.display = "flex";
-  confirmDeleteButton.style.alignItems = "center";
-  confirmDeleteButton.dataset.userId = uId;
-  confirmDeleteButton.dataset.expenseId = eId;
+  if (confirmDeleteButton) {
+    confirmDeleteButton.style.display = "flex";
+    confirmDeleteButton.style.alignItems = "center";
+    confirmDeleteButton.dataset.userId = uId;
+    confirmDeleteButton.dataset.expenseId = eId;
+  }
+
   let confirmDelete = document.querySelector(
     ".delete-confirmation-main-container",
   );
-  confirmDelete.style.display = "flex";
-  confirmDelete.style.justifyContent = "space-evenly";
+  if (confirmDelete) {
+    confirmDelete.style.display = "flex";
+    confirmDelete.style.justifyContent = "space-evenly";
+  }
+
+  let flConfirmDeleteContainer = document.querySelector(
+    ".fl-delete-confirmation-main-container",
+  );
+  if (flConfirmDeleteContainer) {
+    flConfirmDeleteContainer.style.display = "flex";
+    flConfirmDeleteContainer.style.flexDirection = "column";
+    flConfirmDeleteContainer.style.justifyContent = "space-evenly";
+    flConfirmDeleteContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("cancel-delete")) {
+        flConfirmDeleteContainer.style.display = "none";
+      }
+    });
+  }
 
   let eNamep = document.querySelector(".e-name");
   let nameSpanValue = document.querySelector(".span-name-value");
@@ -1708,6 +1727,8 @@ let flSearchTableMainContainer = document.getElementById(
 
 if (flSearchTableMainContainer) {
   flSearchTableMainContainer.addEventListener("click", (e) => {
+    let trashButton = e.target.closest(".trash-icon");
+
     if (e.target.classList.contains("qs-cancel-button")) {
       let expenseId = e.target.dataset.expenseId;
       console.log(expenseId);
@@ -1745,13 +1766,17 @@ if (flSearchTableMainContainer) {
       let qsEditIcon = document.getElementById(`qs-edit-icon-${expenseId}`);
       qsEditIcon.style.display = "inline";
     }
-    if (e.target.classList.contains("trash-icon")) {
-      let userId = e.target.dataset.userId;
-      let expenseId = e.target.dataset.trashExpenseId;
-      let expenseName = e.target.dataset.expenseName;
-      let expenseCost = e.target.dataset.expenseCost;
+
+    if (trashButton) {
+      console.log(trashButton);
+      let userId = trashButton.dataset.userId;
+      let expenseId = trashButton.dataset.trashExpenseId;
+      let expenseName = trashButton.dataset.expenseName;
+      let expenseCost = trashButton.dataset.expenseCost;
+      console.log(userId, expenseId, expenseName, expenseCost);
       displayDetails(expenseName, expenseCost, userId, expenseId);
     }
+
     if (e.target.classList.contains("qs-edit-icon")) {
       let targetExpenseId = e.target.dataset.expenseId;
 
@@ -1939,6 +1964,7 @@ if (searchTableMainContainer) {
     }
     let trashButton = e.target.closest(".trash-icon");
     if (trashButton) {
+      console.log("trash icon working ");
       let userId = trashButton.dataset.userId;
       let expenseId = trashButton.dataset.trashExpenseId;
       let expenseName = trashButton.dataset.expenseName;
@@ -2042,7 +2068,7 @@ if (expenseDataContainer) {
   expenseDataContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("save-new-changes-button")) {
       let expenseId = e.target.dataset.expenseId;
-      console.log("your moma");
+
       console.log(expenseId);
       let dateInput = document.getElementById(`datepicker-${expenseId}`);
 

@@ -306,20 +306,45 @@
   
   <!--START OF QUICK SEARCH MAIN CONTAINER ------------------------------------------------->
 
-  <div class="delete-confirmation-main-container">
-    <div class="warning-icon-container">
-      <img class="warning-icon" src="../static/images/warning_icon.png" alt="warning icon" />
-      <p class="warning-message">Are you sure you want to delete?</p>
+   <div
+    
+     class="fl-delete-confirmation-main-container btn_window">
+      <div class="warning-icon-container prompt">
+         <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        <p>Delete Expense?</p>
+        <p class="prompt-action">This action cannot be undone.</p>
+       
+      </div>
+      <div class="name-cost-container expense_details">
+      <div class="expense-name-container">
+      <div class="expense-name-wrapper">
+      <span>
+      <svg 
+        xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+    
+      </span>
+      <span class="e-name"></span>
+      <span class="span-name-value prompt-expense-span"></span>
+
+      </div>
+      
+    
+      </div>
+     <div class="e-cost-container">
+     <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet-icon lucide-wallet"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+        
+        <span class="e-cost"></span>
+        <span class="e-cost-value"></span>
+     </div>
+      
+      </div>
+      <div class="qs-delete-button-parent-container">
+      <div class="qs-delete-expense-container">
+        <button class="cancel-delete">Cancel</button>
+        <button class="confirm-delete">Yes, I want to delete</button>
+      </div>
+      </div>
     </div>
-    <div class="name-cost-container">
-      <p class="e-name"></p>
-      <p class="e-cost"></p>
-    </div>
-    <div class="qs-delete-expense-container">
-      <button class="cancel-delete">Cancel</button>
-      <button class="confirm-delete">Yes, I want to delete</button>
-    </div>
-  </div>
   <div class="quick-search-button-container">
     <button class="qs-previous-results">
       <i class="fas fa-angle-double-left"></i>Previous Results
@@ -334,7 +359,7 @@
   class="back-to-dashboard-container">
    
 
-    <a class="back-to-dashboard-a-tag back-to-dashboard-button" href="{{url_for('dashboard')}}">Backkkkyyy to Dashboard <i
+    <a class="back-to-dashboard-a-tag back-to-dashboard-button" href="{{url_for('dashboard')}}">Back to Dashboard <i
         class="bx bxs-home back-to-dashboard-icon"></i></a>
   </div>
 
@@ -554,7 +579,7 @@ if (firstLoginMainContainer) {
 
 
  firstLoginMainContainer.addEventListener("click", async (e) => {
-  console.log(window)
+  
   
    if (e.target.classList.contains("save-new-changes-button")) {
       let expenseId = e.target.dataset.expenseId;

@@ -842,7 +842,6 @@ html.dark .light-mode-et {
   color: #9ca3af;
 }
 .delete-confirmation-main-container {
-  display: flex;
   flex-direction: column;
 }
 .e-name-svg-tag {
@@ -3363,13 +3362,14 @@ tfoot td {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   justify-content: center;
-  padding: 5px;
+  padding: 10px;
   align-items: center;
 }
 .light .expense-name-container,
 .dark .expense-name-container {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
+  padding: 10px;
 }
 
 .light .expense-cost-container {
