@@ -30,16 +30,25 @@
       html.classList.remove("light");
       html.classList.add("dark");
     }
+   
+   console.log("first login template loaded")
+  document.addEventListener("DOMContentLoaded",(e)=> {
+    let hamburgerIcon = document.querySelector(".hamburger-icon")
+    if (hamburgerIcon && window.outerWidth > 800) {
+      hamburgerIcon.style.display = "none"
+    }
+  })
   </script>
   <link rel="stylesheet" href="/static/styles.css" />
+  
 </head>
 
 <body>
   <nav id="close" class="close">
     <div class="image-text" id="image-text">
       <span class="image">
-        <img class="light-mode-et" src="../static/images/NEW_ET_logo.png" alt="icon of expense tracker" />
-        <img class="dark-mode-et" src="../static/images/ET_lightmode.png" alt="icon of expense tracker" />
+        <img class="light-mode-et" src="../static/images/final-light.png" alt="icon of expense tracker" />
+        <img class="dark-mode-et" src="../static/images/final-dark.png" alt="icon of expense tracker" />
       </span>
       <div class="text header-text" id="header-text">
         <span class="name">Expense Tracker</span>
@@ -142,6 +151,7 @@
     
      
      <i class="bx bxs-home home-icon"></i>Dashboard </span></a>
+     <a href="{{url_for('add_expense')}}" >
     <span><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.2617 15.4385H9.26172" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
                   stroke-linejoin="round"></path>
@@ -162,7 +172,7 @@
                 <path
                   d="M21.5186 11.2677V14.1977C21.5186 11.9977 20.0586 10.1277 18.0586 9.52766C18.5786 8.22766 18.7286 7.20766 18.4786 6.35766C18.4586 6.26766 18.4286 6.17766 18.3886 6.09766C20.2486 7.05766 21.5186 9.02766 21.5186 11.2677Z"
                   stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg> Add Expense</span>
+              </svg> Add Expense</span></a>
     <span><i class="bx bx-search-alt-2 search-icon"></i> Search Expense </span>
     <span class="light-mode"> <i class="bx bxs-sun  light-mode sun"></i> Light Mode
    
@@ -179,17 +189,23 @@
     
     
     </div>
-     <img class="hamburger-icon dark-hamburger-icon" src="../static/images/hamburger-button-50.png" alt="hamburger menu icon">
-    <img class="hamburger-icon light-hamburger-icon" src="../static/images/light-hambuger-menu-squared-50.png" alt="hamburger menu icon">
+     <svg 
+    
+    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hamburger-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
       <li class="paul"><a href="#">Expense Tracker</a></li>
     </div>
    
       <div class="welcome-container">
         <li class="welcome">Welcome, {{username}}</li>
          <li class="top-navbar">
-        <a href="{{url_for('dashboard')}}">Home</a>
+        <a 
+        class="home-button"
+        
+        href="{{url_for('dashboard')}}">Home</a>
       </li>
-      <li class="top-navbar"><a href="#">Profile</a></li>
+     
       <li class="top-navbar">
         <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
       </li>

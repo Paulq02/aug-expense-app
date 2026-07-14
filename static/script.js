@@ -1510,7 +1510,9 @@ if (cancelButton) {
     let confirmDelete = document.querySelector(
       ".delete-confirmation-main-container",
     );
-    confirmDelete.style.display = "none";
+    if (confirmDelete) {
+      confirmDelete.style.display = "none";
+    }
   });
 }
 
@@ -1727,6 +1729,7 @@ let flSearchTableMainContainer = document.getElementById(
 
 if (flSearchTableMainContainer) {
   flSearchTableMainContainer.addEventListener("click", (e) => {
+    console.log("clicked fl container");
     let trashButton = e.target.closest(".trash-icon");
 
     if (e.target.classList.contains("qs-cancel-button")) {
@@ -1776,9 +1779,9 @@ if (flSearchTableMainContainer) {
       console.log(userId, expenseId, expenseName, expenseCost);
       displayDetails(expenseName, expenseCost, userId, expenseId);
     }
-
-    if (e.target.classList.contains("qs-edit-icon")) {
-      let targetExpenseId = e.target.dataset.expenseId;
+    let qsEditButton = e.target.closest(".qs-edit-icon");
+    if (qsEditButton) {
+      let targetExpenseId = qsEditButton.dataset.expenseId;
 
       let qsChildContainer = document.getElementById(
         `qs-name-cost-date-child-container-${targetExpenseId}`,
@@ -2117,12 +2120,16 @@ let topNavbars = document.querySelectorAll(".top-navbar-container");
 topNavbars.forEach((topNavbar) => {
   window.addEventListener("resize", (e) => {
     if (window.outerWidth > 800) {
-      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-      darkHamburgerIcon.style.display = "none";
-      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
-      lightHamburgerIcon.style.display = "none";
+      let hamburgerIcon = document.querySelector(".hamburger-icon");
+      hamburgerIcon.style.display = "none";
     }
+    if (window.outerWidth < 801) {
+      let hamburgerIcon = document.querySelector(".hamburger-icon");
+      hamburgerIcon.style.display = "block";
+    }
+    /*
     let currentColor = window.localStorage.getItem("color");
+    
     if (currentColor === "dark" && window.outerWidth < 800) {
       let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
       darkHamburgerIcon.style.display = "block";
@@ -2135,6 +2142,7 @@ topNavbars.forEach((topNavbar) => {
       darkHamburgerIcon.style.display = "none";
       lightHamburgerIcon.style.display = "block";
     }
+      */
   });
 });
 
@@ -2142,11 +2150,14 @@ let aeTopNavbar = document.querySelectorAll(".ae-top-navbar-container");
 aeTopNavbar.forEach((topNavbar) => {
   window.addEventListener("resize", (e) => {
     if (window.outerWidth > 800) {
-      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-      darkHamburgerIcon.style.display = "none";
-      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
-      lightHamburgerIcon.style.display = "none";
+      let hamburgerIcon = document.querySelector(".hamburger-icon");
+      hamburgerIcon.style.display = "none";
     }
+    if (window.outerWidth < 801) {
+      let hamburgerIcon = document.querySelector(".hamburger-icon");
+      hamburgerIcon.style.display = "block";
+    }
+    /*
     let currentColor = window.localStorage.getItem("color");
     if (currentColor === "dark" && window.outerWidth < 800) {
       let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
@@ -2160,10 +2171,23 @@ aeTopNavbar.forEach((topNavbar) => {
       darkHamburgerIcon.style.display = "none";
       lightHamburgerIcon.style.display = "block";
     }
-
-    console.log(currentColor);
+      */
   });
 });
+
+let dbMobileMenu = document.getElementById("db-mobile-menu");
+if (dbMobileMenu) {
+  dbMobileMenu.addEventListener("click", (e) => {
+    let dbCloseMenuButton = e.target.closest(".db-close-mobile-menu-icon");
+    if (dbCloseMenuButton) {
+      dbCloseMenuButton.addEventListener("click", (e) => {
+        console.log(e.target);
+        let dbMobileMenu = document.getElementById("db-mobile-menu");
+        dbMobileMenu.style.display = "none";
+      });
+    }
+  });
+}
 
 let dbHamburgerExpenseTrackerContainer = document.getElementById(
   "db-hamburger-expense-tracker-container",
@@ -2171,9 +2195,93 @@ let dbHamburgerExpenseTrackerContainer = document.getElementById(
 
 if (dbHamburgerExpenseTrackerContainer) {
   dbHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("hamburger-icon")) {
+    let dbHamburgerButton = e.target.closest(".hamburger-icon");
+
+    if (dbHamburgerButton) {
+      let currentColor = localStorage.getItem("color");
       let dbMobileMenu = document.getElementById("db-mobile-menu");
-      dbMobileMenu.style.display = "block";
+      dbMobileMenu.style.display = "flex";
+
+      if (currentColor === "dark") {
+        let dbLightSpan = document.querySelector(".light-mode");
+        let dbDarkSpan = document.querySelector(".dark-mode");
+        dbLightSpan.style.display = "flex";
+        dbDarkSpan.style.display = "none";
+      }
+      if (currentColor === "light") {
+        let dbLightSpan = document.querySelector(".light-mode");
+        let dbDarkSpan = document.querySelector(".dark-mode");
+        dbLightSpan.style.display = "none";
+        dbDarkSpan.style.display = "flex";
+      }
+    }
+  });
+}
+
+let dbNavContainer = document.getElementById("db-nav-container");
+if (dbNavContainer) {
+  dbNavContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("light-mode")) {
+      let currentColor = localStorage.setItem("color", "light");
+
+      let html = document.querySelector("html");
+      html.classList.remove("dark");
+      html.classList.add("light");
+
+      let dbLightSpan = document.querySelector(".light-mode");
+      let dbDarkSpan = document.querySelector(".dark-mode");
+      dbDarkSpan.style.display = "flex";
+      dbLightSpan.style.display = "none";
+
+      let lightCalenderIcon = document.querySelector(".light-calender-icon");
+      let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+      lightCalenderIcon.style.display = "block";
+      darkCalenderIcon.style.display = "none";
+
+      let darkMoneyIcon = document.querySelector(".dark-money-out-image");
+      let lightMoneyIcon = document.querySelector(".light-money-out-image");
+      darkMoneyIcon.style.display = "none";
+      lightMoneyIcon.style.display = "flex";
+
+      let darkCatIcon = document.querySelector(".dark-cat-icon");
+      let lightCatIcon = document.querySelector(".light-cat-icon");
+      darkCatIcon.style.display = "none";
+      lightCatIcon.style.display = "flex";
+
+      let darkReceiptIcon = document.querySelector(".dark-receipt-icon");
+      let lightReceiptIcon = document.querySelector(".light-receipt-icon");
+      darkReceiptIcon.style.display = "none";
+      lightReceiptIcon.style.display = "flex";
+    }
+    if (e.target.classList.contains("dark-mode")) {
+      let currentColor = localStorage.setItem("color", "dark");
+      let html = document.querySelector("html");
+      html.classList.remove("light");
+      html.classList.add("dark");
+      let dbLightSpan = document.querySelector(".light-mode");
+      let dbDarkSpan = document.querySelector(".dark-mode");
+      dbDarkSpan.style.display = "none";
+      dbLightSpan.style.display = "flex";
+
+      let lightCalenderIcon = document.querySelector(".light-calender-icon");
+      let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+      lightCalenderIcon.style.display = "none";
+      darkCalenderIcon.style.display = "block";
+
+      let darkMoneyIcon = document.querySelector(".dark-money-out-image");
+      let lightMoneyIcon = document.querySelector(".light-money-out-image");
+      darkMoneyIcon.style.display = "flex";
+      lightMoneyIcon.style.display = "none";
+
+      let darkCatIcon = document.querySelector(".dark-cat-icon");
+      let lightCatIcon = document.querySelector(".light-cat-icon");
+      darkCatIcon.style.display = "flex";
+      lightCatIcon.style.display = "none";
+
+      let darkReceiptIcon = document.querySelector(".dark-receipt-icon");
+      let lightReceiptIcon = document.querySelector(".light-receipt-icon");
+      darkReceiptIcon.style.display = "flex";
+      lightReceiptIcon.style.display = "none";
     }
   });
 }
@@ -2183,7 +2291,22 @@ let flHamburgerExpenseTrackerContainer = document.getElementById(
 );
 if (flHamburgerExpenseTrackerContainer) {
   flHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("hamburger-icon")) {
+    let flHamburgerButton = e.target.closest(".hamburger-icon");
+    if (flHamburgerButton) {
+      let lightSpan = document.querySelector(".light-mode");
+      let darkSpan = document.querySelector(".dark-mode");
+      let currentColor = localStorage.getItem("color", "none");
+      if (currentColor === "dark") {
+        lightSpan.style.display = "flex";
+        darkSpan.style.display = "none";
+      }
+
+      if (currentColor === "light") {
+        lightSpan.style.display = "none";
+        darkSpan.style.display = "flex";
+      }
+
+      console.log(flHamburgerButton);
       let flMobileMenu = document.getElementById("fl-mobile-menu");
       flMobileMenu.style.display = "block";
     }
@@ -2205,9 +2328,25 @@ if (flCancelIconContainer) {
 let flMobileMenu = document.getElementById("fl-mobile-menu");
 if (flMobileMenu) {
   let currentColor = localStorage.getItem("color");
+  if (currentColor === "light") {
+    let lightSpan = document.querySelector(".light-mode");
+    lightSpan.style.display = "none";
+    let darkSpan = document.querySelector(".dark-mode");
+    darkSpan.style.display = "flex";
+  }
+  if (currentColor === "dark") {
+    let lightSpan = document.querySelector(".light-mode");
+    lightSpan.style.display = "flex";
+    let darkSpan = document.querySelector(".dark-mode");
+    darkSpan.style.display = "none";
+  }
   flMobileMenu.addEventListener("click", (e) => {
     if (e.target.classList.contains("light-mode")) {
       localStorage.setItem("color", "light");
+      let lightCalenderIcon = document.querySelector(".light-calender-icon");
+      lightCalenderIcon.style.display = "flex";
+      let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+      darkCalenderIcon.style.display = "none";
 
       let lightSpan = document.querySelector(".light-mode");
       lightSpan.style.display = "none";
@@ -2217,17 +2356,17 @@ if (flMobileMenu) {
       let html = document.querySelector("html");
       html.classList.remove("dark");
       html.classList.add("light");
-      if (window.outerWidth < 800) {
-        let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-        darkHamburgerIcon.style.display = "none";
-        let lightHamburgerIcon = document.querySelector(
-          ".light-hamburger-icon",
-        );
-        lightHamburgerIcon.style.display = "block";
+      if (window.outerWidth < 801) {
+        let hamburgerIcon = document.querySelector(".hamburger-icon");
+        hamburgerIcon.style.display = "block";
       }
     }
     if (e.target.classList.contains("dark-mode")) {
       localStorage.setItem("color", "dark");
+      let lightCalenderIcon = document.querySelector(".light-calender-icon");
+      lightCalenderIcon.style.display = "none";
+      let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+      darkCalenderIcon.style.display = "flex";
 
       let lightSpan = document.querySelector(".light-mode");
       lightSpan.style.display = "flex";
@@ -2238,24 +2377,45 @@ if (flMobileMenu) {
       html.classList.remove("light");
       html.classList.add("dark");
       if (window.outerWidth < 800) {
-        let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-        darkHamburgerIcon.style.display = "block";
-        let lightHamburgerIcon = document.querySelector(
-          ".light-hamburger-icon",
-        );
-        lightHamburgerIcon.style.display = "none";
+        let hamburgerIcon = document.querySelector(".hamburger-icon");
+        hamburgerIcon.style.display = "block";
       }
     }
   });
 }
 
+window.addEventListener("DOMContentLoaded", (e) => {
+  let currentColor = localStorage.getItem("color");
+  let lightCalenderIcon = document.querySelector(".light-calender-icon");
+  let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+
+  if (currentColor === "light") {
+    let lightCalenderIcon = document.querySelector(".light-calender-icon");
+    let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+    if (lightCalenderIcon) {
+      lightCalenderIcon.style.display = "block";
+    }
+    if (darkCalenderIcon) {
+      darkCalenderIcon.style.display = "none";
+    }
+  }
+  if (currentColor === "dark") {
+    let lightCalenderIcon = document.querySelector(".light-calender-icon");
+    let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+    if (lightCalenderIcon) {
+      lightCalenderIcon.style.display = "none";
+    }
+    if (darkCalenderIcon) {
+      darkCalenderIcon.style.display = "flex";
+    }
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   let currentColor = localStorage.getItem("color");
-  if (window.outerWidth < 800 && currentColor === "dark") {
-    let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-    darkHamburgerIcon.style.display = "block";
-    let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
-    lightHamburgerIcon.style.display = "none";
+  if (window.outerWidth < 801 && currentColor === "dark") {
+    let hamburgerIcon = document.querySelector(".hamburger-icon");
+    hamburgerIcon.style.display = "block";
 
     let lightSpan = document.querySelector(".light-mode");
     if (lightSpan) {
@@ -2268,10 +2428,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   if (window.outerWidth < 800 && currentColor === "light") {
-    let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-    darkHamburgerIcon.style.display = "none";
-    let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
-    lightHamburgerIcon.style.display = "block";
+    let hamburgerIcon = document.querySelector(".hamburger-icon");
+    hamburgerIcon.style.display = "block";
 
     let lightSpan = document.querySelector(".light-mode");
     if (lightSpan) {
@@ -2299,16 +2457,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let sideBarBottomContent = document.querySelector(".bottom-content");
-sideBarBottomContent.addEventListener("click", (e) => {
-  if (e.target.classList.contains("switch")) {
-    let currentColor = localStorage.getItem("color");
-    const isDark = currentColor === "dark";
 
-    document.querySelectorAll(".dark-icon").forEach((icon) => {
-      icon.style.display = isDark ? "flex" : "none";
-    });
-    document.querySelectorAll(".light-icon").forEach((icon) => {
-      icon.style.display = isDark ? "none" : "flex";
-    });
-  }
-});
+if (sideBarBottomContent) {
+  sideBarBottomContent.addEventListener("click", (e) => {
+    if (e.target.classList.contains("switch")) {
+      let currentColor = localStorage.getItem("color");
+      const isDark = currentColor === "dark";
+
+      document.querySelectorAll(".dark-icon").forEach((icon) => {
+        icon.style.display = isDark ? "flex" : "none";
+      });
+      document.querySelectorAll(".light-icon").forEach((icon) => {
+        icon.style.display = isDark ? "none" : "flex";
+      });
+    }
+  });
+}

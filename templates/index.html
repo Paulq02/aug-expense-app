@@ -31,21 +31,31 @@
       html.classList.remove("light");
       html.classList.add("dark");
     }
-   
+    
+    document.addEventListener("DOMContentLoaded",(e)=> {
+    let hamburgerIcon = document.querySelector(".hamburger-icon")
+    if (hamburgerIcon && window.outerWidth > 800) {
+      hamburgerIcon.style.display = "none"
+    }
+  })
      
   </script>
+ 
   <script>
 
    window.addEventListener("DOMContentLoaded", ()=> {
-     let currentColor = window.localStorage.getItem("color");
+     
        
       if (window.outerWidth > 800) {
-      let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
-      darkHamburgerIcon.style.display = "none";
-      let lightHamburgerIcon = document.querySelector(".light-hamburger-icon");
-      lightHamburgerIcon.style.display = "none";
+      let hamburgerIcon = document.querySelector(".hamburger-icon");
+      hamburgerIcon.style.display = "none";
+      
     }
-   
+    if (window.outerWidth < 801) {
+      let hamburgerIcon = document.querySelector(".hamburger-icon");
+      hamburgerIcon.style.display = "block";
+    }
+   /*
     if (currentColor === "dark" && window.outerWidth < 800) {
       let darkHamburgerIcon = document.querySelector(".dark-hamburger-icon");
       darkHamburgerIcon.style.display = "block";
@@ -58,7 +68,7 @@
       darkHamburgerIcon.style.display = "none";
       lightHamburgerIcon.style.display = "block";
     }
-
+  */
    }) 
       
 
@@ -165,18 +175,81 @@
     <div class="hamburger-expense-tracker-container"
     id="db-hamburger-expense-tracker-container">
     <div style="display: none;"
-    id="db-mobile-menu">whats up</div>
-     <img class="hamburger-icon dark-hamburger-icon" src="../static/images/hamburger-button-50.png" alt="hamburger menu icon">
-    <img class="hamburger-icon light-hamburger-icon" src="../static/images/light-hambuger-menu-squared-50.png" alt="hamburger menu icon">
+    id="db-mobile-menu">
+     <div class="db-close-mobile-menu-icon-container">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 db-close-mobile-menu-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg>
+
+
+    </div>
+    <nav id="db-nav-container">
+   
+    <a href="{{url_for('dashboard')}}" alt="dashboard">
+     <span>
+    
+     
+     <i class="bx bxs-home home-icon"></i>Dashboard </span></a>
+     <a href="{{url_for('add_expense')}}" >
+    <span><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.2617 15.4385H9.26172" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path d="M11.7617 12.998V17.998" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M12.66 2.51814L12.63 2.58814L9.72996 9.31814H6.87996C6.19996 9.31814 5.54996 9.45814 4.95996 9.70814L6.70996 5.52814L6.74996 5.42814L6.81996 5.26814C6.83996 5.20814 6.85996 5.14814 6.88996 5.09814C8.19996 2.06814 9.67996 1.37814 12.66 2.51814Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M18.05 9.51807C17.6 9.37807 17.12 9.31807 16.64 9.31807H9.72998L12.63 2.58807L12.66 2.51807C12.81 2.56807 12.95 2.63807 13.1 2.69807L15.31 3.62807C16.54 4.13807 17.4 4.66807 17.92 5.30807C18.02 5.42807 18.1 5.53807 18.17 5.66807C18.26 5.80807 18.33 5.94807 18.37 6.09807C18.41 6.18807 18.44 6.27807 18.46 6.35807C18.73 7.19807 18.57 8.22807 18.05 9.51807Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M21.5217 14.1984V16.1484C21.5217 16.3484 21.5117 16.5484 21.5017 16.7484C21.3117 20.2384 19.3617 21.9984 15.6617 21.9984H7.86172C7.62172 21.9984 7.38172 21.9784 7.15172 21.9484C3.97172 21.7384 2.27172 20.0384 2.06172 16.8584C2.03172 16.6284 2.01172 16.3884 2.01172 16.1484V14.1984C2.01172 12.1884 3.23172 10.4584 4.97172 9.70836C5.57172 9.45836 6.21172 9.31836 6.89172 9.31836H16.6517C17.1417 9.31836 17.6217 9.38836 18.0617 9.51836C20.0517 10.1284 21.5217 11.9884 21.5217 14.1984Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M6.71 5.52808L4.96 9.70808C3.22 10.4581 2 12.1881 2 14.1981V11.2681C2 8.42808 4.02 6.05808 6.71 5.52808Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M21.5186 11.2677V14.1977C21.5186 11.9977 20.0586 10.1277 18.0586 9.52766C18.5786 8.22766 18.7286 7.20766 18.4786 6.35766C18.4586 6.26766 18.4286 6.17766 18.3886 6.09766C20.2486 7.05766 21.5186 9.02766 21.5186 11.2677Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg> Add Expense</span></a>
+    <span><i class="bx bx-search-alt-2 search-icon"></i> Search Expense </span>
+    <span class="light-mode"> <i class="bx bxs-sun  light-mode sun"></i> Light Mode
+   
+    
+   
+    </span>
+    <span class="dark-mode"><i class="bx bx-moon dark-mode moon"></i> Dark Mode
+     
+    </span>
+    <a class="hamburger-logout-button" href="{{url_for('logout')}}">
+    <span class="hamburger-logout-span">
+    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+</svg>
+    Logout</span>
+    </a>
+    </nav>
+    </div>
+    <svg 
+    
+    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hamburger-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+
+
+    
       <li class="paul"><a href="#">Expense Tracker</a></li>
     </div>
    
       <div class="welcome-container">
         <li class="welcome">Welcome, {{username}}</li>
          <li class="top-navbar">
-        <a href="{{url_for('dashboard')}}">Home</a>
+        <a 
+        class="home-button"
+        href="{{url_for('dashboard')}}">Home</a>
       </li>
-      <li class="top-navbar"><a href="#">Profile</a></li>
+     
       <li class="top-navbar">
         <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
       </li>

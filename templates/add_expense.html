@@ -46,6 +46,12 @@
         html.classList.remove("light");
         html.classList.add("dark");
       }
+      document.addEventListener("DOMContentLoaded", (e) => {
+        let hamburgerIcon = document.querySelector(".hamburger-icon");
+        if (hamburgerIcon && window.outerWidth > 800) {
+          hamburgerIcon.style.display = "none";
+        }
+      });
     </script>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
@@ -199,25 +205,29 @@
     <header>
       <nav class="top-navbar-container ae-top-navbar-container">
         <div class="hamburger-expense-tracker-container">
-          <img
-            class="hamburger-icon dark-hamburger-icon"
-            src="../static/images/hamburger-button-50.png"
-            alt="hamburger menu icon"
-          />
-          <img
-            class="hamburger-icon light-hamburger-icon"
-            src="../static/images/light-hambuger-menu-squared-50.png"
-            alt="hamburger menu icon"
-          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 hamburger-icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
           <li class="paul"><a href="#">Expense Tracker</a></li>
         </div>
 
         <div class="welcome-container">
           <li class="welcome">Welcome, {{username}}</li>
           <li class="top-navbar">
-            <a href="{{url_for('dashboard')}}">Home</a>
+            <a class="home-button" href="{{url_for('dashboard')}}">Home</a>
           </li>
-          <li class="top-navbar"><a href="#">Profile</a></li>
+
           <li class="top-navbar">
             <a href="{{url_for('logout')}}" class="logout-button">Logout</a>
           </li>
