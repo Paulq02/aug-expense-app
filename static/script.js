@@ -4,7 +4,15 @@ const dSearchBoxUl = document.getElementById("d-close-searchbox");
 
 const aeSeachbox = document.getElementById("a-e-searchbox");
 
+const aeSidebar = document.getElementById("ae-close");
+
+const aeToggleButton = document.getElementById("ae-toggle");
+
 const dashboardToggleButton = document.getElementById("d-toggle");
+
+const flToggleButton = document.getElementById("fl-toggle");
+
+const flSidebar = document.getElementById("fl-close");
 
 const addExpenseToggleButton = document.getElementById(
   "add-expense-toggle-button",
@@ -1417,11 +1425,52 @@ I'm going to be adding a search feature soon
 
 
 */
+if (aeSidebar && aeToggleButton) {
+  aeToggleButton.addEventListener("click", (e) => {
+    if (!aeSidebar.classList.contains("sidebar")) {
+      aeSidebar.classList.toggle("sidebar");
+      aeToggleButton.classList.remove("bx-chevron-right");
+      aeToggleButton.classList.add("bx-chevron-left");
+    } else {
+      aeSidebar.classList.toggle("sidebar");
+      aeToggleButton.classList.remove("bx-chevron-left");
+      aeToggleButton.classList.add("bx-chevron-right");
+    }
+  });
+}
 
-if (dashboardToggleButton) {
+if (flSidebar && flToggleButton) {
+  flToggleButton.addEventListener("click", (e) => {
+    if (!flSidebar.classList.contains("sidebar")) {
+      flSidebar.classList.toggle("sidebar");
+      flToggleButton.classList.remove("bx-chevron-right");
+      flToggleButton.classList.add("bx-chevron-left");
+
+      firstTimerParentContainer.style.marginLeft = "210px";
+    } else {
+      flSidebar.classList.toggle("sidebar");
+      firstTimerParentContainer.style.marginLeft = "0px";
+      flToggleButton.classList.remove("bx-chevron-left");
+      flToggleButton.classList.add("bx-chevron-right");
+    }
+  });
+}
+
+if (dashboardToggleButton && expenseDataContainer) {
   dashboardToggleButton.addEventListener("click", () => {
     let userInputValue = userInput.value;
     let trimmedUserInputValue = userInputValue.trim();
+
+    if (!openSidebar.classList.contains("sidebar")) {
+      openSidebar.classList.toggle("sidebar");
+      let expenseDataContainer = document.querySelector(
+        ".expense_data_container",
+      );
+      expenseDataContainer.style.width = "calc(100% - 210px)";
+    } else {
+      openSidebar.classList.toggle("sidebar");
+      expenseDataContainer.style.width = "calc(100% - 50px)";
+    }
 
     if (dSearchBoxUl.classList.contains("close-search-box")) {
       dSearchBoxUl.classList.add("opened-search-box");
@@ -1438,8 +1487,6 @@ if (dashboardToggleButton) {
       dashboardToggleButton.classList.remove("bx-chevron-left");
       dashboardToggleButton.classList.add("bx-chevron-right");
     }
-
-    openSidebar.classList.toggle("sidebar");
 
     if (
       openSidebar.classList.contains("sidebar") &&
@@ -2283,6 +2330,14 @@ if (dbNavContainer) {
       darkReceiptIcon.style.display = "flex";
       lightReceiptIcon.style.display = "none";
     }
+    let homeButton = e.target.closest(".db-dashboard-span");
+    if (homeButton) {
+      window.location.href = "/dashboard";
+    }
+    let addExpenseButton = e.target.closest(".db-add-expense-span");
+    if (addExpenseButton) {
+      window.location.href = "/add_expense/";
+    }
   });
 }
 
@@ -2291,22 +2346,42 @@ let flHamburgerExpenseTrackerContainer = document.getElementById(
 );
 if (flHamburgerExpenseTrackerContainer) {
   flHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
+    let currentColor = localStorage.getItem("color", "none");
+
     let flHamburgerButton = e.target.closest(".hamburger-icon");
     if (flHamburgerButton) {
       let lightSpan = document.querySelector(".light-mode");
       let darkSpan = document.querySelector(".dark-mode");
+      let flMobileColorDiv = document.querySelector(
+        ".fl-mobile-light-dark-toggle-div",
+      );
       let currentColor = localStorage.getItem("color", "none");
       if (currentColor === "dark") {
+        let lightSpan = document.querySelector(".light-mode");
+        let darkSpan = document.querySelector(".dark-mode");
         lightSpan.style.display = "flex";
         darkSpan.style.display = "none";
+        flMobileColorDiv.classList.add("dark-mode-on");
+        flMobileColorDiv.classList.remove("light-mode-on");
+        let lightText = document.querySelector(".fl-light-mode-text");
+        lightText.style.display = "flex";
+        let darkText = document.querySelector(".fl-dark-mode-text");
+        darkText.style.display = "none";
       }
 
       if (currentColor === "light") {
+        let lightSpan = document.querySelector(".light-mode");
+        let darkSpan = document.querySelector(".dark-mode");
         lightSpan.style.display = "none";
         darkSpan.style.display = "flex";
+        flMobileColorDiv.classList.add("light-mode-on");
+        flMobileColorDiv.classList.remove("dark-mode-on");
+        let lightText = document.querySelector(".fl-light-mode-text");
+        lightText.style.display = "none";
+        let darkText = document.querySelector(".fl-dark-mode-text");
+        darkText.style.display = "flex";
       }
 
-      console.log(flHamburgerButton);
       let flMobileMenu = document.getElementById("fl-mobile-menu");
       flMobileMenu.style.display = "block";
     }
@@ -2318,31 +2393,149 @@ let flCancelIconContainer = document.getElementById(
 );
 if (flCancelIconContainer) {
   flCancelIconContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("fl-cancel-icon")) {
+    let flCancelButton = e.target.closest(".fl-close-mobile-menu-icon");
+    if (flCancelButton) {
       let flMobileMenu = document.getElementById("fl-mobile-menu");
       flMobileMenu.style.display = "none";
     }
   });
-}
-
+} /*
 let flMobileMenu = document.getElementById("fl-mobile-menu");
 if (flMobileMenu) {
   let currentColor = localStorage.getItem("color");
   if (currentColor === "light") {
     let lightSpan = document.querySelector(".light-mode");
     lightSpan.style.display = "none";
+    let lightText = document.querySelector(".fl-light-mode-text");
+    lightText.style.display = "none";
+
+    let flMobileColorDiv = document.querySelector(
+      ".fl-mobile-light-dark-toggle-div",
+    );
+    flMobileColorDiv.classList.add("light-mode-on");
+    flMobileColorDiv.classList.remove("dark-mode-on");
+
     let darkSpan = document.querySelector(".dark-mode");
     darkSpan.style.display = "flex";
+    let darkText = document.querySelector(".fl-dark-mode-text");
+    darkText.style.display = "flex";
   }
   if (currentColor === "dark") {
     let lightSpan = document.querySelector(".light-mode");
     lightSpan.style.display = "flex";
+    let lightText = document.querySelector(".fl-light-mode-text");
+    lightText.style.display = "flex";
+
     let darkSpan = document.querySelector(".dark-mode");
     darkSpan.style.display = "none";
+    let darkText = document.querySelector(".fl-dark-mode-text");
+    darkText.style.display = "none";
+
+    let flMobileColorDiv = document.querySelector(
+      ".fl-mobile-light-dark-toggle-div",
+    );
+    flMobileColorDiv.classList.add("dark-mode-on");
+    flMobileColorDiv.classList.remove("light-mode-on");
   }
+}
+  */
+if (window.outerWidth < 801) {
+  let hamburgerIcon = document.querySelector(".hamburger-icon");
+  hamburgerIcon.style.display = "block";
+}
+let flMobileMenu = document.getElementById("fl-mobile-menu");
+if (flMobileMenu) {
   flMobileMenu.addEventListener("click", (e) => {
-    if (e.target.classList.contains("light-mode")) {
-      localStorage.setItem("color", "light");
+    console.log("line 2449 triggered");
+    let flHomeButton = e.target.closest(".fl-dashboard-menu-div");
+    if (flHomeButton) {
+      console.log(flHomeButton);
+      window.location.href = "/dashboard";
+    }
+
+    let flAddExpenseButton = e.target.closest(".fl-add-expense-div");
+    if (flAddExpenseButton) {
+      window.location.href = "/add_expense/";
+    }
+
+    let lightSpan = document.querySelector(".light-mode");
+    let lightText = document.querySelector(".fl-light-mode-text");
+    let darkSpan = document.querySelector(".dark-mode");
+    let darkText = document.querySelector(".fl-dark-mode-text");
+    let lightCalenderIcon = document.querySelector(".light-calender-icon");
+    let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+
+    let lightSpanDisplay = getComputedStyle(lightSpan).display;
+
+    if (e.target.closest(".fl-mobile-light-dark-toggle-div")) {
+      console.log("line 2469");
+      let currentColor = localStorage.getItem("color");
+
+      if (currentColor === "dark") {
+        let lightCalenderIcon = document.querySelector(".light-calender-icon");
+        let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+        console.log("line 2473 Dark color");
+        let html = document.querySelector("html");
+        html.classList.remove("dark");
+        html.classList.add("light");
+
+        darkSpan.style.display = "flex";
+        darkText.style.display = "flex";
+        darkCalenderIcon.style.display = "none";
+
+        lightSpan.style.display = "none";
+        lightText.style.display = "none";
+        lightCalenderIcon.style.display = "flex";
+
+        let currentColor = localStorage.setItem("color", "light");
+      } else {
+        let lightCalenderIcon = document.querySelector(".light-calender-icon");
+        let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+        let html = document.querySelector("html");
+        html.classList.remove("light");
+        html.classList.add("dark");
+
+        darkSpan.style.display = "none";
+        darkText.style.display = "none";
+        darkCalenderIcon.style.display = "flex";
+
+        lightSpan.style.display = "flex";
+        lightText.style.display = "flex";
+        lightCalenderIcon.style.display = "none";
+
+        let currentColor = localStorage.setItem("color", "dark");
+      }
+    }
+
+    /*
+    if (e.target.classList.contains("fl-mobile-light-dark-toggle-div")) {
+      console.log("line 2486");
+      if (currentColor === "light") {
+        let html = document.querySelector("html");
+        html.classList.remove("light");
+        html.classList.add("dark");
+
+        darkSpan.style.display = "none";
+        darkText.style.display = "none";
+
+        lightSpan.style.display = "flex";
+        lightText.style.display = "flex";
+      }
+    }
+    */
+  });
+}
+/*
+if (flMobileMenu) {
+  console.log("fl mobile here");
+  let flMobileColorDiv = document.querySelector(
+    ".fl-mobile-light-dark-toggle-div",
+  );
+  flMobileColorDiv.addEventListener("click", (e) => {
+    console.log("clicked");
+    if (e.target.classList.contains("dark-mode-on")) {
+      console.log("div has dark mode class");
+      let currentColor = localStorage.setItem("color", "light");
       let lightCalenderIcon = document.querySelector(".light-calender-icon");
       lightCalenderIcon.style.display = "flex";
       let darkCalenderIcon = document.querySelector(".dark-calender-icon");
@@ -2350,19 +2543,26 @@ if (flMobileMenu) {
 
       let lightSpan = document.querySelector(".light-mode");
       lightSpan.style.display = "none";
+      let lightText = document.querySelector(".fl-light-mode-text");
+      lightText.style.display = "none";
       let darkSpan = document.querySelector(".dark-mode");
       darkSpan.style.display = "flex";
+      let darkText = document.querySelector(".fl-dark-mode-text");
+      darkText.style.display = "flex";
+
+      let flMobileColorDiv = document.querySelector(
+        ".fl-mobile-light-dark-toggle-div",
+      );
+      flMobileColorDiv.classList.remove("dark-mode-on");
+      flMobileColorDiv.classList.add("light-mode-on");
 
       let html = document.querySelector("html");
       html.classList.remove("dark");
       html.classList.add("light");
-      if (window.outerWidth < 801) {
-        let hamburgerIcon = document.querySelector(".hamburger-icon");
-        hamburgerIcon.style.display = "block";
-      }
     }
-    if (e.target.classList.contains("dark-mode")) {
-      localStorage.setItem("color", "dark");
+    if (e.target.classList.contains("light-mode-on")) {
+      console.log("div has light mode class");
+      let currentColor = localStorage.setItem("color", "dark");
       let lightCalenderIcon = document.querySelector(".light-calender-icon");
       lightCalenderIcon.style.display = "none";
       let darkCalenderIcon = document.querySelector(".dark-calender-icon");
@@ -2370,19 +2570,57 @@ if (flMobileMenu) {
 
       let lightSpan = document.querySelector(".light-mode");
       lightSpan.style.display = "flex";
+      let lightText = document.querySelector(".fl-light-mode-text");
+      lightText.style.display = "flex";
       let darkSpan = document.querySelector(".dark-mode");
       darkSpan.style.display = "none";
+      let darkText = document.querySelector(".fl-dark-mode-text");
+      darkText.style.display = "none";
+
+      let flMobileColorDiv = document.querySelector(
+        ".fl-mobile-light-dark-toggle-div",
+      );
+      flMobileColorDiv.classList.remove("light-mode-on");
+      flMobileColorDiv.classList.add("dark-mode-on");
 
       let html = document.querySelector("html");
       html.classList.remove("light");
       html.classList.add("dark");
-      if (window.outerWidth < 800) {
-        let hamburgerIcon = document.querySelector(".hamburger-icon");
-        hamburgerIcon.style.display = "block";
-      }
     }
   });
 }
+
+*/
+/*
+ if (e.target.classList.contains("light-mode-on")) {
+      console.log("dark mode activated");
+      let currentColor = localStorage.setItem("color", "dark");
+      let lightCalenderIcon = document.querySelector(".light-calender-icon");
+      lightCalenderIcon.style.display = "none";
+      let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+      darkCalenderIcon.style.display = "flex";
+
+      let lightSpan = document.querySelector(".light-mode");
+      lightSpan.style.display = "flex";
+      let lightText = document.querySelector(".fl-light-mode-text");
+      lightText.style.display = "flex";
+      let darkSpan = document.querySelector(".dark-mode");
+      darkSpan.style.display = "none";
+      let darkText = document.querySelector(".fl-dark-mode-text");
+      darkText.style.display = "none";
+
+      let flMobileColorDiv = document.querySelector(
+        ".fl-mobile-light-dark-toggle-div",
+      );
+      flMobileColorDiv.classList.remove("light-mode-on");
+      flMobileColorDiv.classList.add("dark-mode-on");
+
+      let html = document.querySelector("html");
+      html.classList.remove("light");
+      html.classList.add("dark");
+     
+    }
+*/
 
 window.addEventListener("DOMContentLoaded", (e) => {
   let currentColor = localStorage.getItem("color");
