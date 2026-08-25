@@ -629,7 +629,6 @@ const showNameBtn = function (index) {
   editDateInput.value = expenseDateDescription.textContent;
   editDateInput.disabled = false;
   editDateInput.required = true;
-  console.log(editDateInput.required);
 
   let costDescriptionTag = document.getElementById(`cost-description-${index}`);
   let dateDescriptionTag = document.getElementById(`date-description-${index}`);
@@ -2166,11 +2165,11 @@ async function updateEntries(eId, eName, eCost, eDate) {
 let topNavbars = document.querySelectorAll(".top-navbar-container");
 topNavbars.forEach((topNavbar) => {
   window.addEventListener("resize", (e) => {
-    if (window.outerWidth > 800) {
+    if (window.outerWidth > 970) {
       let hamburgerIcon = document.querySelector(".hamburger-icon");
       hamburgerIcon.style.display = "none";
     }
-    if (window.outerWidth < 801) {
+    if (window.outerWidth <= 970) {
       let hamburgerIcon = document.querySelector(".hamburger-icon");
       hamburgerIcon.style.display = "block";
     }
@@ -2196,11 +2195,11 @@ topNavbars.forEach((topNavbar) => {
 let aeTopNavbar = document.querySelectorAll(".ae-top-navbar-container");
 aeTopNavbar.forEach((topNavbar) => {
   window.addEventListener("resize", (e) => {
-    if (window.outerWidth > 800) {
+    if (window.outerWidth > 970) {
       let hamburgerIcon = document.querySelector(".hamburger-icon");
       hamburgerIcon.style.display = "none";
     }
-    if (window.outerWidth < 801) {
+    if (window.outerWidth <= 970) {
       let hamburgerIcon = document.querySelector(".hamburger-icon");
       hamburgerIcon.style.display = "block";
     }
@@ -2225,13 +2224,92 @@ aeTopNavbar.forEach((topNavbar) => {
 let dbMobileMenu = document.getElementById("db-mobile-menu");
 if (dbMobileMenu) {
   dbMobileMenu.addEventListener("click", (e) => {
-    let dbCloseMenuButton = e.target.closest(".db-close-mobile-menu-icon");
-    if (dbCloseMenuButton) {
-      dbCloseMenuButton.addEventListener("click", (e) => {
-        console.log(e.target);
-        let dbMobileMenu = document.getElementById("db-mobile-menu");
-        dbMobileMenu.style.display = "none";
-      });
+    let dbLightSpan = document.querySelector(".light-mode");
+    let dbDarkSpan = document.querySelector(".dark-mode");
+
+    let lightCalenderIcon = document.querySelector(".light-calender-icon");
+    let darkCalenderIcon = document.querySelector(".dark-calender-icon");
+
+    let dbDarkModeText = document.querySelector(".db-dark-mode-text");
+    let dbLightModeText = document.querySelector(".db-light-mode-text");
+
+    let currentColor = localStorage.getItem("color");
+
+    console.log(currentColor);
+    if (e.target.classList.contains("db-close-mobile-menu-icon")) {
+      dbMobileMenu.style.display = "none";
+    }
+
+    if (e.target.closest(".db-dashboard-menu-div")) {
+      window.location.href = "/dashboard";
+    }
+    if (e.target.closest(".db-add-expense-div")) {
+      window.location.href = "/add_expense";
+    }
+
+    if (e.target.closest(".db-hamburger-logout-container")) {
+      window.location.href = "/logout";
+    }
+
+    if (e.target.closest(".db-mobile-light-dark-toggle-div")) {
+      if (currentColor === "dark") {
+        console.log("if block triggered");
+        let currentColor = localStorage.setItem("color", "light");
+        htmlColor.classList.remove("dark");
+        htmlColor.classList.add("light");
+
+        dbMobileMenu.style.backgroundColor = "#ffffff";
+
+        darkCalenderIcon.style.display = "none";
+        lightCalenderIcon.style.display = "flex";
+
+        dbLightSpan.style.display = "none";
+        dbDarkSpan.style.display = "flex";
+
+        dbDarkModeText.style.display = "flex";
+        dbLightModeText.style.display = "none";
+
+        let colorCheck = localStorage.getItem("color");
+
+        let isLight = colorCheck === "light";
+        console.log(isLight);
+
+        document.querySelectorAll(".light-icon").forEach((icon) => {
+          icon.style.display = isLight ? "flex" : "none";
+        });
+
+        document.querySelectorAll(".dark-icon").forEach((icon) => {
+          icon.style.display = isLight ? "none" : "flex";
+        });
+      } else {
+        console.log("else block triggered");
+        let currentColor = localStorage.setItem("color", "dark");
+        htmlColor.classList.remove("light");
+        htmlColor.classList.add("dark");
+
+        dbMobileMenu.style.backgroundColor = "#000000";
+
+        darkCalenderIcon.style.display = "flex";
+        lightCalenderIcon.style.display = "none";
+
+        dbLightSpan.style.display = "flex";
+        dbDarkSpan.style.display = "none";
+
+        dbDarkModeText.style.display = "none";
+        dbLightModeText.style.display = "flex";
+
+        let colorCheck = localStorage.getItem("color");
+
+        let isDark = colorCheck === "dark";
+
+        document.querySelectorAll(".dark-icon").forEach((icon) => {
+          icon.style.display = isDark ? "flex" : "none";
+        });
+
+        document.querySelectorAll(".light-icon").forEach((icon) => {
+          icon.style.display = isDark ? "none" : "flex";
+        });
+      }
     }
   });
 }
@@ -2243,28 +2321,35 @@ let dbHamburgerExpenseTrackerContainer = document.getElementById(
 if (dbHamburgerExpenseTrackerContainer) {
   dbHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
     let dbHamburgerButton = e.target.closest(".hamburger-icon");
+    let dbLightSpan = document.querySelector(".light-mode");
+    let dbDarkSpan = document.querySelector(".dark-mode");
+
+    let dbDarkModeText = document.querySelector(".db-dark-mode-text");
+    let dbLightModeText = document.querySelector(".db-light-mode-text");
 
     if (dbHamburgerButton) {
       let currentColor = localStorage.getItem("color");
+
       let dbMobileMenu = document.getElementById("db-mobile-menu");
-      dbMobileMenu.style.display = "flex";
+      dbMobileMenu.style.display = "block";
 
       if (currentColor === "dark") {
-        let dbLightSpan = document.querySelector(".light-mode");
-        let dbDarkSpan = document.querySelector(".dark-mode");
         dbLightSpan.style.display = "flex";
         dbDarkSpan.style.display = "none";
-      }
-      if (currentColor === "light") {
-        let dbLightSpan = document.querySelector(".light-mode");
-        let dbDarkSpan = document.querySelector(".dark-mode");
+
+        dbDarkModeText.style.display = "none";
+        dbLightModeText.style.display = "flex";
+      } else {
         dbLightSpan.style.display = "none";
         dbDarkSpan.style.display = "flex";
+
+        dbDarkModeText.style.display = "flex";
+        dbLightModeText.style.display = "none";
       }
     }
   });
 }
-
+/*
 let dbNavContainer = document.getElementById("db-nav-container");
 if (dbNavContainer) {
   dbNavContainer.addEventListener("click", (e) => {
@@ -2340,6 +2425,89 @@ if (dbNavContainer) {
     }
   });
 }
+*/
+let aeHamburgerExpenseTrackerContainer = document.getElementById(
+  "ae-hamburger-expense-tracker-container",
+);
+
+let aeHamburgerIcon = document.querySelector(".ae-hamburger-icon");
+
+if (aeHamburgerExpenseTrackerContainer) {
+  let aeMobileMenu = document.getElementById("ae-mobile-menu");
+
+  aeHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
+    console.log("clicked");
+
+    let aeDarkModeSpan = document.querySelector(".dark-mode");
+    let aeDarkModeText = document.querySelector(".ae-dark-mode-text");
+
+    let aeLightModeSpan = document.querySelector(".light-mode");
+    let aeLightModeText = document.querySelector(".ae-light-mode-text");
+
+    if (e.target.closest(".ae-hamburger-icon")) {
+      aeMobileMenu.style.display = "block";
+      let currentColor = localStorage.getItem("color");
+
+      if (currentColor === "dark") {
+        aeDarkModeSpan.style.display = "none";
+        aeDarkModeText.style.display = "none";
+
+        aeLightModeSpan.style.display = "flex";
+        aeLightModeText.style.display = "flex";
+      } else {
+        aeDarkModeSpan.style.display = "flex";
+        aeDarkModeText.style.display = "flex";
+
+        aeLightModeSpan.style.display = "none";
+        aeLightModeText.style.display = "none";
+      }
+    }
+
+    if (e.target.closest(".ae-hamburger-cancel-icon")) {
+      aeMobileMenu.style.display = "none";
+    }
+
+    if (e.target.closest(".ae-mobile-light-dark-toggle-div")) {
+      let currentColor = localStorage.getItem("color");
+      if (currentColor === "dark") {
+        let currentColor = localStorage.setItem("color", "light");
+        htmlColor.classList.remove("dark");
+        htmlColor.classList.add("light");
+
+        aeDarkModeSpan.style.display = "flex";
+        aeDarkModeText.style.display = "flex";
+
+        aeLightModeSpan.style.display = "none";
+        aeLightModeText.style.display = "none";
+      } else {
+        let currentColor = localStorage.setItem("color", "dark");
+        htmlColor.classList.remove("light");
+        htmlColor.classList.add("dark");
+
+        aeDarkModeSpan.style.display = "none";
+        aeDarkModeText.style.display = "none";
+
+        aeLightModeSpan.style.display = "flex";
+        aeLightModeText.style.display = "flex";
+      }
+    }
+
+    if (e.target.closest(".ae-dashboard-menu-div")) {
+      window.location.href = "/dashboard";
+    }
+
+    if (e.target.closest(".ae-add-expense-div")) {
+      window.location.href = "/add_expense";
+    }
+
+    if (e.target.closest(".ae-hamburger-logout-container")) {
+      window.location.href = "/logout";
+    }
+    if (e.target.closest(".ae-search-expense-div")) {
+      window.location.href = "/search_expense";
+    }
+  });
+}
 
 let flHamburgerExpenseTrackerContainer = document.getElementById(
   "fl-hamburger-expense-tracker-container",
@@ -2399,7 +2567,9 @@ if (flCancelIconContainer) {
       flMobileMenu.style.display = "none";
     }
   });
-} /*
+}
+
+/*
 let flMobileMenu = document.getElementById("fl-mobile-menu");
 if (flMobileMenu) {
   let currentColor = localStorage.getItem("color");
@@ -2439,10 +2609,14 @@ if (flMobileMenu) {
   }
 }
   */
-if (window.outerWidth < 801) {
-  let hamburgerIcon = document.querySelector(".hamburger-icon");
-  hamburgerIcon.style.display = "block";
+
+let hamburgerIcon = document.querySelector(".hamburger-icon");
+if (hamburgerIcon) {
+  if (window.outerWidth < 801) {
+    hamburgerIcon.style.display = "block";
+  }
 }
+
 let flMobileMenu = document.getElementById("fl-mobile-menu");
 if (flMobileMenu) {
   flMobileMenu.addEventListener("click", (e) => {
@@ -2455,7 +2629,7 @@ if (flMobileMenu) {
 
     let flAddExpenseButton = e.target.closest(".fl-add-expense-div");
     if (flAddExpenseButton) {
-      window.location.href = "/add_expense/";
+      window.location.href = "/add_expense";
     }
 
     let lightSpan = document.querySelector(".light-mode");
@@ -2651,7 +2825,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   let currentColor = localStorage.getItem("color");
-  if (window.outerWidth < 801 && currentColor === "dark") {
+  if (window.outerWidth <= 970 && currentColor === "dark") {
     let hamburgerIcon = document.querySelector(".hamburger-icon");
     hamburgerIcon.style.display = "block";
 
@@ -2665,7 +2839,7 @@ document.addEventListener("DOMContentLoaded", () => {
       darkSpan.style.display = "none";
     }
   }
-  if (window.outerWidth < 800 && currentColor === "light") {
+  if (window.outerWidth <= 970 && currentColor === "light") {
     let hamburgerIcon = document.querySelector(".hamburger-icon");
     hamburgerIcon.style.display = "block";
 
@@ -2710,4 +2884,94 @@ if (sideBarBottomContent) {
       });
     }
   });
+}
+
+window.addEventListener("DOMContentLoaded", (e) => {
+  let arrayOfHamburgerIcons = document.querySelectorAll(".hamburger-icon");
+
+  arrayOfHamburgerIcons.forEach((icon) => {
+    if (window.outerWidth <= 970) {
+      if (icon) {
+        icon.style.display = "block";
+      }
+    }
+  });
+
+  if (window.outerWidth >= 971) {
+    let arrayOfHamburgerIcons = document.querySelectorAll(".hamburger-icon");
+
+    arrayOfHamburgerIcons.forEach((icon) => {
+      if (icon) {
+        icon.style.display = "none";
+      }
+    });
+  }
+});
+const searchExpenseChildContainer = document.querySelector(
+  ".search-expense-child-container",
+);
+if (searchExpenseChildContainer) {
+  turnOffSearchButton();
+
+  searchExpenseChildContainer.addEventListener("click", async (e) => {
+    let searchExpenseInput = document.getElementById("search-expense-input");
+
+    let fromInput = document.getElementById("search_from_input");
+    if (e.target.id === "search_from_input") {
+      let fromCalender = flatpickr(fromInput, {
+        dateFormat: "m-d-Y",
+        disableMobile: true,
+      });
+      fromCalender.open();
+    }
+    if (e.target.id === "search_to_input") {
+      let toInput = document.querySelector(".se-to-input");
+      let toInputCalender = flatpickr(toInput, {
+        disableMobile: true,
+        dateFormat: "m-d-Y",
+      });
+      toInputCalender.open();
+    }
+    if (e.target.classList.contains("search-expense-button")) {
+      let searchExpenseButton = e.target;
+
+      let userSearch = searchExpenseInput.value.trim();
+      if (userSearch === "") {
+        alert("Please enter an expense name to search.");
+      } else {
+        try {
+          let response = await fetch(
+            `/search_expense?userSearch=${encodeURIComponent(userSearch)}`,
+          );
+          let data = await response.json();
+          console.log(data);
+          let resultsContainer = document.querySelector(
+            ".searched-expense-results-container",
+          );
+          if (resultsContainer) {
+            resultsContainer.textContent = data;
+            resultsContainer.style.color = "red";
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  });
+}
+
+function toggleSearchButton() {
+  let searchExpenseButton = document.querySelector(".search-expense-button");
+  let userInput = document.getElementById("search-expense-input");
+  let userInputValue = userInput.value.trim();
+  if (userInputValue === "") {
+    searchExpenseButton.disabled = true;
+  } else {
+    searchExpenseButton.disabled = false;
+  }
+}
+
+function turnOffSearchButton() {
+  let searchExpenseButton = document.querySelector(".search-expense-button");
+  searchExpenseButton.disabled = true;
 }

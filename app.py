@@ -944,7 +944,7 @@ def submit_expense():
     return redirect(url_for('dashboard', username=username))
 
 
-@app.route('/add_expense/', methods=["GET", "POST"])
+@app.route('/add_expense', methods=["GET", "POST"])
 
 def add_expense():
    
@@ -969,6 +969,7 @@ def add_expense():
    
    
     username = session.get("username")
+    username = username.capitalize()
     return render_template('add_expense.html', username=username, time = time, current_year_int_convert = current_year_int_convert, previous_year = previous_year, showing_year = showing_year, current_month = current_month, showing_day = showing_day)
 
 
@@ -1349,7 +1350,7 @@ def quick_search_update():
         if db:
             db.close()
         if cursor:
-            cursor.close
+            cursor.close()
        
             
         
@@ -1357,7 +1358,67 @@ def quick_search_update():
 
 
 
+@app.route("/search_expense", methods= ["get", "post"])
+def search_expense(): 
 
+    db = get_db()
+    cursor = db.cursor()
+
+
+
+    username = session.get("username")
+    userId = session.get("user_id",None)
+   
+
+    user_search = request.args.get("userSearch",None)
+    if user_search != None:
+        converted_to_string_user_search = str(user_search)
+   
+
+        sql_search_expense = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s"
+        cursor.execute(sql_search_expense,(userId,converted_to_string_user_search + "%"))
+        results = cursor.fetchall()
+
+        searched_expense_list = []
+       
+
+        for column in results:
+            converted_date = column[4].strftime("%m-%d-%Y")
+            converted_cost = str(column[3])
+            
+            my_dictionary = {
+                "expense_id":column[0],
+                "expense_name":column[2],
+                "expense_cost":converted_cost,
+                
+                "expense_date":converted_date,
+                "expense_category":column[6]
+                }
+            searched_expense_list.append(my_dictionary)
+           
+
+            
+      
+        converted_searched_expenses = json.dumps(searched_expense_list,indent=4)
+        return jsonify(converted_searched_expenses)
+        
+        
+    else:
+        print("nothing")
+      
+        
+        
+       
+
+    
+
+
+    
+
+    
+    
+    
+    return render_template("search-expense.html", username = username.capitalize())
 
 
 
