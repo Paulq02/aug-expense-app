@@ -7,6 +7,10 @@ html .light {
 }
 */
 
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 .dark,
 .light {
   border: solid 2px red;
@@ -1491,6 +1495,26 @@ header .image-text .header-text {
   position: relative;
 }
 
+.toggle-container #fl-toggle {
+  height: 32px;
+  width: 32px;
+  font-size: 32px;
+}
+
+.toggle-container #fl-toggle:hover {
+  height: 40px;
+  width: 40px;
+  font-size: 40px;
+}
+
+#fl-search-icon {
+  text-align: center;
+  background-color: transparent;
+}
+.close-search-box:hover {
+  background: #9333ea;
+}
+
 .close .image-text .toggle-container .toggle {
   position: absolute;
   right: -50px;
@@ -1504,11 +1528,6 @@ header .image-text .header-text {
   align-items: center;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.close .image-text .toggle-container .toggle:hover {
-  height: 35px;
-  width: 35px;
 }
 
 .close.sidebar .image-text .toggle-container .toggle {
@@ -5034,6 +5053,288 @@ a li {
   padding-top: 30px;
   padding-bottom: 40px;
 }
+.dark .expense-details-parent-div {
+  position: relative;
+  height: 97%;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: fixed;
+  background-color: #000000;
+  border-radius: 10px;
+  border: solid 2px #6d28d9;
+}
+
+.light .expense-details-parent-div {
+  height: 97%;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  position: fixed;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: solid 2px #6d28d9;
+}
+
+.arrow-back-close-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.arrow-back-text {
+  font-family: "`Roboto`, sans-serif";
+  color: #6d28d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  gap: 15px;
+}
+
+.back-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trans-text-container {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: solid 2px #6d28d9;
+}
+
+.dark .trans-text {
+  font-family: "`Roboto`, sans-serif";
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.light .trans-text {
+  font-family: "`Roboto`, sans-serif";
+  color: #000000;
+  font-size: 2rem;
+}
+
+.expense-name-icon-tag-container {
+  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: solid 2px grey;
+  border-bottom: 2px solid #1b1829;
+}
+
+.dark .expense-name-details {
+  font-family: "`Roboto`, sans-serif";
+  color: #ffffff;
+  font-size: 2.3rem;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.light .expense-name-details {
+  font-family: "`Roboto`, sans-serif";
+  color: #000000;
+  font-size: 2.3rem;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.expense-child-container {
+  width: 95%;
+  border-radius: 15px;
+  border: solid 2px #6d28d9;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.amount-container,
+.date-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+  gap: 10px;
+  border-bottom: solid 2px grey;
+  border-bottom: 2px solid #1b1829;
+}
+
+.category-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+.dark .amount-value-text,
+.dark .date-value-text,
+.dark .category-value-text {
+  color: #ffffff;
+  font-size: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+.amount-span,
+.date-span,
+.category-span {
+  color: grey;
+  font-size: 1.1rem;
+  padding-bottom: 2px;
+  text-align: center;
+}
+/*
+.date-container {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  */
+
+.date-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-delete-button-container {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+
+  padding: 30px 0;
+}
+
+.as-edit-span,
+.as-trash-span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark .as-edit-button {
+  border-radius: 15px;
+  border: solid 2px #6d28d9;
+  background-color: #000000;
+  color: #6d28d9;
+  width: 40%;
+  font-size: 1.6rem;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.dark .as-delete-button,
+.dark .confirm-delete-button {
+  border-radius: 15px;
+  border: solid 2px #ff2d55;
+  background-color: rgba(255, 45, 85, 0.12);
+  color: #ff2d55;
+  width: 40%;
+  font-size: 1.6rem;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.dark .as-cancel-button {
+  border-radius: 15px;
+  border: solid 2px #6d28d9;
+  background-color: #000000;
+  color: #6d28d9;
+  width: 40%;
+  font-size: 1.6rem;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.dark .confirm-delete-expense {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #000000;
+  width: 60%;
+  border-radius: 15px;
+  border: solid 2px #6d28d9;
+}
+
+.trash-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.cd-trash-span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-transaction-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-transaction-prompt {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.details-div-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.expense-name-text-value {
+  font-size: 2rem;
+  color: #6d28d9;
+}
+
+.action-undone-text,
+.are-you-sure-text {
+  font-size: 1.5rem;
+  color: grey;
+}
+.confirm-delete-cancel-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 20px;
+}
 
 /* ==========   DOUGHNUT CHART STYLING END ===================*/
 
@@ -5259,6 +5560,7 @@ a li {
 /*SEARCH EXPENSE START SECTION -------------------------------------------------------------------------------------------*/
 
 .search-expense-main {
+  position: relative;
   border: solid 1px #6d28d9;
   border-radius: 5px;
   width: 95%;
@@ -5378,6 +5680,9 @@ a li {
   display: flex;
   align-items: center;
   margin-right: 40px;
+  border: solid #6d28d9 2px;
+  border-radius: 10px;
+  padding: 3px;
 }
 
 .se-from-to-container {
@@ -5440,6 +5745,89 @@ a li {
   opacity: 0.5;
 }
 
+.total-results-container {
+  width: 80%;
+  display: none;
+  height: auto;
+  align-items: center;
+
+  background-color: #000000;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: solid 1px grey;
+  margin-bottom: 15px;
+}
+
+.searched-expense-results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.icon-results-container {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.icon-results-container img {
+  height: 90px;
+}
+.expenses-amount-label-container {
+  width: 55%;
+}
+
+.total-results-label {
+  font-size: 32px;
+  color: #6d28d9;
+  margin-bottom: 0;
+}
+
+.amount-value {
+  color: #ffffff;
+  font-size: 40px;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.expenses-found-label {
+  font-size: 20px;
+  color: #ffffff;
+  margin-top: 0;
+}
+.searched-results-button-container {
+  display: none;
+  background-color: #000000;
+  height: 80px;
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dark .searched-results-button-container p,
+.dark .searched-results-button-container svg {
+  color: #ffffff;
+  stroke: #ffffff;
+}
+
+.dark .searched-results-button-container button {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.dark .searched-results-button-container button {
+  background-color: #000000;
+  border-radius: 10px;
+  border: solid 1px grey;
+  width: 200px;
+  height: 50px;
+}
 /*SEARCH EXPENSE END SECTION -------------------------------------------------------------------------------------------*/
 
 @media (max-width: 651px) {
@@ -5547,5 +5935,39 @@ a li {
 
   .pie-parent-container {
     height: auto;
+  }
+}
+@media (min-width: 1000px) {
+  .confirm-delete-expense {
+    max-width: 800px;
+    min-width: 600px;
+    width: 30%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 999px) {
+  .confirm-delete-expense {
+    max-width: 550px;
+    min-width: 500px;
+    width: 45%;
+  }
+}
+@media (max-width: 599px) {
+  .dark .confirm-delete-expense {
+    max-width: 500px;
+    min-width: 410px;
+    width: 80%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+  }
+  .confirm-delete-cancel-container {
+    width: 90%;
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+  .dark .confirm-delete-button,
+  .dark .as-cancel-button {
+    width: 70%;
   }
 }

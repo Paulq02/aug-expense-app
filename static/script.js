@@ -1439,21 +1439,138 @@ if (aeSidebar && aeToggleButton) {
 }
 
 if (flSidebar && flToggleButton) {
+  let flToggleButton = document.getElementById("fl-toggle");
+  let flSearchLi = document.getElementById("fl-close-searchbox");
+  let flSearchIcon = document.getElementById("fl-search-icon");
+  let closeSearchBox = document.querySelector(".open-search-box");
   flToggleButton.addEventListener("click", (e) => {
-    if (!flSidebar.classList.contains("sidebar")) {
+    let isClosed = !flSidebar.classList.contains("sidebar");
+    console.log(`THIS IS THE VALUE OF IS CLOSED ----${isClosed}`);
+
+    if (isClosed) {
+      console.log("open added");
       flSidebar.classList.toggle("sidebar");
       flToggleButton.classList.remove("bx-chevron-right");
       flToggleButton.classList.add("bx-chevron-left");
 
+      flSearchLi.classList.add("open-search-box");
+      flSearchLi.classList.remove("close-search-box");
+
+      flSearchIcon.classList.remove("close-search-box");
+      flSearchIcon.classList.add("open-search-box");
+
       firstTimerParentContainer.style.marginLeft = "210px";
     } else {
-      flSidebar.classList.toggle("sidebar");
-      firstTimerParentContainer.style.marginLeft = "0px";
-      flToggleButton.classList.remove("bx-chevron-left");
-      flToggleButton.classList.add("bx-chevron-right");
+      let isOpen = flSidebar.classList.contains("sidebar");
+      console.log(`THIS IS THE VALUE OF IS OPEN ----${isOpen}`);
+      if (isOpen) {
+        console.log("close added");
+        flSidebar.classList.toggle("sidebar");
+        firstTimerParentContainer.style.marginLeft = "0px";
+        flToggleButton.classList.remove("bx-chevron-left");
+        flToggleButton.classList.add("bx-chevron-right");
+
+        flSearchLi.classList.add("close-search-box");
+        flSearchLi.classList.remove("open-search-box");
+
+        flSearchIcon.classList.add("close-search-box");
+        flSearchIcon.classList.remove("open-search-box");
+      }
     }
   });
 }
+
+if (flSidebar) {
+  let flToggleButton = document.getElementById("fl-toggle");
+  let flSearchLi = document.getElementById("fl-close-searchbox");
+  let flSearchIcon = document.getElementById("fl-search-icon");
+  flSidebar.addEventListener("click", (e) => {
+    console.log(e.target);
+    if (e.target.classList.contains("close-search-box")) {
+      console.log("yes has close search box");
+      flSidebar.classList.add("sidebar");
+      flSearchLi.classList.add("open-search-box");
+      flSearchLi.classList.remove("close-search-box");
+
+      flSearchIcon.classList.remove("close-search-box");
+      flSearchIcon.classList.add("open-search-box");
+
+      flToggleButton.classList.remove("bx-chevron-right");
+      flToggleButton.classList.add("bx-chevron-left");
+    }
+  });
+}
+
+/*
+if (flSidebar) {
+  let flToggleButton = document.getElementById("fl-toggle");
+  let flSearchLi = document.getElementById("fl-close-searchbox");
+  let flSearchIcon = document.getElementById("fl-search-icon");
+  let closeSearchBox = document.querySelector(".open-search-box");
+  flSidebar.addEventListener("click", (e) => {
+    if (e.target.closest(".close-search-box")) {
+      if (
+        !flSidebar.classList.contains("sidebar") &&
+        flToggleButton.classList.contains("bx-chevron-right")
+      ) {
+        console.log("other open added");
+
+        flSearchLi.classList.remove("close-search-box");
+        flSearchLi.classList.add("open-search-box");
+
+        flSearchIcon.classList.remove("close-search-box");
+        flSearchIcon.classList.add("open-search-box");
+
+        flToggleButton.classList.remove("bx-chevron-right");
+        flToggleButton.classList.add("bx-chevron-left");
+      }
+    } else {
+      console.log("contradiction 2");
+      flSearchLi.classList.add("close-search-box");
+      flSearchLi.classList.remove("open-search-box");
+
+      flSearchIcon.classList.add("close-search-box");
+      flSearchIcon.classList.remove("open-search-box");
+
+      flToggleButton.classList.add("bx-chevron-right");
+      flToggleButton.classList.remove("bx-chevron-left");
+    }
+  });
+}
+*/
+
+/*
+if (flSidebar) {
+  flSidebar.addEventListener("click", (e) => {
+    let flToggleButton = document.getElementById("fl-toggle");
+    let flSearchLi = document.getElementById("fl-close-searchbox");
+    let flSearchIcon = document.getElementById("fl-search-icon");
+    let closeSearchBox = document.querySelector(".open-search-box");
+
+    if (e.target.closest(".toggle")) {
+      let isClosed = e.target.classList.contains("bx-chevron-right");
+      console.log(isClosed);
+      if (isClosed) {
+        console.log("open added");
+        flSearchLi.classList.add("open-search-box");
+        flSearchLi.classList.remove("close-search-box");
+      }
+    }
+
+    if (e.target.closest(".toggle")) {
+      let isOpen = e.target.classList.contains("bx-chevron-left");
+      console.log(isOpen);
+      if (isOpen) {
+        console.log("close added");
+        flSearchLi.classList.add("close-search-box");
+        flSearchLi.classList.remove("open-search-box");
+      }
+    }
+       });
+}
+
+
+*/
 
 if (dashboardToggleButton && expenseDataContainer) {
   dashboardToggleButton.addEventListener("click", () => {
@@ -1533,6 +1650,24 @@ if (addExpenseToggleButton) {
       searchInputCancelIcon.style.display = "flex";
     } else {
       searchInputCancelIcon.style.display = "none";
+    }
+  });
+}
+
+if (openSidebar) {
+  let toggleButton = document.getElementById("fl-toggle");
+  openSidebar.addEventListener("click", (e) => {
+    console.log("line 1572");
+    if (e.target.closest(".bx-chevron-right")) {
+      console.log("toggle button");
+      openSidebar.classList.add("sidebar");
+
+      toggleButton.classList.remove("bx-chevron-right");
+      toggleButton.classList.add("bx-chevron-left");
+    } else {
+      openSidebar.classList.remove("sidebar");
+      toggleButton.classList.add("bx-chevron-right");
+      toggleButton.classList.remove("bx-chevron-left");
     }
   });
 }
@@ -2436,8 +2571,6 @@ if (aeHamburgerExpenseTrackerContainer) {
   let aeMobileMenu = document.getElementById("ae-mobile-menu");
 
   aeHamburgerExpenseTrackerContainer.addEventListener("click", (e) => {
-    console.log("clicked");
-
     let aeDarkModeSpan = document.querySelector(".dark-mode");
     let aeDarkModeText = document.querySelector(".ae-dark-mode-text");
 
@@ -2907,14 +3040,26 @@ window.addEventListener("DOMContentLoaded", (e) => {
     });
   }
 });
-const searchExpenseChildContainer = document.querySelector(
-  ".search-expense-child-container",
+const searchExpenseMainContainer = document.querySelector(
+  ".search-expense-main",
 );
-if (searchExpenseChildContainer) {
-  turnOffSearchButton();
 
-  searchExpenseChildContainer.addEventListener("click", async (e) => {
+if (searchExpenseMainContainer) {
+  turnOffSearchButton();
+  let offset = 0;
+  searchExpenseMainContainer.addEventListener("click", async (e) => {
     let searchExpenseInput = document.getElementById("search-expense-input");
+    let searchExpenseButton = document.querySelector(".search-expense-button");
+    let searchResultsButtonContainer = document.querySelector(
+      ".searched-results-button-container",
+    );
+    let totalResultsContainer = document.querySelector(
+      ".total-results-container",
+    );
+
+    let searchResultsContainer = document.querySelector(
+      ".searched-expense-results-container",
+    );
 
     let fromInput = document.getElementById("search_from_input");
     if (e.target.id === "search_from_input") {
@@ -2933,6 +3078,18 @@ if (searchExpenseChildContainer) {
       toInputCalender.open();
     }
     if (e.target.classList.contains("search-expense-button")) {
+      searchResultsContainer.innerHTML = "";
+      let previousButton = document.querySelector(".previous");
+      if (offset == 0) {
+        previousButton.style.display = "none";
+        searchResultsButtonContainer.style.justifyContent = "center";
+      }
+      searchResultsButtonContainer.style.display = "flex";
+
+      searchResultsContainer.style.display = "flex";
+
+      totalResultsContainer.style.display = "flex";
+
       let searchExpenseButton = e.target;
 
       let userSearch = searchExpenseInput.value.trim();
@@ -2940,24 +3097,548 @@ if (searchExpenseChildContainer) {
         alert("Please enter an expense name to search.");
       } else {
         try {
+          let offset = 0;
+
           let response = await fetch(
-            `/search_expense?userSearch=${encodeURIComponent(userSearch)}`,
+            `/search_expense?userSearch=${encodeURIComponent(userSearch)}&offset=${encodeURIComponent(offset)}`,
           );
-          let data = await response.json();
-          console.log(data);
-          let resultsContainer = document.querySelector(
-            ".searched-expense-results-container",
-          );
-          if (resultsContainer) {
-            resultsContainer.textContent = data;
-            resultsContainer.style.color = "red";
+          if (response.ok === true) {
+            let data = await response.json();
+
+            /*
+            console.log(data[0].expense_name);
+            let names =
+             data[0].expense_name;
+            */
+
+            /*
+            let convertedToString = JSON.stringify(data);
+            */
+
+            let totalAmount = data[0].total_results_amount;
+            let runningCount = data[0].running_count;
+
+            for (let result of data) {
+              let expenseName = result.expense_name;
+              let expenseCost = result.expense_cost;
+              let expenseDate = result.expense_date;
+              let expenseCategory = result.expense_category;
+              let expenseId = result.expense_id;
+
+              showResult(
+                expenseName,
+                expenseCost,
+                expenseDate,
+                expenseCategory,
+                expenseId,
+              );
+            }
+            showResultsTotal(totalAmount);
+            buttonsOff(offset, totalAmount, runningCount);
           }
         } catch (e) {
           console.log(e);
         }
       }
     }
+
+    if (e.target.classList.contains("clear-button")) {
+      let offset = 0;
+      searchExpenseInput.value = "";
+      searchExpenseInput.focus();
+      window.location.reload();
+
+      searchExpenseButton.disabled = true;
+
+      searchResultsButtonContainer.style.display = "none";
+      totalResultsContainer.style.display = "none";
+      searchResultsContainer.style.display = "none";
+    }
+
+    if (e.target.closest(".next")) {
+      let previousButton = document.querySelector(".previous");
+      searchResultsContainer.innerHTML = "";
+      let userSearchElement = document.getElementById("search-expense-input");
+      let userSearch = userSearchElement.value.trim();
+
+      try {
+        offset += 10;
+
+        console.log(offset);
+
+        let response = await fetch(
+          `/search_expense?userSearch=${encodeURIComponent(userSearch)}&offset=${encodeURIComponent(offset)}`,
+        );
+        let data = await response.json();
+
+        runningCount = data[0].running_count;
+        totalAmountResult = data[0].total_amount_results;
+
+        let noob = data[0].expense_id;
+
+        for (result of data) {
+          let expenseName = result.expense_name;
+          let expenseCost = result.expense_cost;
+          let expenseDate = result.expense_date;
+          let expenseCategory = result.expense_category;
+          let expenseId = result.expense_id;
+          showResult(
+            expenseName,
+            expenseCost,
+            expenseDate,
+            expenseCategory,
+            expenseId,
+          );
+        }
+
+        buttonsOff(offset, totalAmountResult, runningCount);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (e.target.closest(".previous")) {
+      offset -= 10;
+
+      let previousButton = document.querySelector(".previous");
+      let nextButton = document.querySelector(".next");
+      searchResultsContainer.innerHTML = "";
+      let userSearchElement = document.getElementById("search-expense-input");
+      let userSearch = userSearchElement.value.trim();
+      console.log(`previous clicked this is the offset ${offset}`);
+
+      try {
+        let response = await fetch(
+          `/search_expense?userSearch=${encodeURIComponent(userSearch)}&offset=${encodeURIComponent(offset)}`,
+        );
+        let data = await response.json();
+
+        runningCount = data[0].running_count;
+        totalAmountResult = data[0].total_amount_results;
+
+        for (result of data) {
+          let expenseName = result.expense_name;
+          let expenseCost = result.expense_cost;
+          let expenseDate = result.expense_date;
+          let expenseCategory = result.expense_category;
+          let expenseId = result.expense_id;
+
+          showResult(
+            expenseName,
+            expenseCost,
+            expenseDate,
+            expenseCategory,
+            expenseId,
+          );
+        }
+
+        buttonsOff(offset, totalAmountResult, runningCount);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (e.target.closest(".expense-div")) {
+      let outerDiv = e.target.closest(".expense-div");
+
+      let expenseId = outerDiv.dataset.expenseId;
+      let expenseCategory = outerDiv.dataset.expenseCategory;
+      let expenseName = outerDiv.dataset.expenseName;
+      let expenseCost = outerDiv.dataset.expenseCost;
+      let expenseDate = outerDiv.dataset.expenseDate;
+
+      showExpenseDetails(
+        expenseId,
+        expenseCategory,
+        expenseName,
+        expenseCost,
+        expenseDate,
+      );
+    }
   });
+}
+
+let expenseResultsContainer = document.querySelector(
+  ".searched-expense-results-container",
+);
+
+if (expenseResultsContainer) {
+  expenseResultsContainer.addEventListener("click", (e) => {
+    if (e.target.closest(".arrow-back-text")) {
+      let expenseId = e.target.dataset.expenseId;
+
+      let expenseDetailsDiv = document.getElementById(
+        `expense-details-parent-div-${expenseId}`,
+      );
+
+      expenseDetailsDiv.remove();
+    }
+
+    if (e.target.closest(".as-delete-button")) {
+      let deleteButton = e.target.closest(".as-delete-button");
+      let expenseId = deleteButton.dataset.expenseId;
+      let expenseName = deleteButton.dataset.expenseName;
+
+      /*
+      advancedDeleteExpense(expenseId);
+      */
+
+      expenseDeleteConfirmation(expenseId, expenseName);
+      let currentDeleteButton = document.getElementById(
+        `as-delete-button-${expenseId}`,
+      );
+      let currentEditButton = document.getElementById(
+        `as-edit-button-${expenseId}`,
+      );
+      currentDeleteButton.disabled = true;
+      currentEditButton.disabled = true;
+    }
+  });
+}
+
+function showExpenseDetails(eId, eCat, eName, eCost, eDate) {
+  let resultsContainer = document.querySelector(
+    ".searched-expense-results-container",
+  );
+  let mainDetailsContainer = document.createElement("div");
+
+  mainDetailsContainer.setAttribute("class", "expense-details-parent-div");
+  mainDetailsContainer.setAttribute("id", `expense-details-parent-div-${eId}`);
+
+  let arrowBackCloseButtonContainer = document.createElement("div");
+  arrowBackCloseButtonContainer.setAttribute(
+    "class",
+    "arrow-back-close-container",
+  );
+  arrowBackCloseButtonContainer.style.width = "95%";
+  arrowBackCloseButtonContainer.style.margin = "0 auto";
+  arrowBackCloseButtonContainer.style.marginTop = "10px";
+
+  let backIcon = document.createElement("span");
+  backIcon.setAttribute("class", "back-icon");
+  backIcon.dataset.expenseId = eId;
+
+  backIcon.innerHTML = `
+  <svg
+    data-expense-id = "${eId}"
+    class="arrow-back-text"
+    xmlns="http://www.w3.org/2000/svg"
+    width="40"
+    height="40"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#6d28d9"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path
+    data-expense-id = "${eId}"
+    class="arrow-back-text"
+    d="m12 19-7-7 7-7"/>
+    <path 
+     data-expense-id = "${eId}"
+    class="arrow-back-text"
+    d="M19 12H5"/>
+  </svg>
+`;
+
+  let backText = document.createElement("span");
+  backText.setAttribute("class", "arrow-back-text");
+  backText.dataset.expenseId = eId;
+
+  backText.append(backIcon, "Back");
+
+  arrowBackCloseButtonContainer.append(backText);
+
+  let expenseId = document.createElement("p");
+  expenseId.style.color = "#ffffff";
+  expenseId.textContent = eId;
+
+  let transactionDetailsTextContainer = document.createElement("div");
+  transactionDetailsTextContainer.setAttribute("class", "trans-text-container");
+
+  let transactionDetailsText = document.createElement("span");
+  transactionDetailsText.setAttribute("class", "trans-text");
+  transactionDetailsText.textContent = "Transaction Details";
+
+  transactionDetailsTextContainer.append(transactionDetailsText);
+
+  let childContainer = document.createElement("div");
+  childContainer.classList.add("expense-child-container");
+
+  let expenseNameIconTagContainer = document.createElement("div");
+  expenseNameIconTagContainer.classList.add("expense-name-icon-tag-container");
+
+  let groIcon = document.createElement("img");
+  groIcon.src = "static/images/mobile-icons/gro-icon.png";
+  groIcon.style.height = "100px";
+
+  let monthBillIcon = document.createElement("img");
+  monthBillIcon.src = "static/images/mobile-icons/month-bill.png";
+  monthBillIcon.style.height = "100px";
+
+  let essentialIcon = document.createElement("img");
+  essentialIcon.src = "static/images/mobile-icons/non-essentials-icon.png";
+  essentialIcon.style.height = "100px";
+
+  let otherIcon = document.createElement("img");
+  otherIcon.src = "static/images/mobile-icons/other-icon.png";
+  otherIcon.style.height = "100px";
+
+  let rentIcon = document.createElement("img");
+  rentIcon.src = "static/images/mobile-icons/rent-icon.png";
+  rentIcon.style.height = "100px";
+
+  let entIcon = document.createElement("img");
+  entIcon.src = "static/images/mobile-icons/ent-icon.png";
+  entIcon.style.height = "100px";
+
+  if (eCat === "groceries") {
+    let icon = groIcon;
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "rent") {
+    let icon = rentIcon;
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "non-essentials") {
+    let icon = essentialIcon;
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "monthly") {
+    let icon = monthBillIcon;
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "other") {
+    let icon = otherIcon;
+    expenseNameIconTagContainer.append(icon);
+  }
+  if (eCat === "entertainment") {
+    let icon = entIcon;
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  let expenseName = document.createElement("p");
+  expenseName.classList.add("expense-name-details");
+  expenseName.setAttribute("id", `expense-name-details-${eId}`);
+  expenseName.textContent = eName;
+
+  expenseNameIconTagContainer.append(expenseName);
+
+  let eTagIcon = document.createElement("img");
+  eTagIcon.src =
+    "static/images/mobile-icons/entertainment_tag_badge_tight_crop.png";
+
+  let gTagIcon = document.createElement("img");
+  gTagIcon.src =
+    "static/images/mobile-icons/groceries_tag_badge_1159x264_preserved.png";
+
+  let mTagIcon = document.createElement("img");
+  mTagIcon.src = "static/images/mobile-icons/monthly_bills_badge_1159x264.png";
+
+  let nTagIcon = document.createElement("img");
+  nTagIcon.src =
+    "static/images/mobile-icons/non_essentials_taller_1159x290.png";
+
+  let oTagIcon = document.createElement("img");
+  oTagIcon.src = "static/images/mobile-icons/other_badge_1159x310.png";
+
+  let rTagIcon = document.createElement("img");
+  rTagIcon.src = "static/images/mobile-icons/rent_badge_1159x330.png";
+
+  if (eCat === "groceries") {
+    let icon = gTagIcon;
+    icon.style.height = "35px";
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "rent") {
+    let icon = rTagIcon;
+    icon.style.height = "35px";
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "non-essentials") {
+    let icon = nTagIcon;
+    icon.style.height = "35px";
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "monthly") {
+    let icon = mTagIcon;
+    icon.style.height = "35px";
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  if (eCat === "other") {
+    let icon = oTagIcon;
+    icon.style.height = "35px";
+    expenseNameIconTagContainer.append(icon);
+  }
+  if (eCat === "entertainment") {
+    let icon = eTagIcon;
+    icon.style.height = "35px";
+    expenseNameIconTagContainer.append(icon);
+  }
+
+  let amountContainer = document.createElement("div");
+  amountContainer.classList.add("amount-container");
+
+  let amountIcon = document.createElement("p");
+  amountIcon.innerHTML = `<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="35" height="35" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="#6d28d9" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class="lucide lucide-circle-dollar-sign preview-icon"><circle 
+  cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>`;
+
+  let amountValueText = document.createElement("p");
+  amountValueText.classList.add("amount-value-text");
+
+  let amountLabel = document.createElement("span");
+  amountLabel.classList.add("amount-span");
+  amountLabel.textContent = "Amount";
+
+  amountValueText.append(amountLabel);
+  amountValueText.append(`$${eCost}`);
+
+  amountContainer.append(amountIcon, amountValueText);
+
+  let dateContainer = document.createElement("div");
+  dateContainer.classList.add("date-container");
+
+  let calenderIcon = document.createElement("span");
+  calenderIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" 
+  width="35" height="35" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="#6d28d9" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class="lucide lucide-calendar-days preview-icon">
+  <path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" 
+  width="18" height="18" rx="2"/><path d="M3 9h18"/>
+  <path d="M8 13h.01"/><path d="M12 13h.01"/>
+  <path d="M16 13h.01"/><path d="M8 17h.01"/>
+  <path d="M12 17h.01"/><path d="M16 17h.01"/></svg>`;
+
+  let dateText = document.createElement("p");
+  dateText.classList.add("date-value-text");
+
+  let dateLabel = document.createElement("span");
+  dateLabel.classList.add("date-span");
+  dateLabel.textContent = "Date";
+
+  dateText.append(dateLabel, eDate);
+
+  dateContainer.append(calenderIcon, dateText);
+
+  let categoryContainer = document.createElement("div");
+  categoryContainer.classList.add("category-container");
+
+  let categoryIcon = document.createElement("span");
+  categoryIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" 
+  width="35" height="35" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="#6d28d9" 
+  stroke-width="2" 
+  stroke-linecap="round"
+  stroke-linejoin="round" 
+  class="lucide lucide-tag preview-icon">
+  <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/>
+  <circle cx="7.5" cy="7.5" r=".5" 
+  fill="currentColor"/></svg>`;
+
+  let categorySpan = document.createElement("span");
+  categorySpan.classList.add("category-span");
+  categorySpan.textContent = "Category";
+
+  let categoryTextValue = document.createElement("p");
+  categoryTextValue.classList.add("category-value-text");
+
+  categoryTextValue.append(categorySpan, eCat);
+
+  categoryContainer.append(categoryIcon, categoryTextValue);
+
+  childContainer.append(
+    expenseNameIconTagContainer,
+    amountContainer,
+    dateContainer,
+    categoryContainer,
+  );
+
+  let editDeleteButtonContainer = document.createElement("div");
+  editDeleteButtonContainer.classList.add("edit-delete-button-container");
+  editDeleteButtonContainer.setAttribute(
+    "id",
+    `edit-delete-button-container-${eId}`,
+  );
+
+  let editButton = document.createElement("button");
+  editButton.classList.add("as-edit-button");
+  editButton.setAttribute("id", `as-edit-button-${eId}`);
+  editButton.dataset.expenseId = eId;
+
+  let asEditIcon = document.createElement("span");
+  asEditIcon.classList.add("as-edit-span");
+  asEditIcon.innerHTML = `<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="24" height="24"
+   viewBox="0 0 24 24" fill="none"  stroke-width="2" stroke="#6d28d9"  
+   stroke-linecap="round" 
+   stroke-linejoin="round" 
+   class="lucide lucide-square-pen preview-icon">
+   <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+   <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/>
+   </svg>`;
+
+  editButton.append(asEditIcon, "Edit");
+
+  let asDeleteButton = document.createElement("button");
+  asDeleteButton.classList.add("as-delete-button");
+  asDeleteButton.setAttribute("id", `as-delete-button-${eId}`);
+  asDeleteButton.dataset.expenseId = eId;
+  asDeleteButton.dataset.expenseName = eName;
+
+  let asTrashIcon = document.createElement("span");
+  asTrashIcon.classList.add("as-trash-span");
+  asTrashIcon.innerHTML = `<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="24" height="24" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="#ff2d55" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class="lucide lucide-trash preview-icon">
+  <path d="M10 11v6"/><path d="M14 11v6"/>
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+  <path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+  </svg>`;
+
+  asDeleteButton.append(asTrashIcon, "Delete");
+
+  editDeleteButtonContainer.append(editButton, asDeleteButton);
+
+  mainDetailsContainer.append(
+    arrowBackCloseButtonContainer,
+    transactionDetailsTextContainer,
+    childContainer,
+    editDeleteButtonContainer,
+  );
+
+  resultsContainer.append(mainDetailsContainer);
 }
 
 function toggleSearchButton() {
@@ -2974,4 +3655,359 @@ function toggleSearchButton() {
 function turnOffSearchButton() {
   let searchExpenseButton = document.querySelector(".search-expense-button");
   searchExpenseButton.disabled = true;
+}
+
+function showResultsTotal(amount) {
+  let searchedResultsAmount = document.querySelector(".amount-value");
+
+  searchedResultsAmount.textContent = amount;
+}
+
+function showResult(eName, eCost, eDate, eCat, eId) {
+  let resultsContainer = document.querySelector(
+    ".searched-expense-results-container",
+  );
+  let newDiv = document.createElement("div");
+  newDiv.style.backgroundColor = "#000000";
+  newDiv.style.height = "140px";
+  newDiv.style.width = "80%";
+  newDiv.style.margin = "0 auto";
+  newDiv.style.border = "solid 2px grey";
+  newDiv.style.borderRadius = "10px";
+  newDiv.style.display = "flex";
+  newDiv.dataset.expenseId = eId;
+  newDiv.dataset.expenseCost = eCost;
+  newDiv.dataset.expenseName = eName;
+  newDiv.dataset.expenseDate = eDate;
+  newDiv.dataset.expenseCategory = eCat;
+  newDiv.setAttribute("id", `new-div-${eId}`);
+  newDiv.setAttribute("class", "expense-div");
+
+  let iconContainer = document.createElement("div");
+  iconContainer.style.display = "flex";
+  iconContainer.style.alignItems = "center";
+  iconContainer.style.justifyContent = "center";
+  iconContainer.style.width = "15%";
+
+  let groIcon = document.createElement("img");
+  groIcon.src = "static/images/mobile-icons/gro-icon.png";
+  groIcon.style.height = "75px";
+
+  let monthBillIcon = document.createElement("img");
+  monthBillIcon.src = "static/images/mobile-icons/month-bill.png";
+  monthBillIcon.style.height = "75px";
+
+  let essentialIcon = document.createElement("img");
+  essentialIcon.src = "static/images/mobile-icons/non-essentials-icon.png";
+  essentialIcon.style.height = "75px";
+
+  let otherIcon = document.createElement("img");
+  otherIcon.src = "static/images/mobile-icons/other-icon.png";
+  otherIcon.style.height = "75px";
+
+  let rentIcon = document.createElement("img");
+  rentIcon.src = "static/images/mobile-icons/rent-icon.png";
+  rentIcon.style.height = "75px";
+
+  let entIcon = document.createElement("img");
+  entIcon.src = "static/images/mobile-icons/ent-icon.png";
+  entIcon.style.height = "75px";
+
+  if (eCat === "groceries") {
+    let icon = groIcon;
+    iconContainer.append(icon);
+  }
+
+  if (eCat === "rent") {
+    let icon = rentIcon;
+    iconContainer.append(icon);
+  }
+
+  if (eCat === "non-essentials") {
+    let icon = essentialIcon;
+    iconContainer.append(icon);
+  }
+
+  if (eCat === "monthly") {
+    let icon = monthBillIcon;
+    iconContainer.append(icon);
+  }
+
+  if (eCat === "other") {
+    let icon = otherIcon;
+    iconContainer.append(icon);
+  }
+  if (eCat === "entertainment") {
+    let icon = entIcon;
+    iconContainer.append(icon);
+  }
+
+  /*
+  icon.style.border = "solid 1px #6d28d9";
+  icon.style.borderRadius = "5px";
+  */
+
+  newDiv.append(iconContainer);
+
+  let flexColumnContainer = document.createElement("div");
+
+  flexColumnContainer.style.width = "100%";
+  flexColumnContainer.style.display = "flex";
+  flexColumnContainer.style.flexDirection = "column";
+  flexColumnContainer.style.justifyContent = "center";
+  flexColumnContainer.style.gap = "15px";
+
+  let nameCostContainer = document.createElement("div");
+  nameCostContainer.style.backgroundColor = "black";
+  nameCostContainer.style.width = "95%";
+  nameCostContainer.style.display = "flex";
+  nameCostContainer.style.justifyContent = "space-between";
+
+  let mobileExpenseName = document.createElement("p");
+  mobileExpenseName.textContent = eName;
+  mobileExpenseName.style.color = "#ffffff";
+  mobileExpenseName.style.fontFamily = `"Roboto", sans-serif;`;
+  mobileExpenseName.style.fontSize = "22px";
+  mobileExpenseName.style.margin = "0";
+
+  let mobileExpenseCost = document.createElement("p");
+  mobileExpenseCost.textContent = "$" + eCost;
+  mobileExpenseCost.style.fontFamily = `"Roboto", sans-serif;`;
+  mobileExpenseCost.style.color = "#ffffff";
+  mobileExpenseCost.style.fontSize = "20px";
+  mobileExpenseCost.style.margin = "0";
+
+  let dateButtonContainer = document.createElement("div");
+  dateButtonContainer.style.width = "95%";
+  dateButtonContainer.style.display = "flex";
+  dateButtonContainer.style.justifyContent = "space-between";
+
+  let tagIconContainer = document.createElement("div");
+  tagIconContainer.style.width = "100%";
+
+  let eTagIcon = document.createElement("img");
+  eTagIcon.src =
+    "static/images/mobile-icons/entertainment_tag_badge_tight_crop.png";
+
+  let gTagIcon = document.createElement("img");
+  gTagIcon.src =
+    "static/images/mobile-icons/groceries_tag_badge_1159x264_preserved.png";
+
+  let mTagIcon = document.createElement("img");
+  mTagIcon.src = "static/images/mobile-icons/monthly_bills_badge_1159x264.png";
+
+  let nTagIcon = document.createElement("img");
+  nTagIcon.src =
+    "static/images/mobile-icons/non_essentials_taller_1159x290.png";
+
+  let oTagIcon = document.createElement("img");
+  oTagIcon.src = "static/images/mobile-icons/other_badge_1159x310.png";
+
+  let rTagIcon = document.createElement("img");
+  rTagIcon.src = "static/images/mobile-icons/rent_badge_1159x330.png";
+
+  if (eCat === "groceries") {
+    let icon = gTagIcon;
+    icon.style.height = "30px";
+    tagIconContainer.append(icon);
+  }
+
+  if (eCat === "rent") {
+    let icon = rTagIcon;
+    icon.style.height = "30px";
+    tagIconContainer.append(icon);
+  }
+
+  if (eCat === "non-essentials") {
+    let icon = nTagIcon;
+    icon.style.height = "30px";
+    tagIconContainer.append(icon);
+  }
+
+  if (eCat === "monthly") {
+    let icon = mTagIcon;
+    icon.style.height = "30px";
+    tagIconContainer.append(icon);
+  }
+
+  if (eCat === "other") {
+    let icon = oTagIcon;
+    icon.style.height = "30px";
+    tagIconContainer.append(icon);
+  }
+  if (eCat === "entertainment") {
+    let icon = eTagIcon;
+    icon.style.height = "30px";
+    tagIconContainer.append(icon);
+  }
+
+  let mobileExpenseDate = document.createElement("p");
+  mobileExpenseDate.style.fontFamily = `"Roboto", sans-serif;`;
+  mobileExpenseDate.style.color = "grey";
+  mobileExpenseDate.style.fontSize = "19px";
+  mobileExpenseDate.textContent = eDate;
+  mobileExpenseDate.style.margin = "0";
+
+  let arrowDetailsIcon = document.createElement("img");
+  arrowDetailsIcon.src = "static/images/next.png";
+  arrowDetailsIcon.style.height = "40px";
+  arrowDetailsIcon.style.display = "block";
+
+  dateButtonContainer.append(mobileExpenseDate, arrowDetailsIcon);
+  nameCostContainer.append(mobileExpenseName, mobileExpenseCost);
+  flexColumnContainer.append(
+    nameCostContainer,
+    tagIconContainer,
+    dateButtonContainer,
+  );
+
+  newDiv.append(flexColumnContainer);
+
+  resultsContainer.append(newDiv);
+}
+
+function buttonsOff(offset, resultsTotal, runCount) {
+  let previousButton = document.querySelector(".previous");
+  let nextButton = document.querySelector(".next");
+
+  if (offset == 0) {
+    previousButton.style.display = "none";
+    nextButton.style.display = "flex";
+  }
+
+  if (offset === 0 && runCount === resultsTotal) {
+    previousButton.style.display = "none";
+    nextButton.style.display = "none";
+  }
+
+  if (offset > 0 && runCount < resultsTotal) {
+    previousButton.style.display = "flex";
+    nextButton.style.display = "flex";
+  }
+
+  if (offset > 0 && runCount === resultsTotal) {
+    previousButton.style.display = "flex";
+    nextButton.style.display = "none";
+  }
+}
+
+async function advancedDeleteExpense(eId) {
+  try {
+    let response = await fetch(
+      `/advancedDeleteExpense?expenseId=${encodeURIComponent(eId)}`,
+    );
+    let data = response.json();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function expenseDeleteConfirmation(eId, eName) {
+  let mainDiv = document.querySelector(".search-expense-main");
+
+  let parentDiv = document.getElementById(`expense-details-parent-div-${eId}`);
+  parentDiv.style.filter = "blur(3px)";
+
+  let expenseName = document.getElementById(`expense-name-details-${eId}`);
+
+  let confirmDeletePrompt = document.createElement("div");
+  confirmDeletePrompt.classList.add("confirm-delete-expense");
+  confirmDeletePrompt.setAttribute("id", `confirm-delete-expense-${eId}`);
+  confirmDeletePrompt.style.zIndex = "20";
+
+  let cdDeleteButton = document.createElement("button");
+  cdDeleteButton.classList.add("confirm-delete-button");
+  cdDeleteButton.setAttribute("id", `confirm-delete-button-${eId}`);
+  cdDeleteButton.dataset.expenseId = eId;
+
+  let cdTrashIcon = document.createElement("span");
+  cdTrashIcon.classList.add("cd-trash-span");
+  cdTrashIcon.innerHTML = `<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="24" height="24" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="#ff2d55" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class="lucide lucide-trash preview-icon">
+  <path d="M10 11v6"/><path d="M14 11v6"/>
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+  <path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+  </svg>`;
+
+  let trashIconContainer = document.createElement("div");
+  trashIconContainer.classList.add("trash-icon-container");
+  trashIconContainer.innerHTML = `<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="80" height="80" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="#ff2d55" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class="lucide lucide-trash preview-icon">
+  <path d="M10 11v6"/><path d="M14 11v6"/>
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+  <path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+  </svg>`;
+
+  let deleteTransactionContainer = document.createElement("div");
+  deleteTransactionContainer.classList.add("delete-transaction-container");
+
+  let deleteTransactionPrompt = document.createElement("p");
+  deleteTransactionPrompt.classList.add("delete-transaction-prompt");
+  deleteTransactionPrompt.innerHTML = "Delete Transaction?";
+
+  deleteTransactionContainer.append(deleteTransactionPrompt);
+
+  let confirmDeleteCancelContainer = document.createElement("div");
+  confirmDeleteCancelContainer.classList.add("confirm-delete-cancel-container");
+
+  let asCancelButton = document.createElement("button");
+  asCancelButton.classList.add("as-cancel-button");
+  asCancelButton.setAttribute("id", `as-cancel-button-${eId}`);
+  asCancelButton.dataset.expenseId = eId;
+  asCancelButton.dataset.expenseName = eName;
+
+  asCancelButton.append("Cancel");
+
+  cdDeleteButton.append(cdTrashIcon, "Delete");
+
+  trashIconContainer.append(cdDeleteButton);
+
+  let detailsDivMessageContainer = document.createElement("div");
+  detailsDivMessageContainer.classList.add("details-div-container");
+
+  let areYouSureText = document.createElement("span");
+  areYouSureText.classList.add("are-you-sure-text");
+  areYouSureText.innerHTML = "are you sure you want to delete";
+
+  let expenseNameTextValue = document.createElement("span");
+  expenseNameTextValue.classList.add("expense-name-text-value");
+
+  expenseNameTextValue.textContent = eName;
+
+  let actionUndoneText = document.createElement("span");
+  actionUndoneText.classList.add("action-undone-text");
+  actionUndoneText.innerHTML = "This action cannot be undone.";
+
+  detailsDivMessageContainer.append(
+    areYouSureText,
+    expenseNameTextValue,
+    actionUndoneText,
+  );
+
+  confirmDeleteCancelContainer.append(asCancelButton, cdDeleteButton);
+
+  confirmDeletePrompt.append(
+    trashIconContainer,
+    deleteTransactionContainer,
+    detailsDivMessageContainer,
+    confirmDeleteCancelContainer,
+  );
+
+  mainDiv.append(confirmDeletePrompt);
 }

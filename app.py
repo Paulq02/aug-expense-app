@@ -1364,47 +1364,156 @@ def search_expense():
     db = get_db()
     cursor = db.cursor()
 
+    offset = request.args.get("offset", None)
 
+   
+    
+   
 
     username = session.get("username")
     userId = session.get("user_id",None)
    
 
     user_search = request.args.get("userSearch",None)
-    if user_search != None:
+    if user_search != None and int(offset) == 0:
+       
         converted_to_string_user_search = str(user_search)
+
+        
    
 
-        sql_search_expense = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s"
-        cursor.execute(sql_search_expense,(userId,converted_to_string_user_search + "%"))
+     
+        sql_search_expense_total = """
+        SELECT *
+        FROM expense_tracker_expense_data
+        WHERE user_id = %s
+        AND expense_name LIKE %s
+        
+        """
+        cursor.execute(sql_search_expense_total,(userId,converted_to_string_user_search + "%"))
         results = cursor.fetchall()
+        total_results_amount = len(results)
+        print(f"this is total results amount offset 0 -----{total_results_amount}")
+        
+
+
+        sql_max_10_search = """
+        SELECT * FROM expense_tracker_expense_data
+        WHERE user_id = %s AND expense_name LIKE %s
+        LIMIT 10
+        OFFSET %s"""
+
+        cursor.execute(sql_max_10_search,(userId, user_search + "%", int(offset) ))
+        sql_max_10_results = cursor.fetchall()
+
+        running_count = int(offset) + len(sql_max_10_results)
+
+        print(f"this is running couunt amount offset 0 -----{running_count}")
+
+       
+       
+        
 
         searched_expense_list = []
        
 
-        for column in results:
-            converted_date = column[4].strftime("%m-%d-%Y")
+        for column in sql_max_10_results:
+            
+            converted_date = column[4].strftime("%B %d, %Y")
             converted_cost = str(column[3])
             
             my_dictionary = {
                 "expense_id":column[0],
-                "expense_name":column[2],
+                "expense_name":column[2].title(),
                 "expense_cost":converted_cost,
                 
                 "expense_date":converted_date,
-                "expense_category":column[6]
+                "expense_category":column[6],
+                "total_results_amount":total_results_amount,
+                "running_count":running_count,
+                "results":results,
+                
                 }
+            
             searched_expense_list.append(my_dictionary)
            
 
             
-      
-        converted_searched_expenses = json.dumps(searched_expense_list,indent=4)
-        return jsonify(converted_searched_expenses)
+        
+        
+        return jsonify(searched_expense_list)
         
         
     else:
-        print("nothing")
+        print("else block triggered")
+        db = get_db()
+        cursor = db.cursor()
+
+        user_id = session.get("user_id", None)
+       
+        user_search = request.args.get("userSearch", None)
+        converted_to_string_user_search = str(user_search)
+        offset= request.args.get("offset", None)
+
+        
+
+        searched_expense_list = []
+        
+        if user_search != None:
+
+            sql_search_expense_total = """
+                SELECT *
+                FROM expense_tracker_expense_data
+                WHERE user_id = %s
+                AND expense_name LIKE %s
+                
+                """
+            cursor.execute(sql_search_expense_total,(userId,converted_to_string_user_search + "%" ))
+            results = cursor.fetchall()
+            total_results_amount = len(results)
+
+            
+
+            sql_next_results_query = "SELECT * FROM expense_tracker_expense_data WHERE user_id = %s AND expense_name LIKE %s LIMIT 10 OFFSET %s"
+            cursor.execute(sql_next_results_query, (user_id, user_search + "%", int(offset)))
+            results = cursor.fetchall()
+
+            next_results_amount = len(results)
+
+            running_count = int(offset) + next_results_amount
+
+            print(f"this is your running count {running_count}")
+           
+
+            for result in results:
+                expense_name = result[2]
+                expense_cost = result[3]
+                expense_date = result[4]
+                converted_date = expense_date.strftime("%B %d, %Y")
+                expense_category = result[6]
+                expense_id = result[0]
+
+                my_dictionary = {
+                    "expense_name": expense_name,
+                    "expense_cost":"$"+ str(expense_cost),
+                    "expense_date":converted_date,
+                    "expense_category":expense_category,
+                    "next_results_amount":next_results_amount,
+                    "running_count":running_count,
+                    "total_amount_results":total_results_amount,
+                    "expense_id":expense_id
+                   
+                }
+
+                searched_expense_list.append(my_dictionary)
+
+            return jsonify(searched_expense_list)
+               
+
+            
+
+
+
       
         
         
@@ -1422,7 +1531,29 @@ def search_expense():
 
 
 
+@app.route("/advancedDeleteExpense", methods = ["get", "post"])
+def advanced_Delete_Expense():
+    db = get_db()
+    cursor = db.cursor()
+   
 
+    user_id = session.get("user_id",None)
+    
+
+    expense_id = request.args.get("expenseId", None)
+
+    sql_advanced_delete_expense_query = "DELETE FROM expense_tracker_expense_data WHERE user_id = %s AND expense_id = %s"
+
+    cursor.execute(sql_advanced_delete_expense_query, (int(user_id), int(expense_id)))
+
+    db.commit()
+    
+    print(user_id)
+    print(expense_id)
+
+    cursor.close()
+    
+    return jsonify({"response":"ok"})
 
 
 

@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <nav id="close" class="close">
+    <nav id="fl-close" class="close">
       <div class="image-text" id="image-text">
         <span class="image">
           <img class="light-mode-et"
@@ -59,16 +59,15 @@
           <span class="name">Expense Tracker</span>
         </div>
         <div class="toggle-container">
-          <i style="font-size: 30px"
-             id="fl-toggle"
-             class="bx bx-chevron-right toggle fl-toggle"></i>
+          <i id="fl-toggle" class="bx bx-chevron-right toggle fl-toggle"></i>
         </div>
       </div>
       <div class="menu-bar">
         <div class="menu">
           <ul class="menu-links">
-            <li id="d-close-searchbox" class="close-search-box">
-              <i class="bx bx-search-alt-2 search-icon"></i>
+            <li id="fl-close-searchbox" class="close-search-box">
+              <i id="fl-search-icon"
+                 class="bx bx-search-alt-2 search-icon close-search-box"></i>
               <input type="text"
                      name="user-search"
                      oninput="(searchExpenseByName(0), turnOnCancelIcon())"
